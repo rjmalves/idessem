@@ -1,0 +1,38 @@
+name: Upload de versão atualizada para o PyPI
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Configura o Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Instala os requisitos do módulo
+      run: |
+        python -m pip install -r requirements.txt
+    - name: Executa os testes do pacote
+      run: |
+        python -m pytest
+    - name: Veriricações de qualidade de código - tipagem estática
+      run: |
+        python -m mypy .
+    - name: Verificações de qualidade de código - linter PEP8
+      run: |
+        python -m flake8 .
+    - name: Instala dependências e constroi o pacote
+      if: startsWith(github.ref, 'refs/tags')
+      run: |
+        python -m pip install --upgrade pip setuptools wheel twine
+        python setup.py sdist bdist_wheel
+    - name: Publica o pacote no PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
