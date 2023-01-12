@@ -2,7 +2,7 @@
 
 
 ![tests](https://github.com/rjmalves/idessem/workflows/tests/badge.svg)  
-
+[![codecov](https://codecov.io/gh/rjmalves/idessem/branch/main/graph/badge.svg?token=HA31U1FWM4)](https://codecov.io/gh/rjmalves/idessem)
 
 O `idessem` é um pacote Python para manipulação dos arquivos de entrada e saída do programa [DESSEM](https://www.cepel.br/linhas-de-pesquisa/dessem/). O DESSEM é desenvolvido pelo [CEPEL](http://www.cepel.br) e utilizado para a programação da operação do Sistema Interligado Nacional (SIN).
 
