@@ -1,17 +1,18 @@
 from setuptools import setup, find_packages  # type: ignore
+from idessem import __version__
 
 long_description = ""
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 requirements = []
-with open('requirements.txt', 'r') as fh:
+with open("requirements.txt", "r") as fh:
     requirements = fh.readlines()
 
 setup(
     name="idessem",
-    version="0.0.2",
-    author="Rogerio Alves",
+    version=__version__,
+    author="Rogerio Alves, Mariana Noel",
     author_email="rogerioalves.ee@gmail.com",
     description="Interface para arquivos do DESSEM",
     long_description=long_description,
@@ -23,8 +24,8 @@ setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        "Development Status :: 1 - Planning"
+        "Development Status :: 1 - Planning",
     ],
-    python_requires=">=3.7",
-    install_requires=requirements
+    python_requires=">=3.8",
+    install_requires=requirements,
 )
