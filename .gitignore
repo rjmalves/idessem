@@ -130,3 +130,6 @@ dmypy.json
 
 # Arquivo de teste
 teste.py
+
+# Deck de teste
+deck_teste/**
