@@ -11,7 +11,7 @@ class TabelaCSV(Block):
     a partir de um modelo de linha, para arquivos de saída do decomp.
     """
 
-    BEGIN_PATTERN = "-----;------;"
+    BEGIN_PATTERN = ""
     LINE_MODEL = Line([])
     COLUMN_NAMES = []
     END_PATTERN = ""
