@@ -24,6 +24,10 @@ Documentação
 .. toctree::
    :maxdepth: 3
 
+   ./install.rst
+   ./reference.rst
+   auto_examples/index.rst
+
 Índices e Tabelas
 ==================
 

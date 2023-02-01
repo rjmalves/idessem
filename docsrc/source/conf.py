@@ -14,6 +14,9 @@ import os
 import sys
 from datetime import date
 from typing import List
+import plotly.io as pio
+
+pio.renderers.default = "sphinx_gallery"
 
 sys.path.insert(0, os.path.abspath("../../"))
 from idessem import __version__  # noqa: E402
@@ -22,7 +25,7 @@ from idessem import __version__  # noqa: E402
 # -- Project information -----------------------------------------------------
 
 project = "idessem"
-copyright = "2023, Rogerio Alves & Mariana Noel"
+copyright = f"{date.today().year}, Rogerio Alves & Mariana Noel"
 author = "Rogerio Alves, Mariana Noel"
 
 # The full version, including alpha/beta/rc tags
@@ -37,29 +40,14 @@ today = date.today().strftime("%d/%m/%Y")
 extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.autodoc",
-    "sphinx.ext.coverage",
-    "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
-    "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
-    # "sphinx_gallery.gen_gallery",
-    # "nbsphinx",
-    "texext",
+    "sphinx_gallery.gen_gallery",
     "numpydoc",
     "sphinx_rtd_theme",
 ]
-
-# https://github.com/sphinx-gallery/sphinx-gallery
-# sphinx_gallery_conf = {
-#     # path to your examples scripts
-#     "examples_dirs": "../../examples",
-#     # path where to save gallery generated examples
-#     "gallery_dirs": "examples",
-#     "backreferences_dir": "modules/generated",
-#     "image_scrapers": ("matplotlib", "mayavi"),
-# }
 
 # generate autosummary pages
 autosummary_generate = True
@@ -108,4 +96,22 @@ html_static_path = ["_static"]
 # documents.
 default_role = "obj"
 
+
 numpydoc_show_class_members = False
+intersphinx_mapping = {
+    "python": (
+        "https://docs.python.org/{.major}".format(sys.version_info),
+        None,
+    ),
+    "pandas": ("http://pandas.pydata.org/pandas-docs/stable/", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+}
+
+# https://github.com/sphinx-gallery/sphinx-gallery
+sphinx_gallery_conf = {
+    # path to your examples scripts
+    "examples_dirs": "../../examples",
+    # path where to save gallery generated examples
+    "gallery_dirs": "auto_examples",
+    "backreferences_dir": "gen_modules/generated",
+}

@@ -23,6 +23,7 @@ class ArquivoCSV(BlockFile):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo]
+    ENCODING = "iso-8859-1"
 
     T = TypeVar("T")
 
