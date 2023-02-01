@@ -8,9 +8,9 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 
 class AvlDesvFpha(ArquivoCSV):
     """
-    Armazena os dados das saídas referentes as unidades hidráulicas.
+    Armazena os dados das saídas referentes aos desvios da função de produção.
 
-    Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_HIDR.
+    Essa classe lida com as informações de saída fornecidas pelo arquivo AVL_DESVFPHA.
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaAvlDesvFpha]
@@ -24,7 +24,7 @@ class AvlDesvFpha(ArquivoCSV):
     @property
     def tabela(self):
         """
-        Obtém a tabela com informações referente ao processo iterativo de convergência.
+        Obtém a tabela com informações referente aos desvios da função de produção.
 
         - estagio (`int`)
         - indiceUsina (`int`)

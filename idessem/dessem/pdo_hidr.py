@@ -24,7 +24,7 @@ class PdoHidr(ArquivoCSV):
     @property
     def tabela(self):
         """
-        Obtém a tabela com informações referente ao processo iterativo de convergência.
+        Obtém a tabela com informações referente a operação das unidades hidráulicas.
 
         - estagio (`int`)
         - patamar (`str`)

@@ -24,7 +24,7 @@ class PdoSist(ArquivoCSV):
     @property
     def tabela(self):
         """
-        Obtém a tabela com informações referente ao processo iterativo de convergência.
+        Obtém a tabela com informações referente a operação por submercado.
 
         - estagio (`int`)
         - patamar (`float`)
