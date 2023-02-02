@@ -20,12 +20,13 @@ class TabelaCSV(Block):
         if not isinstance(o, TabelaCSV):
             return False
         else:
-            if not all(
-                [type(self.data) == pd.DataFrame, type(o.data) == pd.DataFrame]
+            if not (
+                isinstance(self.data, pd.DataFrame)
+                and isinstance(o.data, pd.DataFrame)
             ):
                 return False
             else:
-                return self.data == o.data
+                return self.data.equals(o.data)
 
     def _monta_df(self, dados: dict) -> pd.DataFrame:
         return pd.DataFrame(data=dados, columns=self.__class__.COLUMN_NAMES)
