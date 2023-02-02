@@ -1,2 +1,2 @@
 def test_default():
-    return True
+    assert True
