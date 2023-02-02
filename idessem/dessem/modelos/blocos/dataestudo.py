@@ -26,5 +26,5 @@ class DataEstudo(Block):
     def read(self, file: IO):
         linha = file.readline()
         dados = linha.split(DataEstudo.BEGIN_PATTERN)
-        campo = DatetimeField(size=10, starting_position=0, format="%d/%M/%Y")
-        self.data = campo.read(dados[1])
+        campo = DatetimeField(size=10, starting_position=0, format="%d/%m/%Y")
+        self.data = campo.read(dados[1].strip())
