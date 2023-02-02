@@ -2,7 +2,7 @@ from cfinterface.components.block import Block
 from cfinterface.components.line import Line
 
 import pandas as pd  # type: ignore
-from typing import IO
+from typing import IO, List, Dict
 
 
 class TabelaCSV(Block):
@@ -13,7 +13,7 @@ class TabelaCSV(Block):
 
     BEGIN_PATTERN = ""
     LINE_MODEL = Line([])
-    COLUMN_NAMES = []
+    COLUMN_NAMES: List[str] = []
     END_PATTERN = ""
 
     def __eq__(self, o: object) -> bool:
@@ -50,7 +50,7 @@ class TabelaCSV(Block):
             elif len(linha) < 3:
                 return
         # Lê a tabela
-        dados = {c: [] for c in self.__class__.COLUMN_NAMES}
+        dados: Dict[str, list] = {c: [] for c in self.__class__.COLUMN_NAMES}
         while True:
             linha = file.readline()
             if len(linha) < 3:
