@@ -14,6 +14,7 @@ class PdoOperUct(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoOperUct]
+    ENCODING = "iso-8859-1"
 
     @classmethod
     def le_arquivo(

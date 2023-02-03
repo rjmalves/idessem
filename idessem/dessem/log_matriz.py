@@ -14,6 +14,7 @@ class LogMatriz(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaLogMatriz]
+    ENCODING = "iso-8859-1"
 
     @classmethod
     def le_arquivo(
