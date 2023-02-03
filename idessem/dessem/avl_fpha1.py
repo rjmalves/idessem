@@ -14,6 +14,7 @@ class AvlFpha1(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaAvlFpha1]
+    ENCODING = "iso-8859-1"
 
     @classmethod
     def le_arquivo(

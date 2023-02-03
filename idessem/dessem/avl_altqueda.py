@@ -14,6 +14,7 @@ class AvlAltQueda(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaAvlAltQueda]
+    ENCODING = "iso-8859-1"
 
     @classmethod
     def le_arquivo(
