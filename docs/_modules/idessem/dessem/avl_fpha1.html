@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>idessem.dessem.pdo_sist &mdash; documentação idessem 0.0.2</title>
+  <title>idessem.dessem.avl_fpha1 &mdash; documentação idessem 0.0.2</title>
   
 
   
@@ -143,7 +143,7 @@
         
           <li><a href="../../index.html">Código do módulo</a> &raquo;</li>
         
-      <li>idessem.dessem.pdo_sist</li>
+      <li>idessem.dessem.avl_fpha1</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -158,8 +158,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Código fonte para idessem.dessem.pdo_sist</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">idessem.dessem.modelos.pdo_sist</span> <span class="kn">import</span> <span class="n">TabelaPdoSist</span>
+  <h1>Código fonte para idessem.dessem.avl_fpha1</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">idessem.dessem.modelos.avl_fpha1</span> <span class="kn">import</span> <span class="n">TabelaAvlFpha1</span>
 <span class="kn">from</span> <span class="nn">idessem.dessem.modelos.arquivos.arquivocsv</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">DataEstudo</span><span class="p">,</span>
     <span class="n">VersaoModelo</span><span class="p">,</span>
@@ -167,46 +167,34 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="PdoSist"><a class="viewcode-back" href="../../../reference/dessem/arquivos/pdo_sist.html#idessem.dessem.pdo_sist.PdoSist">[documentos]</a><span class="k">class</span> <span class="nc">PdoSist</span><span class="p">(</span><span class="n">ArquivoCSV</span><span class="p">):</span>
+<div class="viewcode-block" id="AvlFpha1"><a class="viewcode-back" href="../../../reference/dessem/arquivos/avl_fpha1.html#idessem.dessem.avl_fpha1.AvlFpha1">[documentos]</a><span class="k">class</span> <span class="nc">AvlFpha1</span><span class="p">(</span><span class="n">ArquivoCSV</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Armazena os dados das saídas referentes aos submercados.</span>
+<span class="sd">    Armazena os dados referentes aos coeficientes da função de produção das usinas hidráulicas.</span>
 
-<span class="sd">    Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_SIST.</span>
+<span class="sd">    Essa classe lida com as informações de saída fornecidas pelo arquivo AVL_FPHA1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">BLOCKS</span> <span class="o">=</span> <span class="p">[</span><span class="n">VersaoModelo</span><span class="p">,</span> <span class="n">DataEstudo</span><span class="p">,</span> <span class="n">TabelaPdoSist</span><span class="p">]</span>
+    <span class="n">BLOCKS</span> <span class="o">=</span> <span class="p">[</span><span class="n">VersaoModelo</span><span class="p">,</span> <span class="n">DataEstudo</span><span class="p">,</span> <span class="n">TabelaAvlFpha1</span><span class="p">]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">le_arquivo</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">diretorio</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="o">=</span><span class="s2">&quot;PDO_SIST.DAT&quot;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PdoSist&quot;</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">diretorio</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="o">=</span><span class="s2">&quot;AVL_FPHA1.DAT&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AvlFpha1&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">diretorio</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tabela</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Obtém a tabela com informações referente a operação por submercado.</span>
+<span class="sd">        Obtém a tabela com informações referente aos coeficientes da função de produção.</span>
 
-<span class="sd">        - estagio (`int`)</span>
-<span class="sd">        - patamar (`float`)</span>
-<span class="sd">        - submercado (`str`)</span>
-<span class="sd">        - cmo (`float`)</span>
-<span class="sd">        - demanda (`float`)</span>
-<span class="sd">        - perdas (`str`)</span>
-<span class="sd">        - geracaoPequenasUsinas (`float`)</span>
-<span class="sd">        - geracaoFixaBarra (`float`)</span>
-<span class="sd">        - geracaoRenovavel (`float`)</span>
-<span class="sd">        - geracaoHidraulica (`float`)</span>
-<span class="sd">        - geracaoTermica (`float`)</span>
-<span class="sd">        - consumoElevatorias (`float`)</span>
-<span class="sd">        - importacao (`float`)</span>
-<span class="sd">        - exportacao (`float`)</span>
-<span class="sd">        - corteCarga (`float`)</span>
-<span class="sd">        - saldo (`float`)</span>
-<span class="sd">        - recebimento (`float`)</span>
-<span class="sd">        - geracaoTermicaMinima (`float`)</span>
-<span class="sd">        - geracaoTermicaMaxima (`float`)</span>
-<span class="sd">        - energiaArmazenada (`float`)</span>
+<span class="sd">        - indiceUsina (`int`)</span>
+<span class="sd">        - nomeUsina (`str`)</span>
+<span class="sd">        - segmentoFpha (`int`)</span>
+<span class="sd">        - fatorCorrecao (`float`)</span>
+<span class="sd">        - rhs (`float`)</span>
+<span class="sd">        - coeficienteVolumeUtil (`float`)</span>
+<span class="sd">        - coeficienteVazaoTurbinada (`float`)</span>
+<span class="sd">        - coeficienteVazaoLateral (`float`)</span>
 
 <span class="sd">        :return: A tabela como um dataframe</span>
 <span class="sd">        :rtype: pd.DataFrame | None</span>
