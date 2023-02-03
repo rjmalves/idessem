@@ -133,11 +133,11 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
             IntegerField(),
             FloatField(size=20, decimal_digits=3),
             FloatField(size=20, decimal_digits=3),
-            FloatField(size=20, decimal_digits=14),  # DUVIDA
-            FloatField(size=20, decimal_digits=14),  # DUVIDA
-            FloatField(size=20, decimal_digits=14),  # DUVIDA
-            FloatField(size=20, decimal_digits=14),  # DUVIDA
-            FloatField(size=20, decimal_digits=14),  # DUVIDA
+            FloatField(size=20, decimal_digits=14, format="E"),
+            FloatField(size=20, decimal_digits=14, format="E"),
+            FloatField(size=20, decimal_digits=14, format="E"),
+            FloatField(size=20, decimal_digits=14, format="E"),
+            FloatField(size=20, decimal_digits=14, format="E"),
         ],
         delimiter=";",
     )

@@ -5,6 +5,7 @@ import pandas as pd  # type: ignore
 from idessem.dessem.modelos.polinjus import (
     HidreletricaCurvaJusante,
     HidreletricaCurvaJusantePolinomioPorPartes,
+    HidreletricaCurvaJusantePolinomioPorPartesSegmento,
 )
 
 
@@ -14,6 +15,7 @@ class Polinjus(RegisterFile):
     T = TypeVar("T")
 
     REGISTERS = [
+        HidreletricaCurvaJusantePolinomioPorPartesSegmento,
         HidreletricaCurvaJusantePolinomioPorPartes,
         HidreletricaCurvaJusante,
     ]
@@ -144,7 +146,7 @@ class Polinjus(RegisterFile):
         self,
         codigo_usina: Optional[int] = None,
         indice_familia: Optional[int] = None,
-        numero_polinomios: Optional[float] = None,
+        numero_polinomios: Optional[int] = None,
         df: bool = False,
     ) -> Optional[
         Union[
@@ -180,4 +182,76 @@ class Polinjus(RegisterFile):
                 codigo_usina=codigo_usina,
                 indice_familia=indice_familia,
                 numero_polinomios=numero_polinomios,
+            )
+
+    def hidreletrica_curvajusante_polinomio_segmento(
+        self,
+        codigo_usina: Optional[int] = None,
+        indice_familia: Optional[int] = None,
+        indice_polinomio: Optional[int] = None,
+        limite_inferior_vazao_jusante: Optional[float] = None,
+        limite_superior_vazao_jusante: Optional[float] = None,
+        coeficiente_grau_0: Optional[float] = None,
+        coeficiente_grau_1: Optional[float] = None,
+        coeficiente_grau_2: Optional[float] = None,
+        coeficiente_grau_3: Optional[float] = None,
+        coeficiente_grau_4: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            HidreletricaCurvaJusantePolinomioPorPartesSegmento,
+            List[HidreletricaCurvaJusantePolinomioPorPartesSegmento],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que cadastram os polinômios para cada família de curvas
+        de jusante para uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas
+        para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param indice_familia: índice da família de polinômios
+        :type indice_familia: int | None
+        :param indice_polinomio: índice do polinômio da família
+        :type indice_polinomio: int | None
+        :param limite_inferior_vazao_jusante: limite inferior de vazão de jusante para janela de validade do polinômio
+        :type limite_inferior_vazao_jusante: float | None
+        :param limite_superior_vazao_jusante: limite superior de vazão de jusante para janela de validade do polinômio
+        :type limite_superior_vazao_jusante: float | None
+        :param coeficiente_grau_0: coeficiente de grau 0 do polinômio
+        :type coeficiente_grau_0: float | None
+        :param coeficiente_grau_1: coeficiente de grau 1 do polinômio
+        :type coeficiente_grau_1: float | None
+        :param coeficiente_grau_2: coeficiente de grau 2 do polinômio
+        :type coeficiente_grau_2: float | None
+        :param coeficiente_grau_3: coeficiente de grau 3 do polinômio
+        :type coeficiente_grau_3: float | None
+        :param coeficiente_grau_4: coeficiente de grau 4 do polinômio
+        :type coeficiente_grau_4: float | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`HidreletricaCurvaJusantePolinomioPorPartesSegmento` |
+            list[:class:`HidreletricaCurvaJusantePolinomioPorPartesSegmento`] | None
+        """
+        if df:
+            return self._as_df(
+                HidreletricaCurvaJusantePolinomioPorPartesSegmento
+            )
+        else:
+            return self.__obtem_registros_com_filtros(
+                HidreletricaCurvaJusantePolinomioPorPartesSegmento,
+                codigo_usina=codigo_usina,
+                indice_familia=indice_familia,
+                indice_polinomio=indice_polinomio,
+                limite_inferior_vazao_jusante=limite_inferior_vazao_jusante,
+                limite_superior_vazao_jusante=limite_superior_vazao_jusante,
+                coeficiente_grau_0=coeficiente_grau_0,
+                coeficiente_grau_1=coeficiente_grau_1,
+                coeficiente_grau_2=coeficiente_grau_2,
+                coeficiente_grau_3=coeficiente_grau_3,
+                coeficiente_grau_4=coeficiente_grau_4,
             )
