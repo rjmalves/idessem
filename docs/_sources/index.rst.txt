@@ -17,20 +17,25 @@ O idessem oferece:
 - Dados estruturados em modelos com o uso do paradigma de orientação a objetos (OOP)
 - Utilidades de escritas dos arquivos de entrada do DESSEM para elaboração automatizada de estudos
 
-
-Documentação
-=============
-
-.. toctree::
-   :maxdepth: 3
-
-   ./install.rst
-   ./reference.rst
-   auto_examples/index.rst
-
-Índices e Tabelas
-==================
+Índice
+======
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. toctree::
+   :caption: Documentação 
+   :maxdepth: 3
+   :hidden:
+
+   ./install.rst
+   ./reference.rst
+
+
+.. toctree::
+   :caption: Exemplos 
+   :maxdepth: 3
+   :hidden:
+
+   examples/index.rst

@@ -90,9 +90,20 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Instalação</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Referência</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Exemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Instalação</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#instalando-a-versao-distribuida-oficialmente">Instalando a versão distribuída oficialmente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#instalando-a-versao-de-desenvolvimento">Instalando a versão de desenvolvimento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#procedimentos-de-teste">Procedimentos de teste</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Referência</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/dessem/index.html">DESSEM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/dessem/index.html#basico-da-interface-dessem">Básico da interface DESSEM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/dessem/index.html#arquivos">Arquivos</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -175,6 +186,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">BLOCKS</span> <span class="o">=</span> <span class="p">[</span><span class="n">VersaoModelo</span><span class="p">,</span> <span class="n">DataEstudo</span><span class="p">,</span> <span class="n">TabelaPdoHidr</span><span class="p">]</span>
+    <span class="n">ENCODING</span> <span class="o">=</span> <span class="s2">&quot;iso-8859-1&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">le_arquivo</span><span class="p">(</span>

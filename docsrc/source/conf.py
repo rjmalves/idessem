@@ -86,6 +86,9 @@ modindex_common_prefix = ["idessem."]
 # a list of builtin themes.
 #
 html_theme = "sphinx_rtd_theme"
+html_theme_options = {
+    "navigation_depth": 3,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -112,6 +115,6 @@ sphinx_gallery_conf = {
     # path to your examples scripts
     "examples_dirs": "../../examples",
     # path where to save gallery generated examples
-    "gallery_dirs": "auto_examples",
+    "gallery_dirs": "examples",
     "backreferences_dir": "gen_modules/generated",
 }
