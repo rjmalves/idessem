@@ -1,453 +1,246 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="generator"
-      content="Docutils 0.19: https://docutils.sourceforge.io/"
-    />
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>&lt;no title&gt; &mdash; documentação idessem 0.0.2</title>
+  
 
-    <title>DESSEM &mdash; documentação idessem 0.0.2</title>
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link
-      rel="stylesheet"
-      href="../../_static/sg_gallery.css"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../_static/sg_gallery-binder.css"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../_static/sg_gallery-dataframe.css"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../_static/sg_gallery-rendered-html.css"
-      type="text/css"
-    />
+  
+  
 
-    <!--[if lt IE 9]>
-      <script src="../../_static/js/html5shiv.min.js"></script>
-    <![endif]-->
+  
+  
 
-    <script
-      type="text/javascript"
-      id="documentation_options"
-      data-url_root="../../"
-      src="../../_static/documentation_options.js"
-    ></script>
-    <script
-      data-url_root="../../"
-      id="documentation_options"
-      src="../../_static/documentation_options.js"
-    ></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+  
 
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
+    
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Buscar" href="../../search.html" />
-    <link
-      rel="next"
-      title="Relatório da Execução (LOG_MATRIZ.DAT)"
-      href="arquivos/log_matriz.html"
-    />
-    <link rel="prev" title="Referência" href="../../reference.html" />
-  </head>
+    <link rel="next" title="Relatório da Execução (LOG_MATRIZ.DAT)" href="arquivos/log_matriz.html" />
+    <link rel="prev" title="Referência" href="../../reference.html" /> 
+</head>
 
-  <body class="wy-body-for-nav">
-    <div class="wy-grid-for-nav">
-      <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-        <div class="wy-side-scroll">
-          <div class="wy-side-nav-search">
-            <a href="../../index.html" class="icon icon-home"> idessem </a>
+<body class="wy-body-for-nav">
 
-            <div role="search">
-              <form
-                id="rtd-search-form"
-                class="wy-form"
-                action="../../search.html"
-                method="get"
-              >
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Pesquisar documentos"
-                />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-            </div>
-          </div>
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
 
-          <div
-            class="wy-menu wy-menu-vertical"
-            data-spy="affix"
-            role="navigation"
-            aria-label="main navigation"
-          >
-            <ul class="current">
-              <li class="toctree-l1">
-                <a class="reference internal" href="../../install.html"
-                  >Instalação</a
-                >
-              </li>
-              <li class="toctree-l1 current">
-                <a class="reference internal" href="../../reference.html"
-                  >Referência</a
-                >
-                <ul class="current">
-                  <li class="toctree-l2 current">
-                    <a class="current reference internal" href="#">DESSEM</a>
-                    <ul>
-                      <li class="toctree-l3">
-                        <a
-                          class="reference internal"
-                          href="#basico-da-interface-dessem"
-                          >Básico da interface DESSEM</a
-                        >
-                      </li>
-                      <li class="toctree-l3">
-                        <a class="reference internal" href="#arquivos"
-                          >Arquivos</a
-                        >
-                        <ul>
-                          <li class="toctree-l4">
-                            <a
-                              class="reference internal"
-                              href="arquivos/log_matriz.html"
-                              >Relatório da Execução (LOG_MATRIZ.DAT)</a
-                            >
-                          </li>
-                          <li class="toctree-l4">
-                            <a
-                              class="reference internal"
-                              href="arquivos/pdo_hidr.html"
-                              >Saídas das Unidades Hidráulicas (PDO_HIDR.DAT)</a
-                            >
-                          </li>
-                          <li class="toctree-l4">
-                            <a
-                              class="reference internal"
-                              href="arquivos/pdo_oper_uct.html"
-                              >Saídas das Unidades Térmicas
-                              (PDO_OPER_UCT.DAT)</a
-                            >
-                          </li>
-                          <li class="toctree-l4">
-                            <a
-                              class="reference internal"
-                              href="arquivos/pdo_sist.html"
-                              >Saídas dos Submercados (PDO_SIST.DAT)</a
-                            >
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="toctree-l1">
-                <a
-                  class="reference internal"
-                  href="../../auto_examples/index.html"
-                  >Exemplos</a
-                >
-              </li>
-            </ul>
-          </div>
+          
+            <a href="../../index.html" class="icon icon-home"> idessem
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
         </div>
-      </nav>
 
-      <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-        <nav class="wy-nav-top" aria-label="top navigation">
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Documentação</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Referência</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Exemplos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Exemplos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">idessem</a>
-        </nav>
+        
+      </nav>
 
-        <div class="wy-nav-content">
-          <div class="rst-content">
-            <div role="navigation" aria-label="breadcrumbs navigation">
-              <ul class="wy-breadcrumbs">
-                <li>
-                  <a href="../../index.html" class="icon icon-home"></a> &raquo;
-                </li>
 
-                <li><a href="../../reference.html">Referência</a> &raquo;</li>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
-                <li>DESSEM</li>
 
-                <li class="wy-breadcrumbs-aside">
-                  <a
-                    href="../../_sources/reference/dessem/index.rst.txt"
-                    rel="nofollow"
-                  >
-                    Ver código-fonte da página</a
-                  >
-                </li>
-              </ul>
 
-              <hr />
-            </div>
-            <div
-              role="main"
-              class="document"
-              itemscope="itemscope"
-              itemtype="http://schema.org/Article"
-            >
-              <div itemprop="articleBody">
-                <section id="dessem">
-                  <span id="id1"></span>
-                  <h1>
-                    DESSEM<a
-                      class="headerlink"
-                      href="#dessem"
-                      title="Link permanente para este cabeçalho"
-                      >¶</a
-                    >
-                  </h1>
-                  <p>
-                    A estrutura do <em>idessem</em> padroniza os objetos de
-                    interface existentes. A interface com o DESSEM segue o
-                    padrão de implementar modelos para armazenar cada uma das
-                    informações existentes nos arquivos de entrada e saída, além
-                    de classes utilitárias para gerenciar com a leitura e
-                    interpretação das informações dos arquivos, bem como na
-                    geração de novos arquivos.
-                  </p>
-                  <p>
-                    Classes são nomeadas em
-                    <code class="docutils literal notranslate"
-                      ><span class="pre">CamelCase</span></code
-                    >, enquanto funções, métodos e variáveis recebem seus nomes
-                    em
-                    <code class="docutils literal notranslate"
-                      ><span class="pre">snake_case</span></code
-                    >.
-                  </p>
-                  <section id="basico-da-interface-dessem">
-                    <h2>
-                      Básico da interface DESSEM<a
-                        class="headerlink"
-                        href="#basico-da-interface-dessem"
-                        title="Link permanente para este cabeçalho"
-                        >¶</a
-                      >
-                    </h2>
-                    <p>
-                      É recomendado que a importação seja feita sempre de forma
-                      a utilizar somente os objetos que serão de fato
-                      necessários para o estudo em questão. Desta forma, não é
-                      recomendado importar todo o módulo
-                      <code class="docutils literal notranslate"
-                        ><span class="pre">idessem.dessem</span></code
-                      >
-                      ou utilizar o
-                      <code class="xref py py-obj docutils literal notranslate"
-                        ><span class="pre">wildcard</span></code
-                      >
-                      <code class="docutils literal notranslate"
-                        ><span class="pre">*</span></code
-                      >.
-                    </p>
-                    <p>A importação recomendada é, por exemplo:</p>
-                    <div class="highlight-default notranslate">
-                      <div class="highlight">
-                        <pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">idessem.dessem.pdo_sist</span> <span class="kn">import</span> <span class="n">PdoSist</span>
-</pre>
-                      </div>
-                    </div>
-                    <p>
-                      Para a leitura do arquivo
-                      <code class="xref py py-obj docutils literal notranslate"
-                        ><span class="pre">PDO_SIST.DAT</span></code
-                      >:
-                    </p>
-                    <div class="highlight-default notranslate">
-                      <div class="highlight">
-                        <pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">idessem.dessem.pdo_sist</span> <span class="kn">import</span> <span class="n">PdoSist</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">diretorio</span> <span class="o">=</span> <span class="s2">&quot;/home/usuario/...&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pdo</span> <span class="o">=</span> <span class="n">PdoSist</span><span class="o">.</span><span class="n">le_arquivo</span><span class="p">(</span><span class="n">diretorio</span><span class="p">,</span> <span class="s2">&quot;PDO_SIST.DAT&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pdo</span>
-<span class="go">&lt;idessem.dessem.PdoSist object at 0x000001BC7663B340&gt;</span>
-</pre>
-                      </div>
-                    </div>
-                  </section>
-                  <section id="arquivos">
-                    <h2>
-                      Arquivos<a
-                        class="headerlink"
-                        href="#arquivos"
-                        title="Link permanente para este cabeçalho"
-                        >¶</a
-                      >
-                    </h2>
-                    <div class="toctree-wrapper compound">
-                      <ul>
-                        <li class="toctree-l1">
-                          <a
-                            class="reference internal"
-                            href="arquivos/log_matriz.html"
-                            >Relatório da Execução (LOG_MATRIZ.DAT)</a
-                          >
-                          <ul>
-                            <li class="toctree-l2">
-                              <a
-                                class="reference internal"
-                                href="arquivos/log_matriz.html#idessem.dessem.log_matriz.LogMatriz"
-                                ><code class="docutils literal notranslate"
-                                  ><span class="pre">LogMatriz</span></code
-                                ></a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="toctree-l1">
-                          <a
-                            class="reference internal"
-                            href="arquivos/pdo_hidr.html"
-                            >Saídas das Unidades Hidráulicas (PDO_HIDR.DAT)</a
-                          >
-                          <ul>
-                            <li class="toctree-l2">
-                              <a
-                                class="reference internal"
-                                href="arquivos/pdo_hidr.html#idessem.dessem.pdo_hidr.PdoHidr"
-                                ><code class="docutils literal notranslate"
-                                  ><span class="pre">PdoHidr</span></code
-                                ></a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="toctree-l1">
-                          <a
-                            class="reference internal"
-                            href="arquivos/pdo_oper_uct.html"
-                            >Saídas das Unidades Térmicas (PDO_OPER_UCT.DAT)</a
-                          >
-                          <ul>
-                            <li class="toctree-l2">
-                              <a
-                                class="reference internal"
-                                href="arquivos/pdo_oper_uct.html#idessem.dessem.pdo_oper_uct.PdoOperUct"
-                                ><code class="docutils literal notranslate"
-                                  ><span class="pre">PdoOperUct</span></code
-                                ></a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="toctree-l1">
-                          <a
-                            class="reference internal"
-                            href="arquivos/pdo_sist.html"
-                            >Saídas dos Submercados (PDO_SIST.DAT)</a
-                          >
-                          <ul>
-                            <li class="toctree-l2">
-                              <a
-                                class="reference internal"
-                                href="arquivos/pdo_sist.html#idessem.dessem.pdo_sist.PdoSist"
-                                ><code class="docutils literal notranslate"
-                                  ><span class="pre">PdoSist</span></code
-                                ></a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="toctree-l1">
-                          <a
-                            class="reference internal"
-                            href="arquivos/avl_fpha1.html"
-                            >Relatório com função de produção (AVL_FPHA1.DAT)</a
-                          >
-                          <ul>
-                            <li class="toctree-l2">
-                              <a
-                                class="reference internal"
-                                href="arquivos/avl_fpha1.html#idessem.dessem.avl_fpha1.AvlFpha1"
-                                ><code class="docutils literal notranslate"
-                                  ><span class="pre">AvlFpha1</span></code
-                                ></a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </section>
-                </section>
-              </div>
-            </div>
-            <footer>
-              <div
-                class="rst-footer-buttons"
-                role="navigation"
-                aria-label="footer navigation"
-              >
-                <a
-                  href="arquivos/log_matriz.html"
-                  class="btn btn-neutral float-right"
-                  title="Relatório da Execução (LOG_MATRIZ.DAT)"
-                  accesskey="n"
-                  rel="next"
-                  >Próximo
-                  <span
-                    class="fa fa-arrow-circle-right"
-                    aria-hidden="true"
-                  ></span
-                ></a>
-                <a
-                  href="../../reference.html"
-                  class="btn btn-neutral float-left"
-                  title="Referência"
-                  accesskey="p"
-                  rel="prev"
-                  ><span
-                    class="fa fa-arrow-circle-left"
-                    aria-hidden="true"
-                  ></span>
-                  Anterior</a
-                >
-              </div>
 
-              <hr />
 
-              <div role="contentinfo">
-                <p>&#169; Copyright 2023, Rogerio Alves &amp; Mariana Noel.</p>
-              </div>
 
-              Compilado com
-              <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
 
-              <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
 
-              fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
-            </footer>
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Referência</a> &raquo;</li>
+        
+      <li>&lt;no title&gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/dessem/index.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="toctree-wrapper compound" id="dessem">
+<p class="caption" role="heading"><span class="caption-text">Arquivos de Saída</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="arquivos/log_matriz.html">Relatório da Execução (LOG_MATRIZ.DAT)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arquivos/log_matriz.html#idessem.dessem.log_matriz.LogMatriz"><code class="docutils literal notranslate"><span class="pre">LogMatriz</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arquivos/pdo_hidr.html">Saídas das Unidades Hidráulicas (PDO_HIDR.DAT)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arquivos/pdo_hidr.html#idessem.dessem.pdo_hidr.PdoHidr"><code class="docutils literal notranslate"><span class="pre">PdoHidr</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arquivos/pdo_oper_uct.html">Saídas das Unidades Térmicas (PDO_OPER_UCT.DAT)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arquivos/pdo_oper_uct.html#idessem.dessem.pdo_oper_uct.PdoOperUct"><code class="docutils literal notranslate"><span class="pre">PdoOperUct</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arquivos/pdo_sist.html">Saídas dos Submercados (PDO_SIST.DAT)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arquivos/pdo_sist.html#idessem.dessem.pdo_sist.PdoSist"><code class="docutils literal notranslate"><span class="pre">PdoSist</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arquivos/avl_fpha1.html">Relatório com função de produção (AVL_FPHA1.DAT)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arquivos/avl_fpha1.html#idessem.dessem.avl_fpha1.AvlFpha1"><code class="docutils literal notranslate"><span class="pre">AvlFpha1</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+           </div>
+           
           </div>
-        </div>
-      </section>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="arquivos/log_matriz.html" class="btn btn-neutral float-right" title="Relatório da Execução (LOG_MATRIZ.DAT)" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../reference.html" class="btn btn-neutral float-left" title="Referência" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
     </div>
 
-    <script type="text/javascript">
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2023, Rogerio Alves &amp; Mariana Noel.
+
+    </p>
+  </div>
+    
+    
+    
+    Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
-        SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.Navigation.enable(true);
       });
-    </script>
-  </body>
+  </script>
+
+  
+  
+    
+   
+
+</body>
 </html>
