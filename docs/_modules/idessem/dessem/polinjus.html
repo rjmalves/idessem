@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>idessem.dessem.polinjus &mdash; documentação idessem 0.0.2</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> idessem
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Apresentação</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Instalação</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Referência</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/dessem/index.html">Arquivos de Entrada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/dessem/index.html#arquivos-de-saida">Arquivos de Saída</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Exemplos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Exemplos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">idessem</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>idessem.dessem.polinjus</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para idessem.dessem.polinjus</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">cfinterface.components.register</span> <span class="kn">import</span> <span class="n">Register</span>
+<span class="kn">from</span> <span class="nn">cfinterface.files.registerfile</span> <span class="kn">import</span> <span class="n">RegisterFile</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">idessem.dessem.modelos.polinjus</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">HidreletricaCurvaJusante</span><span class="p">,</span>
+    <span class="n">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Polinjus"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus">[documentos]</a><span class="k">class</span> <span class="nc">Polinjus</span><span class="p">(</span><span class="n">RegisterFile</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+    <span class="n">REGISTERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">,</span>
+        <span class="n">HidreletricaCurvaJusante</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">le_arquivo</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">diretorio</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="o">=</span><span class="s2">&quot;polinjus.csv&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Polinjus&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">diretorio</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">escreve_arquivo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diretorio</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="o">=</span><span class="s2">&quot;polinjus.csv&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">diretorio</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__registros_por_tipo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registro</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtém os registro de um tipo, se houver algum no arquivo.</span>
+
+<span class="sd">        :param registro: Um tipo de registro para ser lido</span>
+<span class="sd">        :type registro: T</span>
+<span class="sd">        :param indice: O índice do bloco a ser acessado, dentre os do tipo</span>
+<span class="sd">        :type indice: int</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">of_type</span><span class="p">(</span><span class="n">registro</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">__obtem_registros</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tipo</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__registros_por_tipo</span><span class="p">(</span><span class="n">tipo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__obtem_registros_com_filtros</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tipo_registro</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]]]:</span>
+        <span class="k">def</span> <span class="nf">__atende</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="n">condicoes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">condicoes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">condicoes</span><span class="p">)</span>
+
+        <span class="n">regs_filtro</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obtem_registros</span><span class="p">(</span><span class="n">tipo_registro</span><span class="p">)</span> <span class="k">if</span> <span class="n">__atende</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">regs_filtro</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">regs_filtro</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">regs_filtro</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">regs_filtro</span>
+
+<div class="viewcode-block" id="Polinjus.cria_registro"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus.cria_registro">[documentos]</a>    <span class="k">def</span> <span class="nf">cria_registro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anterior</span><span class="p">:</span> <span class="n">Register</span><span class="p">,</span> <span class="n">registro</span><span class="p">:</span> <span class="n">Register</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adiciona um registro ao arquivo após um outro registro previamente</span>
+<span class="sd">        existente.</span>
+
+<span class="sd">        Este método existe para retrocompatibilidade e deve ser substituído</span>
+<span class="sd">        quando for suportado na classe :class:`RegisterFile`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">add_after</span><span class="p">(</span><span class="n">anterior</span><span class="p">,</span> <span class="n">registro</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Polinjus.deleta_registro"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus.deleta_registro">[documentos]</a>    <span class="k">def</span> <span class="nf">deleta_registro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registro</span><span class="p">:</span> <span class="n">Register</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove um registro existente no arquivo.</span>
+
+<span class="sd">        Este método existe para retrocompatibilidade e deve ser substituído</span>
+<span class="sd">        quando for suportado na classe :class:`RegisterFile`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Polinjus.append_registro"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus.append_registro">[documentos]</a>    <span class="k">def</span> <span class="nf">append_registro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registro</span><span class="p">:</span> <span class="n">Register</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adiciona um registro ao arquivo na última posição.</span>
+<span class="sd">        Este método existe para retrocompatibilidade e deve ser substituído</span>
+<span class="sd">        quando for suportado na classe :class:`RegisterFile`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Polinjus.preppend_registro"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus.preppend_registro">[documentos]</a>    <span class="k">def</span> <span class="nf">preppend_registro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registro</span><span class="p">:</span> <span class="n">Register</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adiciona um registro ao arquivo na primeira posição.</span>
+<span class="sd">        Este método existe para retrocompatibilidade e deve ser substituído</span>
+<span class="sd">        quando for suportado na classe :class:`RegisterFile`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">preppend</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Polinjus.hidreletrica_curvajusante"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus.hidreletrica_curvajusante">[documentos]</a>    <span class="k">def</span> <span class="nf">hidreletrica_curvajusante</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">codigo_usina</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">indice_familia</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">nivel_montante_referencia</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span>
+            <span class="n">HidreletricaCurvaJusante</span><span class="p">,</span>
+            <span class="n">List</span><span class="p">[</span><span class="n">HidreletricaCurvaJusante</span><span class="p">],</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtém registros que cadastram uma família de curvas</span>
+<span class="sd">        de jusante para uma usina hidrelétrica. Opcionalmente,</span>
+<span class="sd">        o retorno pode ser transformado em um `DataFrame`, apenas</span>
+<span class="sd">        para leitura das informações.</span>
+
+<span class="sd">        :param codigo_usina: código que especifica a usina</span>
+<span class="sd">        :type codigo_usina: int | None</span>
+<span class="sd">        :param indice_familia: índice da família de polinômios</span>
+<span class="sd">        :type indice_familia: int | None</span>
+<span class="sd">        :param nivel_montante_referencia: nível de montante de usina de</span>
+<span class="sd">            jusante para cálculo da queda</span>
+<span class="sd">        :type nivel_montante_referencia: float | None</span>
+<span class="sd">        :param df: ignorar os filtros e retornar</span>
+<span class="sd">            todos os dados de registros como um DataFrame</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :return: Um ou mais registros, se existirem.</span>
+<span class="sd">        :rtype: `HidreletricaCurvaJusante` |</span>
+<span class="sd">            List[`HidreletricaCurvaJusante`] | `None` | `DataFrame`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_df</span><span class="p">(</span><span class="n">HidreletricaCurvaJusante</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obtem_registros_com_filtros</span><span class="p">(</span>
+                <span class="n">HidreletricaCurvaJusante</span><span class="p">,</span>
+                <span class="n">codigo_usina</span><span class="o">=</span><span class="n">codigo_usina</span><span class="p">,</span>
+                <span class="n">indice_familia</span><span class="o">=</span><span class="n">indice_familia</span><span class="p">,</span>
+                <span class="n">nivel_montante_referencia</span><span class="o">=</span><span class="n">nivel_montante_referencia</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Polinjus.hidreletrica_curvajusante_polinomio"><a class="viewcode-back" href="../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.polinjus.Polinjus.hidreletrica_curvajusante_polinomio">[documentos]</a>    <span class="k">def</span> <span class="nf">hidreletrica_curvajusante_polinomio</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">codigo_usina</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">indice_familia</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">numero_polinomios</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span>
+            <span class="n">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">,</span>
+            <span class="n">List</span><span class="p">[</span><span class="n">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">],</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtém registros que cadastram uma família de curvas</span>
+<span class="sd">        de jusante para uma usina hidrelétrica. Opcionalmente,</span>
+<span class="sd">        o retorno pode ser transformado em um `DataFrame`, apenas</span>
+<span class="sd">        para leitura das informações.</span>
+
+<span class="sd">        :param codigo_usina: código que especifica a usina</span>
+<span class="sd">        :type codigo_usina: int | None</span>
+<span class="sd">        :param indice_familia: índice da família de polinômios</span>
+<span class="sd">        :type indice_familia: int | None</span>
+<span class="sd">        :param numero_polinomios: número de polinômios da família</span>
+<span class="sd">        :type numero_polinomios: int | None</span>
+<span class="sd">        :param df: ignorar os filtros e retornar</span>
+<span class="sd">            todos os dados de registros como um DataFrame</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :return: Um ou mais registros, se existirem.</span>
+<span class="sd">        :rtype: `HidreletricaCurvaJusantePolinomioPorPartes` |</span>
+<span class="sd">            List[`HidreletricaCurvaJusantePolinomioPorPartes`] | `None` | `DataFrame`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_df</span><span class="p">(</span><span class="n">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obtem_registros_com_filtros</span><span class="p">(</span>
+                <span class="n">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">,</span>
+                <span class="n">codigo_usina</span><span class="o">=</span><span class="n">codigo_usina</span><span class="p">,</span>
+                <span class="n">indice_familia</span><span class="o">=</span><span class="n">indice_familia</span><span class="p">,</span>
+                <span class="n">numero_polinomios</span><span class="o">=</span><span class="n">numero_polinomios</span><span class="p">,</span>
+            <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2023, Rogerio Alves &amp; Mariana Noel.
+
+    </p>
+  </div>
+    
+    
+    
+    Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

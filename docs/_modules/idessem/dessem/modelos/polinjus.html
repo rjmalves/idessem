@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>idessem.dessem.modelos.polinjus &mdash; documentação idessem 0.0.2</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Índice" href="../../../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> idessem
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Apresentação</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Instalação</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Referência</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/dessem/index.html">Arquivos de Entrada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/dessem/index.html#arquivos-de-saida">Arquivos de Saída</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Exemplos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/index.html">Exemplos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">idessem</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>idessem.dessem.modelos.polinjus</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para idessem.dessem.modelos.polinjus</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cfinterface.components.register</span> <span class="kn">import</span> <span class="n">Register</span>
+<span class="kn">from</span> <span class="nn">cfinterface.components.line</span> <span class="kn">import</span> <span class="n">Line</span>
+<span class="kn">from</span> <span class="nn">cfinterface.components.integerfield</span> <span class="kn">import</span> <span class="n">IntegerField</span>
+<span class="kn">from</span> <span class="nn">cfinterface.components.floatfield</span> <span class="kn">import</span> <span class="n">FloatField</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+
+<div class="viewcode-block" id="HidreletricaCurvaJusante"><a class="viewcode-back" href="../../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.modelos.polinjus.HidreletricaCurvaJusante">[documentos]</a><span class="k">class</span> <span class="nc">HidreletricaCurvaJusante</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+
+    <span class="n">IDENTIFIER</span> <span class="o">=</span> <span class="s2">&quot;HIDRELETRICA-CURVAJUSANTE&quot;</span>
+    <span class="n">IDENTIFIER_DIGITS</span> <span class="o">=</span> <span class="mi">26</span>
+    <span class="n">LINE</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">decimal_digits</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">codigo_usina</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O código da usina hidrelétrica relacionada ao polinômio.</span>
+
+<span class="sd">        :return: O código da usina</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@codigo_usina</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">codigo_usina</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O índice da família de polinômios.</span>
+
+<span class="sd">        :return: O índice (sequencial).</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@indice_familia</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nivel_montante_referencia</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O nível de montante da usina de jusante</span>
+<span class="sd">        de referência.</span>
+
+<span class="sd">        :return: O nível em metros</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@nivel_montante_referencia</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">nivel_montante_referencia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span></div>
+
+
+<div class="viewcode-block" id="HidreletricaCurvaJusantePolinomioPorPartes"><a class="viewcode-back" href="../../../../reference/dessem/arquivos/polinjus.html#idessem.dessem.modelos.polinjus.HidreletricaCurvaJusantePolinomioPorPartes">[documentos]</a><span class="k">class</span> <span class="nc">HidreletricaCurvaJusantePolinomioPorPartes</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+
+    <span class="n">IDENTIFIER</span> <span class="o">=</span> <span class="s2">&quot;HIDRELETRICA-CURVAJUSANTE-POLINOMIOPORPARTES&quot;</span>
+    <span class="n">IDENTIFIER_DIGITS</span> <span class="o">=</span> <span class="mi">45</span>
+    <span class="n">LINE</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+        <span class="p">],</span>
+        <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">codigo_usina</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O código da usina hidrelétrica relacionada ao polinômio.</span>
+
+<span class="sd">        :return: O código da usina</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@codigo_usina</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">codigo_usina</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O índice da família de polinômios.</span>
+
+<span class="sd">        :return: O índice (sequencial).</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@indice_familia</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numero_polinomios</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O número de polinômios existentes na família.</span>
+
+<span class="sd">        :return: O número de polinômios</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@numero_polinomios</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">numero_polinomios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span></div>
+
+
+<span class="k">class</span> <span class="nc">HidreletricaCurvaJusantePolinomioPorPartesSegmento</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+
+    <span class="n">IDENTIFIER</span> <span class="o">=</span> <span class="s2">&quot;HIDRELETRICA-CURVAJUSANTE-POLINOMIOPORPARTES-SEGMENTO&quot;</span>
+    <span class="n">IDENTIFIER_DIGITS</span> <span class="o">=</span> <span class="mi">54</span>
+    <span class="n">LINE</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">IntegerField</span><span class="p">(),</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>  <span class="c1"># DUVIDA</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>  <span class="c1"># DUVIDA</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>  <span class="c1"># DUVIDA</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>  <span class="c1"># DUVIDA</span>
+            <span class="n">FloatField</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">decimal_digits</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>  <span class="c1"># DUVIDA</span>
+        <span class="p">],</span>
+        <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">codigo_usina</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O código da usina hidrelétrica relacionada ao polinômio.</span>
+
+<span class="sd">        :return: O código da usina</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@codigo_usina</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">codigo_usina</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O índice da família de polinômios.</span>
+
+<span class="sd">        :return: O índice (sequencial).</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@indice_familia</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indice_polinomio</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O índice do polinômio da respectiva família.</span>
+
+<span class="sd">        :return: O índice do polinômio</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@indice_polinomio</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">indice_polinomio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@indice_familia</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">indice_familia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">limite_inferior_vazao_jusante</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O limite inferior de vazão de jusante (defluência mais lateral) para janela de validade do polinômio.</span>
+
+<span class="sd">        :return: O limite inferior de vazão de jusante</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="nd">@limite_inferior_vazao_jusante</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">limite_inferior_vazao_jusante</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">limite_superior_vazao_jusante</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O limite superior de vazão de jusante (defluência mais lateral) para janela de validade do polinômio.</span>
+
+<span class="sd">        :return: O limite superior de vazão de jusante</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="nd">@limite_superior_vazao_jusante</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">limite_superior_vazao_jusante</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_0</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O coeficiente de grau 0 do polinômio.</span>
+
+<span class="sd">        :return: O coeficiente de grau 0 do polinômio</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+    <span class="nd">@coeficiente_grau_0</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_1</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O coeficiente de grau 1 do polinômio.</span>
+
+<span class="sd">        :return: O coeficiente de grau 1 do polinômio</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+
+    <span class="nd">@coeficiente_grau_1</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O coeficiente de grau 2 do polinômio.</span>
+
+<span class="sd">        :return: O coeficiente de grau 2 do polinômio</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+
+    <span class="nd">@coeficiente_grau_2</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_3</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O coeficiente de grau 3 do polinômio.</span>
+
+<span class="sd">        :return: O coeficiente de grau 3 do polinômio</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="nd">@coeficiente_grau_3</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_4</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        O coeficiente de grau 4 do polinômio.</span>
+
+<span class="sd">        :return: O coeficiente de grau 4 do polinômio</span>
+<span class="sd">        :rtype: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+
+    <span class="nd">@coeficiente_grau_4</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">coeficiente_grau_4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2023, Rogerio Alves &amp; Mariana Noel.
+
+    </p>
+  </div>
+    
+    
+    
+    Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

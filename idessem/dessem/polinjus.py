@@ -127,8 +127,8 @@ class Polinjus(RegisterFile):
             todos os dados de registros como um DataFrame
         :type df: bool
         :return: Um ou mais registros, se existirem.
-        :rtype: :class:`HidreletricaCurvaJusante` |
-            list[:class:`HidreletricaCurvaJusante`] | None
+        :rtype: `HidreletricaCurvaJusante` |
+            List[`HidreletricaCurvaJusante`] | `None` | `DataFrame`
         """
         if df:
             return self._as_df(HidreletricaCurvaJusante)
@@ -169,8 +169,8 @@ class Polinjus(RegisterFile):
             todos os dados de registros como um DataFrame
         :type df: bool
         :return: Um ou mais registros, se existirem.
-        :rtype: :class:`HidreletricaCurvaJusantePolinomioPorPartes` |
-            list[:class:`HidreletricaCurvaJusantePolinomioPorPartes`] | None
+        :rtype: `HidreletricaCurvaJusantePolinomioPorPartes` |
+            List[`HidreletricaCurvaJusantePolinomioPorPartes`] | `None` | `DataFrame`
         """
         if df:
             return self._as_df(HidreletricaCurvaJusantePolinomioPorPartes)
