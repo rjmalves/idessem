@@ -216,9 +216,11 @@ class Polinjus(RegisterFile):
         :type indice_familia: int | None
         :param indice_polinomio: índice do polinômio da família
         :type indice_polinomio: int | None
-        :param limite_inferior_vazao_jusante: limite inferior de vazão de jusante para janela de validade do polinômio
+        :param limite_inferior_vazao_jusante: limite inferior de vazão de
+            jusante para janela de validade do polinômio
         :type limite_inferior_vazao_jusante: float | None
-        :param limite_superior_vazao_jusante: limite superior de vazão de jusante para janela de validade do polinômio
+        :param limite_superior_vazao_jusante: limite superior de vazão de
+            jusante para janela de validade do polinômio
         :type limite_superior_vazao_jusante: float | None
         :param coeficiente_grau_0: coeficiente de grau 0 do polinômio
         :type coeficiente_grau_0: float | None
@@ -235,7 +237,8 @@ class Polinjus(RegisterFile):
         :type df: bool
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`HidreletricaCurvaJusantePolinomioPorPartesSegmento` |
-            list[:class:`HidreletricaCurvaJusantePolinomioPorPartesSegmento`] | None
+            list[:class:`HidreletricaCurvaJusantePolinomioPorPartesSegmento`] |
+            None
         """
         if df:
             return self._as_df(

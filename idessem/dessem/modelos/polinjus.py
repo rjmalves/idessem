@@ -184,14 +184,11 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
     def indice_polinomio(self, c: int):
         self.data[2] = c
 
-    @indice_familia.setter
-    def indice_familia(self, c: int):
-        self.data[1] = c
-
     @property
     def limite_inferior_vazao_jusante(self) -> Optional[float]:
         """
-        O limite inferior de vazão de jusante (defluência mais lateral) para janela de validade do polinômio.
+        O limite inferior de vazão de jusante (defluência mais lateral)
+        para janela de validade do polinômio.
 
         :return: O limite inferior de vazão de jusante
         :rtype: float | None
@@ -205,7 +202,8 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
     @property
     def limite_superior_vazao_jusante(self) -> Optional[float]:
         """
-        O limite superior de vazão de jusante (defluência mais lateral) para janela de validade do polinômio.
+        O limite superior de vazão de jusante (defluência mais lateral)
+        para janela de validade do polinômio.
 
         :return: O limite superior de vazão de jusante
         :rtype: float | None
