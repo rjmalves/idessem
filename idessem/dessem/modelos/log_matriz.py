@@ -30,12 +30,12 @@ class TabelaLogMatriz(TabelaCSV):
         "iteracao",
         "tipo",
         "variaveis",
-        "variaveisInteiras",
+        "variaveis_inteiras",
         "restricoes",
-        "restricoesInteiras",
+        "restricoes_inteiras",
         "elementos",
-        "tempoMin",
-        "funcaoObjetivo",
+        "tempo_min",
+        "funcao_objetivo",
         "status",
     ]
     END_PATTERN = ""

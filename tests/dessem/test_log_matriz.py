@@ -37,12 +37,12 @@ def test_tabela_log_matriz():
         assert log.tabela.at[0, "iteracao"] == 1
         assert log.tabela.at[0, "tipo"] == "PL"
         assert log.tabela.at[0, "variaveis"] == 489633
-        assert log.tabela.at[0, "variaveisInteiras"] == 0
+        assert log.tabela.at[0, "variaveis_inteiras"] == 0
         assert log.tabela.at[0, "restricoes"] == 114133
-        assert log.tabela.at[0, "restricoesInteiras"] == 0
+        assert log.tabela.at[0, "restricoes_inteiras"] == 0
         assert log.tabela.at[0, "elementos"] == 1486191
-        assert log.tabela.at[0, "tempoMin"] == 0.3
-        assert log.tabela.at[0, "funcaoObjetivo"] == -12925383.197
+        assert log.tabela.at[0, "tempo_min"] == 0.3
+        assert log.tabela.at[0, "funcao_objetivo"] == -12925383.197
         assert log.tabela.at[0, "status"] == 1
 
 
