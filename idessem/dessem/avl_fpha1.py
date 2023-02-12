@@ -27,14 +27,14 @@ class AvlFpha1(ArquivoCSV):
         """
         Obtém a tabela com informações referente aos coeficientes da função de produção.
 
-        - indiceUsina (`int`)
-        - nomeUsina (`str`)
-        - segmentoFpha (`int`)
-        - fatorCorrecao (`float`)
+        - indice_usina (`int`)
+        - nome_usina (`str`)
+        - segmento_fpha (`int`)
+        - fator_correcao (`float`)
         - rhs (`float`)
-        - coeficienteVolumeUtil (`float`)
-        - coeficienteVazaoTurbinada (`float`)
-        - coeficienteVazaoLateral (`float`)
+        - coeficiente_volume_util (`float`)
+        - coeficiente_vazao_turbinada (`float`)
+        - coeficiente_vazao_lateral (`float`)
 
         :return: A tabela como um dataframe
         :rtype: pd.DataFrame | None

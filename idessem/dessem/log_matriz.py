@@ -30,12 +30,12 @@ class LogMatriz(ArquivoCSV):
         - iteracao (`int`)
         - tipo (`str`)
         - variaveis (`int`)
-        - variaveisInteiras (`int`)
+        - variaveis_inteiras (`int`)
         - restricoes (`int`)
-        - restricoesInteiras (`int`)
+        - restricoes_inteiras (`int`)
         - elementos (`int`)
-        - tempoMin (`float`)
-        - funcaoObjetivo (`float`)
+        - tempo_min (`float`)
+        - funcao_objetivo (`float`)
         - status (`int`)
 
         :return: A tabela como um dataframe

@@ -31,12 +31,12 @@ class AvlAltQueda(ArquivoCSV):
         - iteracao (`int`)
         - ides (`str`)
         - patamar (`str`)
-        - indiceUsina (`int`)
-        - nomeUsina (`str`)
-        - alturaMontante (`float`)
-        - alturaJusante (`float`)
-        - alturaLiquida (`float`)
-        - vazaoDefluenteM3s (`float`)
+        - indice_usina (`int`)
+        - nome_usina (`str`)
+        - altura_montante (`float`)
+        - altura_jusante (`float`)
+        - altura_liquida (`float`)
+        - vazao_defluente_m3s (`float`)
         - problema (`str`)
 
         :return: A tabela como um dataframe

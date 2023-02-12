@@ -32,12 +32,12 @@ class TabelaAvlAltQueda(TabelaCSV):
         "iteracao",
         "ides",
         "patamar",
-        "indiceUsina",
-        "nomeUsina",
-        "alturaMontante",
-        "alturaJusante",
-        "alturaLiquida",
-        "vazaoDefluenteM3s",
+        "indice_usina",
+        "nome_usina",
+        "altura_montante",
+        "altura_jusante",
+        "altura_liquida",
+        "vazao_defluente_m3s",
         "problema",
     ]
     END_PATTERN = ""

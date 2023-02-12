@@ -25,13 +25,13 @@ class TabelaAvlFpha1(TabelaCSV):
         delimiter=";",
     )
     COLUMN_NAMES = [
-        "indiceUsina",
-        "nomeUsina",
-        "segmentoFpha",
-        "fatorCorrecao",
+        "indice_usina",
+        "nome_usina",
+        "segmento_fpha",
+        "fator_correcao",
         "rhs",
-        "coeficienteVolumeUtil",
-        "coeficienteVazaoTurbinada",
-        "coeficienteVazaoLateral",
+        "coeficiente_volume_util",
+        "coeficiente_vazao_turbinada",
+        "coeficiente_vazao_lateral",
     ]
     END_PATTERN = ""
