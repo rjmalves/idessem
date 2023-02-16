@@ -191,11 +191,11 @@ class Polinjus(RegisterFile):
         indice_polinomio: Optional[int] = None,
         limite_inferior_vazao_jusante: Optional[float] = None,
         limite_superior_vazao_jusante: Optional[float] = None,
-        coeficiente_grau_0: Optional[float] = None,
-        coeficiente_grau_1: Optional[float] = None,
-        coeficiente_grau_2: Optional[float] = None,
-        coeficiente_grau_3: Optional[float] = None,
-        coeficiente_grau_4: Optional[float] = None,
+        coeficiente_a0: Optional[float] = None,
+        coeficiente_a1: Optional[float] = None,
+        coeficiente_a2: Optional[float] = None,
+        coeficiente_a3: Optional[float] = None,
+        coeficiente_a4: Optional[float] = None,
         df: bool = False,
     ) -> Optional[
         Union[
@@ -222,16 +222,16 @@ class Polinjus(RegisterFile):
         :param limite_superior_vazao_jusante: limite superior de vazão de
             jusante para janela de validade do polinômio
         :type limite_superior_vazao_jusante: float | None
-        :param coeficiente_grau_0: coeficiente de grau 0 do polinômio
-        :type coeficiente_grau_0: float | None
-        :param coeficiente_grau_1: coeficiente de grau 1 do polinômio
-        :type coeficiente_grau_1: float | None
-        :param coeficiente_grau_2: coeficiente de grau 2 do polinômio
-        :type coeficiente_grau_2: float | None
-        :param coeficiente_grau_3: coeficiente de grau 3 do polinômio
-        :type coeficiente_grau_3: float | None
-        :param coeficiente_grau_4: coeficiente de grau 4 do polinômio
-        :type coeficiente_grau_4: float | None
+        :param coeficiente_a0: coeficiente de grau 0 do polinômio
+        :type coeficiente_a0: float | None
+        :param coeficiente_a1: coeficiente de grau 1 do polinômio
+        :type coeficiente_a1: float | None
+        :param coeficiente_a2: coeficiente de grau 2 do polinômio
+        :type coeficiente_a2: float | None
+        :param coeficiente_a3: coeficiente de grau 3 do polinômio
+        :type coeficiente_a3: float | None
+        :param coeficiente_a4: coeficiente de grau 4 do polinômio
+        :type coeficiente_a4: float | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -252,9 +252,9 @@ class Polinjus(RegisterFile):
                 indice_polinomio=indice_polinomio,
                 limite_inferior_vazao_jusante=limite_inferior_vazao_jusante,
                 limite_superior_vazao_jusante=limite_superior_vazao_jusante,
-                coeficiente_grau_0=coeficiente_grau_0,
-                coeficiente_grau_1=coeficiente_grau_1,
-                coeficiente_grau_2=coeficiente_grau_2,
-                coeficiente_grau_3=coeficiente_grau_3,
-                coeficiente_grau_4=coeficiente_grau_4,
+                coeficiente_a0=coeficiente_a0,
+                coeficiente_a1=coeficiente_a1,
+                coeficiente_a2=coeficiente_a2,
+                coeficiente_a3=coeficiente_a3,
+                coeficiente_a4=coeficiente_a4,
             )

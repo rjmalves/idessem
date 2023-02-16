@@ -215,7 +215,7 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
         self.data[4] = c
 
     @property
-    def coeficiente_grau_0(self) -> Optional[float]:
+    def coeficiente_a0(self) -> Optional[float]:
         """
         O coeficiente de grau 0 do polinômio.
 
@@ -224,12 +224,12 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
         """
         return self.data[5]
 
-    @coeficiente_grau_0.setter
-    def coeficiente_grau_0(self, c: float):
+    @coeficiente_a0.setter
+    def coeficiente_a0(self, c: float):
         self.data[5] = c
 
     @property
-    def coeficiente_grau_1(self) -> Optional[float]:
+    def coeficiente_a1(self) -> Optional[float]:
         """
         O coeficiente de grau 1 do polinômio.
 
@@ -238,12 +238,12 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
         """
         return self.data[6]
 
-    @coeficiente_grau_1.setter
-    def coeficiente_grau_1(self, c: float):
+    @coeficiente_a1.setter
+    def coeficiente_a1(self, c: float):
         self.data[6] = c
 
     @property
-    def coeficiente_grau_2(self) -> Optional[float]:
+    def coeficiente_a2(self) -> Optional[float]:
         """
         O coeficiente de grau 2 do polinômio.
 
@@ -252,12 +252,12 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
         """
         return self.data[7]
 
-    @coeficiente_grau_2.setter
-    def coeficiente_grau_2(self, c: float):
+    @coeficiente_a2.setter
+    def coeficiente_a2(self, c: float):
         self.data[7] = c
 
     @property
-    def coeficiente_grau_3(self) -> Optional[float]:
+    def coeficiente_a3(self) -> Optional[float]:
         """
         O coeficiente de grau 3 do polinômio.
 
@@ -266,12 +266,12 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
         """
         return self.data[8]
 
-    @coeficiente_grau_3.setter
-    def coeficiente_grau_3(self, c: float):
+    @coeficiente_a3.setter
+    def coeficiente_a3(self, c: float):
         self.data[8] = c
 
     @property
-    def coeficiente_grau_4(self) -> Optional[float]:
+    def coeficiente_a4(self) -> Optional[float]:
         """
         O coeficiente de grau 4 do polinômio.
 
@@ -280,6 +280,6 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
         """
         return self.data[9]
 
-    @coeficiente_grau_4.setter
-    def coeficiente_grau_4(self, c: float):
+    @coeficiente_a4.setter
+    def coeficiente_a4(self, c: float):
         self.data[9] = c
