@@ -47,3 +47,4 @@ Arquivos
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
    arquivos/polinjus
+   arquivos/hidr
