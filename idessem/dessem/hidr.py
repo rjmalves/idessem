@@ -9,7 +9,7 @@ from typing import TypeVar, List, Optional
 
 class Hidr(RegisterFile):
     """
-    Armazena os dados de entrada do DECOMP referentes ao cadastro das
+    Armazena os dados de entrada do DESSEM referentes ao cadastro das
     usinas hidroelétricas.
     """
 
