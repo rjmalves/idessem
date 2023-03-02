@@ -48,3 +48,4 @@ Arquivos
    arquivos/pdo_sist
    arquivos/polinjus
    arquivos/hidr
+   arquivos/pdo_eco_usih
