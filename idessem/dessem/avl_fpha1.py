@@ -31,6 +31,7 @@ class AvlFpha1(ArquivoCSV):
         - nome_usina (`str`)
         - segmento_fpha (`int`)
         - fator_correcao (`float`)
+        - vazao_lateral_media (`float`)
         - rhs (`float`)
         - coeficiente_volume_util (`float`)
         - coeficiente_vazao_turbinada (`float`)

@@ -38,6 +38,7 @@ def test_tabela_avl_fpha1():
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert log.tabela.at[0, "segmento_fpha"] == 1
         assert log.tabela.at[0, "fator_correcao"] == 1.0
+        assert log.tabela.at[0, "vazao_lateral_media"] == 0
         assert log.tabela.at[0, "rhs"] == -11.8461
         assert log.tabela.at[0, "coeficiente_volume_util"] == 0.020604
         assert log.tabela.at[0, "coeficiente_vazao_turbinada"] == 0.224440
