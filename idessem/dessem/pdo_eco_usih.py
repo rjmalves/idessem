@@ -25,7 +25,8 @@ class PdoEcoUsih(ArquivoCSV):
     @property
     def tabela(self):
         """
-        Obtém a tabela com informações referente a caracaterísticas das usinas hidrelétricas e topologia das cascatas.
+        Obtém a tabela com informações referente a caracaterísticas das usinas
+        hidrelétricas e topologia das cascatas.
 
         - indice_usina (`int`)
         - nome_usina (`str`)
