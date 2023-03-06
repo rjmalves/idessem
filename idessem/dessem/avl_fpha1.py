@@ -1,4 +1,7 @@
-from idessem.dessem.modelos.avl_fpha1 import TabelaAvlFpha1
+from idessem.dessem.modelos.avl_fpha1 import (
+    TabelaAvlFpha1,
+    TabelaAvlFpha1v190031,
+)
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -14,6 +17,10 @@ class AvlFpha1(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaAvlFpha1]
+    VERSIONS = {
+        "19.0.31": [VersaoModelo, DataEstudo, TabelaAvlFpha1v190031],
+        "19.3.1": [VersaoModelo, DataEstudo, TabelaAvlFpha1],
+    }
     ENCODING = "iso-8859-1"
 
     @classmethod

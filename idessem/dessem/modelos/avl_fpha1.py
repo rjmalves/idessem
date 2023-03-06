@@ -37,3 +37,36 @@ class TabelaAvlFpha1(TabelaCSV):
         "coeficiente_vazao_lateral",
     ]
     END_PATTERN = ""
+
+
+class TabelaAvlFpha1v190031(TabelaCSV):
+    """
+    Bloco com as informações da tabela do arquivo AVL_FPHA1.
+    Válido a partir da versão 19.0.31.
+    """
+
+    BEGIN_PATTERN = "-----;--------------;"
+    LINE_MODEL = Line(
+        [
+            IntegerField(size=5),
+            LiteralField(size=14),
+            IntegerField(size=7),
+            FloatField(size=9, decimal_digits=5),
+            FloatField(size=12, decimal_digits=4),
+            FloatField(size=13, decimal_digits=6),
+            FloatField(size=13, decimal_digits=6),
+            FloatField(size=13, decimal_digits=6),
+        ],
+        delimiter=";",
+    )
+    COLUMN_NAMES = [
+        "indice_usina",
+        "nome_usina",
+        "segmento_fpha",
+        "fator_correcao",
+        "rhs",
+        "coeficiente_volume_util",
+        "coeficiente_vazao_turbinada",
+        "coeficiente_vazao_lateral",
+    ]
+    END_PATTERN = ""
