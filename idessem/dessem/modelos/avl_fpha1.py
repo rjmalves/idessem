@@ -36,13 +36,13 @@ class TabelaAvlFpha1(TabelaCSV):
         "coeficiente_vazao_turbinada",
         "coeficiente_vazao_lateral",
     ]
-    END_PATTERN = ""
+    END_PATTERN = "-----;--------------;"
 
 
-class TabelaAvlFpha1v190031(TabelaCSV):
+class TabelaAvlFpha1v1903(TabelaCSV):
     """
     Bloco com as informações da tabela do arquivo AVL_FPHA1.
-    Válido a partir da versão 19.0.31.
+    Válido a partir da versão 19.3.
     """
 
     BEGIN_PATTERN = "-----;--------------;"
@@ -69,4 +69,4 @@ class TabelaAvlFpha1v190031(TabelaCSV):
         "coeficiente_vazao_turbinada",
         "coeficiente_vazao_lateral",
     ]
-    END_PATTERN = ""
+    END_PATTERN = "-----;--------------;"
