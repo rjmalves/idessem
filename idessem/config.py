@@ -12,3 +12,5 @@ MESES_ABREV = [
     "NOV",
     "DEZ",
 ]
+MAX_UG_UCT = 600
+MAX_UTE = 300
