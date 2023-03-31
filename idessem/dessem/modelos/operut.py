@@ -68,7 +68,7 @@ class BlocoInitUT(Block):
             )
 
     # Override
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         def converte_tabela_em_df() -> pd.DataFrame:
             cols = [
                 "indice_usina",
@@ -125,7 +125,7 @@ class BlocoInitUT(Block):
                 indice_linha += 1
 
     # Override
-    def write(self, file: IO):
+    def write(self, file: IO, *args, **kwargs):
         if not isinstance(self.data, list):
             raise ValueError("Dados do operut.dat não foram lidos com sucesso")
 
