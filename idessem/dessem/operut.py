@@ -1,6 +1,4 @@
-from idessem.dessem.modelos.operut import (
-    BlocoInitUT,
-)
+from idessem.dessem.modelos.operut import BlocoInitUT, BlocoOper
 
 from cfinterface.files.blockfile import BlockFile
 from typing import Type, TypeVar, Optional
@@ -16,7 +14,7 @@ class Operut(BlockFile):
 
     T = TypeVar("T")
 
-    BLOCKS = [BlocoInitUT]
+    BLOCKS = [BlocoInitUT, BlocoOper]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -75,6 +73,40 @@ class Operut(BlockFile):
     @condicoes_iniciais.setter
     def condicoes_iniciais(self, valor: pd.DataFrame):
         b = self.__bloco_por_tipo(BlocoInitUT, 0)
+        if b is not None:
+            b.data[1] = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def limites_e_condicoes_operativas(self) -> Optional[pd.DataFrame]:
+        """
+        Tabela com os limites e condições oeprativas das unidades.
+
+        - indice_usina (`int`)
+        - nome_usina (`str`)
+        - indice_unidade_geradora (`int`)
+        - dia_inicial (`int`)
+        - hora_inicial (`int`)
+        - meia_hora_inicial (`int`)
+        - dia_final (`int`|`str`)
+        - hora_final (`int`)
+        - meia_hora_final (`int`)
+        - geracao_minima (`float`)
+        - geracao_maxima (`float`)
+        - custo (`float`)
+
+        :return: A tabela como um DataFrame
+        :rtype: pd.DataFrame | None
+        """
+        b = self.__bloco_por_tipo(BlocoOper, 0)
+        if b is not None:
+            return b.data[1]
+        return None
+
+    @limites_e_condicoes_operativas.setter
+    def limites_e_condicoes_operativas(self, valor: pd.DataFrame):
+        b = self.__bloco_por_tipo(BlocoOper, 0)
         if b is not None:
             b.data[1] = valor
         else:
