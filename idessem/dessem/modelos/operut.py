@@ -295,3 +295,145 @@ class BlocoOper(Block):
             else:
                 file.write(self.__linha.write(linha_write))
         file.write(BlocoOper.END_PATTERN + "\n")
+
+
+class BlocoUctPar(Block):
+    """
+    Flag para definir o número de núcleos para processamento paralelo no
+    DESSEM, existente no `operut.dat`
+    """
+
+    BEGIN_PATTERN = r"^UCTPAR"
+    END_PATTERN = ""
+
+    def __init__(self, previous=None, next=None, data=None) -> None:
+        super().__init__(previous, next, data)
+        self.__linha = Line(
+            [
+                LiteralField(6, 0),
+                IntegerField(2, 7),
+            ]
+        )
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, BlocoUctPar):
+            return False
+        bloco: BlocoUctPar = o
+        if not all(
+            [
+                isinstance(self.data, int),
+                isinstance(o.data, int),
+            ]
+        ):
+            return False
+        else:
+            return self.data == bloco.data
+
+    def read(self, file: IO):
+        self.data = self.__linha.read(file.readline())[1]
+
+    def write(self, file: IO):
+        file.write(self.__linha.write(["UCTPAR", self.data]))
+
+
+class BlocoUcTerm(Block):
+    """
+    Flag para habilitar o unit commitment térmico e definir estratégia geral
+    de consideração das restrições de UCT na resolução do problema no
+    DESSEM, existente no `operut.dat`
+    """
+
+    BEGIN_PATTERN = r"^UCTERM"
+    END_PATTERN = ""
+
+    def __init__(self, previous=None, next=None, data=None) -> None:
+        super().__init__(previous, next, data)
+        self.__linha = Line(
+            [
+                LiteralField(6, 0),
+                IntegerField(1, 7),
+            ]
+        )
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, BlocoUcTerm):
+            return False
+        bloco: BlocoUcTerm = o
+        if not all(
+            [
+                isinstance(self.data, int),
+                isinstance(o.data, int),
+            ]
+        ):
+            return False
+        else:
+            return self.data == bloco.data
+
+    def read(self, file: IO):
+        self.data = self.__linha.read(file.readline())[1]
+
+    def write(self, file: IO):
+        file.write(self.__linha.write(["UCTERM", self.data]))
+
+
+class BlocoPint(Block):
+    """
+    Flag para hativar a metodologia de Pontos Interiores no
+    DESSEM, existente no `operut.dat`
+    """
+
+    BEGIN_PATTERN = r"^PINT"
+    END_PATTERN = ""
+
+    def __init__(self, previous=None, next=None, data=None) -> None:
+        super().__init__(previous, next, data)
+        self.__linha = Line([LiteralField(4, 0)])
+
+    def __eq__(self, o: object) -> bool:
+        return isinstance(o, BlocoPint)
+
+    def read(self, file: IO):
+        self.data = self.__linha.read(file.readline())[0]
+
+    def write(self, file: IO):
+        file.write(self.__linha.write(["PINT"]))
+
+
+class BlocoRegraNPTV(Block):
+    """
+    Flag para definição de valores default para a função de produção
+    hidráulica no DESSEM, existente no `operut.dat`
+    """
+
+    BEGIN_PATTERN = r"^REGRANPTV"
+    END_PATTERN = ""
+
+    def __init__(self, previous=None, next=None, data=None) -> None:
+        super().__init__(previous, next, data)
+        self.__linha = Line(
+            [
+                LiteralField(9, 0),
+                IntegerField(1, 10),
+                IntegerField(2, 14),
+                IntegerField(2, 18),
+            ]
+        )
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, BlocoRegraNPTV):
+            return False
+        if not all(
+            [
+                isinstance(self.data, list),
+                isinstance(o.data, list),
+            ]
+        ):
+            return False
+        else:
+            return all([x == y for x, y in zip(self.data, o.data)])
+
+    def read(self, file: IO):
+        self.data = self.__linha.read(file.readline())[1:]
+
+    def write(self, file: IO):
+        file.write(self.__linha.write(["REGRANPTV"] + self.data))

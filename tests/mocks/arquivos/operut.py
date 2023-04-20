@@ -95,3 +95,7 @@ MockBlocoOper = [
     "106 ERB CANDEI    1  6  0 0 F                                97.18\n",
     "FIM",
 ]
+MockBlocoUctpar = ["UCTPAR 2\n"]
+MockBlocoUcterm = ["UCTERM 2\n"]
+MockBlocoPint = ["PINT\n"]
+MockBlocoRegraNPTV = ["REGRANPTV     1\n"]

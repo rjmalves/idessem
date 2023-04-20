@@ -1,5 +1,12 @@
 # Rotinas de testes associadas ao arquivo operut.dat do DESSEM
-from idessem.dessem.modelos.operut import BlocoInitUT, BlocoOper
+from idessem.dessem.modelos.operut import (
+    BlocoInitUT,
+    BlocoOper,
+    BlocoUcTerm,
+    BlocoUctPar,
+    BlocoPint,
+    BlocoRegraNPTV,
+)
 from idessem.dessem.operut import Operut
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
@@ -7,6 +14,10 @@ from tests.mocks.arquivos.operut import (
     MockBlocoInit,
     MockBlocoOper,
     MockOperut,
+    MockBlocoUcterm,
+    MockBlocoUctpar,
+    MockBlocoPint,
+    MockBlocoRegraNPTV,
 )
 import pandas as pd
 
@@ -53,6 +64,58 @@ def test_eq_blocooper():
     assert b1 == b2
 
 
+def test_eq_blocoregranptv():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoRegraNPTV))
+    b1 = BlocoRegraNPTV()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoRegraNPTV()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    assert b1 == b2
+
+
+def test_eq_blocoucterm():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoUcterm))
+    b1 = BlocoUcTerm()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoUcTerm()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    assert b1 == b2
+
+
+def test_eq_blocouctpar():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoUctpar))
+    b1 = BlocoUctPar()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoUctPar()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    assert b1 == b2
+
+
+def test_eq_blocopint():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoPint))
+    b1 = BlocoPint()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoPint()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    assert b1 == b2
+
+
 def test_neq_blocoinit():
     m: MagicMock = mock_open(read_data="".join(MockBlocoInit))
     b1 = BlocoInitUT()
@@ -79,6 +142,63 @@ def test_neq_blocooper():
             b2.read(fp)
     b1.data[1].iloc[0, 0] = -1
     assert b1 != b2
+
+
+def test_neq_blocoregranptv():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoRegraNPTV))
+    b1 = BlocoRegraNPTV()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoRegraNPTV()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    b1.data[0] = -1
+    assert b1 != b2
+
+
+def test_neq_blocoucterm():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoUcterm))
+    b1 = BlocoUcTerm()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoUcTerm()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    b1.data = -1
+    assert b1 != b2
+
+
+def test_neq_blocouctpar():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoUctpar))
+    b1 = BlocoUctPar()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoUctPar()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    b1.data = -1
+    assert b1 != b2
+
+
+def test_neq_blocopint():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoPint))
+    b1 = BlocoPint()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoPint()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    b1.data = -1
+    # Especifidade do bloco PINT: todos são iguais
+    assert b1 == b2
 
 
 def test_bloco_init():
@@ -119,6 +239,48 @@ def test_bloco_oper():
     assert pd.isna(b.data[1].at[0, "geracao_minima"])
     assert pd.isna(b.data[1].at[0, "geracao_maxima"])
     assert b.data[1].at[0, "custo"] == 31.17
+
+
+def test_bloco_regranptv():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoRegraNPTV))
+    b = BlocoRegraNPTV()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b.read(fp)
+
+    assert b.data[0] is None
+    assert b.data[1] == 1
+    assert b.data[2] is None
+
+
+def test_bloco_ucterm():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoUcterm))
+    b = BlocoUcTerm()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b.read(fp)
+
+    assert b.data == 2
+
+
+def test_bloco_uctpar():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoUctpar))
+    b = BlocoUctPar()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b.read(fp)
+
+    assert b.data == 2
+
+
+def test_bloco_pint():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoPint))
+    b = BlocoPint()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b.read(fp)
+
+    assert b.data == "PINT"
 
 
 def test_leitura_escrita_operut():
