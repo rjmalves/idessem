@@ -218,7 +218,7 @@ class BlocoOper(Block):
             )
 
     # Override
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         def converte_tabela_em_df() -> pd.DataFrame:
             cols = [
                 "indice_usina",
@@ -275,7 +275,7 @@ class BlocoOper(Block):
                 indice_linha += 1
 
     # Override
-    def write(self, file: IO):
+    def write(self, file: IO, *args, **kwargs):
         if not isinstance(self.data, list):
             raise ValueError("Dados do operut.dat não foram lidos com sucesso")
 
@@ -329,10 +329,10 @@ class BlocoUctPar(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO):
+    def write(self, file: IO, *args, **kwargs):
         file.write(self.__linha.write(["UCTPAR", self.data]))
 
 
@@ -369,10 +369,10 @@ class BlocoUcTerm(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO):
+    def write(self, file: IO, *args, **kwargs):
         file.write(self.__linha.write(["UCTERM", self.data]))
 
 
@@ -392,10 +392,10 @@ class BlocoPint(Block):
     def __eq__(self, o: object) -> bool:
         return isinstance(o, BlocoPint)
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         self.data = self.__linha.read(file.readline())[0]
 
-    def write(self, file: IO):
+    def write(self, file: IO, *args, **kwargs):
         file.write(self.__linha.write(["PINT"]))
 
 
@@ -432,8 +432,8 @@ class BlocoRegraNPTV(Block):
         else:
             return all([x == y for x, y in zip(self.data, o.data)])
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         self.data = self.__linha.read(file.readline())[1:]
 
-    def write(self, file: IO):
+    def write(self, file: IO, *args, **kwargs):
         file.write(self.__linha.write(["REGRANPTV"] + self.data))
