@@ -19,6 +19,6 @@ class VersaoModelo(Block):
                 return False
             return self.data == o.data
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         linha = file.readline()
         self.data = linha.split("VERSAO")[1].split("-")[0].strip()

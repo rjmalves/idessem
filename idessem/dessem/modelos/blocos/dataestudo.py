@@ -23,7 +23,7 @@ class DataEstudo(Block):
                 return False
             return self.data == o.data
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         linha = file.readline()
         dados = linha.split(DataEstudo.BEGIN_PATTERN)
         campo = DatetimeField(size=10, starting_position=0, format="%d/%m/%Y")

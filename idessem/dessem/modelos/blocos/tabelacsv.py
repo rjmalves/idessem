@@ -31,7 +31,7 @@ class TabelaCSV(Block):
     def _monta_df(self, dados: dict) -> pd.DataFrame:
         return pd.DataFrame(data=dados, columns=self.__class__.COLUMN_NAMES)
 
-    def read(self, file: IO):
+    def read(self, file: IO, *args, **kwargs):
         if len(self.__class__.LINE_MODEL.fields) != len(
             self.__class__.COLUMN_NAMES
         ):
