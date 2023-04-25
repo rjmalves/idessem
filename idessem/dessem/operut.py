@@ -5,6 +5,16 @@ from idessem.dessem.modelos.operut import (
     BlocoUcTerm,
     BlocoPint,
     BlocoRegraNPTV,
+    BlocoAvlCmo,
+    BlocoCplexLog,
+    BlocoUctBusLoc,
+    BlocoUctHeurFp,
+    BlocoConstDados,
+    BlocoAjusteFcf,
+    BlocoTolerIlh,
+    BlocoCrossover,
+    BlocoEngolimento,
+    BlocoTrataInviabIlha,
 )
 
 from cfinterface.files.blockfile import BlockFile
@@ -191,6 +201,202 @@ class Operut(BlockFile):
     @regranptv.setter
     def regranptv(self, valor: List[int]):
         b = self.__bloco_por_tipo(BlocoRegraNPTV, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def avlcmo(self) -> Optional[int]:
+        """
+        Impressão dos arquivos de avalição de CMO.
+
+        :return: O valor do flag
+        :rtype: int | None
+        """
+        b = self.__bloco_por_tipo(BlocoAvlCmo, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @avlcmo.setter
+    def avlcmo(self, valor: int):
+        b = self.__bloco_por_tipo(BlocoAvlCmo, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def cplexlog(self) -> Optional[str]:
+        """
+        Flag para habilitar a impressão de arquivo log do CPLEX.
+
+        :return: O flag
+        :rtype: str | None
+        """
+        b = self.__bloco_por_tipo(BlocoCplexLog, 0)
+        if b is not None:
+            return "CPLEXLOG"
+        return None
+
+    @property
+    def uctbusloc(self) -> Optional[str]:
+        """
+        Flag para habilitar a busca local.
+
+        :return: O flag
+        :rtype: str | None
+        """
+        b = self.__bloco_por_tipo(BlocoUctBusLoc, 0)
+        if b is not None:
+            return "UCTBUSLOC"
+        return None
+
+    @property
+    def uctheurfp(self) -> Optional[List[int]]:
+        """
+        Metodologia Feasibility Pump com Busca Local
+        e Fixação de Variáveis de Status.
+
+        :return: Lista com os flag
+        :rtype: list | None
+        """
+        b = self.__bloco_por_tipo(BlocoUctHeurFp, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @uctheurfp.setter
+    def uctheurfp(self, valor: List[int]):
+        b = self.__bloco_por_tipo(BlocoUctHeurFp, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def constdados(self) -> Optional[List[int]]:
+        """
+        Consistência de dados.
+
+        :return: Lista com os flag
+        :rtype: list | None
+        """
+        b = self.__bloco_por_tipo(BlocoConstDados, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @constdados.setter
+    def constdados(self, valor: List[int]):
+        b = self.__bloco_por_tipo(BlocoConstDados, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def ajustefcf(self) -> Optional[List[int]]:
+        """
+        Ajuste da função de custo futuro.
+
+        :return: Lista com os flag
+        :rtype: list | None
+        """
+        b = self.__bloco_por_tipo(BlocoAjusteFcf, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @ajustefcf.setter
+    def ajustefcf(self, valor: List[int]):
+        b = self.__bloco_por_tipo(BlocoAjusteFcf, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def tolerilh(self) -> Optional[int]:
+        """
+        Tolerância nas equações de demanda por ilha.
+
+        :return: O valor do flag
+        :rtype: int | None
+        """
+        b = self.__bloco_por_tipo(BlocoTolerIlh, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @tolerilh.setter
+    def tolerilh(self, valor: int):
+        b = self.__bloco_por_tipo(BlocoTolerIlh, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def crossover(self) -> Optional[List[int]]:
+        """
+        Metodologia Feasibility Pump com Busca Local
+        e Fixação de Variáveis de Status.
+
+        :return: Lista com os flag
+        :rtype: list | None
+        """
+        b = self.__bloco_por_tipo(BlocoCrossover, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @crossover.setter
+    def crossover(self, valor: List[int]):
+        b = self.__bloco_por_tipo(BlocoCrossover, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def engolimento(self) -> Optional[int]:
+        """
+        Consideração do engolimento máximo.
+
+        :return: O valor do flag
+        :rtype: int | None
+        """
+        b = self.__bloco_por_tipo(BlocoEngolimento, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @engolimento.setter
+    def engolimento(self, valor: int):
+        b = self.__bloco_por_tipo(BlocoEngolimento, 0)
+        if b is not None:
+            b.data = valor
+        else:
+            raise ValueError("Campo não lido")
+
+    @property
+    def tratainviabilha(self) -> Optional[int]:
+        """
+        Tratamento automático de inviabilidades de ilha elétrica.
+
+        :return: O valor do flag
+        :rtype: int | None
+        """
+        b = self.__bloco_por_tipo(BlocoTrataInviabIlha, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @tratainviabilha.setter
+    def tratainviabilha(self, valor: int):
+        b = self.__bloco_por_tipo(BlocoTrataInviabIlha, 0)
         if b is not None:
             b.data = valor
         else:
