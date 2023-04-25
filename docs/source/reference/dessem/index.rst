@@ -39,13 +39,14 @@ Arquivos
 
    arquivos/avl_altqueda
    arquivos/avl_desvfpha
-   arquivos/avl_estatfpha
    arquivos/avl_fpha1
-   arquivos/des_log_relato
+   arquivos/hidr
    arquivos/log_matriz
+   arquivos/operut
+   arquivos/pdo_eco_usih
    arquivos/pdo_hidr
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
    arquivos/polinjus
-   arquivos/hidr
-   arquivos/pdo_eco_usih
+   
+   
