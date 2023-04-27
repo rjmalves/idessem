@@ -40,6 +40,7 @@ Arquivos
    arquivos/avl_altqueda
    arquivos/avl_desvfpha
    arquivos/avl_fpha1
+   arquivos/des_log_relato
    arquivos/hidr
    arquivos/log_matriz
    arquivos/operut
