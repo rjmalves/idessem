@@ -3,9 +3,7 @@ from cfinterface.components.line import Line
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
-
-from typing import Optional, List, IO, Union
-from numpy import abs  # type: ignore
+from typing import Optional, Union
 
 
 # class SB(Register):

@@ -2,7 +2,7 @@ from idessem.dessem.modelos.entdados import UH
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
-from typing import Type, List, Optional, TypeVar, Any, Union
+from typing import Type, List, Optional, TypeVar, Union
 
 
 class Entdados(RegisterFile):
@@ -120,7 +120,7 @@ class Entdados(RegisterFile):
         """
         self.data.preppend(registro)
 
-    @property
+    # @property
     # def sb(
     #     self,
     #     codigo: Optional[int] = None,
