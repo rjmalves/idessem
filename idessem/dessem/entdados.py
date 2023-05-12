@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.entdados import UH
+from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
@@ -120,30 +120,131 @@ class Entdados(RegisterFile):
         """
         self.data.preppend(registro)
 
-    # @property
-    # def sb(
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     nome: Optional[str] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[SB, List[SB], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define os subsistemas existentes
-    #     no estudo descrito pelo :class:`Dadger`.
 
-    #     :param codigo: código que especifica o registro do subsistema
-    #     :type codigo: int | None
-    #     :param nome: nome do subsistema
-    #     :type nome: str | None
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`SB` | list[:class:`SB`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(SB)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             SB, codigo=codigo, nome=nome
-    #         )
+    @property
+    def rivar(
+        self,
+        codigo_entidade: Optional[int] = None,
+        tipo_variavel: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[RIVAR, List[RIVAR], pd.DataFrame]]:
+        """
+        Obtém um registro que define a a consideração de restrições internas
+        do tipo "soft" de variação para variáveis do problema 
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param codigo_entidade: código da entidade
+        :type codigo_entidade: int | None
+        :param sistema_para: sistema "para" quando aplicável
+        :type sistema_para: int | None
+        :param tipo_variavel: tipo de variável
+        :type tipo_variavel: int | None
+        :param penalidade: penalidade 
+        :type penalidade: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`RIVAR` | list[:class:`RIVAR`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(RIVAR)
+        else:
+            return self.__obtem_registros_com_filtros(
+                RIVAR,
+                codigo_entidade=codigo_entidade,
+                tipo_variavel=tipo_variavel,
+            )
+        
+    def tm(
+        self,
+        dia_inicial: Optional[int] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[TM, List[TM], pd.DataFrame]]:
+        """
+        Obtém um registro que define a discretização temporal e representação
+        da rede elétrica no estudo descrito pelo :class:`Entdados`.
+
+        :param dia_inicial: dia inicial do período
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial do período
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial do período
+        :type meia_hora_inicial: int | None
+        :param duracao: duração do período
+        :type duracao: float | None
+        :param duracao: flag para consideração da rede elétrica
+        :type duracao: int | None
+        :param patamar_de_carga: nome do patamar de carga
+        :type patamar_de_carga: str | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`TM` | list[:class:`TM`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(TM)
+        else:
+            return self.__obtem_registros_com_filtros(
+                TM,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+            )
+
+    def sist(
+        self,
+        codigo: Optional[int] = None,
+        mnemonico: Optional[str] = None,
+        ficticio: Optional[int] = None,
+        nome: Optional[str] = None,
+        df: bool = False,
+    ) -> Optional[Union[SIST, List[SIST], pd.DataFrame]]:
+        """
+        Obtém um registro que define os submercados existentes
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param codigo: código que especifica o registro do submercado
+        :type codigo: int | None
+        :param mnemônico: mnemônico do submercado
+        :type mnemônico: str | None
+        :param ficticio: flag que identifica submercado fictício
+        :type ficticio: int | None
+        :param nome: nome do submercado
+        :type nome: str | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`SIST` | list[:class:`SIST`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(SIST)
+        else:
+            return self.__obtem_registros_com_filtros(
+                SIST, codigo=codigo, nome=nome
+            )
+
+    def ree(
+        self,
+        codigo: Optional[int] = None,
+        submercado: Optional[int] = None,
+        nome: Optional[str] = None,
+        df: bool = False,
+    ) -> Optional[Union[REE, List[REE], pd.DataFrame]]:
+        """
+        Obtém um registro que define os reservatórios equivalentes
+        de energia existentes no estudo descrito pelo :class:`Entdados`.
+
+        :param codigo: código que especifica o registro do submercado
+        :type codigo: int | None
+        :param submercado: código do submercado correspondente
+        :type submercado: str | None
+        :param nome: nome do REE
+        :type nome: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`REE` | list[:class:`REE`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(REE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                REE, codigo=codigo, nome=nome
+            )
 
     def uh(
         self,

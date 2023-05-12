@@ -6,42 +6,315 @@ from cfinterface.components.floatfield import FloatField
 from typing import Optional, Union
 
 
-# class SB(Register):
-#     """
-#     Registro que contém o cadastro dos subsistemas.
-#     """
+class RIVAR(Register):
+    """
+    Registro que contém configurações para consideração de restrições
+    soft de variação para as variáveis do problema.
+    """
 
-#     IDENTIFIER = "SB  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line([IntegerField(2, 4), LiteralField(2, 9)])
+    IDENTIFIER = "RIVAR  "
+    IDENTIFIER_DIGITS = 7
+    LINE = Line(
+        [
+            IntegerField(3, 7),
+            IntegerField(3, 12),
+            IntegerField(2, 15),
+            FloatField(10, 19),
+        ]
+    )
 
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código de cadastro do subsistema.
+    @property
+    def codigo_entidade(self) -> Optional[int]:
+        """
+        O código da entidade (hidrelétrica, termelétrica, elevatória,
+        intercâmbio).
 
-#         :return: O código.
-#         :rtype: int | None]
-#         """
-#         return self.data[0]
+        :return: O número.
+        :rtype: int | None
+        """
+        return self.data[0]
 
-#     @codigo.setter
-#     def codigo(self, cod: int):
-#         self.data[0] = cod
+    @codigo_entidade.setter
+    def codigo_entidade(self, cod: int):
+        self.data[0] = cod
 
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome de cadastro do subsistema.
+    @property
+    def sistema_para(self) -> Optional[int]:
+        """
+        O código do sistema "para" no caso de restrição de intercâmbio.
 
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[1]
+        :return: O código do sistema para.
+        :rtype: int | None
+        """
+        return self.data[1]
 
-#     @nome.setter
-#     def nome(self, n: str):
-#         self.data[1] = n
+    @sistema_para.setter
+    def sistema_para(self, cod: int):
+        self.data[1] = cod
+
+    @property
+    def tipo_variavel(self) -> Optional[int]:
+        """
+        O código do tipo de variável.
+
+        :return: O tipo de variável.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @tipo_variavel.setter
+    def tipo_variavel(self, cod: int):
+        self.data[2] = cod
+
+    @property
+    def penalidade(self) -> Optional[float]:
+        """
+        A penalidade a ser utilizada nas restrições.
+
+        :return: A penalidade.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @penalidade.setter
+    def penalidade(self, cod: float):
+        self.data[3] = cod
+
+
+class TM(Register):
+    """
+    Registro que contém a discretização temporal e representação
+    da rede elétrica.
+    """
+
+    IDENTIFIER = "TM  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            IntegerField(2, 9),
+            IntegerField(1, 14),
+            FloatField(5, 19, 1),
+            IntegerField(1, 29),
+            LiteralField(6, 33),
+        ]
+    )
+
+    @property
+    def dia_inicial(self) -> Optional[int]:
+        """
+        O dia inicial do período.
+
+        :return: O dia.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, cod: int):
+        self.data[0] = cod
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial do período.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, cod: int):
+        self.data[1] = cod
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial do período.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, cod: int):
+        self.data[2] = cod
+
+    @property
+    def duracao(self) -> Optional[float]:
+        """
+        A duração do período em horas.
+
+        :return: A duração.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @duracao.setter
+    def duracao(self, cod: float):
+        self.data[3] = cod
+
+    @property
+    def consideracao_rede_eletrica(self) -> Optional[int]:
+        """
+        O flag para indicar conisderação da rede elétrica no período.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @consideracao_rede_eletrica.setter
+    def consideracao_rede_eletrica(self, cod: int):
+        self.data[4] = cod
+
+    @property
+    def patamar_de_carga(self) -> Optional[str]:
+        """
+        O nome do patamar de carga.
+
+        :return: O patamar.
+        :rtype: str | None
+        """
+        return self.data[5]
+
+    @patamar_de_carga.setter
+    def patamar_de_carga(self, n: str):
+        self.data[5] = n
+
+
+class SIST(Register):
+    """
+    Registro que contém o cadastro dos submercados.
+    """
+
+    IDENTIFIER = "SIST   "
+    IDENTIFIER_DIGITS = 7
+    LINE = Line(
+        [
+            IntegerField(2, 7),
+            LiteralField(2, 10),
+            IntegerField(2, 13),
+            LiteralField(10, 16),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código de cadastro do submercado.
+
+        :return: O código.
+        :rtype: int | None]
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, cod: int):
+        self.data[0] = cod
+
+    @property
+    def mnemonico(self) -> Optional[str]:
+        """
+        O mnemônico de cadastro do submercado.
+
+        :return: O mnemônico.
+        :rtype: str | None
+        """
+        return self.data[1]
+
+    @mnemonico.setter
+    def mnemonico(self, n: str):
+        self.data[1] = n
+
+    @property
+    def ficticio(self) -> Optional[int]:
+        """
+        O código de cadastro do submercado.
+
+        :return: O código.
+        :rtype: int | None]
+        """
+        return self.data[2]
+
+    @ficticio.setter
+    def ficticio(self, cod: int):
+        self.data[2] = cod
+
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome de cadastro do submercado.
+
+        :return: O nome.
+        :rtype: str | None
+        """
+        return self.data[3]
+
+    @nome.setter
+    def nome(self, n: str):
+        self.data[3] = n
+
+
+class REE(Register):
+    """
+    Registro que contém o cadastro dos reservatórios equivalentes
+    de energia.
+    """
+
+    IDENTIFIER = "REE   "
+    IDENTIFIER_DIGITS = 6
+    LINE = Line(
+        [
+            IntegerField(2, 6),
+            IntegerField(2, 9),
+            LiteralField(10, 12),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código de cadastro do REE.
+
+        :return: O código.
+        :rtype: int | None]
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, cod: int):
+        self.data[0] = cod
+
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O código do submercado que pertence o REE.
+
+        :return: O código.
+        :rtype: int | None]
+        """
+        return self.data[1]
+
+    @submercado.setter
+    def submercado(self, cod: int):
+        self.data[1] = cod
+
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome de cadastro do REE.
+
+        :return: O mnemônico.
+        :rtype: str | None
+        """
+        return self.data[2]
+
+    @nome.setter
+    def nome(self, n: str):
+        self.data[2] = n
 
 
 class UH(Register):

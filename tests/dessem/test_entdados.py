@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.entdados import UH
+from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
@@ -6,7 +6,127 @@ from unittest.mock import MagicMock, patch
 from tests.mocks.arquivos.entdados import (
     MockUHliteral,
     MockUHinteiro,
+    MockSIST,
+    MockREE,
+    MockTM,
+    MockRIVAR,
 )
+
+
+def test_registro_rivar_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockRIVAR))
+    r = RIVAR()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        999,
+        None,
+        4,
+        None,
+    ]
+
+    assert r.codigo_entidade == 999
+    r.codigo_entidade = -1
+    assert r.codigo_entidade == -1
+    assert r.sistema_para is None
+    r.sistema_para = -1
+    assert r.sistema_para == -1
+    assert r.tipo_variavel == 4
+    r.tipo_variavel = -1
+    assert r.tipo_variavel == -1
+    assert r.penalidade is None
+    r.penalidade = -1
+    assert r.penalidade == -1
+
+
+def test_registro_tm_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockTM))
+    r = TM()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        11,
+        0,
+        0,
+        0.5,
+        1,
+        "LEVE",
+    ]
+
+    assert r.dia_inicial == 11
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.duracao == 0.5
+    r.duracao = -1
+    assert r.duracao == -1
+    assert r.consideracao_rede_eletrica == 1
+    r.consideracao_rede_eletrica = -1
+    assert r.consideracao_rede_eletrica == -1
+    assert r.patamar_de_carga == "LEVE"
+    r.patamar_de_carga = "XX"
+    assert r.patamar_de_carga == "XX"
+
+
+def test_registro_sist_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockSIST))
+    r = SIST()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "SE",
+        0,
+        "SUDESTE",
+    ]
+
+    assert r.codigo == 1
+    r.codigo = 0
+    assert r.codigo == 0
+    assert r.mnemonico == "SE"
+    r.mnemonico = "XX"
+    assert r.mnemonico == "XX"
+    assert r.ficticio == 0
+    r.ficticio = -1
+    assert r.ficticio == -1
+    assert r.nome == "SUDESTE"
+    r.nome = "XX"
+    assert r.nome == "XX"
+
+
+def test_registro_ree_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockREE))
+    r = REE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        1,
+        "SUDESTE",
+    ]
+
+    assert r.codigo == 1
+    r.codigo = 0
+    assert r.codigo == 0
+    assert r.submercado == 1
+    r.submercado = -1
+    assert r.submercado == -1
+    assert r.nome == "SUDESTE"
+    r.nome = "XX"
+    assert r.nome == "XX"
 
 
 def test_registro_uh_entdados_literal():
