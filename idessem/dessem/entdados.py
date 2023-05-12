@@ -120,7 +120,6 @@ class Entdados(RegisterFile):
         """
         self.data.preppend(registro)
 
-
     @property
     def rivar(
         self,
@@ -130,7 +129,7 @@ class Entdados(RegisterFile):
     ) -> Optional[Union[RIVAR, List[RIVAR], pd.DataFrame]]:
         """
         Obtém um registro que define a a consideração de restrições internas
-        do tipo "soft" de variação para variáveis do problema 
+        do tipo "soft" de variação para variáveis do problema
         no estudo descrito pelo :class:`Entdados`.
 
         :param codigo_entidade: código da entidade
@@ -139,7 +138,7 @@ class Entdados(RegisterFile):
         :type sistema_para: int | None
         :param tipo_variavel: tipo de variável
         :type tipo_variavel: int | None
-        :param penalidade: penalidade 
+        :param penalidade: penalidade
         :type penalidade: float | None
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`RIVAR` | list[:class:`RIVAR`] | :class:`pd.DataFrame` | None
@@ -152,7 +151,7 @@ class Entdados(RegisterFile):
                 codigo_entidade=codigo_entidade,
                 tipo_variavel=tipo_variavel,
             )
-        
+
     def tm(
         self,
         dia_inicial: Optional[int] = None,
