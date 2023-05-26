@@ -6,6 +6,133 @@ from cfinterface.components.floatfield import FloatField
 from typing import Optional, Union
 
 
+class RD(Register):
+    """
+    Registro que contém opções de representação da rede elétrica.
+    """
+
+    IDENTIFIER = "RD  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(1, 4),
+            IntegerField(3, 9),
+            IntegerField(1, 14),
+            IntegerField(1, 16),
+            IntegerField(1, 18),
+            IntegerField(1, 20),
+            IntegerField(1, 22),
+        ]
+    )
+
+    @property
+    def variaveis_de_folga(self) -> Optional[int]:
+        """
+        O flag que define a inclusão de variáveis de folga nas restrições
+        de rede elétrica.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @variaveis_de_folga.setter
+    def variaveis_de_folga(self, cod: int):
+        self.data[0] = cod
+
+    @property
+    def maximo_circuitos_violados(self) -> Optional[int]:
+        """
+        O número máximo de circuitos que podem ser violados, por
+        período.
+
+        :return: O número máximo de circuitos.
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @maximo_circuitos_violados.setter
+    def maximo_circuitos_violados(self, cod: int):
+        self.data[1] = cod
+
+    @property
+    def carga_registro_dbar(self) -> Optional[int]:
+        """
+        O flag para executar um caso sem rede elétrica porém
+        utilizando a carga declarada nos registros do bloco
+        DBAR.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @carga_registro_dbar.setter
+    def carga_registro_dbar(self, cod: int):
+        self.data[2] = cod
+
+    @property
+    def limites_circuitos_transformadores_elevadores(self) -> Optional[int]:
+        """
+        O flag para não considerar os limites de fluxo em
+        circuitos transformadores elevadores.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @limites_circuitos_transformadores_elevadores.setter
+    def limites_circuitos_transformadores_elevadores(self, cod: int):
+        self.data[3] = cod
+
+    @property
+    def limites_circuitos_e_drefs(self) -> Optional[int]:
+        """
+        O flag para não considerar restrições de limite de fluxo em circuitos
+        e somatórios de fluxo independente dos níveis de tensão
+        das barras.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @limites_circuitos_e_drefs.setter
+    def limites_circuitos_e_drefs(self, cod: int):
+        self.data[4] = cod
+
+    @property
+    def consideracao_perdas(self) -> Optional[int]:
+        """
+        O flag para consideração das perdas nos circuitos
+        da rede elétrica.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[5]
+
+    @consideracao_perdas.setter
+    def consideracao_perdas(self, cod: int):
+        self.data[5] = cod
+
+    @property
+    def formato_arquivos_rede(self) -> Optional[int]:
+        """
+        O flag para indicar o tipo de formato dos arquivos
+        da rede elétrica.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[6]
+
+    @formato_arquivos_rede.setter
+    def formato_arquivos_rede(self, cod: int):
+        self.data[6] = cod
+
+
 class RIVAR(Register):
     """
     Registro que contém configurações para consideração de restrições

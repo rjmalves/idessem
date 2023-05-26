@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR
+from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
@@ -10,7 +10,48 @@ from tests.mocks.arquivos.entdados import (
     MockREE,
     MockTM,
     MockRIVAR,
+    MockRD,
 )
+
+
+def test_registro_rd_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockRD))
+    r = RD()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        800,
+        0,
+        1,
+        None,
+        None,
+        None,
+    ]
+
+    assert r.variaveis_de_folga == 1
+    r.variaveis_de_folga = -1
+    assert r.variaveis_de_folga == -1
+    assert r.maximo_circuitos_violados == 800
+    r.maximo_circuitos_violados = -1
+    assert r.maximo_circuitos_violados == -1
+    assert r.carga_registro_dbar == 0
+    r.carga_registro_dbar = -1
+    assert r.carga_registro_dbar == -1
+    assert r.limites_circuitos_transformadores_elevadores == 1
+    r.limites_circuitos_transformadores_elevadores = -1
+    assert r.limites_circuitos_transformadores_elevadores == -1
+    assert r.limites_circuitos_e_drefs is None
+    r.limites_circuitos_e_drefs = -1
+    assert r.limites_circuitos_e_drefs == -1
+    assert r.consideracao_perdas is None
+    r.consideracao_perdas = -1
+    assert r.consideracao_perdas == -1
+    assert r.formato_arquivos_rede is None
+    r.formato_arquivos_rede = -1
+    assert r.formato_arquivos_rede == -1
 
 
 def test_registro_rivar_entdados():
