@@ -6,11 +6,13 @@ from unittest.mock import MagicMock, patch
 
 from tests.mocks.arquivos.pdo_oper_uct import MockPdoOperUct
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_atributos_encontrados_pdo_oper_uct():
     m: MagicMock = mock_open(read_data="".join(MockPdoOperUct))
     with patch("builtins.open", m):
-        pdo = PdoOperUct.le_arquivo("")
+        pdo = PdoOperUct.read(ARQ_TESTE)
         assert pdo.versao is not None
         assert pdo.data_estudo is not None
         assert pdo.tabela is not None
@@ -19,21 +21,21 @@ def test_atributos_encontrados_pdo_oper_uct():
 def test_versao_pdo_oper_uct():
     m: MagicMock = mock_open(read_data="".join(MockPdoOperUct))
     with patch("builtins.open", m):
-        pdo = PdoOperUct.le_arquivo("")
+        pdo = PdoOperUct.read(ARQ_TESTE)
         assert pdo.versao == "19.0.42"
 
 
 def test_data_estudo_pdo_oper_uct():
     m: MagicMock = mock_open(read_data="".join(MockPdoOperUct))
     with patch("builtins.open", m):
-        pdo = PdoOperUct.le_arquivo("")
+        pdo = PdoOperUct.read(ARQ_TESTE)
         assert pdo.data_estudo == datetime(year=2022, month=8, day=8)
 
 
 def test_tabela_pdo_oper_uct():
     m: MagicMock = mock_open(read_data="".join(MockPdoOperUct))
     with patch("builtins.open", m):
-        pdo = PdoOperUct.le_arquivo("")
+        pdo = PdoOperUct.read(ARQ_TESTE)
 
         assert pdo.tabela.at[0, "estagio"] == 1
         assert pdo.tabela.at[0, "indice_usina"] == 1
@@ -68,15 +70,15 @@ def test_tabela_pdo_oper_uct():
 def test_eq_pdo_oper_uct():
     m: MagicMock = mock_open(read_data="".join(MockPdoOperUct))
     with patch("builtins.open", m):
-        pdo1 = PdoOperUct.le_arquivo("")
-        pdo2 = PdoOperUct.le_arquivo("")
+        pdo1 = PdoOperUct.read(ARQ_TESTE)
+        pdo2 = PdoOperUct.read(ARQ_TESTE)
         assert pdo1 == pdo2
 
 
 def test_neq_pdo_oper_uct():
     m: MagicMock = mock_open(read_data="".join(MockPdoOperUct))
     with patch("builtins.open", m):
-        pdo1 = PdoOperUct.le_arquivo("")
-        pdo2 = PdoOperUct.le_arquivo("")
+        pdo1 = PdoOperUct.read(ARQ_TESTE)
+        pdo2 = PdoOperUct.read(ARQ_TESTE)
         pdo1.tabela.iloc[0, 0] = -1
         assert pdo1 != pdo2

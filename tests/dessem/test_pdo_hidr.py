@@ -6,11 +6,13 @@ from unittest.mock import MagicMock, patch
 
 from tests.mocks.arquivos.pdo_hidr import MockPdoHidr
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_atributos_encontrados_pdo_hidr():
     m: MagicMock = mock_open(read_data="".join(MockPdoHidr))
     with patch("builtins.open", m):
-        log = PdoHidr.le_arquivo("")
+        log = PdoHidr.read(ARQ_TESTE)
         assert log.versao is not None
         assert log.data_estudo is not None
         assert log.tabela is not None
@@ -19,21 +21,21 @@ def test_atributos_encontrados_pdo_hidr():
 def test_versao_pdo_hidr():
     m: MagicMock = mock_open(read_data="".join(MockPdoHidr))
     with patch("builtins.open", m):
-        log = PdoHidr.le_arquivo("")
+        log = PdoHidr.read(ARQ_TESTE)
         assert log.versao == "19.3"
 
 
 def test_data_estudo_pdo_hidr():
     m: MagicMock = mock_open(read_data="".join(MockPdoHidr))
     with patch("builtins.open", m):
-        log = PdoHidr.le_arquivo("")
+        log = PdoHidr.read(ARQ_TESTE)
         assert log.data_estudo == datetime(year=2022, month=8, day=11)
 
 
 def test_tabela_pdo_hidr():
     m: MagicMock = mock_open(read_data="".join(MockPdoHidr))
     with patch("builtins.open", m):
-        log = PdoHidr.le_arquivo("")
+        log = PdoHidr.read(ARQ_TESTE)
         assert log.tabela.at[2, "estagio"] == 1
         assert log.tabela.at[2, "patamar"] == "LEVE"
         assert log.tabela.at[2, "indice_usina"] == 1
@@ -77,15 +79,15 @@ def test_tabela_pdo_hidr():
 def test_eq_pdo_hidr():
     m: MagicMock = mock_open(read_data="".join(MockPdoHidr))
     with patch("builtins.open", m):
-        log1 = PdoHidr.le_arquivo("")
-        log2 = PdoHidr.le_arquivo("")
+        log1 = PdoHidr.read(ARQ_TESTE)
+        log2 = PdoHidr.read(ARQ_TESTE)
         assert log1 == log2
 
 
 def test_neq_pdo_hidr():
     m: MagicMock = mock_open(read_data="".join(MockPdoHidr))
     with patch("builtins.open", m):
-        log1 = PdoHidr.le_arquivo("")
-        log2 = PdoHidr.le_arquivo("")
+        log1 = PdoHidr.read(ARQ_TESTE)
+        log2 = PdoHidr.read(ARQ_TESTE)
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2

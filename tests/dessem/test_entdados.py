@@ -12,6 +12,8 @@ from tests.mocks.arquivos.entdados import (
     MockRIVAR,
 )
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_registro_rivar_entdados():
     m: MagicMock = mock_open(read_data="".join(MockRIVAR))
