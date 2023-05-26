@@ -68,6 +68,8 @@ from tests.mocks.arquivos.dessemarq import (
     MockDessemArq,
 )
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_registro_caso():
     m: MagicMock = mock_open(read_data="".join(MockRegistroCaso))
@@ -645,7 +647,7 @@ def test_registro_ilibs():
 def test_campos_nao_encontrados_dessemarq():
     m: MagicMock = mock_open(read_data="")
     with patch("builtins.open", m):
-        d = DessemArq.le_arquivo("", "")
+        d = DessemArq.read(ARQ_TESTE)
     assert d.caso is None
     assert d.titulo is None
     assert d.vazoes is None
@@ -681,7 +683,7 @@ def test_campos_nao_encontrados_dessemarq():
 def test_campos_encontrados_dessemarq():
     m: MagicMock = mock_open(read_data="".join(MockDessemArq))
     with patch("builtins.open", m):
-        d = DessemArq.le_arquivo("", "")
+        d = DessemArq.read(ARQ_TESTE)
     assert d.caso is not None
     assert d.titulo is not None
     assert d.vazoes is not None
@@ -717,16 +719,16 @@ def test_campos_encontrados_dessemarq():
 def test_eq_dessemarq():
     m: MagicMock = mock_open(read_data="".join(MockDessemArq))
     with patch("builtins.open", m):
-        d1 = DessemArq.le_arquivo("")
-        d2 = DessemArq.le_arquivo("")
+        d1 = DessemArq.read(ARQ_TESTE)
+        d2 = DessemArq.read(ARQ_TESTE)
         assert d1 == d2
 
 
 def test_neq_dessemarq():
     m: MagicMock = mock_open(read_data="".join(MockDessemArq))
     with patch("builtins.open", m):
-        d1 = DessemArq.le_arquivo("")
-        d2 = DessemArq.le_arquivo("")
+        d1 = DessemArq.read(ARQ_TESTE)
+        d2 = DessemArq.read(ARQ_TESTE)
         d2.caso.valor = "txt"
         assert d1 != d2
 
@@ -734,10 +736,10 @@ def test_neq_dessemarq():
 def test_leitura_escrita_dessemarq():
     m_leitura: MagicMock = mock_open(read_data="".join(MockDessemArq))
     with patch("builtins.open", m_leitura):
-        d1 = DessemArq.le_arquivo("")
+        d1 = DessemArq.read(ARQ_TESTE)
     m_escrita: MagicMock = mock_open(read_data="")
     with patch("builtins.open", m_escrita):
-        d1.escreve_arquivo("", "")
+        d1.write(ARQ_TESTE)
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
         linhas_escritas = [
@@ -745,5 +747,5 @@ def test_leitura_escrita_dessemarq():
         ]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
-        d2 = DessemArq.le_arquivo("")
+        d2 = DessemArq.read(ARQ_TESTE)
         assert d1 == d2

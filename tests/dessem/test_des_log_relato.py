@@ -12,11 +12,13 @@ from tests.mocks.arquivos.des_log_relato import (
     MockBlocoTempoProcessamento,
 )
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_atributos_encontrados_des_log_relato():
     m: MagicMock = mock_open(read_data="".join(MockDesLogRelato))
     with patch("builtins.open", m):
-        log = DesLogRelato.le_arquivo("")
+        log = DesLogRelato.read(ARQ_TESTE)
         assert log.versao is not None
         assert log.data_estudo is not None
         assert log.tempo_processamento is not None
@@ -26,7 +28,7 @@ def test_atributos_encontrados_des_log_relato():
 def test_atributos_naoencontrados_des_log_relato():
     m: MagicMock = mock_open(read_data="")
     with patch("builtins.open", m):
-        log = DesLogRelato.le_arquivo("")
+        log = DesLogRelato.read(ARQ_TESTE)
         assert log.versao is None
         assert log.data_estudo is None
         assert log.tempo_processamento is None
@@ -36,14 +38,14 @@ def test_atributos_naoencontrados_des_log_relato():
 def test_versao_des_log_relato():
     m: MagicMock = mock_open(read_data="".join(MockDesLogRelato))
     with patch("builtins.open", m):
-        log = DesLogRelato.le_arquivo("")
+        log = DesLogRelato.read(ARQ_TESTE)
         assert log.versao == "19.3"
 
 
 def test_data_estudo_des_log_relato():
     m: MagicMock = mock_open(read_data="".join(MockDesLogRelato))
     with patch("builtins.open", m):
-        log = DesLogRelato.le_arquivo("")
+        log = DesLogRelato.read(ARQ_TESTE)
         assert log.data_estudo == datetime(year=2022, month=8, day=11)
 
 

@@ -41,11 +41,13 @@ from tests.mocks.arquivos.operut import (
 )
 import pandas as pd
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_atributos_encontrados_operut():
     m: MagicMock = mock_open(read_data="".join(MockOperut))
     with patch("builtins.open", m):
-        op = Operut.le_arquivo("")
+        op = Operut.read(ARQ_TESTE)
         assert op.condicoes_iniciais is not None
         assert op.limites_e_condicoes_operativas is not None
 
@@ -53,7 +55,7 @@ def test_atributos_encontrados_operut():
 def test_atributos_nao_encontrados_operut():
     m: MagicMock = mock_open(read_data="")
     with patch("builtins.open", m):
-        op = Operut.le_arquivo("")
+        op = Operut.read(ARQ_TESTE)
         assert op.condicoes_iniciais is None
         assert op.limites_e_condicoes_operativas is None
 
@@ -698,10 +700,10 @@ def test_bloco_tratainviabilha():
 def test_leitura_escrita_operut():
     m_leitura: MagicMock = mock_open(read_data="".join(MockOperut))
     with patch("builtins.open", m_leitura):
-        op1 = Operut.le_arquivo("")
+        op1 = Operut.read(ARQ_TESTE)
     m_escrita: MagicMock = mock_open(read_data="")
     with patch("builtins.open", m_escrita):
-        op1.escreve_arquivo("", "")
+        op1.write(ARQ_TESTE)
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
         linhas_escritas = [
@@ -709,5 +711,5 @@ def test_leitura_escrita_operut():
         ]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
-        op2 = Operut.le_arquivo("")
+        op2 = Operut.read(ARQ_TESTE)
         assert op1 == op2

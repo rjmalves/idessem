@@ -11,6 +11,10 @@ from typing import Optional, Type, TypeVar
 from datetime import datetime
 import pandas as pd  # type: ignore
 
+# Para compatibilidade - até versão 1.0.0
+from os.path import join
+import warnings
+
 
 class DesLogRelato(BlockFile):
     """
@@ -32,7 +36,12 @@ class DesLogRelato(BlockFile):
     def le_arquivo(
         cls, diretorio: str, nome_arquivo="DES_LOG_RELATO.DAT"
     ) -> "DesLogRelato":
-        return cls.read(diretorio, nome_arquivo)
+        msg = (
+            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
+            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
+        )
+        warnings.warn(msg, category=FutureWarning)
+        return cls.read(join(diretorio, nome_arquivo))
 
     def _bloco_por_tipo(self, bloco: Type[T], indice: int) -> Optional[T]:
         """

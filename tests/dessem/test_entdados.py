@@ -13,6 +13,8 @@ from tests.mocks.arquivos.entdados import (
     MockRD,
 )
 
+ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_registro_rd_entdados():
     m: MagicMock = mock_open(read_data="".join(MockRD))
