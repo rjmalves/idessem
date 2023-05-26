@@ -1,3 +1,4 @@
+MockRD = "RD  1    800  0 1            "
 MockRIVAR = "RIVAR  999     4"
 MockTM = "TM  11    0   0      0.5     1     LEVE"
 MockSIST = "SIST    1 SE  0 SUDESTE   "
