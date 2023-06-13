@@ -2,6 +2,7 @@ from cfinterface.components.register import Register
 from cfinterface.components.line import Line
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.floatfield import FloatField
+from cfinterface.components.literalfield import LiteralField
 
 from typing import Optional
 
@@ -283,3 +284,72 @@ class HidreletricaCurvaJusantePolinomioPorPartesSegmento(Register):
     @coeficiente_a4.setter
     def coeficiente_a4(self, c: float):
         self.data[9] = c
+
+
+class HidreletricaCurvaJusanteAfogamentoExplicitoUsina(Register):
+    """ """
+
+    IDENTIFIER = "HIDRELETRICA-CURVAJUSANTE-AFOGAMENTO-EXPLICITO-USINA"
+    IDENTIFIER_DIGITS = 53
+    LINE = Line(
+        [
+            IntegerField(),
+            LiteralField(size=3),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica relacionada ao polinômio.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def considera_afogamento(self) -> Optional[str]:
+        """
+        Habilitação do afogamento explícito.
+
+        :return: O flag da habilitação.
+        :rtype: str | None
+        """
+        return self.data[1]
+
+    @considera_afogamento.setter
+    def considera_afogamento(self, c: str):
+        self.data[1] = c
+
+
+class HidreletricaCurvaJusanteAfogamentoExplicitoPadrao(Register):
+    """ """
+
+    IDENTIFIER = "HIDRELETRICA-CURVAJUSANTE-AFOGAMENTO-EXPLICITO-PADRAO"
+    IDENTIFIER_DIGITS = 54
+    LINE = Line(
+        [
+            LiteralField(size=3),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def considera_afogamento(self) -> Optional[str]:
+        """
+        Habilitação do afogamento explícito.
+
+        :return: O flag da habilitação.
+        :rtype: str | None
+        """
+        return self.data[0]
+
+    @considera_afogamento.setter
+    def considera_afogamento(self, c: str):
+        self.data[0] = c

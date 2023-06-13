@@ -6,6 +6,8 @@ from idessem.dessem.modelos.polinjus import (
     HidreletricaCurvaJusante,
     HidreletricaCurvaJusantePolinomioPorPartes,
     HidreletricaCurvaJusantePolinomioPorPartesSegmento,
+    HidreletricaCurvaJusanteAfogamentoExplicitoUsina,
+    HidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
 )
 
 # Para compatibilidade - até versão 1.0.0
@@ -21,6 +23,8 @@ class Polinjus(RegisterFile):
     REGISTERS = [
         HidreletricaCurvaJusantePolinomioPorPartesSegmento,
         HidreletricaCurvaJusantePolinomioPorPartes,
+        HidreletricaCurvaJusanteAfogamentoExplicitoUsina,
+        HidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
         HidreletricaCurvaJusante,
     ]
 
@@ -273,3 +277,62 @@ class Polinjus(RegisterFile):
                 coeficiente_a3=coeficiente_a3,
                 coeficiente_a4=coeficiente_a4,
             )
+
+    def hidreletrica_curvajusante_afogamentoexplicito_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        considera_afogamento: Optional[str] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            HidreletricaCurvaJusanteAfogamentoExplicitoUsina,
+            List[HidreletricaCurvaJusanteAfogamentoExplicitoUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que habilitam ou desabilitam a consideração
+        do tratamento do afogamento explícito por usina. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas
+        para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param considera_afogamento: habilitação do afogamento
+        :type considera_afogamento: str | None
+        :type df: bool
+        :return: Um ou mais registros, se existirem.
+        :rtype: `HidreletricaCurvaJusante` |
+            List[`HidreletricaCurvaJusante`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(
+                HidreletricaCurvaJusanteAfogamentoExplicitoUsina
+            )
+        else:
+            return self.__obtem_registros_com_filtros(
+                HidreletricaCurvaJusanteAfogamentoExplicitoUsina,
+                codigo_usina=codigo_usina,
+                considera_afogamento=considera_afogamento,
+            )
+
+    def hidreletrica_curvajusante_afogamentoexplicito_padrao(
+        self,
+        considera_afogamento: Optional[str] = None,
+    ) -> Optional[
+        Union[
+            HidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
+            List[HidreletricaCurvaJusanteAfogamentoExplicitoPadrao],
+        ]
+    ]:
+        """
+        Obtém registros que habilitam ou desabilitam a consideração
+        do tratamento do afogamento explícito padrão.
+
+        :param considera_afogamento: habilitação do afogamento
+        :type considera_afogamento: str | None
+        """
+        return self.__obtem_registros_com_filtros(
+            HidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
+            considera_afogamento=considera_afogamento,
+        )

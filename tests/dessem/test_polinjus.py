@@ -3,6 +3,8 @@ from idessem.dessem.polinjus import (
     HidreletricaCurvaJusante,
     HidreletricaCurvaJusantePolinomioPorPartes,
     HidreletricaCurvaJusantePolinomioPorPartesSegmento,
+    HidreletricaCurvaJusanteAfogamentoExplicitoUsina,
+    HidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
 )
 import pandas as pd  # type: ignore
 from datetime import datetime
@@ -14,6 +16,8 @@ from tests.mocks.arquivos.polinjus import (
     MockHidreletricaCurvaJusante,
     MockHidreletricaCurvaJusantePolinomio,
     MockHidreletricaCurvaJusantePolinomioSegmento,
+    MockHidreletricaCurvaJusanteAfogamentoExplicitoUsina,
+    MockHidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -27,6 +31,14 @@ def test_atributos_encontrados_polinjus():
         assert polinjus.hidreletrica_curvajusante_polinomio() is not None
         assert (
             polinjus.hidreletrica_curvajusante_polinomio_segmento() is not None
+        )
+        assert (
+            polinjus.hidreletrica_curvajusante_afogamentoexplicito_usina()
+            is not None
+        )
+        assert (
+            polinjus.hidreletrica_curvajusante_afogamentoexplicito_padrao()
+            is not None
         )
 
 
@@ -189,6 +201,62 @@ def test_registro_polinjus_hidreletrica_curvajusante_polinomio_segmento():
     assert r.coeficiente_a4 == 0.00000000000000e01
     r.coeficiente_a4 = -1
     assert r.coeficiente_a4 == -1
+
+
+def test_df_polinjus_hidreletrica_curvajusante_afogamentoexplicito_usina():
+    m: MagicMock = mock_open(read_data="".join(MockPolinjus))
+    with patch("builtins.open", m):
+        polinjus = Polinjus.read(ARQ_TESTE)
+        df_curvajusante_afogamentoexplicito_usina = (
+            polinjus.hidreletrica_curvajusante_afogamentoexplicito_usina(
+                df=True
+            )
+        )
+        assert (
+            df_curvajusante_afogamentoexplicito_usina.at[2, "codigo_usina"]
+            == 54
+        )
+        assert (
+            df_curvajusante_afogamentoexplicito_usina.at[
+                2, "considera_afogamento"
+            ]
+            == "nao"
+        )
+
+
+def test_registro_polinjus_hidreletrica_curvajusante_afogamentoexplicito_usina():
+    m: MagicMock = mock_open(
+        read_data="".join(MockHidreletricaCurvaJusanteAfogamentoExplicitoUsina)
+    )
+    r = HidreletricaCurvaJusanteAfogamentoExplicitoUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [22, "sim"]
+    assert r.codigo_usina == 22
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.considera_afogamento == "sim"
+    r.considera_afogamento = "nao"
+    assert r.considera_afogamento == "nao"
+
+
+def test_registro_polinjus_hidreletrica_curvajusante_afogamentoexplicito_padrao():
+    m: MagicMock = mock_open(
+        read_data="".join(
+            MockHidreletricaCurvaJusanteAfogamentoExplicitoPadrao
+        )
+    )
+    r = HidreletricaCurvaJusanteAfogamentoExplicitoPadrao()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == ["nao"]
+    assert r.considera_afogamento == "nao"
+    r.considera_afogamento = "sim"
+    assert r.considera_afogamento == "sim"
 
 
 def test_eq_polinjus():
