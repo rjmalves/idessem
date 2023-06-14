@@ -12,9 +12,9 @@ import warnings
 
 class PdoEcoUsih(ArquivoCSV):
     """
-    Armazena os dados das saídas referentes as unidades hidráulicas.
+    Armazena os dados de eco referentes as usinas hidráulicas.
 
-    Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_HIDR.
+    Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_ECO_USIH.
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoEcoUsih]
