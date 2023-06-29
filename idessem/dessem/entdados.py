@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD
+from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD, TVIAG
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
@@ -25,7 +25,7 @@ class Entdados(RegisterFile):
 
     T = TypeVar("T")
 
-    REGISTERS = [UH]
+    REGISTERS = [UH, SIST, REE, TM, RIVAR, RD, TVIAG]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -135,7 +135,6 @@ class Entdados(RegisterFile):
         """
         self.data.preppend(registro)
 
-    @property
     def rd(
         self,
         df: bool = False,
@@ -333,6 +332,49 @@ class Entdados(RegisterFile):
                 ree=ree,
                 volume_inicial=volume_inicial,
                 evaporacao=evaporacao,
+            )
+
+    def tviag(
+        self,
+        uhe_montante: Optional[int] = None,
+        elemento_jusante: Optional[int] = None,
+        tipo_elemento_jusante: Optional[str] = None,
+        duracao: Optional[int] = None,
+        tipo_tempo_viagem: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[TVIAG, List[TVIAG], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica os tempos de viagem da
+        água entre uma UHE existente e um elemento a jusante
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param uhe_montante: Índice da UHE a montante com tempo de viagem
+        :type uhe_montante: int | None
+        :param elemento_jusante: Índice do elemento a jusante
+        :type elemento_jusante: int | None
+        :param tipo_elemento_jusante: Tipo do elemento a jusante (seção ou UHE)
+        :type tipo_elemento_jusante: str | None
+        :param duracao: duração, em horas, da viagem da água
+        :type duracao: int | None
+        :param tipo_tempo_viagem: ìndice do tipo do tempo de viagem (translação ou propagação)
+        :type tipo_tempo_viagem: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`TVIAG` | list[:class:`TVIAG`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(TVIAG)
+        else:
+            return self.__obtem_registros_com_filtros(
+                TVIAG,
+                uhe_montante=uhe_montante,
+                elemento_jusante=elemento_jusante,
+                tipo_elemento_jusante=tipo_elemento_jusante,
+                duracao=duracao,
+                tipo_tempo_viagem=tipo_tempo_viagem,
             )
 
     # def ct(
@@ -805,35 +847,6 @@ class Entdados(RegisterFile):
     #             de=de,
     #             para=para,
     #             coeficiente=coeficiente,
-    #         )
-
-    # def vi(
-    #     self,
-    #     uhe: Optional[int] = None,
-    #     duracao: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[VI, List[VI], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica os tempos de viagem da
-    #     água em uma UHE existente no no estudo descrito
-    #     pelo :class:`Dadger`.
-
-    #     :param uhe: Índice da UHE associada aos tempos de viagem
-    #     :type uhe: int | None
-    #     :param duracao: duração, em horas, da viagem da água
-    #     :type duracao: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`VI` | list[:class:`VI`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(VI)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             VI, uhe=uhe, duracao=duracao
     #         )
 
     # def ir(

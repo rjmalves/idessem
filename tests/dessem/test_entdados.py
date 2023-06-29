@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD
+from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD, TVIAG
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
@@ -11,6 +11,7 @@ from tests.mocks.arquivos.entdados import (
     MockTM,
     MockRIVAR,
     MockRD,
+    MockTVIAG,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -281,6 +282,38 @@ def test_registro_uh_entdados_inteiro():
     assert r.penaliza_restricao_geracao == 1
     r.penaliza_restricao_geracao = 0
     assert r.penaliza_restricao_geracao == 0
+
+
+def test_registro_tviag_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockTVIAG))
+    r = TVIAG()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        66,
+        1,
+        "S",
+        24,
+        2,
+    ]
+
+    assert r.uhe_montante == 66
+    r.uhe_montante = -1
+    assert r.uhe_montante == -1
+    assert r.elemento_jusante == 1
+    r.elemento_jusante = -1
+    assert r.elemento_jusante == -1
+    assert r.tipo_elemento_jusante == "S"
+    r.tipo_elemento_jusante = "X"
+    assert r.tipo_elemento_jusante == "X"
+    assert r.duracao == 24
+    r.duracao = -1
+    assert r.duracao == -1
+    assert r.tipo_tempo_viagem == 2
+    r.tipo_tempo_viagem = -1
+    assert r.tipo_tempo_viagem == -1
 
 
 # def test_campos_nao_encontrados_entdados():

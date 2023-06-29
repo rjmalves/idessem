@@ -631,6 +631,98 @@ class UH(Register):
         self.data[10] = n
 
 
+class TVIAG(Register):
+    """
+    Registro que contém os tempos de viagem da água entre usinas.
+    """
+
+    IDENTIFIER = "TVIAG "
+    IDENTIFIER_DIGITS = 6
+    LINE = Line(
+        [
+            IntegerField(3, 6),
+            IntegerField(3, 10),
+            LiteralField(1, 14),
+            IntegerField(3, 19),
+            IntegerField(1, 24),
+        ]
+    )
+
+    @property
+    def uhe_montante(self) -> Optional[int]:
+        """
+        O código da UHE a montante a partir do qual é contabilizado
+        o tempo de viagem.
+
+        :return: O código
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @uhe_montante.setter
+    def uhe_montante(self, u: int):
+        self.data[0] = u
+
+    @property
+    def elemento_jusante(self) -> Optional[int]:
+        """
+        O código do elemento a jusante do qual é contabilizado
+        o tempo de viagem.
+
+        :return: O código
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @elemento_jusante.setter
+    def elemento_jusante(self, u: int):
+        self.data[1] = u
+
+    @property
+    def tipo_elemento_jusante(self) -> Optional[str]:
+        """
+        O tipo de elemento de jusante (S=seção de rio, H=usina).
+
+        :return: O código
+        :rtype: str | None
+        """
+        return self.data[2]
+
+    @tipo_elemento_jusante.setter
+    def tipo_elemento_jusante(self, u: str):
+        self.data[2] = u
+
+    @property
+    def duracao(self) -> Optional[int]:
+        """
+        A duração da viagem da água (em horas) entre a UHE a montante e
+        o elemento à jusante.
+
+        :return: A duração
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @duracao.setter
+    def duracao(self, d: int):
+        self.data[3] = d
+
+    @property
+    def tipo_tempo_viagem(self) -> Optional[int]:
+        """
+        O código referente ao tipo de tempo de viagem considerado
+        (1=translação; 2=propagação).
+
+        :return: O código do tipo.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @tipo_tempo_viagem.setter
+    def tipo_tempo_viagem(self, d: int):
+        self.data[4] = d
+
+
 # class CT(Register):
 #     """
 #     Registro que contém o cadastro das usinas termelétricas com
@@ -2008,91 +2100,6 @@ class UH(Register):
 #     @coeficiente.setter
 #     def coeficiente(self, f: float):
 #         self.data[4] = f
-
-
-# class VI(Register):
-#     """
-#     Registro que contém os tempos de viagem da água entre usinas.
-#     """
-
-#     IDENTIFIER = "VI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(3, 9),
-#             FloatField(5, 14, 0),
-#             FloatField(5, 19, 0),
-#             FloatField(5, 24, 0),
-#             FloatField(5, 29, 0),
-#             FloatField(5, 34, 0),
-#             FloatField(5, 39, 0),
-#             FloatField(5, 44, 0),
-#             FloatField(5, 49, 0),
-#             FloatField(5, 54, 0),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         """
-#         O código da UHE a partir do qual é contabilizado
-#         o tempo de viagem.
-
-#         :return: O código
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @uhe.setter
-#     def uhe(self, u: int):
-#         self.data[0] = u
-
-#     @property
-#     def duracao(self) -> Optional[int]:
-#         """
-#         A duração da viagem da água (em horas) entre a UHE do
-#         código informado e sua usina à jusante segundo o hidr.
-
-#         :return: A duração
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @duracao.setter
-#     def duracao(self, d: int):
-#         self.data[1] = d
-
-#     @property
-#     def vazoes(self) -> Optional[List[float]]:
-#         """
-#         As vazões defluentes das semanas passadas para a usina
-#         do código informado. A posição da vazão na lista indica
-#         a qual semana passada se refere [s-1, s-2, s-3, ...].
-
-#         :return: As vazões
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[2::] if v is not None]
-
-#     @vazoes.setter
-#     def vazoes(self, v: List[float]):
-#         self.__atualiza_dados_lista(v, 2, 1)
 
 
 # class IR(Register):
