@@ -1256,7 +1256,7 @@ class DE(Register):
             IntegerField(2, 19),
             IntegerField(1, 22),
             FloatField(10, 24, 1),
-            LiteralField(10,35),
+            LiteralField(10, 35),
         ]
     )
 
@@ -1387,7 +1387,7 @@ class DE(Register):
     @demanda.setter
     def demanda(self, demanda: float):
         self.data[7] = demanda
-    
+
     @property
     def justificativa(self) -> Optional[str]:
         """
