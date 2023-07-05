@@ -9,6 +9,7 @@ from idessem.dessem.modelos.entdados import (
     UT,
     USIE,
     DP,
+    DE,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -28,6 +29,7 @@ from tests.mocks.arquivos.entdados import (
     MockUSIE,
     MockDPliteral,
     MockDPinteiro,
+    MockDE,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -586,6 +588,43 @@ def test_registro_dp_entdados_inteiro():
     assert r.demanda == 36904
     r.demanda = -1
     assert r.demanda == -1
+
+
+def test_registro_de_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockDE))
+    r = DE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, "11", 0, 0, "F", None, None, 1469, ""]
+    assert r.codigo == 1
+    r.codigo = -1
+    assert r.codigo == -1
+    assert r.dia_inicial == 11
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == "F"
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final is None
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final is None
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.demanda == 1469
+    r.demanda = -1
+    assert r.demanda == -1
+    assert r.justificativa == ""
+    r.justificativa = -1
+    assert r.justificativa == -1
 
 
 # def test_campos_nao_encontrados_entdados():

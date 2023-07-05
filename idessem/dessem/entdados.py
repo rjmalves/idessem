@@ -9,6 +9,7 @@ from idessem.dessem.modelos.entdados import (
     UT,
     USIE,
     DP,
+    DE,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -478,9 +479,9 @@ class Entdados(RegisterFile):
         df: bool = False,
     ) -> Optional[Union[DP, List[DP], pd.DataFrame]]:
         """
-        Obtém um registro que define os dados de demanda para 
-        os submercados que serão considerados para os períodos
-        que não se considerada a rede elétrica no estudo descrito 
+        Obtém um registro que define os dados de demanda para
+        os submercados que serão consideradas para os períodos
+        que não se considerada a rede elétrica no estudo descrito
         pelo :class:`Entdados`.
 
         :param submercado: subsistema para o qual
@@ -500,6 +501,34 @@ class Entdados(RegisterFile):
             return self.__obtem_registros_com_filtros(
                 DP,
                 submercado=submercado,
+            )
+
+    def de(
+        self,
+        codigo: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[DE, List[DE], pd.DataFrame]]:
+        """
+        Obtém um registro que define uma demanda especial para
+        serem representadas em restrições elétricas no estudo descrito
+        pelo :class:`Entdados`.
+
+        :param codigo: código da demanda especial.
+        :type codigo: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`DE` | list[:class:`DE`] |
+            :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(DE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                DE,
+                codigo=codigo,
             )
 
     # def pq(

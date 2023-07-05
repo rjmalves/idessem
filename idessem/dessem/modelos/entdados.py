@@ -1088,9 +1088,9 @@ class USIE(Register):
 
 class DP(Register):
     """
-    Registro que contém o cadastro das durações dos patamares.
+    Registro que as demandas para os submercados que serão consideradas
+    para os períodos em que não se considerada a rede elétrica.
 
-    *OBS: Suporta apenas 3 patamares no momento*
     """
 
     IDENTIFIER = "DP  "
@@ -1235,6 +1235,172 @@ class DP(Register):
     @demanda.setter
     def demanda(self, demanda: float):
         self.data[7] = demanda
+
+
+class DE(Register):
+    """
+    Registro que as demandas especiais para serem representadas em
+    restrições elétricas do tipo RE.
+
+    """
+
+    IDENTIFIER = "DE  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            LiteralField(2, 8),
+            IntegerField(2, 11),
+            IntegerField(1, 14),
+            LiteralField(2, 16),
+            IntegerField(2, 19),
+            IntegerField(1, 22),
+            FloatField(10, 24, 1),
+            LiteralField(10,35),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código da demanda especial.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, sub: int):
+        self.data[0] = sub
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial de operação.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        dia = self.data[1]
+        if (dia == "I") or (dia is None):
+            return dia
+        else:
+            return int(dia)
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[1] = str(n)
+        else:
+            self.data[1] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial de operação.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[2] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial de operação.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[3] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final de operação.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        dia = self.data[4]
+        if (dia == "F") or (dia is None):
+            return dia
+        else:
+            return int(dia)
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[4] = str(n)
+        else:
+            self.data[4] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final de operação.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[5]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[5] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final de operação.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[6]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[6] = n
+
+    @property
+    def demanda(self) -> Optional[float]:
+        """
+        A demanda em Mwmed para o período especificado
+
+        :return: A demanda.
+        :rtype: float | None
+        """
+        return self.data[7]
+
+    @demanda.setter
+    def demanda(self, demanda: float):
+        self.data[7] = demanda
+    
+    @property
+    def justificativa(self) -> Optional[str]:
+        """
+        A descrição ou justificativa.
+
+        :return: A justificativa.
+        :rtype: str | None
+        """
+        return self.data[8]
+
+    @justificativa.setter
+    def justificativa(self, justificativa: str):
+        self.data[8] = justificativa
 
 
 # class PQ(Register):
