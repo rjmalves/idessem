@@ -1,4 +1,13 @@
-from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD, TVIAG
+from idessem.dessem.modelos.entdados import (
+    UH,
+    SIST,
+    REE,
+    TM,
+    RIVAR,
+    RD,
+    TVIAG,
+    UT,
+)
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
@@ -12,6 +21,8 @@ from tests.mocks.arquivos.entdados import (
     MockRIVAR,
     MockRD,
     MockTVIAG,
+    MockUTliteral,
+    MockUTinteiro,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -314,6 +325,132 @@ def test_registro_tviag_entdados():
     assert r.tipo_tempo_viagem == 2
     r.tipo_tempo_viagem = -1
     assert r.tipo_tempo_viagem == -1
+
+
+def test_registro_ut_entdados_literal():
+    m: MagicMock = mock_open(read_data="".join(MockUTliteral))
+    r = UT()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "ANGRA 1",
+        1,
+        2,
+        "I",
+        None,
+        None,
+        "F",
+        None,
+        None,
+        None,
+        582.0,
+        582.0,
+    ]
+    assert r.codigo == 1
+    r.codigo = 0
+    assert r.codigo == 0
+    assert r.nome == "ANGRA 1"
+    r.nome = "ILHA"
+    assert r.nome == "ILHA"
+    assert r.subsistema == 1
+    r.subsistema = 0
+    assert r.subsistema == 0
+    assert r.tipo_restricao == 2
+    r.tipo_restricao = 0
+    assert r.tipo_restricao == 0
+    assert r.dia_inicial == "I"
+    r.dia_inicial = 0
+    assert r.dia_inicial == 0
+    assert r.hora_inicial is None
+    r.hora_inicial = 0
+    assert r.hora_inicial == 0
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 0
+    assert r.meia_hora_inicial == 0
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 0
+    assert r.hora_final == 0
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 0
+    assert r.meia_hora_final == 0
+    assert r.unidade_restricao is None
+    r.unidade_restricao = 0
+    assert r.unidade_restricao == 0
+    assert r.geracao_minima == 582.0
+    r.geracao_minima = 0
+    assert r.geracao_minima == 0
+    assert r.geracao_maxima == 582.0
+    r.geracao_maxima = 0
+    assert r.geracao_maxima == 0
+
+
+def test_registro_ut_entdados_inteiro():
+    m: MagicMock = mock_open(read_data="".join(MockUTinteiro))
+    r = UT()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "ANGRA 1",
+        1,
+        2,
+        "11",
+        0,
+        0,
+        "12",
+        0,
+        0,
+        None,
+        582.0,
+        582.0,
+    ]
+    assert r.codigo == 1
+    r.codigo = 0
+    assert r.codigo == 0
+    assert r.nome == "ANGRA 1"
+    r.nome = "ILHA"
+    assert r.nome == "ILHA"
+    assert r.subsistema == 1
+    r.subsistema = 0
+    assert r.subsistema == 0
+    assert r.tipo_restricao == 2
+    r.tipo_restricao = 0
+    assert r.tipo_restricao == 0
+    assert r.dia_inicial == 11
+    r.dia_inicial = 0
+    assert r.dia_inicial == 0
+    assert r.hora_inicial == 0
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == 12
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final == 0
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final == 0
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.unidade_restricao is None
+    r.unidade_restricao = 0
+    assert r.unidade_restricao == 0
+    assert r.geracao_minima == 582.0
+    r.geracao_minima = 0
+    assert r.geracao_minima == 0
+    assert r.geracao_maxima == 582.0
+    r.geracao_maxima = 0
+    assert r.geracao_maxima == 0
 
 
 # def test_campos_nao_encontrados_entdados():

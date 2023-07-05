@@ -1,4 +1,13 @@
-from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD, TVIAG
+from idessem.dessem.modelos.entdados import (
+    UH,
+    SIST,
+    REE,
+    TM,
+    RIVAR,
+    RD,
+    TVIAG,
+    UT,
+)
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
@@ -25,7 +34,7 @@ class Entdados(RegisterFile):
 
     T = TypeVar("T")
 
-    REGISTERS = [UH, SIST, REE, TM, RIVAR, RD, TVIAG]
+    REGISTERS = [UH, SIST, REE, TM, RIVAR, RD, TVIAG, UT]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -375,6 +384,54 @@ class Entdados(RegisterFile):
                 tipo_elemento_jusante=tipo_elemento_jusante,
                 duracao=duracao,
                 tipo_tempo_viagem=tipo_tempo_viagem,
+            )
+
+    def ut(
+        self,
+        codigo: Optional[int] = None,
+        nome: Optional[str] = None,
+        subsistema: Optional[int] = None,
+        tipo_restricao: Optional[int] = None,
+        geracao_minima: Optional[float] = None,
+        geracao_maxima: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[UT, List[UT], pd.DataFrame]]:
+        """
+        Obtém um registro que define uma usina termelétrica existente
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param codigo: índice do código que especifica o registro da UTE
+        :type codigo: int | None
+        :param nome: nome da UTE
+        :type nome: str | None
+        :param subsistema: índice do subsistema da UTE
+        :type subsistema: int | None
+        :param tipo_restricao: tipo de restrição
+        :type tipo_restricao: int | None
+        :param geracao_minima: limite de geração mínima (ou, caso restrição de rampa,
+            valor da variação máxima para decréscimo de geração)
+        :type geracao_minima: float | None
+        :param geracao_maxima: limite de geração máxima (ou, caso restrição de rampa,
+            valor da variação máxima para acréscimo de geração)
+        :type geracao_maxima: float | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`UT` | list[:class:`UT`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(UT)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UT,
+                codigo=codigo,
+                nome=nome,
+                subsistema=subsistema,
+                tipo_restricao=tipo_restricao,
+                geracao_minima=geracao_minima,
+                geracao_maxima=geracao_maxima,
             )
 
     # def ct(

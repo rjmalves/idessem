@@ -723,146 +723,234 @@ class TVIAG(Register):
         self.data[4] = d
 
 
-# class CT(Register):
-#     """
-#     Registro que contém o cadastro das usinas termelétricas com
-#     os seus custos e capacidades.
+class UT(Register):
+    """
+    Registro que contém as usinas termelétricas e suas restrições
+    de geração.
 
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
+    """
 
-#     IDENTIFIER = "CT  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             LiteralField(10, 14),
-#             IntegerField(2, 24),
-#             FloatField(5, 29, 2),
-#             FloatField(5, 34, 2),
-#             FloatField(10, 39, 2),
-#             FloatField(5, 49, 2),
-#             FloatField(5, 54, 2),
-#             FloatField(10, 59, 2),
-#             FloatField(5, 69, 2),
-#             FloatField(5, 74, 2),
-#             FloatField(10, 79, 2),
-#         ]
-#     )
+    IDENTIFIER = "UT  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            LiteralField(12, 9),
+            IntegerField(2, 22),
+            IntegerField(1, 25),
+            LiteralField(2, 27),
+            IntegerField(2, 30),
+            IntegerField(1, 33),
+            LiteralField(2, 35),
+            IntegerField(2, 38),
+            IntegerField(1, 41),
+            IntegerField(1, 46),
+            FloatField(10, 47, 1),
+            FloatField(10, 57, 1),
+        ]
+    )
 
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código de cadastro da UTE.
 
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código de cadastro da UTE.
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
 
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
+    @codigo.setter
+    def codigo(self, codigo: int):
+        self.data[0] = codigo
 
-#     @codigo.setter
-#     def codigo(self, codigo: int):
-#         self.data[0] = codigo
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome de cadastro da UTE.
 
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema de cadastro da UTE.
+        :return: O nome como uma `str`.
+        :rtype: str | None
+        """
+        return self.data[1]
 
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
+    @nome.setter
+    def nome(self, nome: str):
+        self.data[1] = nome
 
-#     @subsistema.setter
-#     def subsistema(self, subsistema: int):
-#         self.data[1] = subsistema
+    @property
+    def subsistema(self) -> Optional[int]:
+        """
+        O subsistema de cadastro da UTE.
 
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome de cadastro da UTE.
+        :return: O subsistema.
+        :rtype: int | None
+        """
+        return self.data[2]
 
-#         :return: O nome como uma `str`.
-#         :rtype: str | None
-#         """
-#         return self.data[2]
+    @subsistema.setter
+    def subsistema(self, subsistema: int):
+        self.data[2] = subsistema
 
-#     @nome.setter
-#     def nome(self, nome: str):
-#         self.data[2] = nome
+    @property
+    def tipo_restricao(self) -> Optional[int]:
+        """
+        O flag para indicar tipo de restrição.
 
-#     @property
-#     def estagio(self) -> Optional[str]:
-#         """
-#         O estágio associado às propriedades cadastradas.
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[3]
 
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[3]
+    @tipo_restricao.setter
+    def tipo_restricao(self, tipo_restricao: int):
+        self.data[3] = tipo_restricao
 
-#     @estagio.setter
-#     def estagio(self, estagio: int):
-#         self.data[3] = estagio
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial de operação.
 
-#     @property
-#     def inflexibilidades(self) -> Optional[List[float]]:
-#         """
-#         As inflexibilidades da UTE por patamar.
+        :return: O dia.
+        :rtype: str | int | None
+        """
 
-#         :return: As inflexibilidades.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[4::3] if v is not None]
+        dia = self.data[4]
+        if (dia == "I") or (dia is None):
+            return dia
+        else:
+            return int(dia)
 
-#     @inflexibilidades.setter
-#     def inflexibilidades(self, inflex: List[float]):
-#         self.__atualiza_dados_lista(inflex, 4, 3)
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[4] = str(n)
+        else:
+            self.data[4] = n
 
-#     @property
-#     def disponibilidades(self) -> Optional[List[float]]:
-#         """
-#         As disponibilidades da UTE por patamar.
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial de operação.
 
-#         :return: As disponibilidades.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[5::3] if v is not None]
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[5]
 
-#     @disponibilidades.setter
-#     def disponibilidades(self, disp: List[float]):
-#         self.__atualiza_dados_lista(disp, 5, 3)
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[5] = n
 
-#     @property
-#     def cvus(self) -> Optional[List[float]]:
-#         """
-#         Os CVUs da UTE por patamar.
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial de operação.
 
-#         :return: Os CVUs.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[6::3] if v is not None]
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[6]
 
-#     @cvus.setter
-#     def cvus(self, cvu: List[float]):
-#         self.__atualiza_dados_lista(cvu, 6, 3)
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[6] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final de operação.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        dia = self.data[7]
+        if (dia == "F") or (dia is None):
+            return dia
+        else:
+            return int(dia)
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[7] = str(n)
+        else:
+            self.data[7] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final de operação.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[8]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[8] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final de operação.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[9]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[9] = n
+
+    @property
+    def unidade_restricao(self) -> Optional[int]:
+        """
+        O flag para indicar a unidade da restrição de rampa.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[10]
+
+    @unidade_restricao.setter
+    def unidade_restricao(self, unidade_restricao: int):
+        self.data[10] = unidade_restricao
+
+    @property
+    def geracao_minima(self) -> Optional[float]:
+        """
+        O valor do limite de geracao minima
+        (caso restrição de rampa, é o valor da variação
+        máxima para decréscimo de geração).
+
+        :return: O valor.
+        :rtype: float | None
+        """
+        return self.data[11]
+
+    @geracao_minima.setter
+    def geracao_minima(self, geracao_minima: float):
+        self.data[11] = geracao_minima
+
+    @property
+    def geracao_maxima(self) -> Optional[float]:
+        """
+        O valor do limite de geracao máxima
+        (caso restrição de rampa, é o valor da variação
+        máxima para acréscimo de geração).
+
+        :return: O valor.
+        :rtype: float | None
+        """
+        return self.data[12]
+
+    @geracao_maxima.setter
+    def geracao_maxima(self, geracao_maxima: float):
+        self.data[12] = geracao_maxima
 
 
 # class UE(Register):
