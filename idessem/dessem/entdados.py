@@ -10,6 +10,7 @@ from idessem.dessem.modelos.entdados import (
     USIE,
     DP,
     DE,
+    CD,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -531,6 +532,36 @@ class Entdados(RegisterFile):
                 codigo=codigo,
             )
 
+    def cd(
+        self,
+        submercado: Optional[int] = None,
+        numero_curva: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[CD, List[CD], pd.DataFrame]]:
+        """
+        Obtém um registro que define as curvas de déficit
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param submercado: submercado para o qual valerá a curva
+        :type submercado: int | None
+        :param numero_curva: índice da curva de déficit descrita
+        :type numero_curva: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`CD` | list[:class:`CD`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(CD)
+        else:
+            return self.__obtem_registros_com_filtros(
+                CD,
+                submercado=submercado,
+                numero_curva=numero_curva,
+            )
+
     # def pq(
     #     self,
     #     nome: Optional[str] = None,
@@ -593,44 +624,6 @@ class Entdados(RegisterFile):
     #     else:
     #         return self.__obtem_registros_com_filtros(
     #             modificacao, **{"uhe": uhe, **kwargs}
-    #         )
-
-    # def cd(
-    #     self,
-    #     numero_curva: Optional[int] = None,
-    #     subsistema: Optional[int] = None,
-    #     nome_curva: Optional[str] = None,
-    #     estagio: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[CD, List[CD], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define as curvas de déficit
-    #     no estudo descrito pelo :class:`Dadger`.
-
-    #     :param numero_curva: Índice da curva de déficit descrita
-    #     :type numero_curva: int | None
-    #     :param subsistema: subsistema para o qual valerá a curva.
-    #     :type subsistema: int | None
-    #     :param nome_curva: nome da curva.
-    #     :type nome_curva: str | None
-    #     :param estagio: estagio para o qual valerá a curva.
-    #     :type estagio: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`LU` | list[:class:`LU`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(CD)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             CD,
-    #             numero_curva=numero_curva,
-    #             subsistema=subsistema,
-    #             nome_curva=nome_curva,
-    #             estagio=estagio,
     #         )
 
     # @property

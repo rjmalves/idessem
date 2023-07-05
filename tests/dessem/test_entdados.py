@@ -10,6 +10,7 @@ from idessem.dessem.modelos.entdados import (
     USIE,
     DP,
     DE,
+    CD,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -30,6 +31,7 @@ from tests.mocks.arquivos.entdados import (
     MockDPliteral,
     MockDPinteiro,
     MockDE,
+    MockCD,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -625,6 +627,46 @@ def test_registro_de_entdados():
     assert r.justificativa == ""
     r.justificativa = -1
     assert r.justificativa == -1
+
+
+def test_registro_cd_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockCD))
+    r = CD()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 1, "6", 0, 0, "F", None, None, 7643.82, 100]
+    assert r.submercado == 1
+    r.submercado = -1
+    assert r.submercado == -1
+    assert r.numero_curva == 1
+    r.numero_curva = -1
+    assert r.numero_curva == -1
+    assert r.dia_inicial == 6
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == "F"
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final is None
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final is None
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.custo == 7643.82
+    r.custo = -1
+    assert r.custo == -1
+    assert r.limite_superior == 100
+    r.limite_superior = -1
+    assert r.limite_superior == -1
 
 
 # def test_campos_nao_encontrados_entdados():

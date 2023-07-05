@@ -1403,6 +1403,186 @@ class DE(Register):
         self.data[8] = justificativa
 
 
+class CD(Register):
+    """
+    Registro que contém o cadastro dos custos de déficit.
+
+    """
+
+    IDENTIFIER = "CD "
+    IDENTIFIER_DIGITS = 3
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            IntegerField(2, 6),
+            LiteralField(2, 9),
+            IntegerField(2, 12),
+            IntegerField(1, 15),
+            LiteralField(2, 17),
+            IntegerField(2, 20),
+            IntegerField(1, 23),
+            FloatField(10, 25, 2),
+            FloatField(10, 35, 2),
+        ]
+    )
+
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O índice do submercado associado.
+
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @submercado.setter
+    def submercado(self, s: int):
+        self.data[0] = s
+
+    @property
+    def numero_curva(self) -> Optional[int]:
+        """
+        O número da curva de déficit.
+
+        :return: O índice da curva.
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @numero_curva.setter
+    def numero_curva(self, n: int):
+        self.data[1] = n
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial de operação.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        dia = self.data[2]
+        if (dia == "I") or (dia is None):
+            return dia
+        else:
+            return int(dia)
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[2] = str(n)
+        else:
+            self.data[2] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial de operação.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[3] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial de operação.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[4] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final de operação.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        dia = self.data[5]
+        if (dia == "F") or (dia is None):
+            return dia
+        else:
+            return int(dia)
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[5] = str(n)
+        else:
+            self.data[5] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final de operação.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[6]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[6] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final de operação.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[7]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[7] = n
+
+    @property
+    def custo(self) -> Optional[float]:
+        """
+        O custo de déficit.
+
+        :return: O custo.
+        :rtype: float | None
+        """
+        return self.data[8]
+
+    @custo.setter
+    def custo(self, cus: float):
+        self.data[8] = cus
+
+    @property
+    def limite_superior(self) -> Optional[float]:
+        """
+        O limite superior para consideração dos custos.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[9]
+
+    @limite_superior.setter
+    def limite_superior(self, lim: float):
+        self.data[9] = lim
+
+
 # class PQ(Register):
 #     """
 #     Registro que contém o cadastro da geração por pequenas usinas.
@@ -1493,130 +1673,6 @@ class DE(Register):
 #     @geracoes.setter
 #     def geracoes(self, c: List[float]):
 #         self.__atualiza_dados_lista(c, 3, 1)
-
-
-# class CD(Register):
-#     """
-#     Registro que contém o cadastro dos custos de déficit.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "CD  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             IntegerField(2, 9),
-#             LiteralField(10, 14),
-#             IntegerField(2, 24),
-#             FloatField(5, 29, 1),
-#             FloatField(10, 34, 2),
-#             FloatField(5, 44, 1),
-#             FloatField(10, 49, 2),
-#             FloatField(5, 59, 1),
-#             FloatField(10, 64, 2),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def numero_curva(self) -> Optional[int]:
-#         """
-#         O número da curva de déficit.
-
-#         :return: O índice da curva.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @numero_curva.setter
-#     def numero_curva(self, n: int):
-#         self.data[0] = n
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O índice do subsistema associado.
-
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @subsistema.setter
-#     def subsistema(self, s: int):
-#         self.data[1] = s
-
-#     @property
-#     def nome_curva(self) -> Optional[str]:
-#         """
-#         O nome da curva de défitict
-
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[2]
-
-#     @nome_curva.setter
-#     def nome_curva(self, n: str):
-#         self.data[2] = n
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio de vigência do custo de déficit
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[3]
-
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[3] = e
-
-#     @property
-#     def limites_superiores(self) -> Optional[List[float]]:
-#         """
-#         Os limites superiores para consideração dos custos.
-
-#         :return: Os limites.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[4::2] if v is not None]
-
-#     @limites_superiores.setter
-#     def limites_superiores(self, lim: List[float]):
-#         self.__atualiza_dados_lista(lim, 4, 2)
-
-#     @property
-#     def custos(self) -> Optional[List[float]]:
-#         """
-#         Os custos de déficit.
-
-#         :return: Os custos.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[5::2] if v is not None]
-
-#     @custos.setter
-#     def custos(self, cus: List[float]):
-#         self.__atualiza_dados_lista(cus, 5, 2)
 
 
 # class RI(Register):

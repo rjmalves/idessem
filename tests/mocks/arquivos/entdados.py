@@ -20,3 +20,4 @@ MockUSIE = (
 MockDPliteral = "DP   1   I       F           36904\n"
 MockDPinteiro = "DP   1  11  0 0 12  1 1      36904\n"
 MockDE = "DE   1  11  0 0  F            1469\n"
+MockCD = "CD  1  1  6  0 0 F          7643.82       100\n"
