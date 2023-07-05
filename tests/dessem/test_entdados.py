@@ -8,6 +8,7 @@ from idessem.dessem.modelos.entdados import (
     TVIAG,
     UT,
     USIE,
+    DP,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -25,6 +26,8 @@ from tests.mocks.arquivos.entdados import (
     MockUTliteral,
     MockUTinteiro,
     MockUSIE,
+    MockDPliteral,
+    MockDPinteiro,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -357,9 +360,9 @@ def test_registro_ut_entdados_literal():
     assert r.nome == "ANGRA 1"
     r.nome = "ILHA"
     assert r.nome == "ILHA"
-    assert r.subsistema == 1
-    r.subsistema = 0
-    assert r.subsistema == 0
+    assert r.submercado == 1
+    r.submercado = 0
+    assert r.submercado == 0
     assert r.tipo_restricao == 2
     r.tipo_restricao = 0
     assert r.tipo_restricao == 0
@@ -420,9 +423,9 @@ def test_registro_ut_entdados_inteiro():
     assert r.nome == "ANGRA 1"
     r.nome = "ILHA"
     assert r.nome == "ILHA"
-    assert r.subsistema == 1
-    r.subsistema = 0
-    assert r.subsistema == 0
+    assert r.submercado == 1
+    r.submercado = 0
+    assert r.submercado == 0
     assert r.tipo_restricao == 2
     r.tipo_restricao = 0
     assert r.tipo_restricao == 0
@@ -497,6 +500,92 @@ def test_registro_usie_entdados():
     assert r.taxa_consumo == 0.20
     r.taxa_consumo = -1
     assert r.taxa_consumo == -1
+
+
+def test_registro_dp_entdados_literal():
+    m: MagicMock = mock_open(read_data="".join(MockDPliteral))
+    r = DP()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "I",
+        None,
+        None,
+        "F",
+        None,
+        None,
+        36904,
+    ]
+    assert r.submercado == 1
+    r.submercado = -1
+    assert r.submercado == -1
+    assert r.dia_inicial == "I"
+    r.dia_inicial = 0
+    assert r.dia_inicial == 0
+    assert r.hora_inicial is None
+    r.hora_inicial = 0
+    assert r.hora_inicial == 0
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 0
+    assert r.meia_hora_inicial == 0
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 0
+    assert r.hora_final == 0
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 0
+    assert r.meia_hora_final == 0
+    assert r.demanda == 36904
+    r.demanda = -1
+    assert r.demanda == -1
+
+
+def test_registro_dp_entdados_inteiro():
+    m: MagicMock = mock_open(read_data="".join(MockDPinteiro))
+    r = DP()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "11",
+        0,
+        0,
+        "12",
+        1,
+        1,
+        36904,
+    ]
+    assert r.submercado == 1
+    r.submercado = -1
+    assert r.submercado == -1
+    assert r.dia_inicial == 11
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == 12
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final == 1
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final == 1
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.demanda == 36904
+    r.demanda = -1
+    assert r.demanda == -1
 
 
 # def test_campos_nao_encontrados_entdados():

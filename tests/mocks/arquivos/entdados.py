@@ -17,3 +17,5 @@ MockUTinteiro = (
 MockUSIE = (
     "USIE   1  1   Sta Cecilia    181  125       0.000   160.000     0.200\n"
 )
+MockDPliteral = "DP   1   I       F           36904\n"
+MockDPinteiro = "DP   1  11  0 0 12  1 1      36904\n"

@@ -779,18 +779,18 @@ class UT(Register):
         self.data[1] = nome
 
     @property
-    def subsistema(self) -> Optional[int]:
+    def submercado(self) -> Optional[int]:
         """
-        O subsistema de cadastro da UTE.
+        O submercado de cadastro da UTE.
 
-        :return: O subsistema.
+        :return: O submercado.
         :rtype: int | None
         """
         return self.data[2]
 
-    @subsistema.setter
-    def subsistema(self, subsistema: int):
-        self.data[2] = subsistema
+    @submercado.setter
+    def submercado(self, submercado: int):
+        self.data[2] = submercado
 
     @property
     def tipo_restricao(self) -> Optional[int]:
@@ -1086,113 +1086,155 @@ class USIE(Register):
         self.data[7] = e
 
 
-# class DP(Register):
-#     """
-#     Registro que contém o cadastro das durações dos patamares.
+class DP(Register):
+    """
+    Registro que contém o cadastro das durações dos patamares.
 
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
+    *OBS: Suporta apenas 3 patamares no momento*
+    """
 
-#     IDENTIFIER = "DP  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             IntegerField(2, 9),
-#             IntegerField(1, 14),
-#             FloatField(10, 19, 1),
-#             FloatField(10, 29, 1),
-#             FloatField(10, 39, 1),
-#             FloatField(10, 49, 1),
-#             FloatField(10, 59, 1),
-#             FloatField(10, 69, 1),
-#         ]
-#     )
+    IDENTIFIER = "DP  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            LiteralField(2, 8),
+            IntegerField(2, 11),
+            IntegerField(1, 14),
+            LiteralField(2, 16),
+            IntegerField(2, 19),
+            IntegerField(1, 22),
+            FloatField(10, 24, 1),
+        ]
+    )
 
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O submercado associado à demanada especificada.
 
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado às durações especificadas.
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[0]
 
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
+    @submercado.setter
+    def submercado(self, sub: int):
+        self.data[0] = sub
 
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[0] = e
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial de operação.
 
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema associado às durações especificadas.
+        :return: O dia.
+        :rtype: str | int | None
+        """
 
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
+        dia = self.data[1]
+        if (dia == "I") or (dia is None):
+            return dia
+        else:
+            return int(dia)
 
-#     @subsistema.setter
-#     def subsistema(self, sub: int):
-#         self.data[1] = sub
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[1] = str(n)
+        else:
+            self.data[1] = n
 
-#     @property
-#     def num_patamares(self) -> Optional[int]:
-#         """
-#         O número de patamares.
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial de operação.
 
-#         :return: O número de patamares.
-#         :rtype: int | None
-#         """
-#         return self.data[2]
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2]
 
-#     @num_patamares.setter
-#     def num_patamares(self, n: int):
-#         self.data[2] = n
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[2] = n
 
-#     @property
-#     def cargas(self) -> Optional[List[float]]:
-#         """
-#         As cargas em Mwmed pata cada patamar de carga
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial de operação.
 
-#         :return: As cargas.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[3::2] if v is not None]
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3]
 
-#     @cargas.setter
-#     def cargas(self, c: List[float]):
-#         self.__atualiza_dados_lista(c, 3, 2)
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[3] = n
 
-#     @property
-#     def duracoes(self) -> Optional[List[float]]:
-#         """
-#         As durações de cada patamar de carga em horas
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final de operação.
 
-#         :return: As durações em horas.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[4::2] if v is not None]
+        :return: O dia.
+        :rtype: str | int | None
+        """
 
-#     @duracoes.setter
-#     def duracoes(self, d: List[float]):
-#         self.__atualiza_dados_lista(d, 4, 2)
+        dia = self.data[4]
+        if (dia == "F") or (dia is None):
+            return dia
+        else:
+            return int(dia)
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        if isinstance(n, int):
+            self.data[4] = str(n)
+        else:
+            self.data[4] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final de operação.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[5]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[5] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final de operação.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[6]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[6] = n
+
+    @property
+    def demanda(self) -> Optional[float]:
+        """
+        A demanda em Mwmed para o período especificado
+
+        :return: A demanda.
+        :rtype: float | None
+        """
+        return self.data[7]
+
+    @demanda.setter
+    def demanda(self, demanda: float):
+        self.data[7] = demanda
 
 
 # class PQ(Register):

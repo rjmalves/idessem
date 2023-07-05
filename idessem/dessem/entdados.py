@@ -8,6 +8,7 @@ from idessem.dessem.modelos.entdados import (
     TVIAG,
     UT,
     USIE,
+    DP,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -389,7 +390,7 @@ class Entdados(RegisterFile):
         self,
         codigo: Optional[int] = None,
         nome: Optional[str] = None,
-        subsistema: Optional[int] = None,
+        submercado: Optional[int] = None,
         tipo_restricao: Optional[int] = None,
         geracao_minima: Optional[float] = None,
         geracao_maxima: Optional[float] = None,
@@ -403,8 +404,8 @@ class Entdados(RegisterFile):
         :type codigo: int | None
         :param nome: nome da UTE
         :type nome: str | None
-        :param subsistema: índice do subsistema da UTE
-        :type subsistema: int | None
+        :param submercado: índice do submercado da UTE
+        :type submercado: int | None
         :param tipo_restricao: tipo de restrição
         :type tipo_restricao: int | None
         :param geracao_minima: limite de geração mínima (ou, caso restrição de rampa,
@@ -427,7 +428,7 @@ class Entdados(RegisterFile):
                 UT,
                 codigo=codigo,
                 nome=nome,
-                subsistema=subsistema,
+                submercado=submercado,
                 tipo_restricao=tipo_restricao,
                 geracao_minima=geracao_minima,
                 geracao_maxima=geracao_maxima,
@@ -471,42 +472,35 @@ class Entdados(RegisterFile):
                 uhe_jusante=uhe_jusante,
             )
 
-    # def dp(
-    #     self,
-    #     estagio: Optional[int] = None,
-    #     subsistema: Optional[int] = None,
-    #     num_patamares: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[DP, List[DP], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define as durações dos patamares
-    #     no estudo descrito pelo :class:`Dadger`.
+    def dp(
+        self,
+        submercado: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[DP, List[DP], pd.DataFrame]]:
+        """
+        Obtém um registro que define os dados de demanda para 
+        os submercados que serão considerados para os períodos
+        que não se considerada a rede elétrica no estudo descrito 
+        pelo :class:`Entdados`.
 
-    #     :param estagio: estágio sobre o qual serão
-    #         definidas as durações dos patamares
-    #     :type estagio: int | None
-    #     :param subsistema: subsistema para o qual
-    #         valerão os patamares.
-    #     :type subsistema: int | None
-    #     :param num_patamares: número de patamares
-    #     :type num_patamares: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param submercado: subsistema para o qual
+            valerão os patamares.
+        :type submercado: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`DP` | list[:class:`DP`] |
-    #         :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(DP)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             DP,
-    #             estagio=estagio,
-    #             subsistema=subsistema,
-    #             num_patamares=num_patamares,
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`DP` | list[:class:`DP`] |
+            :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(DP)
+        else:
+            return self.__obtem_registros_com_filtros(
+                DP,
+                submercado=submercado,
+            )
 
     # def pq(
     #     self,
