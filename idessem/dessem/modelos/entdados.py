@@ -953,138 +953,137 @@ class UT(Register):
         self.data[12] = geracao_maxima
 
 
-# class UE(Register):
-#     """
-#     Registro que contém o cadastro das estações de bombeamento
-#     (usinas elevatórias).
-#     """
+class USIE(Register):
+    """
+    Registro que contém o cadastro das usinas elevatórias.
+    """
 
-#     IDENTIFIER = "UE  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             LiteralField(12, 14),
-#             IntegerField(3, 29),
-#             IntegerField(3, 34),
-#             FloatField(10, 39, 1),
-#             FloatField(10, 49, 1),
-#             FloatField(10, 59, 2),
-#         ]
-#     )
+    IDENTIFIER = "USIE "
+    IDENTIFIER_DIGITS = 5
+    LINE = Line(
+        [
+            IntegerField(3, 5),
+            IntegerField(2, 9),
+            LiteralField(12, 14),
+            IntegerField(3, 29),
+            IntegerField(3, 34),
+            FloatField(10, 39, 3),
+            FloatField(10, 49, 3),
+            FloatField(10, 59, 3),
+        ]
+    )
 
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código de cadastro da UE.
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código de cadastro da UE.
 
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
 
-#     @codigo.setter
-#     def codigo(self, cod: int):
-#         self.data[0] = cod
+    @codigo.setter
+    def codigo(self, cod: int):
+        self.data[0] = cod
 
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema de cadastro da UE, conforme registro SB.
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O submercado de cadastro da UE.
 
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[1]
 
-#     @subsistema.setter
-#     def subsistema(self, n: int):
-#         self.data[1] = n
+    @submercado.setter
+    def submercado(self, n: int):
+        self.data[1] = n
 
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome da estação de bombeamento.
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome da usina elevatória.
 
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[2]
+        :return: O nome.
+        :rtype: str | None
+        """
+        return self.data[2]
 
-#     @nome.setter
-#     def nome(self, v: str):
-#         self.data[2] = v
+    @nome.setter
+    def nome(self, v: str):
+        self.data[2] = v
 
-#     @property
-#     def uhe_montante(self) -> Optional[int]:
-#         """
-#         O código da UHE a montante, conforme registro UH.
+    @property
+    def uhe_montante(self) -> Optional[int]:
+        """
+        O código da UHE a montante, conforme registro UH.
 
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[3]
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[3]
 
-#     @uhe_montante.setter
-#     def uhe_montante(self, v: int):
-#         self.data[3] = v
+    @uhe_montante.setter
+    def uhe_montante(self, v: int):
+        self.data[3] = v
 
-#     @property
-#     def uhe_jusante(self) -> Optional[int]:
-#         """
-#         O código da UHE a jusante, conforme registro UH.
+    @property
+    def uhe_jusante(self) -> Optional[int]:
+        """
+        O código da UHE a jusante, conforme registro UH.
 
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[4]
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[4]
 
-#     @uhe_jusante.setter
-#     def uhe_jusante(self, e: int):
-#         self.data[4] = e
+    @uhe_jusante.setter
+    def uhe_jusante(self, e: int):
+        self.data[4] = e
 
-#     @property
-#     def vazao_minima_bombeavel(self) -> Optional[float]:
-#         """
-#         A vazão mínima bombeável.
+    @property
+    def vazao_minima_bombeavel(self) -> Optional[float]:
+        """
+        A vazão mínima bombeável.
 
-#         :return: A vazão em m3/s
-#         :rtype: float | None
-#         """
-#         return self.data[5]
+        :return: A vazão em m3/s
+        :rtype: float | None
+        """
+        return self.data[5]
 
-#     @vazao_minima_bombeavel.setter
-#     def vazao_minima_bombeavel(self, e: float):
-#         self.data[5] = e
+    @vazao_minima_bombeavel.setter
+    def vazao_minima_bombeavel(self, e: float):
+        self.data[5] = e
 
-#     @property
-#     def vazao_maxima_bombeavel(self) -> Optional[float]:
-#         """
-#         A vazão mínima bombeável.
+    @property
+    def vazao_maxima_bombeavel(self) -> Optional[float]:
+        """
+        A vazão mínima bombeável.
 
-#         :return: A vazão em m3/s
-#         :rtype: float | None
-#         """
-#         return self.data[6]
+        :return: A vazão em m3/s
+        :rtype: float | None
+        """
+        return self.data[6]
 
-#     @vazao_maxima_bombeavel.setter
-#     def vazao_maxima_bombeavel(self, e: float):
-#         self.data[6] = e
+    @vazao_maxima_bombeavel.setter
+    def vazao_maxima_bombeavel(self, e: float):
+        self.data[6] = e
 
-#     @property
-#     def taxa_consumo(self) -> Optional[float]:
-#         """
-#         A taxa de consumo.
+    @property
+    def taxa_consumo(self) -> Optional[float]:
+        """
+        A taxa de consumo.
 
-#         :return: A taxa em MWmed/m3/s.
-#         :rtype: float | None
-#         """
-#         return self.data[7]
+        :return: A taxa em MWmed/m3/s.
+        :rtype: float | None
+        """
+        return self.data[7]
 
-#     @taxa_consumo.setter
-#     def taxa_consumo(self, e: float):
-#         self.data[7] = e
+    @taxa_consumo.setter
+    def taxa_consumo(self, e: float):
+        self.data[7] = e
 
 
 # class DP(Register):

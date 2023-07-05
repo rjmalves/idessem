@@ -14,3 +14,6 @@ MockUTliteral = (
 MockUTinteiro = (
     "UT    1  ANGRA 1       1 2 11  0 0 12  0 0          582.0     582.0\n"
 )
+MockUSIE = (
+    "USIE   1  1   Sta Cecilia    181  125       0.000   160.000     0.200\n"
+)

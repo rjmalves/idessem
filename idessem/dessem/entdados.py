@@ -7,6 +7,7 @@ from idessem.dessem.modelos.entdados import (
     RD,
     TVIAG,
     UT,
+    USIE,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -34,7 +35,7 @@ class Entdados(RegisterFile):
 
     T = TypeVar("T")
 
-    REGISTERS = [UH, SIST, REE, TM, RIVAR, RD, TVIAG, UT]
+    REGISTERS = [UH, SIST, REE, TM, RIVAR, RD, TVIAG, UT, USIE]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -247,8 +248,6 @@ class Entdados(RegisterFile):
     def sist(
         self,
         codigo: Optional[int] = None,
-        mnemonico: Optional[str] = None,
-        ficticio: Optional[int] = None,
         nome: Optional[str] = None,
         df: bool = False,
     ) -> Optional[Union[SIST, List[SIST], pd.DataFrame]]:
@@ -298,7 +297,7 @@ class Entdados(RegisterFile):
             return self._as_df(REE)
         else:
             return self.__obtem_registros_com_filtros(
-                REE, codigo=codigo, nome=nome
+                REE, codigo=codigo, submercado=submercado, nome=nome
             )
 
     def uh(
@@ -434,41 +433,43 @@ class Entdados(RegisterFile):
                 geracao_maxima=geracao_maxima,
             )
 
-    # def ct(
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     subsistema: Optional[int] = None,
-    #     nome: Optional[str] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[CT, List[CT], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define uma usina termelétrica existente
-    #     no estudo descrito pelo :class:`Dadger`.
+    def usie(
+        self,
+        codigo: Optional[int] = None,
+        submercado: Optional[int] = None,
+        nome: Optional[str] = None,
+        uhe_montante: Optional[int] = None,
+        uhe_jusante: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[USIE, List[USIE], pd.DataFrame]]:
+        """
+        Obtém um registro que define as usinas elevatórias da configuração
+        e seus principais dados físicos no estudo descrito pelo :class:`Entdados`.
 
-    #     :param codigo: código que especifica o registro da UTE
-    #     :type codigo: int | None
-    #     :param estagio: estágio associado ao registro
-    #     :type estagio: int | None
-    #     :param subsistema: subsistema da UTE
-    #     :type subsistema: str | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`CT` | list[:class:`CT`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(CT)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             CT,
-    #             codigo=codigo,
-    #             estagio=estagio,
-    #             subsistema=subsistema,
-    #             nome=nome,
-    #         )
+        :param codigo: código que especifica a usina elevatória
+        :type codigo: int | None
+        :param submercado: código do submercado correspondente
+        :type submercado: str | None
+        :param nome: nome da usina elevatória
+        :type nome: int | None
+        :param uhe_montante: código da usina a montante
+        :type uhe_montante: int | None
+        :param uhe_jusante: código da usina a jusante
+        :type uhe_jusante: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`USIE` | list[:class:`USIE`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(USIE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                USIE,
+                codigo=codigo,
+                submercado=submercado,
+                nome=nome,
+                uhe_montante=uhe_montante,
+                uhe_jusante=uhe_jusante,
+            )
 
     # def dp(
     #     self,

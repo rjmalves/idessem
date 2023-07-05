@@ -7,6 +7,7 @@ from idessem.dessem.modelos.entdados import (
     RD,
     TVIAG,
     UT,
+    USIE,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -23,6 +24,7 @@ from tests.mocks.arquivos.entdados import (
     MockTVIAG,
     MockUTliteral,
     MockUTinteiro,
+    MockUSIE,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -451,6 +453,50 @@ def test_registro_ut_entdados_inteiro():
     assert r.geracao_maxima == 582.0
     r.geracao_maxima = 0
     assert r.geracao_maxima == 0
+
+
+def test_registro_usie_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockUSIE))
+    r = USIE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        1,
+        "Sta Cecilia",
+        181,
+        125,
+        0.00,
+        160.0,
+        0.20,
+    ]
+
+    assert r.codigo == 1
+    r.codigo = -1
+    assert r.codigo == -1
+    assert r.submercado == 1
+    r.submercado = -1
+    assert r.submercado == -1
+    assert r.nome == "Sta Cecilia"
+    r.nome = "XX"
+    assert r.nome == "XX"
+    assert r.uhe_montante == 181
+    r.uhe_montante = -1
+    assert r.uhe_montante == -1
+    assert r.uhe_jusante == 125
+    r.uhe_jusante = -1
+    assert r.uhe_jusante == -1
+    assert r.vazao_minima_bombeavel == 0.00
+    r.vazao_minima_bombeavel = -1
+    assert r.vazao_minima_bombeavel == -1
+    assert r.vazao_maxima_bombeavel == 160.00
+    r.vazao_maxima_bombeavel = -1
+    assert r.vazao_maxima_bombeavel == -1
+    assert r.taxa_consumo == 0.20
+    r.taxa_consumo = -1
+    assert r.taxa_consumo == -1
 
 
 # def test_campos_nao_encontrados_entdados():
