@@ -3,7 +3,7 @@ import numpy as np
 
 
 def test_stagedatefield_read():
-    data = (6, 0, 0)
+    data = [6, 0, 0]
     field = StageDateField(starting_position=0)
     line = " 6  0 0-something-else"
     field.read(line)
@@ -11,7 +11,7 @@ def test_stagedatefield_read():
 
 
 def test_stagedatefield_read_special():
-    data = ("F", 0, 0)
+    data = ["F", 0, 0]
     field = StageDateField(starting_position=0)
     line = " F  0 0-something-else"
     field.read(line)

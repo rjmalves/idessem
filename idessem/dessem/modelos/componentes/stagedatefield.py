@@ -1,4 +1,4 @@
-from typing import Optional, Union, Tuple
+from typing import Optional, Union, List, Tuple
 
 from cfinterface.components.field import Field
 from cfinterface.components.integerfield import IntegerField
@@ -16,9 +16,7 @@ class StageDateField(Field):
         size: int = 7,
         starting_position: int = 0,
         special_day_character: str = "F",
-        value: Optional[
-            Tuple[Optional[Union[str, int]], Optional[int], Optional[int]]
-        ] = None,
+        value: Optional[List[Optional[Union[str, int]]]] = None,
     ) -> None:
         super().__init__(size, starting_position, value)
         self.__subfields: Tuple[LiteralField, IntegerField, IntegerField] = (
@@ -33,12 +31,17 @@ class StageDateField(Field):
         raise NotImplementedError("Binary files not supported for this field")
 
     # Override
-    def _textual_read(self, line: str) -> tuple:
-        values = [f._textual_read(line) for f in self.__subfields]
+    def _textual_read(self, line: str) -> list:
+        values = []
+        try:
+            for f in self.__subfields:
+                values.append(f._textual_read(line))
+        except ValueError:
+            values += [None] * (3 - len(values))
         if values[0] == self.__special_day_character or values[0] is None:
-            return tuple(values)
+            return values
         else:
-            return (int(values[0]),) + tuple(values[1:])
+            return [int(values[0])] + values[1:]
 
     # Override
     def _binary_write(self) -> bytes:
@@ -55,14 +58,12 @@ class StageDateField(Field):
     @property
     def value(
         self,
-    ) -> Optional[
-        Tuple[Optional[Union[str, int]], Optional[int], Optional[int]]
-    ]:
+    ) -> Optional[List[Optional[Union[str, int]]]]:
         return self._value
 
     @value.setter
     def value(
         self,
-        val: Tuple[Optional[Union[str, int]], Optional[int], Optional[int]],
+        val: List[Optional[Union[str, int]]],
     ):
         self._value = val
