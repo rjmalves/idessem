@@ -540,7 +540,7 @@ class UH(Register):
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
         """
-        O dia inicial de operação.
+        O dia inicial.
 
         :return: O dia.
         :rtype: str | int | None
@@ -555,7 +555,7 @@ class UH(Register):
     @property
     def hora_inicial(self) -> Optional[int]:
         """
-        A hora inicial de operação.
+        A hora inicial.
 
         :return: A hora.
         :rtype: int | None
@@ -569,7 +569,7 @@ class UH(Register):
     @property
     def meia_hora_inicial(self) -> Optional[int]:
         """
-        A meia-hora inicial de operação.
+        A meia-hora inicial.
 
         :return: A meia-hora.
         :rtype: int | None
@@ -730,12 +730,8 @@ class UT(Register):
             LiteralField(12, 9),
             IntegerField(2, 22),
             IntegerField(1, 25),
-            LiteralField(2, 27),
-            IntegerField(2, 30),
-            IntegerField(1, 33),
-            LiteralField(2, 35),
-            IntegerField(2, 38),
-            IntegerField(1, 41),
+            StageDateField(starting_position=27, special_day_character="I"),
+            StageDateField(starting_position=35, special_day_character="F"),
             IntegerField(1, 46),
             FloatField(10, 47, 1),
             FloatField(10, 57, 1),
@@ -801,102 +797,88 @@ class UT(Register):
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
         """
-        O dia inicial de operação.
+        O dia inicial.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[4]
-        if (dia == "I") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[4][0]
 
     @dia_inicial.setter
     def dia_inicial(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[4] = str(n)
-        else:
-            self.data[4] = n
+        self.data[4][0] = n
 
     @property
     def hora_inicial(self) -> Optional[int]:
         """
-        A hora inicial de operação.
+        A hora inicial.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[5]
+        return self.data[4][1]
 
     @hora_inicial.setter
     def hora_inicial(self, n: int):
-        self.data[5] = n
+        self.data[4][1] = n
 
     @property
     def meia_hora_inicial(self) -> Optional[int]:
         """
-        A meia-hora inicial de operação.
+        A meia-hora inicial.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[6]
+        return self.data[4][2]
 
     @meia_hora_inicial.setter
     def meia_hora_inicial(self, n: int):
-        self.data[6] = n
+        self.data[4][2] = n
 
     @property
     def dia_final(self) -> Optional[Union[str, int]]:
         """
-        O dia final de operação.
+        O dia final.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[7]
-        if (dia == "F") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[5][0]
 
     @dia_final.setter
     def dia_final(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[7] = str(n)
-        else:
-            self.data[7] = n
+        self.data[5][0] = n
 
     @property
     def hora_final(self) -> Optional[int]:
         """
-        A hora final de operação.
+        A hora final.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[8]
+        return self.data[5][1]
 
     @hora_final.setter
     def hora_final(self, n: int):
-        self.data[8] = n
+        self.data[5][1] = n
 
     @property
     def meia_hora_final(self) -> Optional[int]:
         """
-        A meia-hora final de operação.
+        A meia-hora final.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[9]
+        return self.data[5][2]
 
     @meia_hora_final.setter
     def meia_hora_final(self, n: int):
-        self.data[9] = n
+        self.data[5][2] = n
 
     @property
     def unidade_restricao(self) -> Optional[int]:
@@ -906,11 +888,11 @@ class UT(Register):
         :return: O flag.
         :rtype: int | None
         """
-        return self.data[10]
+        return self.data[6]
 
     @unidade_restricao.setter
     def unidade_restricao(self, unidade_restricao: int):
-        self.data[10] = unidade_restricao
+        self.data[6] = unidade_restricao
 
     @property
     def geracao_minima(self) -> Optional[float]:
@@ -922,11 +904,11 @@ class UT(Register):
         :return: O valor.
         :rtype: float | None
         """
-        return self.data[11]
+        return self.data[7]
 
     @geracao_minima.setter
     def geracao_minima(self, geracao_minima: float):
-        self.data[11] = geracao_minima
+        self.data[7] = geracao_minima
 
     @property
     def geracao_maxima(self) -> Optional[float]:
@@ -938,11 +920,11 @@ class UT(Register):
         :return: O valor.
         :rtype: float | None
         """
-        return self.data[12]
+        return self.data[8]
 
     @geracao_maxima.setter
     def geracao_maxima(self, geracao_maxima: float):
-        self.data[12] = geracao_maxima
+        self.data[8] = geracao_maxima
 
 
 class USIE(Register):
@@ -1090,12 +1072,8 @@ class DP(Register):
     LINE = Line(
         [
             IntegerField(2, 4),
-            LiteralField(2, 8),
-            IntegerField(2, 11),
-            IntegerField(1, 14),
-            LiteralField(2, 16),
-            IntegerField(2, 19),
-            IntegerField(1, 22),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
             FloatField(10, 24, 1),
         ]
     )
@@ -1117,102 +1095,88 @@ class DP(Register):
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
         """
-        O dia inicial de operação.
+        O dia inicial.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[1]
-        if (dia == "I") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[1][0]
 
     @dia_inicial.setter
     def dia_inicial(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[1] = str(n)
-        else:
-            self.data[1] = n
+        self.data[1][0] = n
 
     @property
     def hora_inicial(self) -> Optional[int]:
         """
-        A hora inicial de operação.
+        A hora inicial.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[2]
+        return self.data[1][1]
 
     @hora_inicial.setter
     def hora_inicial(self, n: int):
-        self.data[2] = n
+        self.data[1][1] = n
 
     @property
     def meia_hora_inicial(self) -> Optional[int]:
         """
-        A meia-hora inicial de operação.
+        A meia-hora inicial.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[3]
+        return self.data[1][2]
 
     @meia_hora_inicial.setter
     def meia_hora_inicial(self, n: int):
-        self.data[3] = n
+        self.data[1][2] = n
 
     @property
     def dia_final(self) -> Optional[Union[str, int]]:
         """
-        O dia final de operação.
+        O dia final.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[4]
-        if (dia == "F") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[2][0]
 
     @dia_final.setter
     def dia_final(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[4] = str(n)
-        else:
-            self.data[4] = n
+        self.data[2][0] = n
 
     @property
     def hora_final(self) -> Optional[int]:
         """
-        A hora final de operação.
+        A hora final.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[5]
+        return self.data[2][1]
 
     @hora_final.setter
     def hora_final(self, n: int):
-        self.data[5] = n
+        self.data[2][1] = n
 
     @property
     def meia_hora_final(self) -> Optional[int]:
         """
-        A meia-hora final de operação.
+        A meia-hora final.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[6]
+        return self.data[2][2]
 
     @meia_hora_final.setter
     def meia_hora_final(self, n: int):
-        self.data[6] = n
+        self.data[2][2] = n
 
     @property
     def demanda(self) -> Optional[float]:
@@ -1222,11 +1186,11 @@ class DP(Register):
         :return: A demanda.
         :rtype: float | None
         """
-        return self.data[7]
+        return self.data[3]
 
     @demanda.setter
     def demanda(self, demanda: float):
-        self.data[7] = demanda
+        self.data[3] = demanda
 
 
 class DE(Register):
@@ -1241,12 +1205,8 @@ class DE(Register):
     LINE = Line(
         [
             IntegerField(2, 4),
-            LiteralField(2, 8),
-            IntegerField(2, 11),
-            IntegerField(1, 14),
-            LiteralField(2, 16),
-            IntegerField(2, 19),
-            IntegerField(1, 22),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
             FloatField(10, 24, 1),
             LiteralField(10, 35),
         ]
@@ -1269,102 +1229,86 @@ class DE(Register):
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
         """
-        O dia inicial de operação.
+        O dia inicial.
 
         :return: O dia.
         :rtype: str | int | None
         """
-
-        dia = self.data[1]
-        if (dia == "I") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[1][0]
 
     @dia_inicial.setter
     def dia_inicial(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[1] = str(n)
-        else:
-            self.data[1] = n
+        self.data[1][0] = n
 
     @property
     def hora_inicial(self) -> Optional[int]:
         """
-        A hora inicial de operação.
+        A hora inicial.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[2]
+        return self.data[1][1]
 
     @hora_inicial.setter
     def hora_inicial(self, n: int):
-        self.data[2] = n
+        self.data[1][1] = n
 
     @property
     def meia_hora_inicial(self) -> Optional[int]:
         """
-        A meia-hora inicial de operação.
+        A meia-hora inicial.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[3]
+        return self.data[1][2]
 
     @meia_hora_inicial.setter
     def meia_hora_inicial(self, n: int):
-        self.data[3] = n
+        self.data[1][2] = n
 
     @property
     def dia_final(self) -> Optional[Union[str, int]]:
         """
-        O dia final de operação.
+        O dia final.
 
         :return: O dia.
         :rtype: str | int | None
         """
-
-        dia = self.data[4]
-        if (dia == "F") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[2][0]
 
     @dia_final.setter
     def dia_final(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[4] = str(n)
-        else:
-            self.data[4] = n
+        self.data[2][0] = n
 
     @property
     def hora_final(self) -> Optional[int]:
         """
-        A hora final de operação.
+        A hora final.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[5]
+        return self.data[2][1]
 
     @hora_final.setter
     def hora_final(self, n: int):
-        self.data[5] = n
+        self.data[2][1] = n
 
     @property
     def meia_hora_final(self) -> Optional[int]:
         """
-        A meia-hora final de operação.
+        A meia-hora final.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[6]
+        return self.data[2][2]
 
     @meia_hora_final.setter
     def meia_hora_final(self, n: int):
-        self.data[6] = n
+        self.data[2][2] = n
 
     @property
     def demanda(self) -> Optional[float]:
@@ -1374,11 +1318,11 @@ class DE(Register):
         :return: A demanda.
         :rtype: float | None
         """
-        return self.data[7]
+        return self.data[3]
 
     @demanda.setter
     def demanda(self, demanda: float):
-        self.data[7] = demanda
+        self.data[3] = demanda
 
     @property
     def justificativa(self) -> Optional[str]:
@@ -1388,11 +1332,11 @@ class DE(Register):
         :return: A justificativa.
         :rtype: str | None
         """
-        return self.data[8]
+        return self.data[4]
 
     @justificativa.setter
     def justificativa(self, justificativa: str):
-        self.data[8] = justificativa
+        self.data[4] = justificativa
 
 
 class CD(Register):
@@ -1407,12 +1351,8 @@ class CD(Register):
         [
             IntegerField(2, 4),
             IntegerField(2, 6),
-            LiteralField(2, 9),
-            IntegerField(2, 12),
-            IntegerField(1, 15),
-            LiteralField(2, 17),
-            IntegerField(2, 20),
-            IntegerField(1, 23),
+            StageDateField(starting_position=9, special_day_character="I"),
+            StageDateField(starting_position=17, special_day_character="F"),
             FloatField(10, 25, 2),
             FloatField(10, 35, 2),
         ]
@@ -1449,102 +1389,88 @@ class CD(Register):
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
         """
-        O dia inicial de operação.
+        O dia inicial.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[2]
-        if (dia == "I") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[2][0]
 
     @dia_inicial.setter
     def dia_inicial(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[2] = str(n)
-        else:
-            self.data[2] = n
+        self.data[2][0] = n
 
     @property
     def hora_inicial(self) -> Optional[int]:
         """
-        A hora inicial de operação.
+        A hora inicial.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[3]
+        return self.data[2][1]
 
     @hora_inicial.setter
     def hora_inicial(self, n: int):
-        self.data[3] = n
+        self.data[2][1] = n
 
     @property
     def meia_hora_inicial(self) -> Optional[int]:
         """
-        A meia-hora inicial de operação.
+        A meia-hora inicial.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[4]
+        return self.data[2][2]
 
     @meia_hora_inicial.setter
     def meia_hora_inicial(self, n: int):
-        self.data[4] = n
+        self.data[2][2] = n
 
     @property
     def dia_final(self) -> Optional[Union[str, int]]:
         """
-        O dia final de operação.
+        O dia final.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[5]
-        if (dia == "F") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[3][0]
 
     @dia_final.setter
     def dia_final(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[5] = str(n)
-        else:
-            self.data[5] = n
+        self.data[3][0] = n
 
     @property
     def hora_final(self) -> Optional[int]:
         """
-        A hora final de operação.
+        A hora final.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[6]
+        return self.data[3][1]
 
     @hora_final.setter
     def hora_final(self, n: int):
-        self.data[6] = n
+        self.data[3][1] = n
 
     @property
     def meia_hora_final(self) -> Optional[int]:
         """
-        A meia-hora final de operação.
+        A meia-hora final.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[7]
+        return self.data[3][2]
 
     @meia_hora_final.setter
     def meia_hora_final(self, n: int):
-        self.data[7] = n
+        self.data[3][2] = n
 
     @property
     def custo(self) -> Optional[float]:
@@ -1554,11 +1480,11 @@ class CD(Register):
         :return: O custo.
         :rtype: float | None
         """
-        return self.data[8]
+        return self.data[4]
 
     @custo.setter
     def custo(self, cus: float):
-        self.data[8] = cus
+        self.data[4] = cus
 
     @property
     def limite_superior(self) -> Optional[float]:
@@ -1568,136 +1494,350 @@ class CD(Register):
         :return: O limite.
         :rtype: float | None
         """
-        return self.data[9]
+        return self.data[5]
 
     @limite_superior.setter
     def limite_superior(self, lim: float):
-        self.data[9] = lim
+        self.data[5] = lim
 
 
-# class PQ(Register):
-#     """
-#     Registro que contém o cadastro da geração por pequenas usinas.
+class PQ(Register):
+    """
+    Registro que contém o cadastro da geração por pequenas usinas.
 
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
+    """
 
-#     IDENTIFIER = "PQ  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             LiteralField(10, 4),
-#             IntegerField(2, 14),
-#             IntegerField(2, 19),
-#             FloatField(5, 24, 0),
-#             FloatField(5, 29, 0),
-#             FloatField(5, 34, 0),
-#         ]
-#     )
+    IDENTIFIER = "PQ  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            LiteralField(10, 9),
+            IntegerField(5, 19),
+            StageDateField(starting_position=24, special_day_character="I"),
+            StageDateField(starting_position=32, special_day_character="F"),
+            FloatField(10, 40, 1),
+        ]
+    )
 
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
+    @property
+    def codigo(self) -> Optional[str]:
+        """
+        O código da pequena usina.
 
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome da geração.
+        :return: O código.
+        :rtype: str | None
+        """
+        return self.data[0]
 
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[0]
+    @codigo.setter
+    def codigo(self, nome: str):
+        self.data[0] = nome
 
-#     @nome.setter
-#     def nome(self, nome: str):
-#         self.data[0] = nome
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome da pequena usina.
 
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema associado à geração.
+        :return: O nome.
+        :rtype: str | None
+        """
+        return self.data[1]
 
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
+    @nome.setter
+    def nome(self, nome: str):
+        self.data[1] = nome
 
-#     @subsistema.setter
-#     def subsistema(self, sub: int):
-#         self.data[1] = sub
+    @property
+    def localizacao(self) -> Optional[int]:
+        """
+        O indice do subsistema  ou barra associado à geração.
 
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado à geração.
+        :return: O índice da localização.
+        :rtype: int | None
+        """
+        return self.data[2]
 
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[2]
+    @localizacao.setter
+    def localizacao(self, sub: int):
+        self.data[2] = sub
 
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[2] = e
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
 
-#     @property
-#     def geracoes(self) -> Optional[List[float]]:
-#         """
-#         As gerações em Mwmed para cada patamar de carga.
+        :return: O dia.
+        :rtype: str | int | None
+        """
 
-#         :return: As gerações.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[3:6] if v is not None]
+        return self.data[3][0]
 
-#     @geracoes.setter
-#     def geracoes(self, c: List[float]):
-#         self.__atualiza_dados_lista(c, 3, 1)
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[3][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[3][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[3][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[4][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[4][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[4][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[4][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[4][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[4][2] = n
+
+    @property
+    def geracao(self) -> Optional[float]:
+        """
+        A geração da pequena usina.
+
+        :return: A geração.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @geracao.setter
+    def geracao(self, ger: float):
+        self.data[5] = ger
 
 
-# class RI(Register):
-#     """
-#     Registro que contém as restrições de Itaipu.
+class RI(Register):
+    """
+    Registro que contém as restrições de Itaipu.
 
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
+    """
 
-#     IDENTIFIER = "RI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(3, 8),
-#             IntegerField(3, 12),
-#             FloatField(7, 16, 0),
-#             FloatField(7, 23, 0),
-#             FloatField(7, 30, 0),
-#             FloatField(7, 37, 0),
-#             FloatField(7, 44, 0),
-#             FloatField(7, 51, 0),
-#             FloatField(7, 58, 0),
-#             FloatField(7, 65, 0),
-#             FloatField(7, 72, 0),
-#             FloatField(7, 79, 0),
-#             FloatField(7, 86, 0),
-#             FloatField(7, 93, 0),
-#             FloatField(7, 100, 0),
-#             FloatField(7, 107, 0),
-#             FloatField(7, 114, 0),
-#         ]
-#     )
+    IDENTIFIER = "RI  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            FloatField(10, 26, 2),
+            FloatField(10, 36, 2),
+            FloatField(10, 46, 2),
+            FloatField(10, 56, 2),
+            FloatField(10, 66, 2),
+        ]
+    )
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[0][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[0][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[0][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[0][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[0][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[0][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def geracao_minima_50hz(self) -> Optional[float]:
+        """
+        O limite inferior para a geração 50 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @geracao_minima_50hz.setter
+    def geracao_minima_50hz(self, n: float):
+        self.data[2] = n
+
+    @property
+    def geracao_maxima_50hz(self) -> Optional[float]:
+        """
+        O limite superior para a geração 50 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @geracao_maxima_50hz.setter
+    def geracao_maxima_50hz(self, n: float):
+        self.data[3] = n
+
+    @property
+    def geracao_minima_60hz(self) -> Optional[float]:
+        """
+        O limite inferior para a geração 60 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @geracao_minima_60hz.setter
+    def geracao_minima_60hz(self, n: float):
+        self.data[4] = n
+
+    @property
+    def geracao_maxima_60hz(self) -> Optional[float]:
+        """
+        O limite superior para a geração 60 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @geracao_maxima_60hz.setter
+    def geracao_maxima_60hz(self, n: float):
+        self.data[5] = n
+
+    @property
+    def carga_ande(self) -> Optional[float]:
+        """
+        A carga da ANDE.
+
+        :return: A carga.
+        :rtype: float | None
+        """
+        return self.data[6]
+
+    @carga_ande.setter
+    def carga_ande(self, n: float):
+        self.data[6] = n
 
 
 # class IA(Register):

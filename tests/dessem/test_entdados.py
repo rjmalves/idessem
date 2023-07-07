@@ -11,6 +11,8 @@ from idessem.dessem.modelos.entdados import (
     DP,
     DE,
     CD,
+    PQ,
+    RI,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -32,6 +34,8 @@ from tests.mocks.arquivos.entdados import (
     MockDPinteiro,
     MockDE,
     MockCD,
+    MockPQ,
+    MockRI,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -344,12 +348,8 @@ def test_registro_ut_entdados_literal():
         "ANGRA 1",
         1,
         2,
-        "I",
-        None,
-        None,
-        "F",
-        None,
-        None,
+        ["I", None, None],
+        ["F", None, None],
         None,
         582.0,
         582.0,
@@ -407,12 +407,8 @@ def test_registro_ut_entdados_inteiro():
         "ANGRA 1",
         1,
         2,
-        "11",
-        0,
-        0,
-        "12",
-        0,
-        0,
+        [11, 0, 0],
+        [12, 0, 0],
         None,
         582.0,
         582.0,
@@ -511,12 +507,8 @@ def test_registro_dp_entdados_literal():
 
     assert r.data == [
         1,
-        "I",
-        None,
-        None,
-        "F",
-        None,
-        None,
+        ["I", None, None],
+        ["F", None, None],
         36904,
     ]
     assert r.submercado == 1
@@ -554,12 +546,8 @@ def test_registro_dp_entdados_inteiro():
 
     assert r.data == [
         1,
-        "11",
-        0,
-        0,
-        "12",
-        1,
-        1,
+        [11, 0, 0],
+        [12, 1, 1],
         36904,
     ]
     assert r.submercado == 1
@@ -595,7 +583,7 @@ def test_registro_de_entdados():
         with open("", "") as fp:
             r.read(fp)
 
-    assert r.data == [1, "11", 0, 0, "F", None, None, 1469, ""]
+    assert r.data == [1, [11, 0, 0], ["F", None, None], 1469, ""]
     assert r.codigo == 1
     r.codigo = -1
     assert r.codigo == -1
@@ -632,7 +620,7 @@ def test_registro_cd_entdados():
         with open("", "") as fp:
             r.read(fp)
 
-    assert r.data == [1, 1, "6", 0, 0, "F", None, None, 7643.82, 100]
+    assert r.data == [1, 1, [6, 0, 0], ["F", None, None], 7643.82, 100]
     assert r.submercado == 1
     r.submercado = -1
     assert r.submercado == -1
@@ -663,6 +651,95 @@ def test_registro_cd_entdados():
     assert r.limite_superior == 100
     r.limite_superior = -1
     assert r.limite_superior == -1
+
+
+def test_registro_pq_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockPQ))
+    r = PQ()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, "SE-Eolica", 1, ["I", None, None], [24, 0, 0], 3]
+    assert r.codigo == 1
+    r.codigo = -1
+    assert r.codigo == -1
+    assert r.nome == "SE-Eolica"
+    r.nome = -1
+    assert r.nome == -1
+    assert r.localizacao == 1
+    r.localizacao = -1
+    assert r.localizacao == -1
+    assert r.dia_inicial == "I"
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == 24
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final == 0
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final == 0
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.geracao == 3
+
+
+def test_registro_ri_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockRI))
+    r = RI()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        [17, 0, 0],
+        ["F", None, None],
+        2500,
+        7000,
+        2000,
+        7000,
+        1530,
+    ]
+    assert r.dia_inicial == 17
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == "F"
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final is None
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final is None
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.geracao_minima_50hz == 2500
+    r.geracao_minima_50hz = -1
+    assert r.geracao_minima_50hz == -1
+    assert r.geracao_maxima_50hz == 7000
+    r.geracao_maxima_50hz = -1
+    assert r.geracao_maxima_50hz == -1
+    assert r.geracao_minima_60hz == 2000
+    r.geracao_minima_60hz = -1
+    assert r.geracao_minima_60hz == -1
+    assert r.geracao_maxima_60hz == 7000
+    r.geracao_maxima_60hz = -1
+    assert r.geracao_maxima_60hz == -1
+    assert r.carga_ande == 1530
+    r.carga_ande = -1
+    assert r.carga_ande == -1
 
 
 # def test_campos_nao_encontrados_entdados():

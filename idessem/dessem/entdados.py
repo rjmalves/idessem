@@ -11,6 +11,8 @@ from idessem.dessem.modelos.entdados import (
     DP,
     DE,
     CD,
+    PQ,
+    RI,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -562,40 +564,62 @@ class Entdados(RegisterFile):
                 numero_curva=numero_curva,
             )
 
-    # def pq(
-    #     self,
-    #     nome: Optional[str] = None,
-    #     subsistema: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[PQ, List[PQ], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define as gerações das pequenas usinas
-    #     no estudo descrito pelo :class:`Dadger`.
+    def pq(
+        self,
+        codigo: Optional[int] = None,
+        nome: Optional[str] = None,
+        localizacao: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[PQ, List[PQ], pd.DataFrame]]:
+        """
+        Obtém um registro que define as gerações das pequenas usinas
+        no estudo descrito pelo :class:`Entdados`.
 
-    #     :param nome: o nome das gerações
-    #     :param subsistema: subsistema para o qual
-    #         valerão as gerações
-    #     :param estagio: estágio sobre o qual serão
-    #         definidas as gerações
-    #     :type estagio: int | None
-    #     :type subsistema: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param codigo: o código das gerações
+        :type codigo: str | None
+        :param nome: o nome das gerações
+        :type nome: str | None
+        :param localizacao: índice do subsistema ou barra
+            associado à geração
+        :type localizacao: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`PQ` | list[:class:`PQ`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(PQ)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             PQ,
-    #             nome=nome,
-    #             estagio=estagio,
-    #             subsistema=subsistema,
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`PQ` | list[:class:`PQ`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(PQ)
+        else:
+            return self.__obtem_registros_com_filtros(
+                PQ,
+                codigo=codigo,
+                nome=nome,
+                localizacao=localizacao,
+            )
+
+    def ri(
+        self,
+        df: bool = False,
+    ) -> Optional[Union[RI, List[RI], pd.DataFrame]]:
+        """
+        Obtém um registro que define restrições de Itaipu
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`RI` | list[:class:`RI`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(RI)
+        else:
+            return self.__obtem_registros_com_filtros(
+                RI,
+            )
 
     # def ac(
     #     self,
