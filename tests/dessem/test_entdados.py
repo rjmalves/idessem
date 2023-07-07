@@ -14,6 +14,7 @@ from idessem.dessem.modelos.entdados import (
     PQ,
     RI,
     IA,
+    GP,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -38,6 +39,7 @@ from tests.mocks.arquivos.entdados import (
     MockPQ,
     MockRI,
     MockIA,
+    MockGP,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -789,6 +791,22 @@ def test_registro_ia_entdados():
     assert r.capacidade_para == 99999
     r.capacidade_para = -1
     assert r.capacidade_para == -1
+
+
+def test_registro_gp_dadger():
+    m: MagicMock = mock_open(read_data="".join(MockGP))
+    r = GP()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [0.00001, 0.001]
+    assert r.gap_pdd == 0.00001
+    r.gap_pdd = 0
+    assert r.gap_pdd == 0
+    assert r.gap_milp == 0.001
+    r.gap_milp = 0
+    assert r.gap_milp == 0
 
 
 # def test_campos_nao_encontrados_entdados():

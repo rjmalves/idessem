@@ -14,6 +14,7 @@ from idessem.dessem.modelos.entdados import (
     PQ,
     RI,
     IA,
+    GP,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -652,6 +653,17 @@ class Entdados(RegisterFile):
                 submercado_para=submercado_para,
             )
 
+    @property
+    def gp(self) -> Optional[GP]:
+        """
+        Obtém o (único) registro que define o gap de convergência
+        no estudo definido no :class:`Entdados`
+
+        :return: Um registro, se existir.
+        :rtype: :class:`GP` | None.
+        """
+        return self.__obtem_registro(GP)
+
     # def ac(
     #     self,
     #     uhe: int,
@@ -691,17 +703,6 @@ class Entdados(RegisterFile):
     #     :rtype: :class:`TX` | None.
     #     """
     #     return self.__obtem_registro(TX)
-
-    # @property
-    # def gp(self) -> Optional[GP]:
-    #     """
-    #     Obtém o (único) registro que define o gap para convergência
-    #     considerado no estudo definido no :class:`Dadger`
-
-    #     :return: Um registro, se existir.
-    #     :rtype: :class:`GP` | None.
-    #     """
-    #     return self.__obtem_registro(GP)
 
     # @property
     # def ni(self) -> Optional[NI]:

@@ -2004,6 +2004,49 @@ class IA(Register):
         self.data[5] = n
 
 
+class GP(Register):
+    """
+    Registro que contém os gaps de tolerância para convergência
+    para os métodos PDD ou MILP.
+    """
+
+    IDENTIFIER = "GP  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line([FloatField(10, 4, 8), FloatField(10, 15, 8)])
+
+    @property
+    def gap_pdd(self) -> Optional[float]:
+        """
+        O gap de convergência do processo iterativo de
+        programação dinâmica dual (PDD).
+
+        :return: O gap.
+        :rtype: float | None
+        """
+
+        return self.data[0]
+
+    @gap_pdd.setter
+    def gap_pdd(self, n: float):
+        self.data[0] = n
+
+    @property
+    def gap_milp(self) -> Optional[float]:
+        """
+        O gap de convergência do problema por programação
+        linear inteira mista (MILP).
+
+        :return: O gap.
+        :rtype: float | None
+        """
+
+        return self.data[1]
+
+    @gap_milp.setter
+    def gap_milp(self, n: float):
+        self.data[1] = n
+
+
 # class TX(Register):
 #     """
 #     Registro que contém a taxa de desconto anual do modelo.
@@ -2031,19 +2074,6 @@ class IA(Register):
 #     def taxa(self, t: float):
 #         self.data[0] = t
 
-
-# class GP(Register):
-#     """
-#     Registro que contém o gap de tolerância para convergência.
-#     """
-
-#     IDENTIFIER = "GP  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             FloatField(10, 4, 6),
-#         ]
-#     )
 
 #     @property
 #     def gap(self) -> Optional[float]:
