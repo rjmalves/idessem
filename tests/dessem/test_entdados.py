@@ -13,6 +13,7 @@ from idessem.dessem.modelos.entdados import (
     CD,
     PQ,
     RI,
+    IA,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -36,6 +37,7 @@ from tests.mocks.arquivos.entdados import (
     MockCD,
     MockPQ,
     MockRI,
+    MockIA,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -740,6 +742,53 @@ def test_registro_ri_entdados():
     assert r.carga_ande == 1530
     r.carga_ande = -1
     assert r.carga_ande == -1
+
+
+def test_registro_ia_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockIA))
+    r = IA()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        "IV",
+        "S",
+        ["I", None, None],
+        ["F", None, None],
+        99999,
+        99999,
+    ]
+    assert r.submercado_de == "IV"
+    r.submercado_de = -1
+    assert r.submercado_de == -1
+    assert r.submercado_para == "S"
+    r.submercado_para = -1
+    assert r.submercado_para == -1
+    assert r.dia_inicial == "I"
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == "F"
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final is None
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final is None
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.capacidade_de == 99999
+    r.capacidade_de = -1
+    assert r.capacidade_de == -1
+    assert r.capacidade_para == 99999
+    r.capacidade_para = -1
+    assert r.capacidade_para == -1
 
 
 # def test_campos_nao_encontrados_entdados():

@@ -13,6 +13,7 @@ from idessem.dessem.modelos.entdados import (
     CD,
     PQ,
     RI,
+    IA,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -619,6 +620,36 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 RI,
+            )
+
+    def ia(
+        self,
+        submercado_de: Optional[str] = None,
+        submercado_para: Optional[str] = None,
+        df: bool = False,
+    ) -> Optional[Union[IA, List[IA], pd.DataFrame]]:
+        """
+        Obtém um registro que define as capacidades de intercâmbio
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param submercado_de: mnemônico do submercado de origem (de).
+        :type submercado_de: str | None
+        :param submercado_para: mnemônico do submercado de destino (para).
+        :type submercado_para: str | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`IA` | list[:class:`IA`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(IA)
+        else:
+            return self.__obtem_registros_com_filtros(
+                IA,
+                submercado_de=submercado_de,
+                submercado_para=submercado_para,
             )
 
     # def ac(

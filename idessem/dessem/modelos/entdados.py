@@ -1840,29 +1840,168 @@ class RI(Register):
         self.data[6] = n
 
 
-# class IA(Register):
-#     """
-#     Registro que contém os limites de intercâmbio entre os subsistemas.
+class IA(Register):
+    """
+    Registro que contém os limites de intercâmbio entre os subsistemas.
 
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
+    """
 
-#     IDENTIFIER = "IA  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             LiteralField(2, 9),
-#             LiteralField(2, 14),
-#             IntegerField(1, 17),
-#             FloatField(10, 19, 0),
-#             FloatField(10, 29, 0),
-#             FloatField(10, 39, 0),
-#             FloatField(10, 49, 0),
-#             FloatField(10, 59, 0),
-#             FloatField(10, 69, 0),
-#         ]
-#     )
+    IDENTIFIER = "IA  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            LiteralField(2, 4),
+            LiteralField(2, 9),
+            StageDateField(starting_position=13, special_day_character="I"),
+            StageDateField(starting_position=21, special_day_character="F"),
+            FloatField(10, 29, 1),
+            FloatField(10, 39, 1),
+        ]
+    )
+
+    @property
+    def submercado_de(self) -> Optional[str]:
+        """
+        O submercado de origem (de).
+
+        :return: O submercado.
+        :rtype: str | None
+        """
+
+        return self.data[0]
+
+    @submercado_de.setter
+    def submercado_de(self, n: str):
+        self.data[0] = n
+
+    @property
+    def submercado_para(self) -> Optional[str]:
+        """
+        O submercado de destino (para).
+
+        :return: O submercado.
+        :rtype: str | None
+        """
+
+        return self.data[1]
+
+    @submercado_para.setter
+    def submercado_para(self, n: str):
+        self.data[1] = n
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[3][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[3][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[3][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[3][2] = n
+
+    @property
+    def capacidade_de(self) -> Optional[float]:
+        """
+        A capacidade do intercâmbio do submercado de ao submercado para.
+
+        :return: A capacidade.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @capacidade_de.setter
+    def capacidade_de(self, n: float):
+        self.data[4] = n
+
+    @property
+    def capacidade_para(self) -> Optional[float]:
+        """
+        A capacidade do intercâmbio do submercado para ao submercado de.
+
+        :return: A capacidade.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @capacidade_para.setter
+    def capacidade_para(self, n: float):
+        self.data[5] = n
 
 
 # class TX(Register):
