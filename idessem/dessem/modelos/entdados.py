@@ -3,6 +3,7 @@ from cfinterface.components.line import Line
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
+from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 from typing import Optional, Union
 
 
@@ -459,9 +460,7 @@ class UH(Register):
             IntegerField(2, 24),
             FloatField(10, 29, 2),
             IntegerField(1, 39),
-            LiteralField(2, 41),
-            IntegerField(2, 44),
-            IntegerField(1, 47),
+            StageDateField(starting_position=41, special_day_character="I"),
             FloatField(10, 49, 2),
             IntegerField(1, 64),
             IntegerField(1, 69),
@@ -547,18 +546,11 @@ class UH(Register):
         :rtype: str | int | None
         """
 
-        dia = self.data[5]
-        if (dia == "I") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[5][0]
 
     @dia_inicial.setter
     def dia_inicial(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[5] = str(n)
-        else:
-            self.data[5] = n
+        self.data[5][0] = n
 
     @property
     def hora_inicial(self) -> Optional[int]:
@@ -568,11 +560,11 @@ class UH(Register):
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[6]
+        return self.data[5][1]
 
     @hora_inicial.setter
     def hora_inicial(self, n: int):
-        self.data[6] = n
+        self.data[5][1] = n
 
     @property
     def meia_hora_inicial(self) -> Optional[int]:
@@ -582,11 +574,11 @@ class UH(Register):
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[7]
+        return self.data[5][2]
 
     @meia_hora_inicial.setter
     def meia_hora_inicial(self, n: int):
-        self.data[7] = n
+        self.data[5][2] = n
 
     @property
     def volume_morto_inicial(self) -> Optional[float]:
@@ -596,11 +588,11 @@ class UH(Register):
         :return: O volume em hm3.
         :rtype: float | None
         """
-        return self.data[8]
+        return self.data[6]
 
     @volume_morto_inicial.setter
     def volume_morto_inicial(self, e: float):
-        self.data[8] = e
+        self.data[6] = e
 
     @property
     def produtividade(self) -> Optional[int]:
@@ -610,11 +602,11 @@ class UH(Register):
         :return: O flag.
         :rtype: int | None
         """
-        return self.data[9]
+        return self.data[7]
 
     @produtividade.setter
     def produtividade(self, n: int):
-        self.data[9] = n
+        self.data[7] = n
 
     @property
     def penaliza_restricao_geracao(self) -> Optional[int]:
@@ -624,11 +616,11 @@ class UH(Register):
         :return: O flag.
         :rtype: int | None
         """
-        return self.data[10]
+        return self.data[8]
 
     @penaliza_restricao_geracao.setter
     def penaliza_restricao_geracao(self, n: int):
-        self.data[10] = n
+        self.data[8] = n
 
 
 class TVIAG(Register):
