@@ -1,4 +1,7 @@
-from idessem.dessem.modelos.avl_desvfpha import TabelaAvlDesvFpha
+from idessem.dessem.modelos.avl_desvfpha import (
+    TabelaAvlDesvFpha,
+    TabelaAvlDesvFpha190300,
+)
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -18,6 +21,10 @@ class AvlDesvFpha(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaAvlDesvFpha]
+    VERSIONS = {
+        "19.3": [VersaoModelo, DataEstudo, TabelaAvlDesvFpha190300],
+        "19.4.2": [VersaoModelo, DataEstudo, TabelaAvlDesvFpha],
+    }
     ENCODING = "iso-8859-1"
 
     @classmethod
@@ -41,6 +48,7 @@ class AvlDesvFpha(ArquivoCSV):
         - nome_usina (`str`)
         - volume_medio_hm3 (`float`)
         - volume_medio_percentual (`float`)
+        - vazao_incremental_m3s (`float`)
         - vazao_turbinada_m3s (`float`)
         - vazao_vertida_m3s (`float`)
         - vazao_jusante_m3s (`float`)
@@ -49,9 +57,11 @@ class AvlDesvFpha(ArquivoCSV):
         - altura_jusante (`float`)
         - altura_montante (`float`)
         - produtibilidade_especifica (`float`)
+        - tipo_perdas (`str`)
         - perdas_hidraulicas (`float`)
         - influencia_vertimento_canal_fuga (`int`)
         - afogamento_canal_fuga (`int`)
+        - potencia_instalada (`float`)
         - geracao_fph (`float`)
         - geracao_pl (`float`)
         - geracao_fpha (`float`)
