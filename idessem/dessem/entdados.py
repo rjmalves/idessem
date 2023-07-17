@@ -152,38 +152,18 @@ class Entdados(RegisterFile):
         """
         self.data.preppend(registro)
 
+    @property
     def rd(
         self,
-        df: bool = False,
-    ) -> Optional[Union[RD, List[RD], pd.DataFrame]]:
+    ) -> Optional[RD]:
         """
-        Obtém um registro que define as opções de representação da
+        Obtém o (único) registro que define as opções de representação da
         rede elétrica no estudo descrito pelo :class:`Entdados`.
 
-        :param variaveis_de_folga: inclusão de variáveis de folga
-        :type variaveis_de_folga: int | None
-        :param maximo_circuitos_violados: número máximo de circuitos violados
-        :type maximo_circuitos_violados: int | None
-        :param carga_registro_dbar: consideração cargas do bloco DBAR
-        :type carga_registro_dbar: int | None
-        :param limites_circuitos_transformadores_elevadores: consideração de limites
-        em transformadores elevadores
-        :type limites_circuitos_transformadores_elevadores: int | None
-        :param limites_circuitos_e_drefs: consideração de limites de fluxo
-        :type limites_circuitos_e_drefs: int | None
-        :param consideracao_perdas: consideração de perdas
-        :type consideracao_perdas: int | None
-        :param formato_arquivos_rede: formato dos arquivos de rede elétrica
-        :type formato_arquivos_rede: int | None
-        :return: Um ou mais registros, se existirem.
-        :rtype: :class:`RIVAR` | list[:class:`RIVAR`] | :class:`pd.DataFrame` | None
+        :return: Um registro, se existir.
+        :rtype: :class:`RD` | None
         """
-        if df:
-            return self._as_df(RD)
-        else:
-            return self.__obtem_registros_com_filtros(
-                RD,
-            )
+        return self.__obtem_registros(RD)
 
     def rivar(
         self,
