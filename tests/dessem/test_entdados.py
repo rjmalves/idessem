@@ -19,6 +19,7 @@ from idessem.dessem.modelos.entdados import (
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
+    ACVSVERT,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -48,6 +49,7 @@ from tests.mocks.arquivos.entdados import (
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
+    MockACVSVERT,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -896,6 +898,22 @@ def test_registro_acvolmin_entdados():
     r.uhe = 40
     assert r.uhe == 40
     assert r.volume == 15563
+    r.volume = 0
+    assert r.volume == 0
+
+
+def test_registro_acvsvert_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACVSVERT))
+    r = ACVSVERT()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [124, 200]
+    assert r.uhe == 124
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.volume == 200.0
     r.volume = 0
     assert r.volume == 0
 
