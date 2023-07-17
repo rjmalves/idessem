@@ -170,9 +170,7 @@ class Entdados(RegisterFile):
         self.data.preppend(registro)
 
     @property
-    def rd(
-        self,
-    ) -> Optional[RD]:
+    def rd(self) -> Optional[RD]:
         """
         Obtém o (único) registro que define as opções de representação da
         rede elétrica no estudo descrito pelo :class:`Entdados`.
@@ -180,7 +178,7 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`RD` | None
         """
-        return self.__obtem_registros(RD)
+        return self.__obtem_registro(RD)
 
     def rivar(
         self,
