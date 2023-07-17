@@ -26,3 +26,5 @@ MockIT = "IT   1   +7.8120269E+01 +3.4278554E-03 -1.6012117E-07 +4.1770037E-12 -
 MockRI = "RI      17  0 0 F            2500.00   7000.00   2000.00   7000.00   1530.00\n"
 MockIA = "IA  IV   S    I       F           99999     99999\n"
 MockGP = "GP     0.00001      0.001\n"
+MockACVTFUGA = "AC  103  VTFUGA    1\n"
+MockACVOLMAX = "AC   38  VOLMAX         544.2\n"

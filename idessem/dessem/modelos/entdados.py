@@ -4,7 +4,7 @@ from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
-from typing import Optional, Union
+from typing import Optional, Union, IO
 
 
 class RD(Register):
@@ -1697,7 +1697,7 @@ class IT(Register):
     @ree.setter
     def ree(self, n: int):
         self.data[0] = n
-    
+
     @property
     def coeficiente_a0(self) -> Optional[float]:
         """
@@ -1712,7 +1712,7 @@ class IT(Register):
     @coeficiente_a0.setter
     def coeficiente_a0(self, c: float):
         self.data[1] = c
-    
+
     @property
     def coeficiente_a1(self) -> Optional[float]:
         """
@@ -1727,7 +1727,7 @@ class IT(Register):
     @coeficiente_a1.setter
     def coeficiente_a1(self, c: float):
         self.data[2] = c
-    
+
     @property
     def coeficiente_a2(self) -> Optional[float]:
         """
@@ -1742,7 +1742,7 @@ class IT(Register):
     @coeficiente_a2.setter
     def coeficiente_a2(self, c: float):
         self.data[3] = c
-    
+
     @property
     def coeficiente_a3(self) -> Optional[float]:
         """
@@ -1757,7 +1757,7 @@ class IT(Register):
     @coeficiente_a3.setter
     def coeficiente_a3(self, c: float):
         self.data[4] = c
-    
+
     @property
     def coeficiente_a4(self) -> Optional[float]:
         """
@@ -1772,7 +1772,6 @@ class IT(Register):
     @coeficiente_a4.setter
     def coeficiente_a4(self, c: float):
         self.data[5] = c
-    
 
 
 class RI(Register):
@@ -2157,6 +2156,93 @@ class GP(Register):
     @gap_milp.setter
     def gap_milp(self, n: float):
         self.data[1] = n
+
+
+class ACVTFUGA(Register):
+    """
+    Registro AC específico para consideração da influência do vertimento
+    no canal de fuga.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VTFUGA"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def influi(self) -> Optional[int]:
+        return self.data[1]
+
+    @influi.setter
+    def influi(self, u: int):
+        self.data[1] = u
+
+
+class ACVOLMAX(Register):
+    """
+    Registro AC específico para alteração de volume máximo.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VOLMAX"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 2),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def volume(self) -> Optional[float]:
+        return self.data[1]
+
+    @volume.setter
+    def volume(self, u: float):
+        self.data[1] = u
 
 
 # class TX(Register):
@@ -5116,76 +5202,6 @@ class GP(Register):
 #         self.data[-1] = m
 
 
-# class ACVOLMAX(Register):
-#     """
-#     Registro AC específico para alteração de volume máximo.
-#     """
-
-#     IDENTIFIER = r"AC  ([\d ]{1,3})  VOLMAX"
-#     IDENTIFIER_DIGITS = 15
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             FloatField(10, 19, 2),
-#             LiteralField(3, 69),
-#             IntegerField(2, 73),
-#             IntegerField(4, 76),
-#         ]
-#     )
-
-#     # Override
-#     def write(self, file: IO, storage: str = "") -> bool:
-#         line = self.__class__.LINE.write(self.data)
-#         line = (
-#             self.__class__.IDENTIFIER[:2]  # type: ignore
-#             + line[2:9]
-#             + self.__class__.IDENTIFIER[18:]
-#             + line[15:]
-#         )
-#         file.write(line)
-#         return True
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         return self.data[0]
-
-#     @uhe.setter
-#     def uhe(self, u: int):
-#         self.data[0] = u
-
-#     @property
-#     def volume(self) -> Optional[float]:
-#         return self.data[1]
-
-#     @volume.setter
-#     def volume(self, u: float):
-#         self.data[1] = u
-
-#     @property
-#     def mes(self) -> Optional[str]:
-#         return self.data[-3]
-
-#     @mes.setter
-#     def mes(self, m: str):
-#         self.data[-3] = m
-
-#     @property
-#     def semana(self) -> Optional[int]:
-#         return self.data[-2]
-
-#     @semana.setter
-#     def semana(self, s: int):
-#         self.data[-2] = s
-
-#     @property
-#     def ano(self) -> Optional[int]:
-#         return self.data[-1]
-
-#     @ano.setter
-#     def ano(self, m: int):
-#         self.data[-1] = m
-
-
 # class ACCOTVOL(Register):
 #     """
 #     Registro AC específico para alteração de um coeficiente do
@@ -6156,77 +6172,6 @@ class GP(Register):
 
 #     @cota.setter
 #     def cota(self, u: float):
-#         self.data[1] = u
-
-#     @property
-#     def mes(self) -> Optional[str]:
-#         return self.data[-3]
-
-#     @mes.setter
-#     def mes(self, m: str):
-#         self.data[-3] = m
-
-#     @property
-#     def semana(self) -> Optional[int]:
-#         return self.data[-2]
-
-#     @semana.setter
-#     def semana(self, s: int):
-#         self.data[-2] = s
-
-#     @property
-#     def ano(self) -> Optional[int]:
-#         return self.data[-1]
-
-#     @ano.setter
-#     def ano(self, m: int):
-#         self.data[-1] = m
-
-
-# class ACVERTJU(Register):
-#     """
-#     Registro AC específico para consideração da influência do vertimento
-#     no canal de fuga.
-#     """
-
-#     IDENTIFIER = r"AC  ([\d ]{1,3})  VERTJU"
-#     IDENTIFIER_DIGITS = 15
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(5, 19),
-#             LiteralField(3, 69),
-#             IntegerField(2, 73),
-#             IntegerField(4, 76),
-#         ]
-#     )
-
-#     # Override
-#     def write(self, file: IO, storage: str = "") -> bool:
-#         line = self.__class__.LINE.write(self.data)
-#         line = (
-#             self.__class__.IDENTIFIER[:2]  # type: ignore
-#             + line[2:9]
-#             + self.__class__.IDENTIFIER[18:]
-#             + line[15:]
-#         )
-#         file.write(line)
-#         return True
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         return self.data[0]
-
-#     @uhe.setter
-#     def uhe(self, u: int):
-#         self.data[0] = u
-
-#     @property
-#     def influi(self) -> Optional[int]:
-#         return self.data[1]
-
-#     @influi.setter
-#     def influi(self, u: int):
 #         self.data[1] = u
 
 #     @property

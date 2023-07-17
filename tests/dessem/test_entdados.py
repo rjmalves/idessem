@@ -16,6 +16,8 @@ from idessem.dessem.modelos.entdados import (
     IA,
     GP,
     IT,
+    ACVTFUGA,
+    ACVOLMAX,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -42,6 +44,8 @@ from tests.mocks.arquivos.entdados import (
     MockRI,
     MockIA,
     MockGP,
+    MockACVTFUGA,
+    MockACVOLMAX,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -697,7 +701,7 @@ def test_registro_pq_entdados():
     assert r.geracao == 3
 
 
-def test_registro_it_dadger():
+def test_registro_it_entdados():
     m: MagicMock = mock_open(read_data="".join(MockIT))
     r = IT()
     with patch("builtins.open", m):
@@ -830,7 +834,7 @@ def test_registro_ia_entdados():
     assert r.capacidade_para == -1
 
 
-def test_registro_gp_dadger():
+def test_registro_gp_entdados():
     m: MagicMock = mock_open(read_data="".join(MockGP))
     r = GP()
     with patch("builtins.open", m):
@@ -844,6 +848,38 @@ def test_registro_gp_dadger():
     assert r.gap_milp == 0.001
     r.gap_milp = 0
     assert r.gap_milp == 0
+
+
+def test_registro_acvtfuga_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
+    r = ACVTFUGA()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [103, 1]
+    assert r.uhe == 103
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.influi == 1
+    r.influi = 0
+    assert r.influi == 0
+
+
+def test_registro_acvolmax_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACVOLMAX))
+    r = ACVOLMAX()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [38, 544.2]
+    assert r.uhe == 38
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.volume == 544.2
+    r.volume = 0
+    assert r.volume == 0
 
 
 # def test_campos_nao_encontrados_entdados():

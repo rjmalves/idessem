@@ -16,11 +16,13 @@ from idessem.dessem.modelos.entdados import (
     RI,
     IA,
     GP,
+    ACVTFUGA,
+    ACVOLMAX,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
-from typing import Type, List, Optional, TypeVar, Union
+from typing import Type, List, Optional, TypeVar, Union, Any
 
 # Para compatibilidade - até versão 1.0.0
 from os.path import join
@@ -43,7 +45,21 @@ class Entdados(RegisterFile):
 
     T = TypeVar("T")
 
-    REGISTERS = [UH, SIST, REE, TM, RIVAR, RD, TVIAG, UT, USIE]
+    AC = Union[ACVTFUGA, ACVOLMAX]
+
+    REGISTERS = [
+        UH,
+        SIST,
+        REE,
+        TM,
+        RIVAR,
+        RD,
+        TVIAG,
+        UT,
+        USIE,
+        ACVTFUGA,
+        ACVOLMAX,
+    ]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -658,34 +674,34 @@ class Entdados(RegisterFile):
         """
         return self.__obtem_registro(GP)
 
-    # def ac(
-    #     self,
-    #     uhe: int,
-    #     modificacao: Any,
-    #     df: bool = False,
-    #     **kwargs,
-    # ) -> Optional[Union[AC, List[AC], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define modificações nos parâmetros
-    #     das UHE em um :class:`Dadger`.
+    def ac(
+        self,
+        uhe: int,
+        modificacao: Any,
+        df: bool = False,
+        **kwargs,
+    ) -> Optional[Union[AC, List[AC], pd.DataFrame]]:
+        """
+        Obtém um registro que define modificações nos parâmetros
+        das UHE em um :class:`Entdados`.
 
-    #     :param uhe: código da UHE modificada
-    #     :type uhe: int
-    #     :param modificacao: classe da modificação realizada
-    #     :type modificacao: subtipos do tipo `AC`
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param uhe: código da UHE modificada
+        :type uhe: int
+        :param modificacao: classe da modificação realizada
+        :type modificacao: subtipos do tipo `AC`
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: `AC` | list[`AC`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(modificacao)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             modificacao, **{"uhe": uhe, **kwargs}
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: `AC` | list[`AC`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(modificacao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                modificacao, **{"uhe": uhe, **kwargs}
+            )
 
     # @property
     # def tx(self) -> Optional[TX]:
