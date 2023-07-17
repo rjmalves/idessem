@@ -1663,6 +1663,118 @@ class PQ(Register):
         self.data[5] = ger
 
 
+class IT(Register):
+    """
+    Registro que contém os coeficientes do polinômio do canal de fuga
+    de Itaipu em função da vazão na Régua 11, para casos sem FPHA Libs.
+    """
+
+    IDENTIFIER = "IT  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            FloatField(15, 9, 7),
+            FloatField(15, 24, 7),
+            FloatField(15, 39, 7),
+            FloatField(15, 54, 7),
+            FloatField(15, 69, 7),
+        ]
+    )
+
+    @property
+    def ree(self) -> Optional[int]:
+        """
+        O código do REE em que se encontra a usina
+        de Itaipu.
+
+        :return: O ree.
+        :rtype: int | None
+        """
+
+        return self.data[0]
+
+    @ree.setter
+    def ree(self, n: int):
+        self.data[0] = n
+    
+    @property
+    def coeficiente_a0(self) -> Optional[float]:
+        """
+        O coeficiente de grau 0 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[1]
+
+    @coeficiente_a0.setter
+    def coeficiente_a0(self, c: float):
+        self.data[1] = c
+    
+    @property
+    def coeficiente_a1(self) -> Optional[float]:
+        """
+        O coeficiente de grau 1 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[2]
+
+    @coeficiente_a1.setter
+    def coeficiente_a1(self, c: float):
+        self.data[2] = c
+    
+    @property
+    def coeficiente_a2(self) -> Optional[float]:
+        """
+        O coeficiente de grau 2 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[3]
+
+    @coeficiente_a2.setter
+    def coeficiente_a2(self, c: float):
+        self.data[3] = c
+    
+    @property
+    def coeficiente_a3(self) -> Optional[float]:
+        """
+        O coeficiente de grau 3 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[4]
+
+    @coeficiente_a3.setter
+    def coeficiente_a3(self, c: float):
+        self.data[4] = c
+    
+    @property
+    def coeficiente_a4(self) -> Optional[float]:
+        """
+        O coeficiente de grau 4 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[5]
+
+    @coeficiente_a4.setter
+    def coeficiente_a4(self, c: float):
+        self.data[5] = c
+    
+
+
 class RI(Register):
     """
     Registro que contém as restrições de Itaipu.

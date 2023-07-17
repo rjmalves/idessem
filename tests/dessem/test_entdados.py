@@ -15,6 +15,7 @@ from idessem.dessem.modelos.entdados import (
     RI,
     IA,
     GP,
+    IT,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -37,6 +38,7 @@ from tests.mocks.arquivos.entdados import (
     MockDE,
     MockCD,
     MockPQ,
+    MockIT,
     MockRI,
     MockIA,
     MockGP,
@@ -693,6 +695,41 @@ def test_registro_pq_entdados():
     r.meia_hora_final = -1
     assert r.meia_hora_final == -1
     assert r.geracao == 3
+
+
+def test_registro_it_dadger():
+    m: MagicMock = mock_open(read_data="".join(MockIT))
+    r = IT()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        7.8120269e01,
+        3.4278554e-03,
+        -1.6012117e-07,
+        4.1770037e-12,
+        -4.0930359e-17,
+    ]
+    assert r.ree == 1
+    r.ree = -1
+    assert r.ree == -1
+    assert r.coeficiente_a0 == 7.8120269e01
+    r.coeficiente_a0 = 0
+    assert r.coeficiente_a0 == 0
+    assert r.coeficiente_a1 == 3.4278554e-03
+    r.coeficiente_a1 = 0
+    assert r.coeficiente_a1 == 0
+    assert r.coeficiente_a2 == -1.6012117e-07
+    r.coeficiente_a2 = 0
+    assert r.coeficiente_a2 == 0
+    assert r.coeficiente_a3 == 4.1770037e-12
+    r.coeficiente_a3 = 0
+    assert r.coeficiente_a3 == 0
+    assert r.coeficiente_a4 == -4.0930359e-17
+    r.coeficiente_a4 = 0
+    assert r.coeficiente_a4 == 0
 
 
 def test_registro_ri_entdados():

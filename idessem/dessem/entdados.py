@@ -12,6 +12,7 @@ from idessem.dessem.modelos.entdados import (
     DE,
     CD,
     PQ,
+    IT,
     RI,
     IA,
     GP,
@@ -580,6 +581,19 @@ class Entdados(RegisterFile):
                 nome=nome,
                 localizacao=localizacao,
             )
+
+    @property
+    def it(self) -> Optional[IT]:
+        """
+        Obtém o (único) registro que contém os coeficientes
+        do polinômio do canal de fuga de Itaipu em função
+        da vazão na Régua 11, para casos sem FPHA Libs
+        no estudo definido no :class:`Entdados`
+
+        :return: Um registro, se existir.
+        :rtype: :class:`IT` | None.
+        """
+        return self.__obtem_registro(IT)
 
     def ri(
         self,
