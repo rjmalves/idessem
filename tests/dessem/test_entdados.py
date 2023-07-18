@@ -54,6 +54,7 @@ from tests.mocks.arquivos.entdados import (
     MockACVSVERT,
     MockACVMDESV,
     MockACCOTVAZ,
+    MockEntDados,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -960,68 +961,78 @@ def test_registro_accotvaz_entdados():
     assert r.polimonio == 0
 
 
-# def test_campos_nao_encontrados_entdados():
-#     m: MagicMock = mock_open(read_data="")
-#     with patch("builtins.open", m):
-#         d = Entdados.le_arquivo("", "")
-#     # assert d.te is None
-#     # assert d.sb(0) is None
-#     assert d.uh(0) is None
-#     # assert d.ct(0, 0) is None
-#     # assert d.dp(0, 0) is None
-#     # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
-#     # assert d.cd(0, 0) is None
-#     # assert d.tx is None
-#     # assert d.gp is None
-#     # assert d.ni is None
-#     # assert d.dt is None
-#     # assert d.re(0) is None
-#     # assert d.lu(0, 0) is None
-#     # assert d.vi(0) is None
-#     # assert d.ir("") is None
-#     # assert d.rt("") is None
-#     # assert d.fc("") is None
-#     # assert d.ti(0) is None
-#     # assert d.fp(0, 0) is None
-#     # assert d.ve(0) is None
-#     # assert d.hv(0) is None
-#     # assert d.lv(0, 0) is None
-#     # assert d.hq(0) is None
-#     # assert d.lq(0, 0) is None
-#     # assert d.he(0, 0) is None
-#     # assert d.cm(0) is None
+def test_campos_nao_encontrados_entdados():
+    m: MagicMock = mock_open(read_data="")
+    with patch("builtins.open", m):
+        d = Entdados.read(".")
+    assert d.sist(0) is None
+    assert d.uh(0) is None
+    assert d.ree(0) is None
+    assert d.tm(0) is None
+    assert d.rivar(0) is None
+    assert d.rd is None
+    assert d.tviag(0) is None
+    assert d.ut(0, 0) is None
+    assert d.usie(0) is None
+    assert d.dp(0) is None
+    assert d.de(0) is None
+    assert d.cd(0, 0) is None
+    assert d.pq(0) is None
+    assert d.it is None
+    assert d.ri() is None
+    assert d.ia(0) is None
+    assert d.gp is None
+    assert d.ac(0, ACCOTVAZ) is None
+    # assert d.ct(0, 0) is None
+    # assert d.dp(0, 0) is None
+    # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
+    # assert d.cd(0, 0) is None
+    # assert d.tx is None
+    # assert d.gp is None
+    # assert d.ni is None
+    # assert d.dt is None
+    # assert d.re(0) is None
+    # assert d.lu(0, 0) is None
+    # assert d.vi(0) is None
+    # assert d.ir("") is None
+    # assert d.rt("") is None
+    # assert d.fc("") is None
+    # assert d.ti(0) is None
+    # assert d.fp(0, 0) is None
+    # assert d.ve(0) is None
+    # assert d.hv(0) is None
+    # assert d.lv(0, 0) is None
+    # assert d.hq(0) is None
+    # assert d.lq(0, 0) is None
+    # assert d.he(0, 0) is None
+    # assert d.cm(0) is None
 
 
-# def test_campos_encontrados_entdados():
-#     m: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m):
-#         d = Entdados.le_arquivo("", "")
-#     # assert d.te is not None
-#     # assert d.sb(1) is not None
-#     assert d.uh(1) is not None
-#     # assert d.ct(65, 1) is not None
-#     # assert d.dp(1, 1) is not None
-#     # assert d.ac(285, ACJUSMED) is not None
-#     # assert d.cd(1, 1) is not None
-#     # assert d.tx is not None
-#     # assert d.gp is not None
-#     # assert d.ni is not None
-#     # assert d.dt is not None
-#     # assert d.re(449) is not None
-#     # assert d.lu(449, 1) is not None
-#     # assert d.vi(156) is not None
-#     # assert d.ir("GRAFICO") is not None
-#     # assert d.rt("CRISTA") is not None
-#     # assert d.fc("NEWV21") is not None
-#     # assert d.ti(1) is not None
-#     # assert d.fp(999, 1) is not None
-#     # assert d.ve(1) is not None
-#     # assert d.hv(101) is not None
-#     # assert d.lv(101, 1) is not None
-#     # assert d.hq(254) is not None
-#     # assert d.lq(254, 1) is not None
-#     # assert d.he(1, 1) is not None
-#     # assert d.cm(1) is not None
+def test_campos_encontrados_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockEntDados))
+    with patch("builtins.open", m):
+        d = Entdados.read("./tests/mocks/arquivos/entdados.py")
+
+    assert d.sist(1) is not None
+    assert d.uh(1) is not None
+    assert d.ree(1) is not None
+    assert (
+        d.tm(dia_inicial=11, hora_inicial=0, meia_hora_inicial=1) is not None
+    )
+    assert d.rivar(999) is not None
+    assert d.rd is not None
+    assert d.tviag(83) is not None
+    assert d.ut(108) is not None
+    assert d.usie(4) is not None
+    assert d.dp(1) is not None
+    assert d.de(1) is not None
+    assert d.cd(1) is not None
+    assert d.it is not None
+    assert d.ri() is not None
+    assert d.ia("IV", "S") is not None
+    assert d.gp is not None
+    assert d.ac(38, modificacao=ACVOLMIN) is not None
+    assert d.ac(45, modificacao=ACVMDESV) is not None
 
 
 # def test_cria_lu_entdados():
@@ -1066,36 +1077,36 @@ def test_registro_accotvaz_entdados():
 #         assert lq.limites_superiores != d.lq(5, 1).limites_superiores
 
 
-# def test_eq_entdados():
-#     m: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m):
-#         d1 = Entdados.le_arquivo("")
-#         d2 = Entdados.le_arquivo("")
-#         assert d1 == d2
+def test_eq_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockEntDados))
+    with patch("builtins.open", m):
+        d1 = Entdados.read("./tests/mocks/arquivos/entdados.py")
+        d2 = Entdados.read("./tests/mocks/arquivos/entdados.py")
+        assert d1 == d2
 
 
-# def test_neq_entdados():
-#     m: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m):
-#         d1 = Entdados.le_arquivo("")
-#         d2 = Entdados.le_arquivo("")
-#         d2.te.titulo = "Teste"
-#         assert d1 != d2
+def test_neq_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockEntDados))
+    with patch("builtins.open", m):
+        d1 = Entdados.read("./tests/mocks/arquivos/entdados.py")
+        d2 = Entdados.read("./tests/mocks/arquivos/entdados.py")
+        d2.gp.gap_milp = 5
+        assert d1 != d2
 
 
-# def test_leitura_escrita_entdados():
-#     m_leitura: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m_leitura):
-#         d1 = Entdados.le_arquivo("")
-#     m_escrita: MagicMock = mock_open(read_data="")
-#     with patch("builtins.open", m_escrita):
-#         d1.escreve_arquivo("", "")
-#         # Recupera o que foi escrito
-#         chamadas = m_escrita.mock_calls
-#         linhas_escritas = [
-#             chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
-#         ]
-#     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
-#     with patch("builtins.open", m_releitura):
-#         d2 = Entdados.le_arquivo("")
-#         assert d1 == d2
+def test_leitura_escrita_entdados():
+    m_leitura: MagicMock = mock_open(read_data="".join(MockEntDados))
+    with patch("builtins.open", m_leitura):
+        d1 = Entdados.read("./tests/mocks/arquivos/entdados.py")
+    m_escrita: MagicMock = mock_open(read_data="")
+    with patch("builtins.open", m_escrita):
+        d1.write("./tests/mocks/arquivos/entdados.py")
+        # Recupera o que foi escrito
+        chamadas = m_escrita.mock_calls
+        linhas_escritas = [
+            chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
+        ]
+    m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
+    with patch("builtins.open", m_releitura):
+        d2 = Entdados.read("./tests/mocks/arquivos/entdados.py")
+        assert d1 == d2
