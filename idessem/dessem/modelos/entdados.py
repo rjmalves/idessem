@@ -2332,6 +2332,50 @@ class ACVSVERT(Register):
         self.data[1] = u
 
 
+class ACVMDESV(Register):
+    """
+    Registro AC específico para alteração do volume mínimo para operação
+    do canal de desvio.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VMDESV"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 2),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def volume(self) -> Optional[float]:
+        return self.data[1]
+
+    @volume.setter
+    def volume(self, u: float):
+        self.data[1] = u
+
+
 # class TX(Register):
 #     """
 #     Registro que contém a taxa de desconto anual do modelo.

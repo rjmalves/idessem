@@ -20,6 +20,7 @@ from idessem.dessem.modelos.entdados import (
     ACVOLMAX,
     ACVOLMIN,
     ACVSVERT,
+    ACVMDESV,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -63,6 +64,7 @@ class Entdados(RegisterFile):
         ACVOLMAX,
         ACVOLMIN,
         ACVSVERT,
+        ACVMDESV,
     ]
 
     def __init__(self, data=...) -> None:
