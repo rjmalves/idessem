@@ -733,8 +733,8 @@ class UT(Register):
             StageDateField(starting_position=27, special_day_character="I"),
             StageDateField(starting_position=35, special_day_character="F"),
             IntegerField(1, 46),
-            FloatField(10, 47, 1),
-            FloatField(10, 57, 1),
+            FloatField(10, 47, 3),
+            FloatField(10, 57, 3),
         ]
     )
 
@@ -1674,11 +1674,11 @@ class IT(Register):
     LINE = Line(
         [
             IntegerField(2, 4),
-            FloatField(15, 9, 7),
-            FloatField(15, 24, 7),
-            FloatField(15, 39, 7),
-            FloatField(15, 54, 7),
-            FloatField(15, 69, 7),
+            FloatField(15, 9, 7, format="E"),
+            FloatField(15, 24, 7, format="E"),
+            FloatField(15, 39, 7, format="E"),
+            FloatField(15, 54, 7, format="E"),
+            FloatField(15, 69, 7, format="E"),
         ]
     )
 
@@ -2212,7 +2212,7 @@ class ACVOLMAX(Register):
     LINE = Line(
         [
             IntegerField(3, 4),
-            FloatField(10, 19, 2),
+            FloatField(10, 19, 3),
         ]
     )
 
@@ -2255,7 +2255,7 @@ class ACVOLMIN(Register):
     LINE = Line(
         [
             IntegerField(3, 4),
-            FloatField(10, 19, 2),
+            FloatField(10, 19, 3),
         ]
     )
 
@@ -2299,7 +2299,7 @@ class ACVSVERT(Register):
     LINE = Line(
         [
             IntegerField(3, 4),
-            FloatField(10, 19, 2),
+            FloatField(10, 19, 3),
         ]
     )
 
@@ -2343,7 +2343,7 @@ class ACVMDESV(Register):
     LINE = Line(
         [
             IntegerField(3, 4),
-            FloatField(10, 19, 2),
+            FloatField(10, 19, 3),
         ]
     )
 
@@ -2388,7 +2388,7 @@ class ACCOTVAZ(Register):
         [
             IntegerField(3, 4),
             IntegerField(5, 19),
-            FloatField(15, 24, 8),
+            FloatField(15, 24, 8, format="E"),
             IntegerField(5, 39),
         ]
     )
