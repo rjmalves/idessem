@@ -21,6 +21,7 @@ from idessem.dessem.modelos.entdados import (
     ACVOLMIN,
     ACVSVERT,
     ACVMDESV,
+    ACCOTVAZ,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -52,6 +53,7 @@ from tests.mocks.arquivos.entdados import (
     MockACVOLMIN,
     MockACVSVERT,
     MockACVMDESV,
+    MockACCOTVAZ,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -934,6 +936,28 @@ def test_registro_acvmdesv_entdados():
     assert r.volume == 102.0
     r.volume = 0
     assert r.volume == 0
+
+
+def test_registro_accotvaz_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACCOTVAZ))
+    r = ACCOTVAZ()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [288, 1, -8.635887e-19, None]
+    assert r.uhe == 288
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.ordem == 1
+    r.ordem = 0
+    assert r.ordem == 0
+    assert r.coeficiente == -8.635887e-19
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+    assert r.polimonio is None
+    r.polimonio = 0
+    assert r.polimonio == 0
 
 
 # def test_campos_nao_encontrados_entdados():

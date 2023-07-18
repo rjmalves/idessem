@@ -21,6 +21,7 @@ from idessem.dessem.modelos.entdados import (
     ACVOLMIN,
     ACVSVERT,
     ACVMDESV,
+    ACCOTVAZ,
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
@@ -48,7 +49,7 @@ class Entdados(RegisterFile):
 
     T = TypeVar("T")
 
-    AC = Union[ACVTFUGA, ACVOLMAX, ACVOLMIN, ACVSVERT]
+    AC = Union[ACVTFUGA, ACVOLMAX, ACVOLMIN, ACVSVERT, ACVMDESV, ACCOTVAZ]
 
     REGISTERS = [
         UH,
@@ -65,6 +66,7 @@ class Entdados(RegisterFile):
         ACVOLMIN,
         ACVSVERT,
         ACVMDESV,
+        ACCOTVAZ,
     ]
 
     def __init__(self, data=...) -> None:
