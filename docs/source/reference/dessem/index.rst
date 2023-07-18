@@ -42,6 +42,8 @@ Arquivos
    arquivos/avl_desvfpha
    arquivos/avl_fpha1
    arquivos/des_log_relato
+   arquivos/dessemarq
+   arquivos/entdados
    arquivos/hidr
    arquivos/log_matriz
    arquivos/operut
@@ -52,6 +54,4 @@ Arquivos
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
    arquivos/polinjus
-   arquivos/renovaveis
-   
-   
+   arquivos/renovaveis   
