@@ -26,8 +26,8 @@ Para a leitura do arquivo `PDO_SIST.DAT`::
 
     >>> from idessem.dessem.pdo_sist import PdoSist
     >>>
-    >>> diretorio = "/home/usuario/..."
-    >>> rel = PdoSist.le_arquivo(diretorio, "PDO_SIST.DAT")
+    >>> caminho = "/home/usuario/.../PDO_SIST.DAT"
+    >>> rel = PdoSist.read(caminho)
     >>> rel
     <idessem.dessem.PdoSist object at 0x000001BC7663B340>
 
@@ -37,6 +37,7 @@ Arquivos
 .. toctree::
    :maxdepth: 2
 
+   arquivos/dessemarq
    arquivos/avl_altqueda
    arquivos/avl_desvfpha
    arquivos/avl_fpha1
@@ -48,11 +49,9 @@ Arquivos
    arquivos/operut
    arquivos/pdo_eco_usih
    arquivos/pdo_eco_usih_polin
+   arquivos/pdo_eco_fcfcortes
    arquivos/pdo_hidr
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
    arquivos/polinjus
-   arquivos/renovaveis
-   
-   
-   
+   arquivos/renovaveis   

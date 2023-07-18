@@ -1,4 +1,7 @@
-from idessem.dessem.modelos.pdo_eco_usih import TabelaPdoEcoUsih
+from idessem.dessem.modelos.pdo_eco_usih import (
+    TabelaPdoEcoUsih,
+    TabelaPdoEcoUsih190301,
+)
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -18,6 +21,10 @@ class PdoEcoUsih(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoEcoUsih]
+    VERSIONS = {
+        "19.3.1": [VersaoModelo, DataEstudo, TabelaPdoEcoUsih190301],
+        "19.4.2": [VersaoModelo, DataEstudo, TabelaPdoEcoUsih],
+    }
     ENCODING = "iso-8859-1"
 
     @classmethod
@@ -55,6 +62,7 @@ class PdoEcoUsih(ArquivoCSV):
         - volume_soleira_desvio_hm3 (`float`)
         - volume_soleira_desvio_util_percentual (`float`)
         - volume_referencia_hm3 (`float`)
+        - tipo_reservatorio (`str`)
         - tipo_regularizacao (`str`)
         - flag_evaporacao (`int`)
         - numero_conjuntos (`int`)

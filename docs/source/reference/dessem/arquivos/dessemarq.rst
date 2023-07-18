@@ -1,12 +1,13 @@
 .. _dessemarq:
 
-=============================================================================================
-Arquivos de entrada (dessem.arq)
-=============================================================================================
+=======================================================
+Arquivos de Entrada (dessem.arq)
+=======================================================
 
 .. currentmodule:: idessem.dessem.dessemarq
 
-Os nomes dos arquivos a serem utilizados pelo DECOMP são armazenados na classe:
+Os arquivos de entrada para a execução do modelo DESSEM
+são armazenados na classe:
 
 .. autoclass:: DessemArq
    :members:
