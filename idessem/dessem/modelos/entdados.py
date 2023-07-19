@@ -3,7 +3,8 @@ from cfinterface.components.line import Line
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
-from typing import Optional, Union
+from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
+from typing import Optional, Union, IO
 
 
 class RD(Register):
@@ -459,9 +460,7 @@ class UH(Register):
             IntegerField(2, 24),
             FloatField(10, 29, 2),
             IntegerField(1, 39),
-            LiteralField(2, 41),
-            IntegerField(2, 44),
-            IntegerField(1, 47),
+            StageDateField(starting_position=41, special_day_character="I"),
             FloatField(10, 49, 2),
             IntegerField(1, 64),
             IntegerField(1, 69),
@@ -541,52 +540,45 @@ class UH(Register):
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
         """
-        O dia inicial de operação.
+        O dia inicial.
 
         :return: O dia.
         :rtype: str | int | None
         """
 
-        dia = self.data[5]
-        if (dia == "I") or (dia is None):
-            return dia
-        else:
-            return int(dia)
+        return self.data[5][0]
 
     @dia_inicial.setter
     def dia_inicial(self, n: Union[str, int]):
-        if isinstance(n, int):
-            self.data[5] = str(n)
-        else:
-            self.data[5] = n
+        self.data[5][0] = n
 
     @property
     def hora_inicial(self) -> Optional[int]:
         """
-        A hora inicial de operação.
+        A hora inicial.
 
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[6]
+        return self.data[5][1]
 
     @hora_inicial.setter
     def hora_inicial(self, n: int):
-        self.data[6] = n
+        self.data[5][1] = n
 
     @property
     def meia_hora_inicial(self) -> Optional[int]:
         """
-        A meia-hora inicial de operação.
+        A meia-hora inicial.
 
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[7]
+        return self.data[5][2]
 
     @meia_hora_inicial.setter
     def meia_hora_inicial(self, n: int):
-        self.data[7] = n
+        self.data[5][2] = n
 
     @property
     def volume_morto_inicial(self) -> Optional[float]:
@@ -596,11 +588,11 @@ class UH(Register):
         :return: O volume em hm3.
         :rtype: float | None
         """
-        return self.data[8]
+        return self.data[6]
 
     @volume_morto_inicial.setter
     def volume_morto_inicial(self, e: float):
-        self.data[8] = e
+        self.data[6] = e
 
     @property
     def produtividade(self) -> Optional[int]:
@@ -610,11 +602,11 @@ class UH(Register):
         :return: O flag.
         :rtype: int | None
         """
-        return self.data[9]
+        return self.data[7]
 
     @produtividade.setter
     def produtividade(self, n: int):
-        self.data[9] = n
+        self.data[7] = n
 
     @property
     def penaliza_restricao_geracao(self) -> Optional[int]:
@@ -624,670 +616,1826 @@ class UH(Register):
         :return: O flag.
         :rtype: int | None
         """
-        return self.data[10]
+        return self.data[8]
 
     @penaliza_restricao_geracao.setter
     def penaliza_restricao_geracao(self, n: int):
-        self.data[10] = n
-
-
-# class CT(Register):
-#     """
-#     Registro que contém o cadastro das usinas termelétricas com
-#     os seus custos e capacidades.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "CT  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             LiteralField(10, 14),
-#             IntegerField(2, 24),
-#             FloatField(5, 29, 2),
-#             FloatField(5, 34, 2),
-#             FloatField(10, 39, 2),
-#             FloatField(5, 49, 2),
-#             FloatField(5, 54, 2),
-#             FloatField(10, 59, 2),
-#             FloatField(5, 69, 2),
-#             FloatField(5, 74, 2),
-#             FloatField(10, 79, 2),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código de cadastro da UTE.
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @codigo.setter
-#     def codigo(self, codigo: int):
-#         self.data[0] = codigo
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema de cadastro da UTE.
-
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @subsistema.setter
-#     def subsistema(self, subsistema: int):
-#         self.data[1] = subsistema
-
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome de cadastro da UTE.
-
-#         :return: O nome como uma `str`.
-#         :rtype: str | None
-#         """
-#         return self.data[2]
-
-#     @nome.setter
-#     def nome(self, nome: str):
-#         self.data[2] = nome
-
-#     @property
-#     def estagio(self) -> Optional[str]:
-#         """
-#         O estágio associado às propriedades cadastradas.
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[3]
-
-#     @estagio.setter
-#     def estagio(self, estagio: int):
-#         self.data[3] = estagio
-
-#     @property
-#     def inflexibilidades(self) -> Optional[List[float]]:
-#         """
-#         As inflexibilidades da UTE por patamar.
-
-#         :return: As inflexibilidades.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[4::3] if v is not None]
-
-#     @inflexibilidades.setter
-#     def inflexibilidades(self, inflex: List[float]):
-#         self.__atualiza_dados_lista(inflex, 4, 3)
-
-#     @property
-#     def disponibilidades(self) -> Optional[List[float]]:
-#         """
-#         As disponibilidades da UTE por patamar.
-
-#         :return: As disponibilidades.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[5::3] if v is not None]
-
-#     @disponibilidades.setter
-#     def disponibilidades(self, disp: List[float]):
-#         self.__atualiza_dados_lista(disp, 5, 3)
-
-#     @property
-#     def cvus(self) -> Optional[List[float]]:
-#         """
-#         Os CVUs da UTE por patamar.
-
-#         :return: Os CVUs.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[6::3] if v is not None]
-
-#     @cvus.setter
-#     def cvus(self, cvu: List[float]):
-#         self.__atualiza_dados_lista(cvu, 6, 3)
-
-
-# class UE(Register):
-#     """
-#     Registro que contém o cadastro das estações de bombeamento
-#     (usinas elevatórias).
-#     """
-
-#     IDENTIFIER = "UE  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             LiteralField(12, 14),
-#             IntegerField(3, 29),
-#             IntegerField(3, 34),
-#             FloatField(10, 39, 1),
-#             FloatField(10, 49, 1),
-#             FloatField(10, 59, 2),
-#         ]
-#     )
-
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código de cadastro da UE.
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @codigo.setter
-#     def codigo(self, cod: int):
-#         self.data[0] = cod
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema de cadastro da UE, conforme registro SB.
-
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @subsistema.setter
-#     def subsistema(self, n: int):
-#         self.data[1] = n
-
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome da estação de bombeamento.
-
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[2]
-
-#     @nome.setter
-#     def nome(self, v: str):
-#         self.data[2] = v
-
-#     @property
-#     def uhe_montante(self) -> Optional[int]:
-#         """
-#         O código da UHE a montante, conforme registro UH.
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[3]
-
-#     @uhe_montante.setter
-#     def uhe_montante(self, v: int):
-#         self.data[3] = v
-
-#     @property
-#     def uhe_jusante(self) -> Optional[int]:
-#         """
-#         O código da UHE a jusante, conforme registro UH.
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[4]
-
-#     @uhe_jusante.setter
-#     def uhe_jusante(self, e: int):
-#         self.data[4] = e
-
-#     @property
-#     def vazao_minima_bombeavel(self) -> Optional[float]:
-#         """
-#         A vazão mínima bombeável.
-
-#         :return: A vazão em m3/s
-#         :rtype: float | None
-#         """
-#         return self.data[5]
-
-#     @vazao_minima_bombeavel.setter
-#     def vazao_minima_bombeavel(self, e: float):
-#         self.data[5] = e
-
-#     @property
-#     def vazao_maxima_bombeavel(self) -> Optional[float]:
-#         """
-#         A vazão mínima bombeável.
-
-#         :return: A vazão em m3/s
-#         :rtype: float | None
-#         """
-#         return self.data[6]
-
-#     @vazao_maxima_bombeavel.setter
-#     def vazao_maxima_bombeavel(self, e: float):
-#         self.data[6] = e
-
-#     @property
-#     def taxa_consumo(self) -> Optional[float]:
-#         """
-#         A taxa de consumo.
-
-#         :return: A taxa em MWmed/m3/s.
-#         :rtype: float | None
-#         """
-#         return self.data[7]
-
-#     @taxa_consumo.setter
-#     def taxa_consumo(self, e: float):
-#         self.data[7] = e
-
-
-# class DP(Register):
-#     """
-#     Registro que contém o cadastro das durações dos patamares.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "DP  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             IntegerField(2, 9),
-#             IntegerField(1, 14),
-#             FloatField(10, 19, 1),
-#             FloatField(10, 29, 1),
-#             FloatField(10, 39, 1),
-#             FloatField(10, 49, 1),
-#             FloatField(10, 59, 1),
-#             FloatField(10, 69, 1),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado às durações especificadas.
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[0] = e
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema associado às durações especificadas.
-
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @subsistema.setter
-#     def subsistema(self, sub: int):
-#         self.data[1] = sub
-
-#     @property
-#     def num_patamares(self) -> Optional[int]:
-#         """
-#         O número de patamares.
-
-#         :return: O número de patamares.
-#         :rtype: int | None
-#         """
-#         return self.data[2]
-
-#     @num_patamares.setter
-#     def num_patamares(self, n: int):
-#         self.data[2] = n
-
-#     @property
-#     def cargas(self) -> Optional[List[float]]:
-#         """
-#         As cargas em Mwmed pata cada patamar de carga
-
-#         :return: As cargas.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[3::2] if v is not None]
-
-#     @cargas.setter
-#     def cargas(self, c: List[float]):
-#         self.__atualiza_dados_lista(c, 3, 2)
-
-#     @property
-#     def duracoes(self) -> Optional[List[float]]:
-#         """
-#         As durações de cada patamar de carga em horas
-
-#         :return: As durações em horas.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[4::2] if v is not None]
-
-#     @duracoes.setter
-#     def duracoes(self, d: List[float]):
-#         self.__atualiza_dados_lista(d, 4, 2)
-
-
-# class PQ(Register):
-#     """
-#     Registro que contém o cadastro da geração por pequenas usinas.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "PQ  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             LiteralField(10, 4),
-#             IntegerField(2, 14),
-#             IntegerField(2, 19),
-#             FloatField(5, 24, 0),
-#             FloatField(5, 29, 0),
-#             FloatField(5, 34, 0),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def nome(self) -> Optional[str]:
-#         """
-#         O nome da geração.
-
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[0]
-
-#     @nome.setter
-#     def nome(self, nome: str):
-#         self.data[0] = nome
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O subsistema associado à geração.
-
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @subsistema.setter
-#     def subsistema(self, sub: int):
-#         self.data[1] = sub
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado à geração.
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[2]
-
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[2] = e
-
-#     @property
-#     def geracoes(self) -> Optional[List[float]]:
-#         """
-#         As gerações em Mwmed para cada patamar de carga.
-
-#         :return: As gerações.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[3:6] if v is not None]
-
-#     @geracoes.setter
-#     def geracoes(self, c: List[float]):
-#         self.__atualiza_dados_lista(c, 3, 1)
-
-
-# class CD(Register):
-#     """
-#     Registro que contém o cadastro dos custos de déficit.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "CD  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             IntegerField(2, 9),
-#             LiteralField(10, 14),
-#             IntegerField(2, 24),
-#             FloatField(5, 29, 1),
-#             FloatField(10, 34, 2),
-#             FloatField(5, 44, 1),
-#             FloatField(10, 49, 2),
-#             FloatField(5, 59, 1),
-#             FloatField(10, 64, 2),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def numero_curva(self) -> Optional[int]:
-#         """
-#         O número da curva de déficit.
-
-#         :return: O índice da curva.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @numero_curva.setter
-#     def numero_curva(self, n: int):
-#         self.data[0] = n
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O índice do subsistema associado.
-
-#         :return: O subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @subsistema.setter
-#     def subsistema(self, s: int):
-#         self.data[1] = s
-
-#     @property
-#     def nome_curva(self) -> Optional[str]:
-#         """
-#         O nome da curva de défitict
-
-#         :return: O nome.
-#         :rtype: str | None
-#         """
-#         return self.data[2]
-
-#     @nome_curva.setter
-#     def nome_curva(self, n: str):
-#         self.data[2] = n
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio de vigência do custo de déficit
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[3]
-
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[3] = e
-
-#     @property
-#     def limites_superiores(self) -> Optional[List[float]]:
-#         """
-#         Os limites superiores para consideração dos custos.
-
-#         :return: Os limites.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[4::2] if v is not None]
-
-#     @limites_superiores.setter
-#     def limites_superiores(self, lim: List[float]):
-#         self.__atualiza_dados_lista(lim, 4, 2)
-
-#     @property
-#     def custos(self) -> Optional[List[float]]:
-#         """
-#         Os custos de déficit.
-
-#         :return: Os custos.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[5::2] if v is not None]
-
-#     @custos.setter
-#     def custos(self, cus: List[float]):
-#         self.__atualiza_dados_lista(cus, 5, 2)
-
-
-# class RI(Register):
-#     """
-#     Registro que contém as restrições de Itaipu.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "RI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(3, 8),
-#             IntegerField(3, 12),
-#             FloatField(7, 16, 0),
-#             FloatField(7, 23, 0),
-#             FloatField(7, 30, 0),
-#             FloatField(7, 37, 0),
-#             FloatField(7, 44, 0),
-#             FloatField(7, 51, 0),
-#             FloatField(7, 58, 0),
-#             FloatField(7, 65, 0),
-#             FloatField(7, 72, 0),
-#             FloatField(7, 79, 0),
-#             FloatField(7, 86, 0),
-#             FloatField(7, 93, 0),
-#             FloatField(7, 100, 0),
-#             FloatField(7, 107, 0),
-#             FloatField(7, 114, 0),
-#         ]
-#     )
-
-
-# class IA(Register):
-#     """
-#     Registro que contém os limites de intercâmbio entre os subsistemas.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "IA  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             LiteralField(2, 9),
-#             LiteralField(2, 14),
-#             IntegerField(1, 17),
-#             FloatField(10, 19, 0),
-#             FloatField(10, 29, 0),
-#             FloatField(10, 39, 0),
-#             FloatField(10, 49, 0),
-#             FloatField(10, 59, 0),
-#             FloatField(10, 69, 0),
-#         ]
-#     )
+        self.data[8] = n
+
+
+class TVIAG(Register):
+    """
+    Registro que contém os tempos de viagem da água entre usinas.
+    """
+
+    IDENTIFIER = "TVIAG "
+    IDENTIFIER_DIGITS = 6
+    LINE = Line(
+        [
+            IntegerField(3, 6),
+            IntegerField(3, 10),
+            LiteralField(1, 14),
+            IntegerField(3, 19),
+            IntegerField(1, 24),
+        ]
+    )
+
+    @property
+    def uhe_montante(self) -> Optional[int]:
+        """
+        O código da UHE a montante a partir do qual é contabilizado
+        o tempo de viagem.
+
+        :return: O código
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @uhe_montante.setter
+    def uhe_montante(self, u: int):
+        self.data[0] = u
+
+    @property
+    def elemento_jusante(self) -> Optional[int]:
+        """
+        O código do elemento a jusante do qual é contabilizado
+        o tempo de viagem.
+
+        :return: O código
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @elemento_jusante.setter
+    def elemento_jusante(self, u: int):
+        self.data[1] = u
+
+    @property
+    def tipo_elemento_jusante(self) -> Optional[str]:
+        """
+        O tipo de elemento de jusante (S=seção de rio, H=usina).
+
+        :return: O código
+        :rtype: str | None
+        """
+        return self.data[2]
+
+    @tipo_elemento_jusante.setter
+    def tipo_elemento_jusante(self, u: str):
+        self.data[2] = u
+
+    @property
+    def duracao(self) -> Optional[int]:
+        """
+        A duração da viagem da água (em horas) entre a UHE a montante e
+        o elemento à jusante.
+
+        :return: A duração
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @duracao.setter
+    def duracao(self, d: int):
+        self.data[3] = d
+
+    @property
+    def tipo_tempo_viagem(self) -> Optional[int]:
+        """
+        O código referente ao tipo de tempo de viagem considerado
+        (1=translação; 2=propagação).
+
+        :return: O código do tipo.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @tipo_tempo_viagem.setter
+    def tipo_tempo_viagem(self, d: int):
+        self.data[4] = d
+
+
+class UT(Register):
+    """
+    Registro que contém as usinas termelétricas e suas restrições
+    de geração.
+
+    """
+
+    IDENTIFIER = "UT  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            LiteralField(12, 9),
+            IntegerField(2, 22),
+            IntegerField(1, 25),
+            StageDateField(starting_position=27, special_day_character="I"),
+            StageDateField(starting_position=35, special_day_character="F"),
+            IntegerField(1, 46),
+            FloatField(10, 47, 3),
+            FloatField(10, 57, 3),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código de cadastro da UTE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, codigo: int):
+        self.data[0] = codigo
+
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome de cadastro da UTE.
+
+        :return: O nome como uma `str`.
+        :rtype: str | None
+        """
+        return self.data[1]
+
+    @nome.setter
+    def nome(self, nome: str):
+        self.data[1] = nome
+
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O submercado de cadastro da UTE.
+
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @submercado.setter
+    def submercado(self, submercado: int):
+        self.data[2] = submercado
+
+    @property
+    def tipo_restricao(self) -> Optional[int]:
+        """
+        O flag para indicar tipo de restrição.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @tipo_restricao.setter
+    def tipo_restricao(self, tipo_restricao: int):
+        self.data[3] = tipo_restricao
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[4][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[4][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[4][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[4][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[4][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[4][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[5][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[5][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[5][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[5][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[5][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[5][2] = n
+
+    @property
+    def unidade_restricao(self) -> Optional[int]:
+        """
+        O flag para indicar a unidade da restrição de rampa.
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[6]
+
+    @unidade_restricao.setter
+    def unidade_restricao(self, unidade_restricao: int):
+        self.data[6] = unidade_restricao
+
+    @property
+    def geracao_minima(self) -> Optional[float]:
+        """
+        O valor do limite de geracao minima
+        (caso restrição de rampa, é o valor da variação
+        máxima para decréscimo de geração).
+
+        :return: O valor.
+        :rtype: float | None
+        """
+        return self.data[7]
+
+    @geracao_minima.setter
+    def geracao_minima(self, geracao_minima: float):
+        self.data[7] = geracao_minima
+
+    @property
+    def geracao_maxima(self) -> Optional[float]:
+        """
+        O valor do limite de geracao máxima
+        (caso restrição de rampa, é o valor da variação
+        máxima para acréscimo de geração).
+
+        :return: O valor.
+        :rtype: float | None
+        """
+        return self.data[8]
+
+    @geracao_maxima.setter
+    def geracao_maxima(self, geracao_maxima: float):
+        self.data[8] = geracao_maxima
+
+
+class USIE(Register):
+    """
+    Registro que contém o cadastro das usinas elevatórias.
+    """
+
+    IDENTIFIER = "USIE "
+    IDENTIFIER_DIGITS = 5
+    LINE = Line(
+        [
+            IntegerField(3, 5),
+            IntegerField(2, 9),
+            LiteralField(12, 14),
+            IntegerField(3, 29),
+            IntegerField(3, 34),
+            FloatField(10, 39, 3),
+            FloatField(10, 49, 3),
+            FloatField(10, 59, 3),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código de cadastro da UE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, cod: int):
+        self.data[0] = cod
+
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O submercado de cadastro da UE.
+
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @submercado.setter
+    def submercado(self, n: int):
+        self.data[1] = n
+
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome da usina elevatória.
+
+        :return: O nome.
+        :rtype: str | None
+        """
+        return self.data[2]
+
+    @nome.setter
+    def nome(self, v: str):
+        self.data[2] = v
+
+    @property
+    def uhe_montante(self) -> Optional[int]:
+        """
+        O código da UHE a montante, conforme registro UH.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @uhe_montante.setter
+    def uhe_montante(self, v: int):
+        self.data[3] = v
+
+    @property
+    def uhe_jusante(self) -> Optional[int]:
+        """
+        O código da UHE a jusante, conforme registro UH.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @uhe_jusante.setter
+    def uhe_jusante(self, e: int):
+        self.data[4] = e
+
+    @property
+    def vazao_minima_bombeavel(self) -> Optional[float]:
+        """
+        A vazão mínima bombeável.
+
+        :return: A vazão em m3/s
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @vazao_minima_bombeavel.setter
+    def vazao_minima_bombeavel(self, e: float):
+        self.data[5] = e
+
+    @property
+    def vazao_maxima_bombeavel(self) -> Optional[float]:
+        """
+        A vazão mínima bombeável.
+
+        :return: A vazão em m3/s
+        :rtype: float | None
+        """
+        return self.data[6]
+
+    @vazao_maxima_bombeavel.setter
+    def vazao_maxima_bombeavel(self, e: float):
+        self.data[6] = e
+
+    @property
+    def taxa_consumo(self) -> Optional[float]:
+        """
+        A taxa de consumo.
+
+        :return: A taxa em MWmed/m3/s.
+        :rtype: float | None
+        """
+        return self.data[7]
+
+    @taxa_consumo.setter
+    def taxa_consumo(self, e: float):
+        self.data[7] = e
+
+
+class DP(Register):
+    """
+    Registro que as demandas para os submercados que serão consideradas
+    para os períodos em que não se considerada a rede elétrica.
+
+    """
+
+    IDENTIFIER = "DP  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            FloatField(10, 24, 1),
+        ]
+    )
+
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O submercado associado à demanada especificada.
+
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @submercado.setter
+    def submercado(self, sub: int):
+        self.data[0] = sub
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def demanda(self) -> Optional[float]:
+        """
+        A demanda em Mwmed para o período especificado
+
+        :return: A demanda.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @demanda.setter
+    def demanda(self, demanda: float):
+        self.data[3] = demanda
+
+
+class DE(Register):
+    """
+    Registro que as demandas especiais para serem representadas em
+    restrições elétricas do tipo RE.
+
+    """
+
+    IDENTIFIER = "DE  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            FloatField(10, 24, 1),
+            LiteralField(10, 35),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código da demanda especial.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, sub: int):
+        self.data[0] = sub
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def demanda(self) -> Optional[float]:
+        """
+        A demanda em Mwmed para o período especificado
+
+        :return: A demanda.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @demanda.setter
+    def demanda(self, demanda: float):
+        self.data[3] = demanda
+
+    @property
+    def justificativa(self) -> Optional[str]:
+        """
+        A descrição ou justificativa.
+
+        :return: A justificativa.
+        :rtype: str | None
+        """
+        return self.data[4]
+
+    @justificativa.setter
+    def justificativa(self, justificativa: str):
+        self.data[4] = justificativa
+
+
+class CD(Register):
+    """
+    Registro que contém o cadastro dos custos de déficit.
+
+    """
+
+    IDENTIFIER = "CD "
+    IDENTIFIER_DIGITS = 3
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            IntegerField(2, 6),
+            StageDateField(starting_position=9, special_day_character="I"),
+            StageDateField(starting_position=17, special_day_character="F"),
+            FloatField(10, 25, 2),
+            FloatField(10, 35, 2),
+        ]
+    )
+
+    @property
+    def submercado(self) -> Optional[int]:
+        """
+        O índice do submercado associado.
+
+        :return: O submercado.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @submercado.setter
+    def submercado(self, s: int):
+        self.data[0] = s
+
+    @property
+    def numero_curva(self) -> Optional[int]:
+        """
+        O número da curva de déficit.
+
+        :return: O índice da curva.
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @numero_curva.setter
+    def numero_curva(self, n: int):
+        self.data[1] = n
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[3][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[3][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[3][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[3][2] = n
+
+    @property
+    def custo(self) -> Optional[float]:
+        """
+        O custo de déficit.
+
+        :return: O custo.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @custo.setter
+    def custo(self, cus: float):
+        self.data[4] = cus
+
+    @property
+    def limite_superior(self) -> Optional[float]:
+        """
+        O limite superior para consideração dos custos.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @limite_superior.setter
+    def limite_superior(self, lim: float):
+        self.data[5] = lim
+
+
+class PQ(Register):
+    """
+    Registro que contém o cadastro da geração por pequenas usinas.
+
+    """
+
+    IDENTIFIER = "PQ  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            LiteralField(10, 9),
+            IntegerField(5, 19),
+            StageDateField(starting_position=24, special_day_character="I"),
+            StageDateField(starting_position=32, special_day_character="F"),
+            FloatField(10, 40, 1),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[str]:
+        """
+        O código da pequena usina.
+
+        :return: O código.
+        :rtype: str | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, nome: str):
+        self.data[0] = nome
+
+    @property
+    def nome(self) -> Optional[str]:
+        """
+        O nome da pequena usina.
+
+        :return: O nome.
+        :rtype: str | None
+        """
+        return self.data[1]
+
+    @nome.setter
+    def nome(self, nome: str):
+        self.data[1] = nome
+
+    @property
+    def localizacao(self) -> Optional[int]:
+        """
+        O indice do subsistema  ou barra associado à geração.
+
+        :return: O índice da localização.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @localizacao.setter
+    def localizacao(self, sub: int):
+        self.data[2] = sub
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[3][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[3][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[3][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[3][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[4][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[4][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[4][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[4][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[4][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[4][2] = n
+
+    @property
+    def geracao(self) -> Optional[float]:
+        """
+        A geração da pequena usina.
+
+        :return: A geração.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @geracao.setter
+    def geracao(self, ger: float):
+        self.data[5] = ger
+
+
+class IT(Register):
+    """
+    Registro que contém os coeficientes do polinômio do canal de fuga
+    de Itaipu em função da vazão na Régua 11, para casos sem FPHA Libs.
+    """
+
+    IDENTIFIER = "IT  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(2, 4),
+            FloatField(15, 9, 7, format="E"),
+            FloatField(15, 24, 7, format="E"),
+            FloatField(15, 39, 7, format="E"),
+            FloatField(15, 54, 7, format="E"),
+            FloatField(15, 69, 7, format="E"),
+        ]
+    )
+
+    @property
+    def ree(self) -> Optional[int]:
+        """
+        O código do REE em que se encontra a usina
+        de Itaipu.
+
+        :return: O ree.
+        :rtype: int | None
+        """
+
+        return self.data[0]
+
+    @ree.setter
+    def ree(self, n: int):
+        self.data[0] = n
+
+    @property
+    def coeficiente_a0(self) -> Optional[float]:
+        """
+        O coeficiente de grau 0 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[1]
+
+    @coeficiente_a0.setter
+    def coeficiente_a0(self, c: float):
+        self.data[1] = c
+
+    @property
+    def coeficiente_a1(self) -> Optional[float]:
+        """
+        O coeficiente de grau 1 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[2]
+
+    @coeficiente_a1.setter
+    def coeficiente_a1(self, c: float):
+        self.data[2] = c
+
+    @property
+    def coeficiente_a2(self) -> Optional[float]:
+        """
+        O coeficiente de grau 2 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[3]
+
+    @coeficiente_a2.setter
+    def coeficiente_a2(self, c: float):
+        self.data[3] = c
+
+    @property
+    def coeficiente_a3(self) -> Optional[float]:
+        """
+        O coeficiente de grau 3 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[4]
+
+    @coeficiente_a3.setter
+    def coeficiente_a3(self, c: float):
+        self.data[4] = c
+
+    @property
+    def coeficiente_a4(self) -> Optional[float]:
+        """
+        O coeficiente de grau 4 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[5]
+
+    @coeficiente_a4.setter
+    def coeficiente_a4(self, c: float):
+        self.data[5] = c
+
+
+class RI(Register):
+    """
+    Registro que contém as restrições de Itaipu.
+
+    """
+
+    IDENTIFIER = "RI  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            FloatField(10, 26, 2),
+            FloatField(10, 36, 2),
+            FloatField(10, 46, 2),
+            FloatField(10, 56, 2),
+            FloatField(10, 66, 2),
+        ]
+    )
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[0][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[0][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[0][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[0][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[0][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[0][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def geracao_minima_50hz(self) -> Optional[float]:
+        """
+        O limite inferior para a geração 50 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @geracao_minima_50hz.setter
+    def geracao_minima_50hz(self, n: float):
+        self.data[2] = n
+
+    @property
+    def geracao_maxima_50hz(self) -> Optional[float]:
+        """
+        O limite superior para a geração 50 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @geracao_maxima_50hz.setter
+    def geracao_maxima_50hz(self, n: float):
+        self.data[3] = n
+
+    @property
+    def geracao_minima_60hz(self) -> Optional[float]:
+        """
+        O limite inferior para a geração 60 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @geracao_minima_60hz.setter
+    def geracao_minima_60hz(self, n: float):
+        self.data[4] = n
+
+    @property
+    def geracao_maxima_60hz(self) -> Optional[float]:
+        """
+        O limite superior para a geração 60 Hz de Itaipu.
+
+        :return: O limite.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @geracao_maxima_60hz.setter
+    def geracao_maxima_60hz(self, n: float):
+        self.data[5] = n
+
+    @property
+    def carga_ande(self) -> Optional[float]:
+        """
+        A carga da ANDE.
+
+        :return: A carga.
+        :rtype: float | None
+        """
+        return self.data[6]
+
+    @carga_ande.setter
+    def carga_ande(self, n: float):
+        self.data[6] = n
+
+
+class IA(Register):
+    """
+    Registro que contém os limites de intercâmbio entre os subsistemas.
+
+    """
+
+    IDENTIFIER = "IA  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            LiteralField(2, 4),
+            LiteralField(2, 9),
+            StageDateField(starting_position=13, special_day_character="I"),
+            StageDateField(starting_position=21, special_day_character="F"),
+            FloatField(10, 29, 1),
+            FloatField(10, 39, 1),
+        ]
+    )
+
+    @property
+    def submercado_de(self) -> Optional[str]:
+        """
+        O submercado de origem (de).
+
+        :return: O submercado.
+        :rtype: str | None
+        """
+
+        return self.data[0]
+
+    @submercado_de.setter
+    def submercado_de(self, n: str):
+        self.data[0] = n
+
+    @property
+    def submercado_para(self) -> Optional[str]:
+        """
+        O submercado de destino (para).
+
+        :return: O submercado.
+        :rtype: str | None
+        """
+
+        return self.data[1]
+
+    @submercado_para.setter
+    def submercado_para(self, n: str):
+        self.data[1] = n
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[3][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[3][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[3][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[3][2] = n
+
+    @property
+    def capacidade_de(self) -> Optional[float]:
+        """
+        A capacidade do intercâmbio do submercado de ao submercado para.
+
+        :return: A capacidade.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @capacidade_de.setter
+    def capacidade_de(self, n: float):
+        self.data[4] = n
+
+    @property
+    def capacidade_para(self) -> Optional[float]:
+        """
+        A capacidade do intercâmbio do submercado para ao submercado de.
+
+        :return: A capacidade.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @capacidade_para.setter
+    def capacidade_para(self, n: float):
+        self.data[5] = n
+
+
+class GP(Register):
+    """
+    Registro que contém os gaps de tolerância para convergência
+    para os métodos PDD ou MILP.
+    """
+
+    IDENTIFIER = "GP  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line([FloatField(10, 4, 8), FloatField(10, 15, 8)])
+
+    @property
+    def gap_pdd(self) -> Optional[float]:
+        """
+        O gap de convergência do processo iterativo de
+        programação dinâmica dual (PDD).
+
+        :return: O gap.
+        :rtype: float | None
+        """
+
+        return self.data[0]
+
+    @gap_pdd.setter
+    def gap_pdd(self, n: float):
+        self.data[0] = n
+
+    @property
+    def gap_milp(self) -> Optional[float]:
+        """
+        O gap de convergência do problema por programação
+        linear inteira mista (MILP).
+
+        :return: O gap.
+        :rtype: float | None
+        """
+
+        return self.data[1]
+
+    @gap_milp.setter
+    def gap_milp(self, n: float):
+        self.data[1] = n
+
+
+class ACVTFUGA(Register):
+    """
+    Registro AC específico para consideração da influência do vertimento
+    no canal de fuga.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VTFUGA"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def influi(self) -> Optional[int]:
+        return self.data[1]
+
+    @influi.setter
+    def influi(self, u: int):
+        self.data[1] = u
+
+
+class ACVOLMAX(Register):
+    """
+    Registro AC específico para alteração de volume máximo.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VOLMAX"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 3),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def volume(self) -> Optional[float]:
+        return self.data[1]
+
+    @volume.setter
+    def volume(self, u: float):
+        self.data[1] = u
+
+
+class ACVOLMIN(Register):
+    """
+    Registro AC específico para alteração de volume mínimo.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VOLMIN"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 3),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def volume(self) -> Optional[float]:
+        return self.data[1]
+
+    @volume.setter
+    def volume(self, u: float):
+        self.data[1] = u
+
+
+class ACVSVERT(Register):
+    """
+    Registro AC específico para alteração do volume mínimo para operação
+    do vertedor.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VSVERT"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 3),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def volume(self) -> Optional[float]:
+        return self.data[1]
+
+    @volume.setter
+    def volume(self, u: float):
+        self.data[1] = u
+
+
+class ACVMDESV(Register):
+    """
+    Registro AC específico para alteração do volume mínimo para operação
+    do canal de desvio.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  VMDESV"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 3),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def volume(self) -> Optional[float]:
+        return self.data[1]
+
+    @volume.setter
+    def volume(self, u: float):
+        self.data[1] = u
+
+
+class ACCOTVAZ(Register):
+    """
+    Registro AC específico para alteração de um coeficiente do
+    polinômio cota-vazão.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  COTVAZ"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            FloatField(15, 24, 8, format="E"),
+            IntegerField(5, 39),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def ordem(self) -> Optional[int]:
+        return self.data[1]
+
+    @ordem.setter
+    def ordem(self, u: int):
+        self.data[1] = u
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        return self.data[2]
+
+    @coeficiente.setter
+    def coeficiente(self, u: float):
+        self.data[2] = u
+
+    @property
+    def polimonio(self) -> Optional[int]:
+        return self.data[3]
+
+    @polimonio.setter
+    def polimonio(self, u: int):
+        self.data[3] = u
 
 
 # class TX(Register):
@@ -1317,19 +2465,6 @@ class UH(Register):
 #     def taxa(self, t: float):
 #         self.data[0] = t
 
-
-# class GP(Register):
-#     """
-#     Registro que contém o gap de tolerância para convergência.
-#     """
-
-#     IDENTIFIER = "GP  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             FloatField(10, 4, 6),
-#         ]
-#     )
 
 #     @property
 #     def gap(self) -> Optional[float]:
@@ -2008,91 +3143,6 @@ class UH(Register):
 #     @coeficiente.setter
 #     def coeficiente(self, f: float):
 #         self.data[4] = f
-
-
-# class VI(Register):
-#     """
-#     Registro que contém os tempos de viagem da água entre usinas.
-#     """
-
-#     IDENTIFIER = "VI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(3, 9),
-#             FloatField(5, 14, 0),
-#             FloatField(5, 19, 0),
-#             FloatField(5, 24, 0),
-#             FloatField(5, 29, 0),
-#             FloatField(5, 34, 0),
-#             FloatField(5, 39, 0),
-#             FloatField(5, 44, 0),
-#             FloatField(5, 49, 0),
-#             FloatField(5, 54, 0),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         """
-#         O código da UHE a partir do qual é contabilizado
-#         o tempo de viagem.
-
-#         :return: O código
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @uhe.setter
-#     def uhe(self, u: int):
-#         self.data[0] = u
-
-#     @property
-#     def duracao(self) -> Optional[int]:
-#         """
-#         A duração da viagem da água (em horas) entre a UHE do
-#         código informado e sua usina à jusante segundo o hidr.
-
-#         :return: A duração
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @duracao.setter
-#     def duracao(self, d: int):
-#         self.data[1] = d
-
-#     @property
-#     def vazoes(self) -> Optional[List[float]]:
-#         """
-#         As vazões defluentes das semanas passadas para a usina
-#         do código informado. A posição da vazão na lista indica
-#         a qual semana passada se refere [s-1, s-2, s-3, ...].
-
-#         :return: As vazões
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[2::] if v is not None]
-
-#     @vazoes.setter
-#     def vazoes(self, v: List[float]):
-#         self.__atualiza_dados_lista(v, 2, 1)
 
 
 # class IR(Register):
@@ -4345,76 +5395,6 @@ class UH(Register):
 #         self.data[-1] = m
 
 
-# class ACVOLMAX(Register):
-#     """
-#     Registro AC específico para alteração de volume máximo.
-#     """
-
-#     IDENTIFIER = r"AC  ([\d ]{1,3})  VOLMAX"
-#     IDENTIFIER_DIGITS = 15
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             FloatField(10, 19, 2),
-#             LiteralField(3, 69),
-#             IntegerField(2, 73),
-#             IntegerField(4, 76),
-#         ]
-#     )
-
-#     # Override
-#     def write(self, file: IO, storage: str = "") -> bool:
-#         line = self.__class__.LINE.write(self.data)
-#         line = (
-#             self.__class__.IDENTIFIER[:2]  # type: ignore
-#             + line[2:9]
-#             + self.__class__.IDENTIFIER[18:]
-#             + line[15:]
-#         )
-#         file.write(line)
-#         return True
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         return self.data[0]
-
-#     @uhe.setter
-#     def uhe(self, u: int):
-#         self.data[0] = u
-
-#     @property
-#     def volume(self) -> Optional[float]:
-#         return self.data[1]
-
-#     @volume.setter
-#     def volume(self, u: float):
-#         self.data[1] = u
-
-#     @property
-#     def mes(self) -> Optional[str]:
-#         return self.data[-3]
-
-#     @mes.setter
-#     def mes(self, m: str):
-#         self.data[-3] = m
-
-#     @property
-#     def semana(self) -> Optional[int]:
-#         return self.data[-2]
-
-#     @semana.setter
-#     def semana(self, s: int):
-#         self.data[-2] = s
-
-#     @property
-#     def ano(self) -> Optional[int]:
-#         return self.data[-1]
-
-#     @ano.setter
-#     def ano(self, m: int):
-#         self.data[-1] = m
-
-
 # class ACCOTVOL(Register):
 #     """
 #     Registro AC específico para alteração de um coeficiente do
@@ -5385,77 +6365,6 @@ class UH(Register):
 
 #     @cota.setter
 #     def cota(self, u: float):
-#         self.data[1] = u
-
-#     @property
-#     def mes(self) -> Optional[str]:
-#         return self.data[-3]
-
-#     @mes.setter
-#     def mes(self, m: str):
-#         self.data[-3] = m
-
-#     @property
-#     def semana(self) -> Optional[int]:
-#         return self.data[-2]
-
-#     @semana.setter
-#     def semana(self, s: int):
-#         self.data[-2] = s
-
-#     @property
-#     def ano(self) -> Optional[int]:
-#         return self.data[-1]
-
-#     @ano.setter
-#     def ano(self, m: int):
-#         self.data[-1] = m
-
-
-# class ACVERTJU(Register):
-#     """
-#     Registro AC específico para consideração da influência do vertimento
-#     no canal de fuga.
-#     """
-
-#     IDENTIFIER = r"AC  ([\d ]{1,3})  VERTJU"
-#     IDENTIFIER_DIGITS = 15
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(5, 19),
-#             LiteralField(3, 69),
-#             IntegerField(2, 73),
-#             IntegerField(4, 76),
-#         ]
-#     )
-
-#     # Override
-#     def write(self, file: IO, storage: str = "") -> bool:
-#         line = self.__class__.LINE.write(self.data)
-#         line = (
-#             self.__class__.IDENTIFIER[:2]  # type: ignore
-#             + line[2:9]
-#             + self.__class__.IDENTIFIER[18:]
-#             + line[15:]
-#         )
-#         file.write(line)
-#         return True
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         return self.data[0]
-
-#     @uhe.setter
-#     def uhe(self, u: int):
-#         self.data[0] = u
-
-#     @property
-#     def influi(self) -> Optional[int]:
-#         return self.data[1]
-
-#     @influi.setter
-#     def influi(self, u: int):
 #         self.data[1] = u
 
 #     @property

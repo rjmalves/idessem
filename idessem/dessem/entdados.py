@@ -1,8 +1,32 @@
-from idessem.dessem.modelos.entdados import UH, SIST, REE, TM, RIVAR, RD
+from idessem.dessem.modelos.entdados import (
+    UH,
+    SIST,
+    REE,
+    TM,
+    RIVAR,
+    RD,
+    TVIAG,
+    UT,
+    USIE,
+    DP,
+    DE,
+    CD,
+    PQ,
+    IT,
+    RI,
+    IA,
+    GP,
+    ACVTFUGA,
+    ACVOLMAX,
+    ACVOLMIN,
+    ACVSVERT,
+    ACVMDESV,
+    ACCOTVAZ,
+)
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
-from typing import Type, List, Optional, TypeVar, Union
+from typing import Type, List, Optional, TypeVar, Union, Any
 
 # Para compatibilidade - até versão 1.0.0
 from os.path import join
@@ -25,7 +49,32 @@ class Entdados(RegisterFile):
 
     T = TypeVar("T")
 
-    REGISTERS = [UH]
+    AC = Union[ACVTFUGA, ACVOLMAX, ACVOLMIN, ACVSVERT, ACVMDESV, ACCOTVAZ]
+
+    REGISTERS = [
+        UH,
+        SIST,
+        REE,
+        TM,
+        RIVAR,
+        RD,
+        TVIAG,
+        UT,
+        USIE,
+        DP,
+        DE,
+        CD,
+        IT,
+        RI,
+        IA,
+        GP,
+        ACVTFUGA,
+        ACVOLMAX,
+        ACVOLMIN,
+        ACVSVERT,
+        ACVMDESV,
+        ACCOTVAZ,
+    ]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -136,38 +185,15 @@ class Entdados(RegisterFile):
         self.data.preppend(registro)
 
     @property
-    def rd(
-        self,
-        df: bool = False,
-    ) -> Optional[Union[RD, List[RD], pd.DataFrame]]:
+    def rd(self) -> Optional[RD]:
         """
-        Obtém um registro que define as opções de representação da
+        Obtém o (único) registro que define as opções de representação da
         rede elétrica no estudo descrito pelo :class:`Entdados`.
 
-        :param variaveis_de_folga: inclusão de variáveis de folga
-        :type variaveis_de_folga: int | None
-        :param maximo_circuitos_violados: número máximo de circuitos violados
-        :type maximo_circuitos_violados: int | None
-        :param carga_registro_dbar: consideração cargas do bloco DBAR
-        :type carga_registro_dbar: int | None
-        :param limites_circuitos_transformadores_elevadores: consideração de limites
-        em transformadores elevadores
-        :type limites_circuitos_transformadores_elevadores: int | None
-        :param limites_circuitos_e_drefs: consideração de limites de fluxo
-        :type limites_circuitos_e_drefs: int | None
-        :param consideracao_perdas: consideração de perdas
-        :type consideracao_perdas: int | None
-        :param formato_arquivos_rede: formato dos arquivos de rede elétrica
-        :type formato_arquivos_rede: int | None
-        :return: Um ou mais registros, se existirem.
-        :rtype: :class:`RIVAR` | list[:class:`RIVAR`] | :class:`pd.DataFrame` | None
+        :return: Um registro, se existir.
+        :rtype: :class:`RD` | None
         """
-        if df:
-            return self._as_df(RD)
-        else:
-            return self.__obtem_registros_com_filtros(
-                RD,
-            )
+        return self.__obtem_registro(RD)
 
     def rivar(
         self,
@@ -239,8 +265,6 @@ class Entdados(RegisterFile):
     def sist(
         self,
         codigo: Optional[int] = None,
-        mnemonico: Optional[str] = None,
-        ficticio: Optional[int] = None,
         nome: Optional[str] = None,
         df: bool = False,
     ) -> Optional[Union[SIST, List[SIST], pd.DataFrame]]:
@@ -290,7 +314,7 @@ class Entdados(RegisterFile):
             return self._as_df(REE)
         else:
             return self.__obtem_registros_com_filtros(
-                REE, codigo=codigo, nome=nome
+                REE, codigo=codigo, submercado=submercado, nome=nome
             )
 
     def uh(
@@ -335,180 +359,362 @@ class Entdados(RegisterFile):
                 evaporacao=evaporacao,
             )
 
-    # def ct(
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     subsistema: Optional[int] = None,
-    #     nome: Optional[str] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[CT, List[CT], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define uma usina termelétrica existente
-    #     no estudo descrito pelo :class:`Dadger`.
+    def tviag(
+        self,
+        uhe_montante: Optional[int] = None,
+        elemento_jusante: Optional[int] = None,
+        tipo_elemento_jusante: Optional[str] = None,
+        duracao: Optional[int] = None,
+        tipo_tempo_viagem: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[TVIAG, List[TVIAG], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica os tempos de viagem da
+        água entre uma UHE existente e um elemento a jusante
+        no estudo descrito pelo :class:`Entdados`.
 
-    #     :param codigo: código que especifica o registro da UTE
-    #     :type codigo: int | None
-    #     :param estagio: estágio associado ao registro
-    #     :type estagio: int | None
-    #     :param subsistema: subsistema da UTE
-    #     :type subsistema: str | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param uhe_montante: Índice da UHE a montante com tempo de viagem
+        :type uhe_montante: int | None
+        :param elemento_jusante: Índice do elemento a jusante
+        :type elemento_jusante: int | None
+        :param tipo_elemento_jusante: Tipo do elemento a jusante (seção ou UHE)
+        :type tipo_elemento_jusante: str | None
+        :param duracao: duração, em horas, da viagem da água
+        :type duracao: int | None
+        :param tipo_tempo_viagem: ìndice do tipo do tempo de viagem (translação ou propagação)
+        :type tipo_tempo_viagem: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`CT` | list[:class:`CT`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(CT)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             CT,
-    #             codigo=codigo,
-    #             estagio=estagio,
-    #             subsistema=subsistema,
-    #             nome=nome,
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`TVIAG` | list[:class:`TVIAG`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(TVIAG)
+        else:
+            return self.__obtem_registros_com_filtros(
+                TVIAG,
+                uhe_montante=uhe_montante,
+                elemento_jusante=elemento_jusante,
+                tipo_elemento_jusante=tipo_elemento_jusante,
+                duracao=duracao,
+                tipo_tempo_viagem=tipo_tempo_viagem,
+            )
 
-    # def dp(
-    #     self,
-    #     estagio: Optional[int] = None,
-    #     subsistema: Optional[int] = None,
-    #     num_patamares: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[DP, List[DP], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define as durações dos patamares
-    #     no estudo descrito pelo :class:`Dadger`.
+    def ut(
+        self,
+        codigo: Optional[int] = None,
+        nome: Optional[str] = None,
+        submercado: Optional[int] = None,
+        tipo_restricao: Optional[int] = None,
+        geracao_minima: Optional[float] = None,
+        geracao_maxima: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[UT, List[UT], pd.DataFrame]]:
+        """
+        Obtém um registro que define uma usina termelétrica existente
+        no estudo descrito pelo :class:`Entdados`.
 
-    #     :param estagio: estágio sobre o qual serão
-    #         definidas as durações dos patamares
-    #     :type estagio: int | None
-    #     :param subsistema: subsistema para o qual
-    #         valerão os patamares.
-    #     :type subsistema: int | None
-    #     :param num_patamares: número de patamares
-    #     :type num_patamares: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param codigo: índice do código que especifica o registro da UTE
+        :type codigo: int | None
+        :param nome: nome da UTE
+        :type nome: str | None
+        :param submercado: índice do submercado da UTE
+        :type submercado: int | None
+        :param tipo_restricao: tipo de restrição
+        :type tipo_restricao: int | None
+        :param geracao_minima: limite de geração mínima (ou, caso restrição de rampa,
+            valor da variação máxima para decréscimo de geração)
+        :type geracao_minima: float | None
+        :param geracao_maxima: limite de geração máxima (ou, caso restrição de rampa,
+            valor da variação máxima para acréscimo de geração)
+        :type geracao_maxima: float | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`DP` | list[:class:`DP`] |
-    #         :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(DP)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             DP,
-    #             estagio=estagio,
-    #             subsistema=subsistema,
-    #             num_patamares=num_patamares,
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`UT` | list[:class:`UT`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(UT)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UT,
+                codigo=codigo,
+                nome=nome,
+                submercado=submercado,
+                tipo_restricao=tipo_restricao,
+                geracao_minima=geracao_minima,
+                geracao_maxima=geracao_maxima,
+            )
 
-    # def pq(
-    #     self,
-    #     nome: Optional[str] = None,
-    #     subsistema: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[PQ, List[PQ], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define as gerações das pequenas usinas
-    #     no estudo descrito pelo :class:`Dadger`.
+    def usie(
+        self,
+        codigo: Optional[int] = None,
+        submercado: Optional[int] = None,
+        nome: Optional[str] = None,
+        uhe_montante: Optional[int] = None,
+        uhe_jusante: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[USIE, List[USIE], pd.DataFrame]]:
+        """
+        Obtém um registro que define as usinas elevatórias da configuração
+        e seus principais dados físicos no estudo descrito pelo :class:`Entdados`.
 
-    #     :param nome: o nome das gerações
-    #     :param subsistema: subsistema para o qual
-    #         valerão as gerações
-    #     :param estagio: estágio sobre o qual serão
-    #         definidas as gerações
-    #     :type estagio: int | None
-    #     :type subsistema: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param codigo: código que especifica a usina elevatória
+        :type codigo: int | None
+        :param submercado: código do submercado correspondente
+        :type submercado: str | None
+        :param nome: nome da usina elevatória
+        :type nome: int | None
+        :param uhe_montante: código da usina a montante
+        :type uhe_montante: int | None
+        :param uhe_jusante: código da usina a jusante
+        :type uhe_jusante: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`USIE` | list[:class:`USIE`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(USIE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                USIE,
+                codigo=codigo,
+                submercado=submercado,
+                nome=nome,
+                uhe_montante=uhe_montante,
+                uhe_jusante=uhe_jusante,
+            )
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`PQ` | list[:class:`PQ`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(PQ)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             PQ,
-    #             nome=nome,
-    #             estagio=estagio,
-    #             subsistema=subsistema,
-    #         )
+    def dp(
+        self,
+        submercado: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[DP, List[DP], pd.DataFrame]]:
+        """
+        Obtém um registro que define os dados de demanda para
+        os submercados que serão consideradas para os períodos
+        que não se considerada a rede elétrica no estudo descrito
+        pelo :class:`Entdados`.
 
-    # def ac(
-    #     self,
-    #     uhe: int,
-    #     modificacao: Any,
-    #     df: bool = False,
-    #     **kwargs,
-    # ) -> Optional[Union[AC, List[AC], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define modificações nos parâmetros
-    #     das UHE em um :class:`Dadger`.
+        :param submercado: subsistema para o qual
+            valerão os patamares.
+        :type submercado: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :param uhe: código da UHE modificada
-    #     :type uhe: int
-    #     :param modificacao: classe da modificação realizada
-    #     :type modificacao: subtipos do tipo `AC`
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`DP` | list[:class:`DP`] |
+            :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(DP)
+        else:
+            return self.__obtem_registros_com_filtros(
+                DP,
+                submercado=submercado,
+            )
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: `AC` | list[`AC`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(modificacao)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             modificacao, **{"uhe": uhe, **kwargs}
-    #         )
+    def de(
+        self,
+        codigo: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[DE, List[DE], pd.DataFrame]]:
+        """
+        Obtém um registro que define uma demanda especial para
+        serem representadas em restrições elétricas no estudo descrito
+        pelo :class:`Entdados`.
 
-    # def cd(
-    #     self,
-    #     numero_curva: Optional[int] = None,
-    #     subsistema: Optional[int] = None,
-    #     nome_curva: Optional[str] = None,
-    #     estagio: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[CD, List[CD], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que define as curvas de déficit
-    #     no estudo descrito pelo :class:`Dadger`.
+        :param codigo: código da demanda especial.
+        :type codigo: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :param numero_curva: Índice da curva de déficit descrita
-    #     :type numero_curva: int | None
-    #     :param subsistema: subsistema para o qual valerá a curva.
-    #     :type subsistema: int | None
-    #     :param nome_curva: nome da curva.
-    #     :type nome_curva: str | None
-    #     :param estagio: estagio para o qual valerá a curva.
-    #     :type estagio: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`DE` | list[:class:`DE`] |
+            :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(DE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                DE,
+                codigo=codigo,
+            )
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`LU` | list[:class:`LU`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(CD)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             CD,
-    #             numero_curva=numero_curva,
-    #             subsistema=subsistema,
-    #             nome_curva=nome_curva,
-    #             estagio=estagio,
-    #         )
+    def cd(
+        self,
+        submercado: Optional[int] = None,
+        numero_curva: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[CD, List[CD], pd.DataFrame]]:
+        """
+        Obtém um registro que define as curvas de déficit
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param submercado: submercado para o qual valerá a curva
+        :type submercado: int | None
+        :param numero_curva: índice da curva de déficit descrita
+        :type numero_curva: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`CD` | list[:class:`CD`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(CD)
+        else:
+            return self.__obtem_registros_com_filtros(
+                CD,
+                submercado=submercado,
+                numero_curva=numero_curva,
+            )
+
+    def pq(
+        self,
+        codigo: Optional[int] = None,
+        nome: Optional[str] = None,
+        localizacao: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[PQ, List[PQ], pd.DataFrame]]:
+        """
+        Obtém um registro que define as gerações das pequenas usinas
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param codigo: o código das gerações
+        :type codigo: str | None
+        :param nome: o nome das gerações
+        :type nome: str | None
+        :param localizacao: índice do subsistema ou barra
+            associado à geração
+        :type localizacao: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`PQ` | list[:class:`PQ`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(PQ)
+        else:
+            return self.__obtem_registros_com_filtros(
+                PQ,
+                codigo=codigo,
+                nome=nome,
+                localizacao=localizacao,
+            )
+
+    @property
+    def it(self) -> Optional[IT]:
+        """
+        Obtém o (único) registro que contém os coeficientes
+        do polinômio do canal de fuga de Itaipu em função
+        da vazão na Régua 11, para casos sem FPHA Libs
+        no estudo definido no :class:`Entdados`
+
+        :return: Um registro, se existir.
+        :rtype: :class:`IT` | None.
+        """
+        return self.__obtem_registro(IT)
+
+    def ri(
+        self,
+        df: bool = False,
+    ) -> Optional[Union[RI, List[RI], pd.DataFrame]]:
+        """
+        Obtém um registro que define restrições de Itaipu
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`RI` | list[:class:`RI`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(RI)
+        else:
+            return self.__obtem_registros_com_filtros(
+                RI,
+            )
+
+    def ia(
+        self,
+        submercado_de: Optional[str] = None,
+        submercado_para: Optional[str] = None,
+        df: bool = False,
+    ) -> Optional[Union[IA, List[IA], pd.DataFrame]]:
+        """
+        Obtém um registro que define as capacidades de intercâmbio
+        no estudo descrito pelo :class:`Entdados`.
+
+        :param submercado_de: mnemônico do submercado de origem (de).
+        :type submercado_de: str | None
+        :param submercado_para: mnemônico do submercado de destino (para).
+        :type submercado_para: str | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`IA` | list[:class:`IA`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(IA)
+        else:
+            return self.__obtem_registros_com_filtros(
+                IA,
+                submercado_de=submercado_de,
+                submercado_para=submercado_para,
+            )
+
+    @property
+    def gp(self) -> Optional[GP]:
+        """
+        Obtém o (único) registro que define o gap de convergência
+        no estudo definido no :class:`Entdados`
+
+        :return: Um registro, se existir.
+        :rtype: :class:`GP` | None.
+        """
+        return self.__obtem_registro(GP)
+
+    def ac(
+        self,
+        uhe: int,
+        modificacao: Any,
+        df: bool = False,
+        **kwargs,
+    ) -> Optional[Union[AC, List[AC], pd.DataFrame]]:
+        """
+        Obtém um registro que define modificações nos parâmetros
+        das UHE em um :class:`Entdados`.
+
+        :param uhe: código da UHE modificada
+        :type uhe: int
+        :param modificacao: classe da modificação realizada
+        :type modificacao: subtipos do tipo `AC`
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: `AC` | list[`AC`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(modificacao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                modificacao, **{"uhe": uhe, **kwargs}
+            )
 
     # @property
     # def tx(self) -> Optional[TX]:
@@ -520,17 +726,6 @@ class Entdados(RegisterFile):
     #     :rtype: :class:`TX` | None.
     #     """
     #     return self.__obtem_registro(TX)
-
-    # @property
-    # def gp(self) -> Optional[GP]:
-    #     """
-    #     Obtém o (único) registro que define o gap para convergência
-    #     considerado no estudo definido no :class:`Dadger`
-
-    #     :return: Um registro, se existir.
-    #     :rtype: :class:`GP` | None.
-    #     """
-    #     return self.__obtem_registro(GP)
 
     # @property
     # def ni(self) -> Optional[NI]:
@@ -805,35 +1000,6 @@ class Entdados(RegisterFile):
     #             de=de,
     #             para=para,
     #             coeficiente=coeficiente,
-    #         )
-
-    # def vi(
-    #     self,
-    #     uhe: Optional[int] = None,
-    #     duracao: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[VI, List[VI], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica os tempos de viagem da
-    #     água em uma UHE existente no no estudo descrito
-    #     pelo :class:`Dadger`.
-
-    #     :param uhe: Índice da UHE associada aos tempos de viagem
-    #     :type uhe: int | None
-    #     :param duracao: duração, em horas, da viagem da água
-    #     :type duracao: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`VI` | list[:class:`VI`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(VI)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             VI, uhe=uhe, duracao=duracao
     #         )
 
     # def ir(
