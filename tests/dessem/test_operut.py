@@ -50,6 +50,20 @@ def test_atributos_encontrados_operut():
         op = Operut.read(ARQ_TESTE)
         assert op.condicoes_iniciais is not None
         assert op.limites_e_condicoes_operativas is not None
+        assert op.uctpar is not None
+        assert op.ucterm is not None
+        assert op.pint is not None
+        assert op.regranptv is not None
+        assert op.avlcmo is not None
+        assert op.cplexlog is not None
+        assert op.uctbusloc is None
+        assert op.uctheurfp is None
+        assert op.constdados is None
+        assert op.ajustefcf is None
+        assert op.tolerilh is None
+        assert op.crossover is None
+        assert op.engolimento is None
+        assert op.tratainviabilha is None
 
 
 def test_atributos_nao_encontrados_operut():
@@ -58,6 +72,20 @@ def test_atributos_nao_encontrados_operut():
         op = Operut.read(ARQ_TESTE)
         assert op.condicoes_iniciais is None
         assert op.limites_e_condicoes_operativas is None
+        assert op.uctpar is None
+        assert op.ucterm is None
+        assert op.pint is None
+        assert op.regranptv is None
+        assert op.avlcmo is None
+        assert op.cplexlog is None
+        assert op.uctbusloc is None
+        assert op.uctheurfp is None
+        assert op.constdados is None
+        assert op.ajustefcf is None
+        assert op.tolerilh is None
+        assert op.crossover is None
+        assert op.engolimento is None
+        assert op.tratainviabilha is None
 
 
 # Bloco INIT

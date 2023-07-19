@@ -35,7 +35,23 @@ class Operut(BlockFile):
 
     T = TypeVar("T")
 
-    BLOCKS = [BlocoUctPar, BlocoUcTerm, BlocoPint, BlocoInitUT, BlocoOper]
+    BLOCKS = [
+        BlocoUctPar,
+        BlocoUcTerm,
+        BlocoPint,
+        BlocoRegraNPTV,
+        BlocoAvlCmo,
+        BlocoCplexLog,
+        BlocoUctBusLoc,
+        BlocoUctHeurFp,
+        BlocoConstDados,
+        BlocoAjusteFcf,
+        BlocoTolerIlh,
+        BlocoCrossover,
+        BlocoEngolimento,
+        BlocoInitUT,
+        BlocoOper,
+    ]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
