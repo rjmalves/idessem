@@ -1349,7 +1349,7 @@ class CD(Register):
     IDENTIFIER_DIGITS = 3
     LINE = Line(
         [
-            IntegerField(2, 4),
+            IntegerField(2, 3),
             IntegerField(2, 6),
             StageDateField(starting_position=9, special_day_character="I"),
             StageDateField(starting_position=17, special_day_character="F"),
