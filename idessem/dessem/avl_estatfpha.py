@@ -52,9 +52,6 @@ class AvlEstatFpha(BlockFile):
         :return: O gerador de blocos, se houver
         :rtype: Optional[Generator[T], None, None]
         """
-        # DEBUG MARI
-        for expression in self.data.of_type(bloco):
-            print(expression)
         try:
             return next(
                 b
