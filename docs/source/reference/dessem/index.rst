@@ -40,6 +40,7 @@ Arquivos
    arquivos/dessemarq
    arquivos/avl_altqueda
    arquivos/avl_desvfpha
+   arquivos/avl_estatfpha
    arquivos/avl_fpha1
    arquivos/des_log_relato
    arquivos/dessemarq
