@@ -55,4 +55,5 @@ Arquivos
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
    arquivos/polinjus
-   arquivos/renovaveis   
+   arquivos/renovaveis  
+   arquivos/uch 
