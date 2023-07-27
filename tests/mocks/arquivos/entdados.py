@@ -32,6 +32,17 @@ MockACVOLMIN = "AC   34  VOLMIN         15563\n"
 MockACVSVERT = "AC  124  VSVERT          200.\n"
 MockACVMDESV = "AC  124  VMDESV          102.\n"
 MockACCOTVAZ = "AC  288  COTVAZ    1    -8.635887E-19\n"
+MockACCOTVOL = "AC  252  COTVOL    2    -6.59226600E-06\n"
+MockACCOTTAR = "AC  252  COTTAR    2    -6.59226600E-06\n"
+MockACNUMCON = "AC   88  NUMCON        1\n"
+MockACNUMJUS = "AC   34  NUMJUS       45\n"
+MockACNUMPOS = "AC  305  NUMPOS      300\n"
+MockACJUSENA = "AC  125  JUSENA      131 \n"
+MockACJUSMED = "AC  275  JUSMED          4.90 \n"
+MockACCOFEVA = "AC   95  COFEVA       10    0\n"
+MockACNUMMAQ = "AC  272  NUMMAQ        1    2\n"
+MockACDESVIO = "AC  314  DESVIO      288  9999999.  \n"
+MockACPOTEFE = "AC  272  POTEFE        1      10.0\n"
 MockEntDados = [
     "&\n",
     "& FLAGs PARA INSERIR AS FOLGAS NAS RESTRICOES DE REDE                                                                   \n",

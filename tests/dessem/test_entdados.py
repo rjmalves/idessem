@@ -22,6 +22,17 @@ from idessem.dessem.modelos.entdados import (
     ACVSVERT,
     ACVMDESV,
     ACCOTVAZ,
+    ACCOTVOL,
+    ACCOTTAR,
+    ACNUMCON,
+    ACNUMJUS,
+    ACNUMPOS,
+    ACJUSENA,
+    ACJUSMED,
+    ACCOFEVA,
+    ACNUMMAQ,
+    ACPOTEFE,
+    ACDESVIO,
 )
 from idessem.dessem.entdados import Entdados
 from tests.mocks.mock_open import mock_open
@@ -55,6 +66,17 @@ from tests.mocks.arquivos.entdados import (
     MockACVMDESV,
     MockACCOTVAZ,
     MockEntDados,
+    MockACCOTVOL,
+    MockACCOTTAR,
+    MockACNUMCON,
+    MockACNUMJUS,
+    MockACNUMPOS,
+    MockACJUSENA,
+    MockACJUSMED,
+    MockACCOFEVA,
+    MockACNUMMAQ,
+    MockACDESVIO,
+    MockACPOTEFE,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -959,6 +981,200 @@ def test_registro_accotvaz_entdados():
     assert r.polimonio is None
     r.polimonio = 0
     assert r.polimonio == 0
+
+
+def test_registro_accotvol_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACCOTVOL))
+    r = ACCOTVOL()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [252, 2, -6.59226600e-06]
+    assert r.uhe == 252
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.ordem == 2
+    r.ordem = 0
+    assert r.ordem == 0
+    assert r.coeficiente == -6.59226600e-06
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_accottar_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACCOTTAR))
+    r = ACCOTTAR()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [252, 2, -6.59226600e-06]
+    assert r.uhe == 252
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.ordem == 2
+    r.ordem = 0
+    assert r.ordem == 0
+    assert r.coeficiente == -6.59226600e-06
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_acnumcon_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACNUMCON))
+    r = ACNUMCON()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [88, 1]
+    assert r.uhe == 88
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.numero_conjuntos == 1
+    r.numero_conjuntos = 0
+    assert r.numero_conjuntos == 0
+
+
+def test_registro_acnumjus_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACNUMJUS))
+    r = ACNUMJUS()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [34, 45]
+    assert r.uhe == 34
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.jusante == 45
+    r.jusante = 0
+    assert r.jusante == 0
+
+
+def test_registro_acnumpos_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACNUMPOS))
+    r = ACNUMPOS()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [305, 300]
+    assert r.uhe == 305
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.posto == 300
+    r.posto = 0
+    assert r.posto == 0
+
+
+def test_registro_acjusena_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACJUSENA))
+    r = ACJUSENA()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [125, 131]
+    assert r.uhe == 125
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.aproveitamento == 131
+    r.aproveitamento = 0
+    assert r.aproveitamento == 0
+
+
+def test_registro_acjusmed_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACJUSMED))
+    r = ACJUSMED()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [275, 4.90]
+    assert r.uhe == 275
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.cota == 4.9
+    r.cota = 0
+    assert r.cota == 0
+
+
+def test_registro_accofeva_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACCOFEVA))
+    r = ACCOFEVA()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [95, 10, 0]
+    assert r.uhe == 95
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.mes_coeficiente == 10
+    r.mes_coeficiente = 0
+    assert r.mes_coeficiente == 0
+    assert r.coeficiente == 0
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_acnummaq_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACNUMMAQ))
+    r = ACNUMMAQ()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [272, 1, 2]
+    assert r.uhe == 272
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.conjunto == 1
+    r.conjunto = 0
+    assert r.conjunto == 0
+    assert r.maquinas == 2
+    r.maquinas = -1
+    assert r.maquinas == -1
+
+
+def test_registro_acdesvio_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACDESVIO))
+    r = ACDESVIO()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [314, 288, 9999999.0]
+    assert r.uhe == 314
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.jusante == 288
+    r.jusante = 0
+    assert r.jusante == 0
+    assert r.limite_vazao == 9999999.0
+    r.limite_vazao = -1
+    assert r.limite_vazao == -1
+
+
+def test_registro_acpotefe_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockACPOTEFE))
+    r = ACPOTEFE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [272, 1, 10.0]
+    assert r.uhe == 272
+    r.uhe = 40
+    assert r.uhe == 40
+    assert r.conjunto == 1
+    r.conjunto = 0
+    assert r.conjunto == 0
+    assert r.potencia == 10
+    r.potencia = -1
+    assert r.potencia == -1
 
 
 def test_campos_nao_encontrados_entdados():

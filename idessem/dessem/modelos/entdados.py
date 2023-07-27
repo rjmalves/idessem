@@ -2438,6 +2438,540 @@ class ACCOTVAZ(Register):
         self.data[3] = u
 
 
+class ACCOTVOL(Register):
+    """
+    Registro AC específico para alteração de um coeficiente do
+    polinômio cota-volume.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  COTVOL"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            FloatField(15, 24, 8, format="E"),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def ordem(self) -> Optional[int]:
+        return self.data[1]
+
+    @ordem.setter
+    def ordem(self, u: int):
+        self.data[1] = u
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        return self.data[2]
+
+    @coeficiente.setter
+    def coeficiente(self, u: float):
+        self.data[2] = u
+
+
+class ACCOTTAR(Register):
+    """
+    Registro AC específico para alteração de um coeficiente do
+    polinômio cota-área.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  COTTAR"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            FloatField(15, 24, 8, format="E"),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def ordem(self) -> Optional[int]:
+        return self.data[1]
+
+    @ordem.setter
+    def ordem(self, u: int):
+        self.data[1] = u
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        return self.data[2]
+
+    @coeficiente.setter
+    def coeficiente(self, u: float):
+        self.data[2] = u
+
+
+class ACNUMCON(Register):
+    """
+    Registro AC específico para número de conjuntos de máquinas.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  NUMCON"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def numero_conjuntos(self) -> Optional[int]:
+        return self.data[1]
+
+    @numero_conjuntos.setter
+    def numero_conjuntos(self, u: int):
+        self.data[1] = u
+
+
+class ACNUMJUS(Register):
+    """
+    Registro AC específico para número da usina de jusante
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  NUMJUS"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def jusante(self) -> Optional[int]:
+        return self.data[1]
+
+    @jusante.setter
+    def jusante(self, u: int):
+        self.data[1] = u
+
+
+class ACNUMPOS(Register):
+    """
+    Registro AC específico para número do posto de vazão.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  NUMPOS"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def posto(self) -> Optional[int]:
+        return self.data[1]
+
+    @posto.setter
+    def posto(self, u: int):
+        self.data[1] = u
+
+
+class ACJUSENA(Register):
+    """
+    Registro AC específico para número da usina de jusante para
+    cálculo das energias armazenadas.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  JUSENA"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def aproveitamento(self) -> Optional[int]:
+        return self.data[1]
+
+    @aproveitamento.setter
+    def aproveitamento(self, u: int):
+        self.data[1] = u
+
+
+class ACJUSMED(Register):
+    """
+    Registro AC específico para cota média do canal de fuga.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  JUSMED"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            FloatField(10, 19, 3),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def cota(self) -> Optional[float]:
+        return self.data[1]
+
+    @cota.setter
+    def cota(self, u: float):
+        self.data[1] = u
+
+
+class ACCOFEVA(Register):
+    """
+    Registro AC específico para alteração de mês e coeficiente
+    de evaporação mensal.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  COFEVA"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            IntegerField(5, 24),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def mes_coeficiente(self) -> Optional[int]:
+        return self.data[1]
+
+    @mes_coeficiente.setter
+    def mes_coeficiente(self, u: int):
+        self.data[1] = u
+
+    @property
+    def coeficiente(self) -> Optional[int]:
+        return self.data[2]
+
+    @coeficiente.setter
+    def coeficiente(self, u: int):
+        self.data[2] = u
+
+
+class ACNUMMAQ(Register):
+    """
+    Registro AC específico para alteração do número de máquinas
+    de um conjunto.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  NUMMAQ"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            IntegerField(5, 24),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def conjunto(self) -> Optional[int]:
+        return self.data[1]
+
+    @conjunto.setter
+    def conjunto(self, u: int):
+        self.data[1] = u
+
+    @property
+    def maquinas(self) -> Optional[int]:
+        return self.data[2]
+
+    @maquinas.setter
+    def maquinas(self, u: int):
+        self.data[2] = u
+
+
+class ACPOTEFE(Register):
+    """
+    Registro AC específico para alteração da potência efetiva
+    das máquinas de um conjunto.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  POTEFE"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            FloatField(10, 24, 2),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def conjunto(self) -> Optional[int]:
+        return self.data[1]
+
+    @conjunto.setter
+    def conjunto(self, u: int):
+        self.data[1] = u
+
+    @property
+    def potencia(self) -> Optional[float]:
+        return self.data[2]
+
+    @potencia.setter
+    def potencia(self, u: float):
+        self.data[2] = u
+
+
+class ACDESVIO(Register):
+    """
+    Registro AC específico para número da usina de jusante para desvio
+    e limite de desvio.
+    """
+
+    IDENTIFIER = r"AC  ([\d ]{1,3})  DESVIO"
+    IDENTIFIER_DIGITS = 15
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(5, 19),
+            FloatField(10, 24, 2),
+        ]
+    )
+
+    # Override
+    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+        line = self.__class__.LINE.write(self.data)
+        line = (
+            self.__class__.IDENTIFIER[:2]  # type: ignore
+            + line[2:9]
+            + self.__class__.IDENTIFIER[18:]
+            + line[15:]
+        )
+        file.write(line)
+        return True
+
+    @property
+    def uhe(self) -> Optional[int]:
+        return self.data[0]
+
+    @uhe.setter
+    def uhe(self, u: int):
+        self.data[0] = u
+
+    @property
+    def jusante(self) -> Optional[int]:
+        return self.data[1]
+
+    @jusante.setter
+    def jusante(self, u: int):
+        self.data[1] = u
+
+    @property
+    def limite_vazao(self) -> Optional[float]:
+        return self.data[2]
+
+    @limite_vazao.setter
+    def limite_vazao(self, u: float):
+        self.data[2] = u
+
+
 # class TX(Register):
 #     """
 #     Registro que contém a taxa de desconto anual do modelo.
