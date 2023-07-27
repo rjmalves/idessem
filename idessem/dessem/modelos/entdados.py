@@ -2972,6 +2972,50 @@ class ACDESVIO(Register):
         self.data[2] = u
 
 
+
+class NI(Register):
+    """
+    Registro com o número máximo ou fixo de iterações caso 
+    se aplique a técnica de PDD para resolver o problema.
+    """
+
+    IDENTIFIER = "NI  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line([IntegerField(1, 4), IntegerField(3, 9)])
+
+    @property
+    def tipo_limite(self) -> Optional[int]:
+        """
+        Flag para indicar se será estabelecido um número 
+        máximo ou um número fixo de iterações.
+
+        :return: O tipo de limite de iterações.
+        :rtype: int | None
+        """
+
+        return self.data[0]
+
+    @tipo_limite.setter
+    def tipo_limite(self, n: int):
+        self.data[0] = n
+
+    @property
+    def iteracoes(self) -> Optional[int]:
+        """
+        O número máximo ou fixo de iterações do modelo no estudo.
+
+        :return: O número de iterações.
+        :rtype: int | None
+        """
+
+        return self.data[1]
+
+    @iteracoes.setter
+    def iteracoes(self, n: int):
+        self.data[1] = n
+
+
+
 # class TX(Register):
 #     """
 #     Registro que contém a taxa de desconto anual do modelo.
@@ -3013,44 +3057,6 @@ class ACDESVIO(Register):
 #     @gap.setter
 #     def gap(self, g: float):
 #         self.data[0] = g
-
-
-# class NI(Register):
-#     """
-#     Registro que contém o número máximo de iterações do modelo.
-#     """
-
-#     IDENTIFIER = "NI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line([IntegerField(3, 4), IntegerField(1, 8)])
-
-#     @property
-#     def iteracoes(self) -> Optional[int]:
-#         """
-#         O número máximo de iterações do modelo no estudo
-
-#         :return: O número de iterações.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @iteracoes.setter
-#     def iteracoes(self, i: int):
-#         self.data[0] = i
-
-#     @property
-#     def tipo_limite(self) -> Optional[int]:
-#         """
-#         Se o número de interações fornecido é mínimo ou máximo.
-
-#         :return: O tipo de limite de iterações
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @tipo_limite.setter
-#     def tipo_limite(self, i: int):
-#         self.data[1] = i
 
 
 # class DT(Register):

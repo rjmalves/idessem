@@ -16,6 +16,7 @@ from idessem.dessem.modelos.entdados import (
     IA,
     GP,
     IT,
+    NI,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -59,6 +60,7 @@ from tests.mocks.arquivos.entdados import (
     MockRI,
     MockIA,
     MockGP,
+    MockNI,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -881,6 +883,22 @@ def test_registro_gp_entdados():
     assert r.gap_milp == 0
 
 
+def test_registro_ni_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockNI))
+    r = NI()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [0, 500]
+    assert r.tipo_limite == 0
+    r.tipo_limite = 1
+    assert r.tipo_limite == 1
+    assert r.iteracoes == 500
+    r.iteracoes = 0
+    assert r.iteracoes == 0
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1198,6 +1216,7 @@ def test_campos_nao_encontrados_entdados():
     assert d.ri() is None
     assert d.ia(0) is None
     assert d.gp is None
+    assert d.ni is None
     assert d.ac(0, ACCOTVAZ) is None
     # assert d.ct(0, 0) is None
     # assert d.dp(0, 0) is None
@@ -1249,6 +1268,7 @@ def test_campos_encontrados_entdados():
     assert d.gp is not None
     assert d.ac(38, modificacao=ACVOLMIN) is not None
     assert d.ac(45, modificacao=ACVMDESV) is not None
+    assert d.ni is not None
 
 
 # def test_cria_lu_entdados():

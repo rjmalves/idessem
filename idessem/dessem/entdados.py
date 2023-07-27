@@ -16,6 +16,7 @@ from idessem.dessem.modelos.entdados import (
     RI,
     IA,
     GP,
+    NI,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -97,6 +98,7 @@ class Entdados(RegisterFile):
         RI,
         IA,
         GP,
+        NI,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -755,6 +757,18 @@ class Entdados(RegisterFile):
                 modificacao, **{"uhe": uhe, **kwargs}
             )
 
+    @property
+    def ni(self) -> Optional[NI]:
+        """
+        Obtém o (único) registro que define o número de iterações
+        caso considere PDD no DESSEM no estudo
+        definido no :class:`Entdados`
+
+        :return: Um registro, se existir.
+        :rtype: :class:`NI` | None.
+        """
+        return self.__obtem_registro(NI)
+
     # @property
     # def tx(self) -> Optional[TX]:
     #     """
@@ -765,17 +779,6 @@ class Entdados(RegisterFile):
     #     :rtype: :class:`TX` | None.
     #     """
     #     return self.__obtem_registro(TX)
-
-    # @property
-    # def ni(self) -> Optional[NI]:
-    #     """
-    #     Obtém o (único) registro que define o número máximo de iterações
-    #     do DECOMP no estudo definido no :class:`Dadger`
-
-    #     :return: Um registro, se existir.
-    #     :rtype: :class:`NI` | None.
-    #     """
-    #     return self.__obtem_registro(NI)
 
     # @property
     # def dt(self) -> Optional[DT]:
