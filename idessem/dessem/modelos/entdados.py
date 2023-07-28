@@ -3313,6 +3313,7 @@ class TX(Register):
     def taxa(self, t: float):
         self.data[0] = t
 
+
 class EZ(Register):
     """
     Registro que contém o percentual máximo do
@@ -3366,8 +3367,9 @@ class R11(Register):
     IDENTIFIER = "R11 "
     IDENTIFIER_DIGITS = 4
     LINE = Line(
-        [   StageDateField(starting_position=4,special_day_character="I"),
-            StageDateField(starting_position=12,special_day_character="F"),
+        [
+            StageDateField(starting_position=4, special_day_character="I"),
+            StageDateField(starting_position=12, special_day_character="F"),
             FloatField(10, 20, 2),
             FloatField(10, 30, 2),
             FloatField(10, 40, 2),
@@ -3459,11 +3461,11 @@ class R11(Register):
     @meia_hora_final.setter
     def meia_hora_final(self, n: int):
         self.data[1][2] = n
-    
+
     @property
     def cota_inicial(self) -> Optional[float]:
         """
-        A cota na Régua 11 na meia hora anterior 
+        A cota na Régua 11 na meia hora anterior
         ao início do estudo.
 
         :return: A cota.
@@ -3489,7 +3491,7 @@ class R11(Register):
     @variacao_maxima_horaria.setter
     def variacao_maxima_horaria(self, n: float):
         self.data[3] = n
-    
+
     @property
     def variacao_maxima_diaria(self) -> Optional[float]:
         """
@@ -3504,6 +3506,181 @@ class R11(Register):
     @variacao_maxima_diaria.setter
     def variacao_maxima_diaria(self, n: float):
         self.data[4] = n
+
+
+class CR(Register):
+    """
+    Registro com o polinômio cota x vazão (máximo grau 7)
+    para seções de rio.
+    """
+
+    IDENTIFIER = "CR  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            LiteralField(12, 9),
+            IntegerField(2, 24),
+            FloatField(15, 28, 7, format="E"),
+            FloatField(15, 44, 7, format="E"),
+            FloatField(15, 60, 7, format="E"),
+            FloatField(15, 76, 7, format="E"),
+            FloatField(15, 92, 7, format="E"),
+            FloatField(15, 108, 7, format="E"),
+            FloatField(15, 124, 7, format="E"),
+        ]
+    )
+
+    @property
+    def codigo_secao(self) -> Optional[int]:
+        """
+        Código de identificação da seção de rio conforme
+        registro SECR.
+
+        :return: O código.
+        :rtype: int | None
+        """
+
+        return self.data[0]
+
+    @codigo_secao.setter
+    def codigo_secao(self, n: int):
+        self.data[0] = n
+
+    @property
+    def nome_secao(self) -> Optional[str]:
+        """
+        Nome da seção de rio.
+
+        :return: O nome.
+        :rtype: str | None
+        """
+
+        return self.data[1]
+
+    @nome_secao.setter
+    def nome_secao(self, n: str):
+        self.data[1] = n
+
+    @property
+    def grau(self) -> Optional[int]:
+        """
+        Grau do polinômio.
+
+        :return: O grau.
+        :rtype: int | None
+        """
+
+        return self.data[2]
+
+    @grau.setter
+    def grau(self, n: int):
+        self.data[2] = n
+
+    @property
+    def coeficiente_a0(self) -> Optional[float]:
+        """
+        O coeficiente de grau 0 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[3]
+
+    @coeficiente_a0.setter
+    def coeficiente_a0(self, c: float):
+        self.data[3] = c
+
+    @property
+    def coeficiente_a1(self) -> Optional[float]:
+        """
+        O coeficiente de grau 1 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[4]
+
+    @coeficiente_a1.setter
+    def coeficiente_a1(self, c: float):
+        self.data[4] = c
+
+    @property
+    def coeficiente_a2(self) -> Optional[float]:
+        """
+        O coeficiente de grau 2 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[5]
+
+    @coeficiente_a2.setter
+    def coeficiente_a2(self, c: float):
+        self.data[5] = c
+
+    @property
+    def coeficiente_a3(self) -> Optional[float]:
+        """
+        O coeficiente de grau 3 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[6]
+
+    @coeficiente_a3.setter
+    def coeficiente_a3(self, c: float):
+        self.data[6] = c
+
+    @property
+    def coeficiente_a4(self) -> Optional[float]:
+        """
+        O coeficiente de grau 4 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[7]
+
+    @coeficiente_a4.setter
+    def coeficiente_a4(self, c: float):
+        self.data[7] = c
+
+    @property
+    def coeficiente_a5(self) -> Optional[float]:
+        """
+        O coeficiente de grau 5 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[8]
+
+    @coeficiente_a5.setter
+    def coeficiente_a5(self, c: float):
+        self.data[8] = c
+
+    @property
+    def coeficiente_a6(self) -> Optional[float]:
+        """
+        O coeficiente de grau 6 do polinômio.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+
+        return self.data[9]
+
+    @coeficiente_a6.setter
+    def coeficiente_a6(self, c: float):
+        self.data[9] = c
 
 
 # class MP(Register):
@@ -3564,7 +3741,6 @@ class R11(Register):
 #             FloatField(5, 74, 3),
 #         ]
 #     )
-
 
 
 # class RE(Register):
@@ -4102,7 +4278,6 @@ class R11(Register):
 #         self.data[1] = c
 
 
-
 # class TI(Register):
 #     """
 #     Registro que contém as taxas de irrigação por UHE.
@@ -4167,10 +4342,6 @@ class R11(Register):
 #     @taxas.setter
 #     def taxas(self, tx: List[float]):
 #         self.__atualiza_dados_lista(tx, 1, 1)
-
-
-
-
 
 
 # class AR(Register):

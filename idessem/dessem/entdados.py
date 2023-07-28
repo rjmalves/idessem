@@ -22,6 +22,7 @@ from idessem.dessem.modelos.entdados import (
     TX,
     EZ,
     R11,
+    CR,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -110,6 +111,7 @@ class Entdados(RegisterFile):
         TX,
         EZ,
         R11,
+        CR,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -912,6 +914,37 @@ class Entdados(RegisterFile):
             return self._as_df(R11)
         else:
             return self.__obtem_registros_com_filtros(R11)
+
+    def cr(
+        self,
+        codigo_secao: Optional[int] = None,
+        nome_secao: Optional[str] = None,
+        grau: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[CR, List[CR], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica o polinômio cota x vazão para seções
+        de rio no estudo especificado no :class:`Entdados`
+
+        :param codigo_secao: Código da seção
+        :type codigo_secao: int | None
+        :param codigo_secao: Nome da seção
+        :type codigo_secao: str | None
+        :param grau: Grau do polinômio
+        :type grau: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`CR` | list[:class:`CR`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(CR)
+        else:
+            return self.__obtem_registros_com_filtros(
+                CR, codigo_secao=codigo_secao, nome_secao=nome_secao, grau=grau
+            )
 
     # @property
     # def dt(self) -> Optional[DT]:

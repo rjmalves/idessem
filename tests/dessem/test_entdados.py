@@ -22,6 +22,7 @@ from idessem.dessem.modelos.entdados import (
     TX,
     EZ,
     R11,
+    CR,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -71,6 +72,7 @@ from tests.mocks.arquivos.entdados import (
     MockTX,
     MockEZ,
     MockR11,
+    MockCR,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1054,6 +1056,57 @@ def test_registro_r11_entdados():
     assert r.variacao_maxima_diaria == -1
 
 
+def test_registro_cr_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockCR))
+    r = CR()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "R11",
+        6,
+        7.6677112e01,
+        2.8660334e-03,
+        -1.0474654e-07,
+        2.6583003e-12,
+        -3.8245459e-17,
+        2.8607867e-22,
+        -8.6322234e-28,
+    ]
+    assert r.codigo_secao == 1
+    r.codigo_secao = 40
+    assert r.codigo_secao == 40
+    assert r.nome_secao == "R11"
+    r.nome_secao = 0
+    assert r.nome_secao == 0
+    assert r.grau == 6
+    r.grau = 0
+    assert r.grau == 0
+    assert r.coeficiente_a0 == 7.6677112e01
+    r.coeficiente_a0 = 0
+    assert r.coeficiente_a0 == 0
+    assert r.coeficiente_a1 == 2.8660334e-03
+    r.coeficiente_a1 = 0
+    assert r.coeficiente_a1 == 0
+    assert r.coeficiente_a2 == -1.0474654e-07
+    r.coeficiente_a2 = 0
+    assert r.coeficiente_a2 == 0
+    assert r.coeficiente_a3 == 2.6583003e-12
+    r.coeficiente_a3 = 0
+    assert r.coeficiente_a3 == 0
+    assert r.coeficiente_a4 == -3.8245459e-17
+    r.coeficiente_a4 = 0
+    assert r.coeficiente_a4 == 0
+    assert r.coeficiente_a5 == 2.8607867e-22
+    r.coeficiente_a5 = 0
+    assert r.coeficiente_a5 == 0
+    assert r.coeficiente_a6 == -8.6322234e-28
+    r.coeficiente_a6 = 0
+    assert r.coeficiente_a6 == 0
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1378,6 +1431,7 @@ def test_campos_nao_encontrados_entdados():
     assert d.tx is None
     assert d.ez() is None
     assert d.r11() is None
+    assert d.cr() is None
     # assert d.ct(0, 0) is None
     # assert d.dp(0, 0) is None
     # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
@@ -1435,6 +1489,7 @@ def test_campos_encontrados_entdados():
     assert d.tx is not None
     assert d.ez is not None
     assert d.r11() is not None
+    assert d.cr() is not None
 
 
 # def test_cria_lu_entdados():
