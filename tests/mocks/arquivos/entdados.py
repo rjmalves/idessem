@@ -43,6 +43,10 @@ MockFI = "FI  908 12       F      FC   N            1"
 MockFE = "FE  912 12       F      601                1"
 MockFR = "FR  919   12       F      1358             1"
 MockFC = "FC  921   12       F        4             -1"
+MockCI = (
+    "CI 131 E2POL1-I-F  70572  I       F               0.0    1575.0       0.0"
+)
+MockCE = "CE 142 E3POL4-E-F  70552  I       F               0.0    1575.0       0.0  "
 MockACVTFUGA = "AC  103  VTFUGA    1\n"
 MockACVOLMAX = "AC   38  VOLMAX         544.2\n"
 MockACVOLMIN = "AC   34  VOLMIN         15563\n"

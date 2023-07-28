@@ -5186,6 +5186,58 @@ class FC(Register):
         self.data[4] = f
 
 
+class CI(Register):
+    """
+    Registro que define contratos de importação de energia.
+    """
+
+    IDENTIFIER = "CI  "
+    IDENTIFIER_DIGITS = 3
+    LINE = Line(
+        [
+            IntegerField(3, 3),
+            LiteralField(10, 7),
+            IntegerField(5, 18),
+            IntegerField(1, 23),
+            StageDateField(starting_position=25, special_day_character="I"),
+            StageDateField(starting_position=33, special_day_character="F"),
+            IntegerField(1, 41),
+            FloatField(10, 43, 1),
+            FloatField(10, 53, 1),
+            FloatField(10, 63, 1),
+            FloatField(10, 73, 1),
+            IntegerField(1, 85),
+            FloatField(10, 88, 1),
+        ]
+    )
+
+
+class CE(Register):
+    """
+    Registro que define contratos de exportação de energia.
+    """
+
+    IDENTIFIER = "CE  "
+    IDENTIFIER_DIGITS = 3
+    LINE = Line(
+        [
+            IntegerField(3, 3),
+            LiteralField(10, 7),
+            IntegerField(5, 18),
+            IntegerField(1, 23),
+            StageDateField(starting_position=25, special_day_character="I"),
+            StageDateField(starting_position=33, special_day_character="F"),
+            IntegerField(1, 41),
+            FloatField(10, 43, 1),
+            FloatField(10, 53, 1),
+            FloatField(10, 63, 1),
+            FloatField(10, 73, 1),
+            IntegerField(1, 85),
+            FloatField(10, 88, 1),
+        ]
+    )
+
+
 # class MP(Register):
 #     """
 #     Registro que contém as manutenções programadas das UHEs.
@@ -5212,60 +5264,6 @@ class FC(Register):
 #             FloatField(5, 59, 3),
 #             FloatField(5, 64, 3),
 #             FloatField(5, 69, 3),
-#         ]
-#     )
-
-
-# class CI(Register):
-#     """
-#     Registro que define contratos de importação de energia.
-#     """
-
-#     IDENTIFIER = "CI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 8),
-#             LiteralField(10, 11),
-#             IntegerField(2, 24),
-#             FloatField(5, 29, 0),
-#             FloatField(5, 34, 0),
-#             FloatField(10, 39, 2),
-#             FloatField(5, 49, 0),
-#             FloatField(5, 54, 0),
-#             FloatField(10, 59, 2),
-#             FloatField(5, 69, 0),
-#             FloatField(5, 74, 0),
-#             FloatField(10, 79, 2),
-#             FloatField(5, 89, 3),
-#         ]
-#     )
-
-
-# class CE(Register):
-#     """
-#     Registro que define contratos de exportação de energia.
-#     """
-
-#     IDENTIFIER = "CE  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 8),
-#             LiteralField(10, 11),
-#             IntegerField(2, 24),
-#             FloatField(5, 29, 0),
-#             FloatField(5, 34, 0),
-#             FloatField(10, 39, 2),
-#             FloatField(5, 49, 0),
-#             FloatField(5, 54, 0),
-#             FloatField(10, 59, 2),
-#             FloatField(5, 69, 0),
-#             FloatField(5, 74, 0),
-#             FloatField(10, 79, 2),
-#             FloatField(5, 89, 3),
 #         ]
 #     )
 

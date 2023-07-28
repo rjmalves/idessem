@@ -33,6 +33,8 @@ from idessem.dessem.modelos.entdados import (
     FE,
     FR,
     FC,
+    CI,
+    CE,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -93,6 +95,8 @@ from tests.mocks.arquivos.entdados import (
     MockFE,
     MockFR,
     MockFC,
+    MockCI,
+    MockCE,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1514,6 +1518,52 @@ def test_registro_fc_entdados():
     assert r.coeficiente == -1
     r.coeficiente = 2
     assert r.coeficiente == 2
+
+
+def test_registro_ci_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockCI))
+    r = CI()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+    assert r.data == [
+        131,
+        "E2POL1-I-F",
+        7057,
+        2,
+        ["I", None, None],
+        ["F", None, None],
+        None,
+        0,
+        1575.0,
+        0,
+        None,
+        None,
+        None,
+    ]
+
+
+def test_registro_ce_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockCE))
+    r = CE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+    assert r.data == [
+        142,
+        "E3POL4-E-F",
+        7055,
+        2,
+        ["I", None, None],
+        ["F", None, None],
+        None,
+        0,
+        1575.0,
+        0,
+        None,
+        None,
+        None,
+    ]
 
 
 def test_registro_acvtfuga_entdados():
