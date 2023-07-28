@@ -17,6 +17,7 @@ from idessem.dessem.modelos.entdados import (
     GP,
     IT,
     NI,
+    VE,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -61,6 +62,7 @@ from tests.mocks.arquivos.entdados import (
     MockIA,
     MockGP,
     MockNI,
+    MockVE,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -899,6 +901,45 @@ def test_registro_ni_entdados():
     assert r.iteracoes == 0
 
 
+def test_registro_ve_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockVE))
+    r = VE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        190,
+        [11, 23, 1],
+        [12, 0, 0],
+        100.0,
+    ]
+    assert r.codigo == 190
+    r.codigo = -1
+    assert r.codigo == -1
+    assert r.dia_inicial == 11
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 23
+    r.hora_inicial = -1
+    assert r.hora_inicial == -1
+    assert r.meia_hora_inicial == 1
+    r.meia_hora_inicial = -1
+    assert r.meia_hora_inicial == -1
+    assert r.dia_final == 12
+    r.dia_final = -1
+    assert r.dia_final == -1
+    assert r.hora_final == 0
+    r.hora_final = -1
+    assert r.hora_final == -1
+    assert r.meia_hora_final == 0
+    r.meia_hora_final = -1
+    assert r.meia_hora_final == -1
+    assert r.volume == 100
+    r.volume = -1
+    assert r.volume == -1
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1218,6 +1259,7 @@ def test_campos_nao_encontrados_entdados():
     assert d.gp is None
     assert d.ni is None
     assert d.ac(0, ACCOTVAZ) is None
+    assert d.ve() is None
     # assert d.ct(0, 0) is None
     # assert d.dp(0, 0) is None
     # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
@@ -1248,20 +1290,21 @@ def test_campos_encontrados_entdados():
     with patch("builtins.open", m):
         d = Entdados.read("./tests/mocks/arquivos/entdados.py")
 
-    assert d.sist(1) is not None
-    assert d.uh(1) is not None
-    assert d.ree(1) is not None
+    assert d.rd is not None
+    assert d.rivar(999) is not None
     assert (
         d.tm(dia_inicial=11, hora_inicial=0, meia_hora_inicial=1) is not None
     )
-    assert d.rivar(999) is not None
-    assert d.rd is not None
+    assert d.sist(1) is not None
+    assert d.ree(1) is not None
+    assert d.uh(1) is not None
     assert d.tviag(83) is not None
     assert d.ut(108) is not None
     assert d.usie(4) is not None
     assert d.dp(1) is not None
     assert d.de(1) is not None
     assert d.cd(1) is not None
+    assert d.pq() is None
     assert d.it is not None
     assert d.ri() is not None
     assert d.ia("IV", "S") is not None
@@ -1269,6 +1312,7 @@ def test_campos_encontrados_entdados():
     assert d.ac(38, modificacao=ACVOLMIN) is not None
     assert d.ac(45, modificacao=ACVMDESV) is not None
     assert d.ni is not None
+    assert d.ve() is not None
 
 
 # def test_cria_lu_entdados():

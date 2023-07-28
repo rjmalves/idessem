@@ -17,6 +17,7 @@ from idessem.dessem.modelos.entdados import (
     IA,
     GP,
     NI,
+    VE,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -99,6 +100,7 @@ class Entdados(RegisterFile):
         IA,
         GP,
         NI,
+        VE,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -769,6 +771,27 @@ class Entdados(RegisterFile):
         """
         return self.__obtem_registro(NI)
 
+    def ve(
+        self, codigo: Optional[int] = None, df: bool = False
+    ) -> Optional[Union[VE, List[VE], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica o volume de espera
+        por UHE existente no estudo especificado no :class:`Entdados`
+
+        :param codigo: Código da usina
+        :type codigo: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`VE` | list[:class:`VE`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(VE)
+        else:
+            return self.__obtem_registros_com_filtros(VE, codigo=codigo)
+
     # @property
     # def tx(self) -> Optional[TX]:
     #     """
@@ -1290,27 +1313,6 @@ class Entdados(RegisterFile):
     #         return self._as_df(RQ)
     #     else:
     #         return self.__obtem_registros_com_filtros(RQ, ree=ree)
-
-    # def ve(
-    #     self, codigo: Optional[int] = None, df: bool = False
-    # ) -> Optional[Union[VE, List[VE], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica os volumes de espera
-    #     por posto (UHE) existente no estudo especificado no :class:`Dadger`
-
-    #     :param codigo: Código do posto da UHE associada
-    #     :type codigo: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`VE` | list[:class:`VE`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(VE)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(VE, codigo=codigo)
 
     # def hv(
     #     self,

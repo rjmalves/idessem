@@ -1204,7 +1204,7 @@ class DE(Register):
     IDENTIFIER_DIGITS = 4
     LINE = Line(
         [
-            IntegerField(2, 4),
+            IntegerField(3, 4),
             StageDateField(starting_position=8, special_day_character="I"),
             StageDateField(starting_position=16, special_day_character="F"),
             FloatField(10, 24, 1),
@@ -2972,10 +2972,9 @@ class ACDESVIO(Register):
         self.data[2] = u
 
 
-
 class NI(Register):
     """
-    Registro com o número máximo ou fixo de iterações caso 
+    Registro com o número máximo ou fixo de iterações caso
     se aplique a técnica de PDD para resolver o problema.
     """
 
@@ -2986,7 +2985,7 @@ class NI(Register):
     @property
     def tipo_limite(self) -> Optional[int]:
         """
-        Flag para indicar se será estabelecido um número 
+        Flag para indicar se será estabelecido um número
         máximo ou um número fixo de iterações.
 
         :return: O tipo de limite de iterações.
@@ -3014,6 +3013,137 @@ class NI(Register):
     def iteracoes(self, n: int):
         self.data[1] = n
 
+
+class VE(Register):
+    """
+    Registro que contém os volumes de espera das UHEs.
+
+    """
+
+    IDENTIFIER = "VE  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            FloatField(10, 24, 2),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código da usina associada ao volume.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def volume(self) -> Optional[float]:
+        """
+        O volume de espera.
+
+        :return: O volume.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @volume.setter
+    def volume(self, v: float):
+        self.data[3] = v
 
 
 # class TX(Register):
@@ -3205,78 +3335,6 @@ class NI(Register):
 #             FloatField(5, 69, 3),
 #         ]
 #     )
-
-
-# class VE(Register):
-#     """
-#     Registro que contém os volumes de espera das UHEs.
-
-#     *OBS: Suporta apenas 12 estágios no momento*
-#     """
-
-#     IDENTIFIER = "VE  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             FloatField(5, 9, 2),
-#             FloatField(5, 14, 2),
-#             FloatField(5, 19, 2),
-#             FloatField(5, 24, 2),
-#             FloatField(5, 29, 2),
-#             FloatField(5, 34, 2),
-#             FloatField(5, 39, 2),
-#             FloatField(5, 44, 2),
-#             FloatField(5, 49, 2),
-#             FloatField(5, 54, 2),
-#             FloatField(5, 59, 2),
-#             FloatField(5, 64, 2),
-#             FloatField(5, 69, 2),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código do posto associado ao volume.
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @codigo.setter
-#     def codigo(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def volumes(self) -> Optional[List[float]]:
-#         """
-#         Os volumes de espera por estagio.
-
-#         :return: Os volumes.
-#         :rtype: list[float] | None
-#         """
-#         return [v for v in self.data[1:] if v is not None]
-
-#     @volumes.setter
-#     def volumes(self, cus: List[float]):
-#         self.__atualiza_dados_lista(cus, 1, 1)
 
 
 # class RE(Register):
