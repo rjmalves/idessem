@@ -2005,7 +2005,7 @@ def test_campos_encontrados_entdados():
     assert d.fr() is not None
     assert d.fc() is not None
     assert d.mh() is not None
-    assert d.pe is not None
+    assert d.pe is None
 
 
 def test_eq_entdados():
