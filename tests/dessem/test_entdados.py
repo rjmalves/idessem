@@ -20,6 +20,7 @@ from idessem.dessem.modelos.entdados import (
     VE,
     FP,
     TX,
+    EZ,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -67,6 +68,7 @@ from tests.mocks.arquivos.entdados import (
     MockVE,
     MockFP,
     MockTX,
+    MockEZ,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -991,6 +993,22 @@ def test_registro_tx_entdados():
     assert r.taxa == 0
 
 
+def test_registro_ez_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockEZ))
+    r = EZ()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [251, 55.0]
+    assert r.uhe == 251
+    r.uhe = 0
+    assert r.uhe == 0
+    assert r.volume == 55.0
+    r.uhe = 0
+    assert r.uhe == 0
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1311,6 +1329,9 @@ def test_campos_nao_encontrados_entdados():
     assert d.ni is None
     assert d.ac(0, ACCOTVAZ) is None
     assert d.ve() is None
+    assert d.fp() is None
+    assert d.tx is None
+    assert d.ez() is None
     # assert d.ct(0, 0) is None
     # assert d.dp(0, 0) is None
     # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
@@ -1366,6 +1387,7 @@ def test_campos_encontrados_entdados():
     assert d.ve() is not None
     assert d.fp() is not None
     assert d.tx is not None
+    assert d.ez is not None
 
 
 # def test_cria_lu_entdados():

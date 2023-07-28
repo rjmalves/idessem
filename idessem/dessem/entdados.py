@@ -20,6 +20,7 @@ from idessem.dessem.modelos.entdados import (
     VE,
     FP,
     TX,
+    EZ,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -106,6 +107,7 @@ class Entdados(RegisterFile):
         VE,
         FP,
         TX,
+        EZ,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -866,6 +868,28 @@ class Entdados(RegisterFile):
         :rtype: :class:`TX` | None.
         """
         return self.__obtem_registro(TX)
+
+    def ez(
+        self, uhe: Optional[int] = None, df: bool = False
+    ) -> Optional[Union[EZ, List[EZ], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica o percentual máximo do
+        volume útil para acoplamento no estudo especificado
+        no :class:`Entdados`
+
+        :param uhe: Código da usina
+        :type uhe: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`EZ` | list[:class:`EZ`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(EZ)
+        else:
+            return self.__obtem_registros_com_filtros(EZ, uhe=uhe)
 
     # @property
     # def dt(self) -> Optional[DT]:
