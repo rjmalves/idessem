@@ -24,6 +24,7 @@ from idessem.dessem.modelos.entdados import (
     R11,
     CR,
     SECR,
+    DA,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -75,6 +76,7 @@ from tests.mocks.arquivos.entdados import (
     MockR11,
     MockCR,
     MockSECR,
+    MockDA,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1166,6 +1168,40 @@ def test_registro_secr_entdados():
     assert r.fator_participacao_5 is None
     r.fator_participacao_5 = 0
     assert r.fator_participacao_5 == 0
+
+
+def test_registro_da_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockDA))
+    r = DA()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [230, [6, None, None], ["F", None, None], -10.5]
+    assert r.codigo_usina == 230
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.dia_inicial == 6
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.taxa == -10.5
+    r.taxa = -1
+    assert r.taxa == -1
 
 
 def test_registro_acvtfuga_entdados():
