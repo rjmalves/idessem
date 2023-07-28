@@ -19,6 +19,7 @@ from idessem.dessem.modelos.entdados import (
     NI,
     VE,
     FP,
+    TX,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -65,6 +66,7 @@ from tests.mocks.arquivos.entdados import (
     MockNI,
     MockVE,
     MockFP,
+    MockTX,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -976,6 +978,19 @@ def test_registro_fp_entdados():
     assert r.tolerancia_desvio == -1
 
 
+def test_registro_tx_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockTX))
+    r = TX()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [12.0]
+    assert r.taxa == 12.0
+    r.taxa = 0
+    assert r.taxa == 0
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1350,6 +1365,7 @@ def test_campos_encontrados_entdados():
     assert d.ni is not None
     assert d.ve() is not None
     assert d.fp() is not None
+    assert d.tx is not None
 
 
 # def test_cria_lu_entdados():

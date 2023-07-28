@@ -3285,32 +3285,33 @@ class FP(Register):
         self.data[7] = lim
 
 
-# class TX(Register):
-#     """
-#     Registro que contém a taxa de desconto anual do modelo.
-#     """
+class TX(Register):
+    """
+    Registro que contém a taxa de desconto anual utilizada no modelo
+    DECOMP quando na construção da FCF.
+    """
 
-#     IDENTIFIER = "TX  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             FloatField(5, 4, 0),
-#         ]
-#     )
+    IDENTIFIER = "TX  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            FloatField(10, 4, 1),
+        ]
+    )
 
-#     @property
-#     def taxa(self) -> Optional[float]:
-#         """
-#         A taxa de desconto em % utilizada no estudo.
+    @property
+    def taxa(self) -> Optional[float]:
+        """
+        A taxa de desconto em % utilizada no estudo.
 
-#         :return: A taxa.
-#         :rtype: float | None
-#         """
-#         return self.data[0]
+        :return: A taxa.
+        :rtype: float | None
+        """
+        return self.data[0]
 
-#     @taxa.setter
-#     def taxa(self, t: float):
-#         self.data[0] = t
+    @taxa.setter
+    def taxa(self, t: float):
+        self.data[0] = t
 
 
 #     @property

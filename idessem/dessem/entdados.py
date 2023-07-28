@@ -19,6 +19,7 @@ from idessem.dessem.modelos.entdados import (
     NI,
     VE,
     FP,
+    TX,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -104,6 +105,7 @@ class Entdados(RegisterFile):
         NI,
         VE,
         FP,
+        TX,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -854,16 +856,16 @@ class Entdados(RegisterFile):
                 tolerancia_desvio=tolerancia_desvio,
             )
 
-    # @property
-    # def tx(self) -> Optional[TX]:
-    #     """
-    #     Obtém o (único) registro que define a taxa de desconto
-    #     aplicada no estudo definido no :class:`Dadger`
+    @property
+    def tx(self) -> Optional[TX]:
+        """
+        Obtém o (único) registro que define a taxa de desconto
+        aplicada no estudo definido no :class:`Entdados`
 
-    #     :return: Um registro, se existir.
-    #     :rtype: :class:`TX` | None.
-    #     """
-    #     return self.__obtem_registro(TX)
+        :return: Um registro, se existir.
+        :rtype: :class:`TX` | None.
+        """
+        return self.__obtem_registro(TX)
 
     # @property
     # def dt(self) -> Optional[DT]:
