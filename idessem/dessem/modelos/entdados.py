@@ -3356,6 +3356,156 @@ class EZ(Register):
     def volume(self, u: float):
         self.data[1] = u
 
+
+class R11(Register):
+    """
+    Registro que contém as restrições de variação horária
+    e diária no nível da Régua 11.
+    """
+
+    IDENTIFIER = "R11 "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [   StageDateField(starting_position=4,special_day_character="I"),
+            StageDateField(starting_position=12,special_day_character="F"),
+            FloatField(10, 20, 2),
+            FloatField(10, 30, 2),
+            FloatField(10, 40, 2),
+        ]
+    )
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[0][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[0][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[0][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[0][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[0][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[0][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[1][2] = n
+    
+    @property
+    def cota_inicial(self) -> Optional[float]:
+        """
+        A cota na Régua 11 na meia hora anterior 
+        ao início do estudo.
+
+        :return: A cota.
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @cota_inicial.setter
+    def cota_inicial(self, n: float):
+        self.data[2] = n
+
+    @property
+    def variacao_maxima_horaria(self) -> Optional[float]:
+        """
+        A restrição de variação máxima horária no nível
+        da Régua 11.
+
+        :return: A variação máxima horária.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @variacao_maxima_horaria.setter
+    def variacao_maxima_horaria(self, n: float):
+        self.data[3] = n
+    
+    @property
+    def variacao_maxima_diaria(self) -> Optional[float]:
+        """
+        A restrição de variação máxima diária no nível
+        da Régua 11.
+
+        :return: A variação máxima diária.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @variacao_maxima_diaria.setter
+    def variacao_maxima_diaria(self, n: float):
+        self.data[4] = n
+
+
 # class MP(Register):
 #     """
 #     Registro que contém as manutenções programadas das UHEs.

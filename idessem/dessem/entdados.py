@@ -21,6 +21,7 @@ from idessem.dessem.modelos.entdados import (
     FP,
     TX,
     EZ,
+    R11,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -108,6 +109,7 @@ class Entdados(RegisterFile):
         FP,
         TX,
         EZ,
+        R11,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -890,6 +892,26 @@ class Entdados(RegisterFile):
             return self._as_df(EZ)
         else:
             return self.__obtem_registros_com_filtros(EZ, uhe=uhe)
+
+    def r11(
+        self, df: bool = False
+    ) -> Optional[Union[R11, List[R11], pd.DataFrame]]:
+        """
+        Obtém um registro que contém as restrições de variação
+        horária e diária no nível da Régua 11 existente no estudo
+        especificado no :class:`Entdados`
+
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`R11` | list[:class:`R11`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(R11)
+        else:
+            return self.__obtem_registros_com_filtros(R11)
 
     # @property
     # def dt(self) -> Optional[DT]:

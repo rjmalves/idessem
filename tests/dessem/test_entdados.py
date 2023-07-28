@@ -21,6 +21,7 @@ from idessem.dessem.modelos.entdados import (
     FP,
     TX,
     EZ,
+    R11,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -69,6 +70,7 @@ from tests.mocks.arquivos.entdados import (
     MockFP,
     MockTX,
     MockEZ,
+    MockR11,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1009,6 +1011,49 @@ def test_registro_ez_entdados():
     assert r.uhe == 0
 
 
+def test_registro_r11_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockR11))
+    r = R11()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        [11, 0, 0],
+        ["F", None, None],
+        98.26,
+        0.50,
+        2.0,
+    ]
+    assert r.dia_inicial == 11
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.cota_inicial == 98.26
+    r.cota_inicial = -1
+    assert r.cota_inicial == -1
+    assert r.variacao_maxima_horaria == 0.50
+    r.variacao_maxima_horaria = -1
+    assert r.variacao_maxima_horaria == -1
+    assert r.variacao_maxima_diaria == 2.0
+    r.variacao_maxima_diaria = -1
+    assert r.variacao_maxima_diaria == -1
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1332,6 +1377,7 @@ def test_campos_nao_encontrados_entdados():
     assert d.fp() is None
     assert d.tx is None
     assert d.ez() is None
+    assert d.r11() is None
     # assert d.ct(0, 0) is None
     # assert d.dp(0, 0) is None
     # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
@@ -1388,6 +1434,7 @@ def test_campos_encontrados_entdados():
     assert d.fp() is not None
     assert d.tx is not None
     assert d.ez is not None
+    assert d.r11() is not None
 
 
 # def test_cria_lu_entdados():
