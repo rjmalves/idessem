@@ -25,6 +25,14 @@ from idessem.dessem.modelos.entdados import (
     CR,
     SECR,
     DA,
+    RE,
+    LU,
+    FH,
+    FT,
+    FI,
+    FE,
+    FR,
+    FC,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -47,6 +55,7 @@ import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
 from typing import Type, List, Optional, TypeVar, Union, Any
+from datetime import datetime
 
 # Para compatibilidade - até versão 1.0.0
 from os.path import join
@@ -116,6 +125,14 @@ class Entdados(RegisterFile):
         CR,
         SECR,
         DA,
+        RE,
+        LU,
+        FH,
+        FT,
+        FI,
+        FE,
+        FR,
+        FC,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -1001,458 +1018,458 @@ class Entdados(RegisterFile):
                 DA, codigo_usina=codigo_usina
             )
 
-    # def re(
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio_inicial: Optional[int] = None,
-    #     estagio_final: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[RE, List[RE], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que cadastra uma restrição elétrica existente
-    #     no estudo descrito pelo :class:`Dadger`.
+    def re(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[RE, List[RE], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra uma restrição elétrica existente
+        no estudo descrito pelo :class:`Entdados`.
 
-    #     :param codigo: código que especifica o registro
-    #         da restrição elétrica
-    #     :type codigo: int | None
-    #     :param estagio_inicial: estágio inicial da restrição elétrica
-    #     :type estagio_inicial: int | None
-    #     :param estagio_final: estágio final da restrição elétrica
-    #     :type estagio_final: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param codigo_restricao: código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | str | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | str | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`RE` | list[:class:`RE`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(RE)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             RE,
-    #             codigo=codigo,
-    #             estagio_inicial=estagio_inicial,
-    #             estagio_final=estagio_final,
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`RE` | list[:class:`RE`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(RE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                RE,
+                codigo_restricao=codigo_restricao,
+            )
 
-    # def lu(  # noqa
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[LU, List[LU], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica os limites inferiores e
-    #     superiores por patamar de uma restrição elétrica existente
-    #     no estudo descrito pelo :class:`Dadger`.
+    def lu(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[LU, List[LU], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica o limite inferior e
+        superior de uma restrição elétrica existente
+        no estudo descrito pelo :class:`Entdados`.
 
-    #     :param codigo: Índice do código que especifica o registro
-    #         da restrição elétrica
-    #     :type codigo: int | None
-    #     :param estagio: Estágio sobre o qual valerão os limites da
-    #         restrição elétricas
-    #     :type estagio: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | str | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | str | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`LU` | list[:class:`LU`] | :class:`pd.DataFrame` | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`LU` | list[:class:`LU`] | :class:`pd.DataFrame` | None
 
-    #     **Exemplos**
+        """
 
-    #     Para um objeto :class:`Dadger` que possua uma restrição RE
-    #     de código 1, definida para os estágios de 1 a 5, com limites
-    #     LU definidos apenas para o estágio 1, estes podem ser acessados com:
+        if df:
+            return self._as_df(LU)
+        else:
+            return self.__obtem_registros_com_filtros(
+                LU,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+            )
 
-    #     >>> lu = dadger.lu(1, 1)
-    #     >>> lu
-    #         <idecomp.decomp.modelos.dadger.LU object at 0x0000026E5C269550>
+    def fh(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
+        conjunto: Optional[int] = None,
+        coeficiente: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FH, List[FH], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra os coeficientes das restrições
+        elétricas para usinas hidráulicas.
 
-    #     Se for acessado o registro LU de um estágio fora dos limites da
-    #     restrição RE, isso resultará em um erro:
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param codigo_usina: código da usina hidráulica
+        :type codigo_usina: int | None
+        :param conjunto: conjunto de máquinas da usina
+        :type conjunto: int | None
+        :param coeficiente: coeficiente de participação da usina na restrição
+        :type coeficiente: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     >>> dadger.lu(1, 7)
-    #         Traceback (most recent call last):
-    #         ...
-    #         ValueError: Estágio 7 fora dos limites do registro RE
+        :return: Um ou mais registros, se houverem.
+        :rtype: :class:`FH` | list[:class:`FH`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FH)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FH,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+                codigo_usina=codigo_usina,
+                conjunto=conjunto,
+                coeficiente=coeficiente,
+            )
 
-    #     Por outro lado, se for acessado o registro LU em um estágio dentro
-    #     dos limites do registro RE, porém sem limites próprios definidos,
-    #     será criado um registro idêntico ao do último estágio existente,
-    #     e este será retornado:
+    def ft(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
+        coeficiente: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FT, List[FT], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra os coeficientes das restrições
+        elétricas para usinas térmicas.
 
-    #     >>> lu2 = dadger.lu(1, 5)
-    #     >>> lu.limites_inferiores == lu2.limites_inferiores
-    #         True
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param codigo_usina: código da usina hidráulica
+        :type codigo_usina: int | None
+        :param coeficiente: coeficiente de participação da usina na restrição
+        :type coeficiente: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     """
+        :return: Um ou mais registros, se houverem.
+        :rtype: :class:`FT` | list[:class:`FT`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FT)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FT,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+                codigo_usina=codigo_usina,
+                coeficiente=coeficiente,
+            )
 
-    #     def cria_registro() -> Optional[LU]:
-    #         re = self.re(codigo=codigo)
-    #         if isinstance(re, list) or re is None:
-    #             return None
-    #         ei = re.estagio_inicial
-    #         ef = re.estagio_final
-    #         if any([estagio is None, ei is None, ef is None]):
-    #             return None
-    #         ultimo_registro = None
-    #         if ei is not None and estagio <= ef:  # type: ignore
-    #             for e in range(ei, estagio + 1):  # type: ignore
-    #                 registro_estagio = self.__obtem_registros_com_filtros(
-    #                     LU, codigo=codigo, estagio=e
-    #                 )
-    #                 if registro_estagio is not None:
-    #                     ultimo_registro = registro_estagio
-    #         if isinstance(ultimo_registro, LU):
-    #             novo_registro = LU(
-    #                 data=[None] * len(ultimo_registro.data),
-    #             )
-    #             novo_registro.codigo = ultimo_registro.codigo
-    #             novo_registro.limites_inferiores = (
-    #                 ultimo_registro.limites_inferiores
-    #             )
-    #             novo_registro.limites_superiores = (
-    #                 ultimo_registro.limites_superiores
-    #             )
-    #             novo_registro.estagio = estagio
-    #             self.data.add_after(ultimo_registro, novo_registro)
-    #             return novo_registro
-    #         return None
+    def fi(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        submercado_de: Optional[int] = None,
+        submercado_para: Optional[int] = None,
+        coeficiente: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FI, List[FI], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra os coeficientes das restrições
+        elétricas para intercâmbios.
 
-    #     if df:
-    #         return self._as_df(LU)
-    #     else:
-    #         lu = self.__obtem_registros_com_filtros(
-    #             LU, codigo=codigo, estagio=estagio
-    #         )
-    #         if isinstance(lu, list):
-    #             return lu
-    #         if lu is None:
-    #             lu = cria_registro()
-    #         return lu
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param submercado_de: mnemônico do submercado origem (de)
+        :type submercado_de: str | None
+        :param submercado_para: mnemônico do submercado destino (para)
+        :type submercado_para: str | None
+        :param coeficiente: coeficiente de participação do fluxo na restrição
+        :type coeficiente: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    # def fu(
-    #     self,
-    #     restricao: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     uhe: Optional[int] = None,
-    #     coeficiente: Optional[float] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[FU, List[FU], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que cadastra os coeficientes das restrições
-    #     elétricas.
+        :return: Um ou mais registros, se houverem.
+        :rtype: :class:`FI` | list[:class:`FI`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FI)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FI,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+                submercado_de=submercado_de,
+                submercado_para=submercado_para,
+                coeficiente=coeficiente,
+            )
 
-    #     :param restricao: código que especifica o registro
-    #     :type restricao: int | None
-    #     :param estagio: o estágio do coeficiente
-    #     :type estagio: int | None
-    #     :param uhe: o código da UHE para a restrição
-    #     :type uhe: int | None
-    #     :param coeficiente: valor do coeficiente para a usina
-    #         na restrição
-    #     :type coeficiente: float | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+    def fe(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        codigo_contrato: Optional[int] = None,
+        coeficiente: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FE, List[FE], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra os coeficientes das restrições
+        elétricas para contratos de importação/exportação de energia.
 
-    #     :return: Um ou mais registros, se houverem.
-    #     :rtype: :class:`FU` | list[:class:`FU`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(FU)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             FU,
-    #             restricao=restricao,
-    #             uhe=uhe,
-    #             estagio=estagio,
-    #             coeficiente=coeficiente,
-    #         )
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param codigo_contrato: código do contrato
+        :type codigo_contrato: int | None
+        :param coeficiente: coeficiente de participação do contrato na restrição
+        :type coeficiente: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    # def ft(
-    #     self,
-    #     restricao: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     ute: Optional[int] = None,
-    #     coeficiente: Optional[float] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[FT, List[FT], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que cadastra os coeficientes das restrições
-    #     elétricas.
+        :return: Um ou mais registros, se houverem.
+        :rtype: :class:`FE` | list[:class:`FE`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FE)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FE,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+                codigo_contrato=codigo_contrato,
+                coeficiente=coeficiente,
+            )
 
-    #     :param restricao: código que especifica o registro
-    #     :type restricao: int | None
-    #     :param estagio: o estágio do coeficiente
-    #     :type estagio: int | None
-    #     :param ute: o código da UTE para a restrição
-    #     :type ute: int | None
-    #     :param coeficiente: valor do coeficiente para a usina
-    #         na restrição
-    #     :type coeficiente: float | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+    def fr(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
+        coeficiente: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FR, List[FR], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra os coeficientes das restrições
+        elétricas para usinas de fontes renováveis.
 
-    #     :return: Um ou mais registros, se houverem.
-    #     :rtype: :class:`FT` | list[:class:`FT`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(FT)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             FT,
-    #             restricao=restricao,
-    #             ute=ute,
-    #             estagio=estagio,
-    #             coeficiente=coeficiente,
-    #         )
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param codigo_usina: código da usina renovável
+        :type codigo_usina: int | None
+        :param coeficiente: coeficiente de participação da usina na restrição
+        :type coeficiente: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    # def fi(
-    #     self,
-    #     restricao: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     de: Optional[int] = None,
-    #     para: Optional[int] = None,
-    #     coeficiente: Optional[float] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[FI, List[FI], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que cadastra os coeficientes das restrições
-    #     elétricas.
+        :return: Um ou mais registros, se houverem.
+        :rtype: :class:`FR` | list[:class:`FR`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FR)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FR,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+                codigo_usina=codigo_usina,
+                coeficiente=coeficiente,
+            )
 
-    #     :param restricao: código que especifica o registro
-    #     :type restricao: int | None
-    #     :param estagio: o estágio do coeficiente
-    #     :type estagio: int | None
-    #     :param de: o código do subsistema DE
-    #     :type de: int | None
-    #     :param para: o código do subsistema PARA
-    #     :type para: int | None
-    #     :param coeficiente: valor do coeficiente para a interligação
-    #         na restrição
-    #     :type coeficiente: float | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+    def fc(
+        self,
+        codigo_restricao: Optional[int] = None,
+        dia_inicial: Optional[Union[str, int]] = None,
+        hora_inicial: Optional[int] = None,
+        meia_hora_inicial: Optional[int] = None,
+        dia_final: Optional[Union[str, int]] = None,
+        hora_final: Optional[int] = None,
+        meia_hora_final: Optional[int] = None,
+        codigo_demanda: Optional[int] = None,
+        coeficiente: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FC, List[FC], pd.DataFrame]]:
+        """
+        Obtém um registro que cadastra os coeficientes das restrições
+        elétricas para demandas especiais.
 
-    #     :return: Um ou mais registros, se houverem.
-    #     :rtype: :class:`FI` | list[:class:`FI`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(FI)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             FI,
-    #             restricao=restricao,
-    #             estagio=estagio,
-    #             de=de,
-    #             para=para,
-    #             coeficiente=coeficiente,
-    #         )
+        :param codigo_restricao: Índice do código que especifica o registro
+            da restrição elétrica
+        :type codigo_restricao: int | None
+        :param dia_inicial: dia inicial
+        :type dia_inicial: int | None
+        :param hora_inicial: hora inicial
+        :type hora_inicial: int | None
+        :param meia_hora_inicial: meia-hora inicial
+        :param dia_final: dia final
+        :type dia_final: int | None
+        :param hora_final: hora final
+        :type hora_final: int | None
+        :param meia_hora_final: meia-hora final
+        :type meia_hora_final: int | None
+        :param codigo_demanda: código da demanda especial
+        :type codigo_demanda: int | None
+        :param coeficiente: coeficiente de participação da usina na restrição
+        :type coeficiente: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    # def fc(
-    #     self,
-    #     tipo: Optional[str] = None,
-    #     caminho: Optional[str] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[FC, List[FC], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica os caminhos para os
-    #     arquivos com a FCF do NEWAVE.
-
-    #     :param tipo: Mnemônico do tipo de FCF especificado
-    #         no registro
-    #     :type tipo: str | None
-    #     :param caminho: caminho para o arquivo com a FCF
-    #     :type caminho: str | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`FC` | list[:class:`FC`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(FC)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             FC, tipo=tipo, caminho=caminho
-    #         )
-
-    # def hv(
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio_inicial: Optional[int] = None,
-    #     estagio_final: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[HV, List[HV], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que cadastra uma restrição de volume mínimo
-    #     armazenado existente no estudo descrito pelo :class:`Dadger`.
-
-    #     :param codigo: código que especifica o registro
-    #         da restrição de volume
-    #     :type codigo: int | None
-    #     :param estagio_inicial: estágio inicial da restrição de volume
-    #     :type estagio_inicial: int | None
-    #     :param estagio_final: estágio final da restrição de volume
-    #     :type estagio_final: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`HV` | list[:class:`HV`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(HV)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             HV,
-    #             codigo=codigo,
-    #             estagio_inicial=estagio_inicial,
-    #             estagio_final=estagio_final,
-    #         )
-
-    # def lv(  # noqa
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[LV, List[LV], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica os limites inferior e
-    #     superior de uma restrição de volume mínimo existente
-    #     no estudo descrito pelo :class:`Dadger`.
-
-    #     :param codigo: Índice do código que especifica o registro
-    #         da restrição de volume
-    #     :type codigo: int | None
-    #     :param estagio: Estágio sobre o qual valerão os limites da
-    #         restrição de volume
-    #     :type estagio: int | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`LV` | list[:class:`LV`] | :class:`pd.DataFrame` | None
-
-    #     **Exemplos**
-
-    #     Para um objeto :class:`Dadger` que possua uma restrição HV
-    #     de código 1, definida para os estágios de 1 a 5, com limites
-    #     LV definidos apenas para o estágio 1, estes podem ser acessados com:
-
-    #     >>> lv = dadger.lv(1, 1)
-    #     >>> lv
-    #         <idecomp.decomp.modelos.dadger.LV object at 0x0000026E5C269550>
-
-    #     Se for acessado o registro LV de um estágio fora dos limites da
-    #     restrição HV, isso resultará em um erro:
-
-    #     >>> dadger.lv(1, 7)
-    #         Traceback (most recent call last):
-    #         ...
-    #         ValueError: Estágio 7 fora dos limites do registro HV
-
-    #     Por outro lado, se for acessado o registro LV em um estágio dentro
-    #     dos limites do registro HV, porém sem limites próprios definidos,
-    #     será criado um registro idêntico ao do último estágio existente,
-    #     e este será retornado:
-
-    #     >>> lv2 = dadger.lv(1, 5)
-    #     >>> lv.limite_inferior == lv2.limite_inferior
-    #         True
-
-    #     """
-
-    #     def cria_registro() -> Optional[LV]:
-    #         hv = self.hv(codigo=codigo)
-    #         if isinstance(hv, list) or hv is None:
-    #             return None
-    #         ei = hv.estagio_inicial
-    #         ef = hv.estagio_final
-    #         if any([estagio is None, ei is None, ef is None]):
-    #             return None
-    #         ultimo_registro = None
-    #         if ei is not None and estagio <= ef:  # type: ignore
-    #             for e in range(ei, estagio + 1):  # type: ignore
-    #                 registro_estagio = self.__obtem_registros_com_filtros(
-    #                     LV, codigo=codigo, estagio=e
-    #                 )
-    #                 if registro_estagio is not None:
-    #                     ultimo_registro = registro_estagio
-    #         if isinstance(ultimo_registro, LV):
-    #             novo_registro = LV(
-    #                 data=[None] * len(ultimo_registro.data),
-    #             )
-    #             novo_registro.codigo = codigo
-    #             novo_registro.limite_inferior = ultimo_registro.limite_inferior
-    #             novo_registro.limite_superior = ultimo_registro.limite_superior
-    #             novo_registro.estagio = estagio
-    #             self.data.add_after(ultimo_registro, novo_registro)
-    #             return novo_registro
-    #         return None
-
-    #     if df:
-    #         return self._as_df(LV)
-    #     else:
-    #         lv = self.__obtem_registros_com_filtros(
-    #             LV, codigo=codigo, estagio=estagio
-    #         )
-    #         if isinstance(lv, list):
-    #             return lv
-    #         if lv is None:
-    #             lv = cria_registro()
-    #         return lv
-
-    # def cv(
-    #     self,
-    #     restricao: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     uhe: Optional[int] = None,
-    #     coeficiente: Optional[float] = None,
-    #     tipo: Optional[str] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[CV, List[CV], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que cadastra os coeficientes das restrições
-    #     de volume.
-
-    #     :param restricao: código que especifica o registro
-    #     :type restricao: int | None
-    #     :param estagio: o estágio do coeficiente
-    #     :type estagio: int | None
-    #     :param uhe: o código da UHE para a restrição
-    #     :type uhe: int | None
-    #     :param coeficiente: valor do coeficiente para a usina
-    #         na restrição
-    #     :type coeficiente: float | None
-    #     :param tipo: o mnemônico de tipo da restrição
-    #     :type tipo: str | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se houverem.
-    #     :rtype: :class:`CV` | list[:class:`CV`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(CV)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             CV,
-    #             restricao=restricao,
-    #             uhe=uhe,
-    #             estagio=estagio,
-    #             coeficiente=coeficiente,
-    #             tipo=tipo,
-    #         )
+        :return: Um ou mais registros, se houverem.
+        :rtype: :class:`FR` | list[:class:`FR`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FC)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FC,
+                codigo_restricao=codigo_restricao,
+                dia_inicial=dia_inicial,
+                hora_inicial=hora_inicial,
+                meia_hora_inicial=meia_hora_inicial,
+                dia_final=dia_final,
+                hora_final=hora_final,
+                meia_hora_final=meia_hora_final,
+                codigo_demanda=codigo_demanda,
+                coeficiente=coeficiente,
+            )
 
     # def pe(
     #     self,

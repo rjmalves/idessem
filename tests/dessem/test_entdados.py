@@ -25,6 +25,14 @@ from idessem.dessem.modelos.entdados import (
     CR,
     SECR,
     DA,
+    RE,
+    LU,
+    FH,
+    FT,
+    FI,
+    FE,
+    FR,
+    FC,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -77,6 +85,14 @@ from tests.mocks.arquivos.entdados import (
     MockCR,
     MockSECR,
     MockDA,
+    MockRE,
+    MockLU,
+    MockFH,
+    MockFT,
+    MockFI,
+    MockFE,
+    MockFR,
+    MockFC,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1204,6 +1220,302 @@ def test_registro_da_entdados():
     assert r.taxa == -1
 
 
+def test_registro_re_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockRE))
+    r = RE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [16, [6, None, None], [13, 0, 0]]
+    assert r.codigo_restricao == 16
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 6
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == 13
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final == 0
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final == 0
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+
+
+def test_registro_lu_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockLU))
+    r = LU()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [16, [6, 0, 0], ["F", None, None], 16, 63.8]
+    assert r.codigo_restricao == 16
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 6
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.limite_inferior == 16
+    r.limite_inferior = -1
+    assert r.limite_inferior == -1
+    assert r.limite_superior == 63.8
+    r.limite_superior = -1
+    assert r.limite_superior == -1
+
+
+def test_registro_fh_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFH))
+    r = FH()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [16, [6, None, None], ["F", None, None], 155, None, 1]
+    assert r.codigo_restricao == 16
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 6
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.codigo_usina == 155
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.conjunto is None
+    r.conjunto = -1
+    assert r.conjunto == -1
+    assert r.coeficiente == 1
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_ft_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFT))
+    r = FT()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [908, [12, None, None], ["F", None, None], 21, 1]
+    assert r.codigo_restricao == 908
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 12
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.codigo_usina == 21
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.coeficiente == 1
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_fi_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFI))
+    r = FI()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [908, [12, None, None], ["F", None, None], "FC", "N", 1]
+    assert r.codigo_restricao == 908
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 12
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.submercado_de == "FC"
+    r.submercado_de = -1
+    assert r.submercado_de == -1
+    assert r.submercado_para == "N"
+    r.submercado_para = -1
+    assert r.submercado_para == -1
+    assert r.coeficiente == 1
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_fe_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFE))
+    r = FE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [912, [12, None, None], ["F", None, None], 601, 1]
+    assert r.codigo_restricao == 912
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 12
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.codigo_contrato == 601
+    r.codigo_contrato = -1
+    assert r.codigo_contrato == -1
+    assert r.coeficiente == 1
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_fr_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFR))
+    r = FR()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [919, [12, None, None], ["F", None, None], 1358, 1]
+    assert r.codigo_restricao == 919
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 12
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.codigo_usina == 1358
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.coeficiente == 1
+    r.coeficiente = -1
+    assert r.coeficiente == -1
+
+
+def test_registro_fc_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFC))
+    r = FC()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [921, [12, None, None], ["F", None, None], 4, -1]
+    assert r.codigo_restricao == 921
+    r.codigo_restricao = -1
+    assert r.codigo_restricao == -1
+    assert r.dia_inicial == 12
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial is None
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial is None
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == "F"
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final is None
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final is None
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.codigo_demanda == 4
+    r.codigo_demanda = -1
+    assert r.codigo_demanda == -1
+    assert r.coeficiente == -1
+    r.coeficiente = 2
+    assert r.coeficiente == 2
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1529,16 +1841,18 @@ def test_campos_nao_encontrados_entdados():
     assert d.ez() is None
     assert d.r11() is None
     assert d.cr() is None
+    assert d.re() is None
+    assert d.lu() is None
+    assert d.fh() is None
+    assert d.ft() is None
+    assert d.fi() is None
+    assert d.fe() is None
+    assert d.fr() is None
+    assert d.fc() is None
     # assert d.ct(0, 0) is None
     # assert d.dp(0, 0) is None
     # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
     # assert d.cd(0, 0) is None
-    # assert d.tx is None
-    # assert d.gp is None
-    # assert d.ni is None
-    # assert d.dt is None
-    # assert d.re(0) is None
-    # assert d.lu(0, 0) is None
     # assert d.vi(0) is None
     # assert d.ir("") is None
     # assert d.rt("") is None
@@ -1587,6 +1901,14 @@ def test_campos_encontrados_entdados():
     assert d.ez is not None
     assert d.r11() is not None
     assert d.cr() is not None
+    assert d.re() is not None
+    assert d.lu() is not None
+    assert d.fh() is not None
+    assert d.ft() is not None
+    assert d.fi() is not None
+    assert d.fe() is not None
+    assert d.fr() is not None
+    assert d.fc() is not None
 
 
 # def test_cria_lu_entdados():

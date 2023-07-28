@@ -4009,6 +4009,1183 @@ class DA(Register):
         self.data[3] = c
 
 
+class RE(Register):
+    """
+    Registro que contém os cadastros de restrições elétricas.
+    """
+
+    IDENTIFIER = "RE  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=9, special_day_character="I"),
+            StageDateField(starting_position=17, special_day_character="F"),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código para a restrição
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+
+class LU(Register):
+    """
+    Registro que contém os cadastros de limites das restrições elétricas.
+
+    """
+
+    IDENTIFIER = "LU  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            FloatField(10, 24, 1),
+            FloatField(10, 34, 1),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição RE associada aos limites.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def limite_inferior(self) -> Optional[float]:
+        """
+        O limite inferior para a restrição elétrica.
+
+        :return: O limite
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @limite_inferior.setter
+    def limite_inferior(self, lim: float):
+        self.data[3] = lim
+
+    @property
+    def limite_superior(self) -> Optional[float]:
+        """
+        O limite superior para a restrição elétrica.
+
+        :return: O limite
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @limite_superior.setter
+    def limite_superior(self, lim: float):
+        self.data[4] = lim
+
+
+class FH(Register):
+    """
+    Registro que contém os coeficientes das usinas hidráulicas
+    nas restrições elétricas.
+    """
+
+    IDENTIFIER = "FH  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            IntegerField(3, 24),
+            IntegerField(2, 28),
+            FloatField(10, 34, 7),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição elétrica, segundo registro RE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidráulica.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[3] = c
+
+    @property
+    def conjunto(self) -> Optional[int]:
+        """
+        O conjunto de máquinas da usina.
+
+        :return: O conjunto.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @conjunto.setter
+    def conjunto(self, c: int):
+        self.data[4] = c
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        """
+        O coeficiente de participação da usina na restrição.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @coeficiente.setter
+    def coeficiente(self, f: float):
+        self.data[5] = f
+
+
+class FT(Register):
+    """
+    Registro que contém os coeficientes das usinas térmicas
+    nas restrições elétricas.
+    """
+
+    IDENTIFIER = "FT  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            IntegerField(3, 24),
+            FloatField(10, 34, 7),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição elétrica, segundo registro RE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina térmica.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[3] = c
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        """
+        O coeficiente de participação da usina na restrição.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @coeficiente.setter
+    def coeficiente(self, f: float):
+        self.data[4] = f
+
+
+class FI(Register):
+    """
+    Registro que contém o sentido do fluxo da interligação
+    entre os subsistemas associados à restrição elétrica.
+    """
+
+    IDENTIFIER = "FI  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            LiteralField(2, 24),
+            LiteralField(2, 29),
+            FloatField(10, 34, 7),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição elétrica, segundo registro RE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def submercado_de(self) -> Optional[str]:
+        """
+        O submercado de origem (de).
+
+        :return: O submercado.
+        :rtype: str | None
+        """
+        return self.data[3]
+
+    @submercado_de.setter
+    def submercado_de(self, s: str):
+        self.data[3] = s
+
+    @property
+    def submercado_para(self) -> Optional[str]:
+        """
+        O submercado de destino (para).
+
+        :return: O submercado.
+        :rtype: str | None
+        """
+        return self.data[4]
+
+    @submercado_para.setter
+    def submercado_para(self, s: str):
+        self.data[4] = s
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        """
+        O coeficiente de participação da interligação.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @coeficiente.setter
+    def coeficiente(self, f: float):
+        self.data[5] = f
+
+
+class FE(Register):
+    """
+    Registro que contém os coeficientes de participação dos
+    contratos de importação/exportação de energia
+    nas restrições elétricas.
+    """
+
+    IDENTIFIER = "FE  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=8, special_day_character="I"),
+            StageDateField(starting_position=16, special_day_character="F"),
+            IntegerField(3, 24),
+            FloatField(10, 34, 7),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição elétrica, segundo registro RE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def codigo_contrato(self) -> Optional[int]:
+        """
+        O código do contrato de importação/exportação.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @codigo_contrato.setter
+    def codigo_contrato(self, c: int):
+        self.data[3] = c
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        """
+        O coeficiente de participação do contrato na restrição.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @coeficiente.setter
+    def coeficiente(self, f: float):
+        self.data[4] = f
+
+
+class FR(Register):
+    """
+    Registro que contém os coeficientes de participação das
+    fontes renováveis eólicas nas restrições elétricas.
+    """
+
+    IDENTIFIER = "FR  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=10, special_day_character="I"),
+            StageDateField(starting_position=18, special_day_character="F"),
+            IntegerField(5, 26),
+            FloatField(10, 36, 7),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição elétrica, segundo registro RE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina eólica.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[3] = c
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        """
+        O coeficiente de participação da usina na restrição.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @coeficiente.setter
+    def coeficiente(self, f: float):
+        self.data[4] = f
+
+
+class FC(Register):
+    """
+    Registro que contém os coeficientes de participação das
+    demandas/cargas especiais nas restrições elétricas.
+    """
+
+    IDENTIFIER = "FC  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            StageDateField(starting_position=10, special_day_character="I"),
+            StageDateField(starting_position=18, special_day_character="F"),
+            IntegerField(3, 26),
+            FloatField(10, 36, 7),
+        ]
+    )
+
+    @property
+    def codigo_restricao(self) -> Optional[int]:
+        """
+        O código da restrição elétrica, segundo registro RE.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_restricao.setter
+    def codigo_restricao(self, c: int):
+        self.data[0] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[1][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[1][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[1][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[1][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[1][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[1][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[2][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[2][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[2][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[2][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[2][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[2][2] = n
+
+    @property
+    def codigo_demanda(self) -> Optional[int]:
+        """
+        O código da demanda especial.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @codigo_demanda.setter
+    def codigo_demanda(self, c: int):
+        self.data[3] = c
+
+    @property
+    def coeficiente(self) -> Optional[float]:
+        """
+        O coeficiente de participação da demanda
+         especial na restrição.
+
+        :return: O coeficiente.
+        :rtype: float | None
+        """
+        return self.data[4]
+
+    @coeficiente.setter
+    def coeficiente(self, f: float):
+        self.data[4] = f
+
+
 # class MP(Register):
 #     """
 #     Registro que contém as manutenções programadas das UHEs.
@@ -4037,412 +5214,6 @@ class DA(Register):
 #             FloatField(5, 69, 3),
 #         ]
 #     )
-
-
-# class RE(Register):
-#     """
-#     Registro que contém os cadastros de restrições elétricas.
-#     """
-
-#     IDENTIFIER = "RE  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             IntegerField(2, 14),
-#         ]
-#     )
-
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código de cadastro para a restrição
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @codigo.setter
-#     def codigo(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def estagio_inicial(self) -> Optional[int]:
-#         """
-#         O estágio inicial para consideração da restrição
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @estagio_inicial.setter
-#     def estagio_inicial(self, e: int):
-#         self.data[1] = e
-
-#     @property
-#     def estagio_final(self) -> Optional[int]:
-#         """
-#         O estágio final para consideração da restrição
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[2]
-
-#     @estagio_final.setter
-#     def estagio_final(self, e: int):
-#         self.data[2] = e
-
-
-# class LU(Register):
-#     """
-#     Registro que contém os cadastros de limites das restrições elétricas.
-
-#     *OBS: Suporta apenas 3 patamares no momento*
-#     """
-
-#     IDENTIFIER = "LU  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             FloatField(10, 14, 1),
-#             FloatField(10, 24, 1),
-#             FloatField(10, 34, 1),
-#             FloatField(10, 44, 1),
-#             FloatField(10, 54, 1),
-#             FloatField(10, 64, 1),
-#         ]
-#     )
-
-#     def __atualiza_dados_lista(
-#         self,
-#         novos_dados: list,
-#         indice_inicial: int,
-#         espacamento: int,
-#     ):
-#         atuais = len(self.data)
-#         ultimo_indice = indice_inicial + espacamento * len(novos_dados)
-#         diferenca = (ultimo_indice - atuais) // espacamento
-#         if diferenca > 0:
-#             self.data += [None] * (ultimo_indice - atuais)
-#             diferenca -= 1
-#         novos_dados += [None] * abs(diferenca)
-#         self.data[indice_inicial::espacamento] = novos_dados
-
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código da restrição RE associada aos limites
-
-#         :return: O código.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @codigo.setter
-#     def codigo(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio inicial para consideração dos limites, até
-#         que sejam especificados novos limites.
-
-#         :return: O estágio.
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[1] = e
-
-#     @property
-#     def limites_inferiores(self) -> Optional[List[float]]:
-#         """
-#         Os limites inferiores por patamar para a restrição elétrica
-
-#         :return: Os limites
-#         :rtype: list[float] | None
-#         """
-#         return self.data[2::2]
-
-#     @limites_inferiores.setter
-#     def limites_inferiores(self, lim: List[float]):
-#         self.__atualiza_dados_lista(lim, 2, 2)
-
-#     @property
-#     def limites_superiores(self) -> Optional[List[float]]:
-#         """
-#         Os limites superiores por patamar para a restrição elétrica
-
-#         :return: Os limites
-#         :rtype: list[float] | None
-#         """
-#         return self.data[3::2]
-
-#     @limites_superiores.setter
-#     def limites_superiores(self, lim: List[float]):
-#         self.__atualiza_dados_lista(lim, 3, 2)
-
-
-# class FU(Register):
-#     """
-#     Registro que contém os coeficientes das usinas hidráulicas
-#     nas restrições elétricas.
-#     """
-
-#     IDENTIFIER = "FU  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             IntegerField(3, 14),
-#             FloatField(10, 19, 7),
-#             IntegerField(2, 30),
-#         ]
-#     )
-
-#     @property
-#     def restricao(self) -> Optional[int]:
-#         """
-#         O código da restrição elétrica, segundo registro RE.
-
-#         :return: O código como `int`.
-#         """
-#         return self.data[0]
-
-#     @restricao.setter
-#     def restricao(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado.
-
-#         :return: O estágio como `int`.
-#         """
-#         return self.data[1]
-
-#     @estagio.setter
-#     def estagio(self, c: int):
-#         self.data[1] = c
-
-#     @property
-#     def uhe(self) -> Optional[int]:
-#         """
-#         O número da UHE conforme registro UH.
-
-#         :return: O número da UHE como `int`.
-#         """
-#         return self.data[2]
-
-#     @uhe.setter
-#     def uhe(self, c: int):
-#         self.data[2] = c
-
-#     @property
-#     def coeficiente(self) -> Optional[float]:
-#         """
-#         O coeficiente de participação da usina na restrição.
-
-#         :return: O coeficiente como `float`
-#         """
-#         return self.data[3]
-
-#     @coeficiente.setter
-#     def coeficiente(self, f: float):
-#         self.data[3] = f
-
-#     @property
-#     def frequencia(self) -> Optional[int]:
-#         """
-#         A frequência para restrição elétrica, valendo 50 ou 60
-#         para Itaipu e 0 para as demais.
-
-#         :return: O número da frequencia como `int`.
-#         """
-#         return self.data[4]
-
-#     @frequencia.setter
-#     def frequencia(self, c: int):
-#         self.data[4] = c
-
-
-# class FT(Register):
-#     """
-#     Registro que contém os coeficientes das usinas térmicas
-#     nas restrições elétricas.
-#     """
-
-#     IDENTIFIER = "FT  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             IntegerField(3, 14),
-#             IntegerField(2, 19),
-#             FloatField(10, 24, 7),
-#         ]
-#     )
-
-#     @property
-#     def restricao(self) -> Optional[int]:
-#         """
-#         O código da restrição elétrica, segundo registro RE.
-
-#         :return: O código como `int`.
-#         """
-#         return self.data[0]
-
-#     @restricao.setter
-#     def restricao(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado.
-
-#         :return: O estágio como `int`.
-#         """
-#         return self.data[1]
-
-#     @estagio.setter
-#     def estagio(self, c: int):
-#         self.data[1] = c
-
-#     @property
-#     def ute(self) -> Optional[int]:
-#         """
-#         O número da UTE conforme registro CT.
-
-#         :return: O número da UTE como `int`.
-#         """
-#         return self.data[2]
-
-#     @ute.setter
-#     def ute(self, c: int):
-#         self.data[2] = c
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O número do subsistema conforme registros CT ou TG.
-
-#         :return: O número do subsistema como `int`.
-#         """
-#         return self.data[3]
-
-#     @subsistema.setter
-#     def subsistema(self, s: int):
-#         self.data[3] = s
-
-#     @property
-#     def coeficiente(self) -> Optional[float]:
-#         """
-#         O coeficiente de participação da usina na restrição.
-
-#         :return: O coeficiente como `float`
-#         """
-#         return self.data[4]
-
-#     @coeficiente.setter
-#     def coeficiente(self, f: float):
-#         self.data[4] = f
-
-
-# class FI(Register):
-#     """
-#     Registro que contém o sentido do fluxo da interligação
-#     entre os subsistemas associados à restrição elétrica.
-#     """
-
-#     IDENTIFIER = "FI  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 9),
-#             LiteralField(2, 14),
-#             LiteralField(2, 19),
-#             FloatField(10, 24, 7),
-#         ]
-#     )
-
-#     @property
-#     def restricao(self) -> Optional[int]:
-#         """
-#         O código da restrição elétrica, segundo registro RE.
-
-#         :return: O código como `int`.
-#         """
-#         return self.data[0]
-
-#     @restricao.setter
-#     def restricao(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado.
-
-#         :return: O estágio como `int`.
-#         """
-#         return self.data[1]
-
-#     @estagio.setter
-#     def estagio(self, c: int):
-#         self.data[1] = c
-
-#     @property
-#     def de(self) -> Optional[str]:
-#         """
-#         O subsistema "DE" conforme registros SB.
-
-#         :return: O subsistema como `str`.
-#         """
-#         return self.data[2]
-
-#     @de.setter
-#     def de(self, s: str):
-#         self.data[2] = s
-
-#     @property
-#     def para(self) -> Optional[str]:
-#         """
-#         O subsistema "PARA" conforme registros SB.
-
-#         :return: O  subsistema como `str`.
-#         """
-#         return self.data[3]
-
-#     @para.setter
-#     def para(self, s: str):
-#         self.data[3] = s
-
-#     @property
-#     def coeficiente(self) -> Optional[float]:
-#         """
-#         O coeficiente de participação da interligação.
-
-#         :return: O coeficiente como `float`
-#         """
-#         return self.data[4]
-
-#     @coeficiente.setter
-#     def coeficiente(self, f: float):
-#         self.data[4] = f
 
 
 # class CI(Register):
