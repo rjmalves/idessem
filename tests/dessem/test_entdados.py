@@ -23,6 +23,7 @@ from idessem.dessem.modelos.entdados import (
     EZ,
     R11,
     CR,
+    SECR,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -73,6 +74,7 @@ from tests.mocks.arquivos.entdados import (
     MockEZ,
     MockR11,
     MockCR,
+    MockSECR,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1105,6 +1107,65 @@ def test_registro_cr_entdados():
     assert r.coeficiente_a6 == -8.6322234e-28
     r.coeficiente_a6 = 0
     assert r.coeficiente_a6 == 0
+
+
+def test_registro_secr_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockSECR))
+    r = SECR()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        1,
+        "R11",
+        66,
+        1.03,
+        83,
+        1.17,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+    ]
+    assert r.codigo_secao == 1
+    r.codigo_secao = 40
+    assert r.codigo_secao == 40
+    assert r.nome_secao == "R11"
+    r.nome_secao = 0
+    assert r.nome_secao == 0
+    assert r.codigo_usina_montante_1 == 66
+    r.codigo_usina_montante_1 = 0
+    assert r.codigo_usina_montante_1 == 0
+    assert r.fator_participacao_1 == 1.03
+    r.fator_participacao_1 = 0
+    assert r.fator_participacao_1 == 0
+    assert r.codigo_usina_montante_2 == 83
+    r.codigo_usina_montante_2 = 0
+    assert r.codigo_usina_montante_2 == 0
+    assert r.fator_participacao_2 == 1.17
+    r.fator_participacao_2 = 0
+    assert r.fator_participacao_2 == 0
+    assert r.codigo_usina_montante_3 is None
+    r.codigo_usina_montante_3 = 0
+    assert r.codigo_usina_montante_3 == 0
+    assert r.fator_participacao_3 is None
+    r.fator_participacao_3 = 0
+    assert r.fator_participacao_3 == 0
+    assert r.codigo_usina_montante_4 is None
+    r.codigo_usina_montante_4 = 0
+    assert r.codigo_usina_montante_4 == 0
+    assert r.fator_participacao_4 is None
+    r.fator_participacao_4 = 0
+    assert r.fator_participacao_4 == 0
+    assert r.codigo_usina_montante_5 is None
+    r.codigo_usina_montante_5 = 0
+    assert r.codigo_usina_montante_5 == 0
+    assert r.fator_participacao_5 is None
+    r.fator_participacao_5 = 0
+    assert r.fator_participacao_5 == 0
 
 
 def test_registro_acvtfuga_entdados():

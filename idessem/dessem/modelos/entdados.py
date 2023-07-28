@@ -3683,6 +3683,201 @@ class CR(Register):
         self.data[9] = c
 
 
+class SECR(Register):
+    """
+    Registro que define as seções de rio. Cada seção de rio pode
+    conter até 5 usinas de montante.
+    """
+
+    IDENTIFIER = "SECR "
+    IDENTIFIER_DIGITS = 5
+    LINE = Line(
+        [
+            IntegerField(3, 5),
+            LiteralField(12, 9),
+            IntegerField(3, 24),
+            FloatField(5, 28, 2),
+            IntegerField(3, 34),
+            FloatField(5, 38, 2),
+            IntegerField(3, 44),
+            FloatField(5, 48, 2),
+            IntegerField(3, 54),
+            FloatField(5, 58, 2),
+            IntegerField(3, 64),
+            FloatField(5, 68, 2),
+        ]
+    )
+
+    @property
+    def codigo_secao(self) -> Optional[int]:
+        """
+        O código da seção de rio.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_secao.setter
+    def codigo_secao(self, n: int):
+        self.data[0] = n
+
+    @property
+    def nome_secao(self) -> Optional[str]:
+        """
+        Nome da seção de rio.
+
+        :return: O nome.
+        :rtype: str | None
+        """
+
+        return self.data[1]
+
+    @nome_secao.setter
+    def nome_secao(self, n: str):
+        self.data[1] = n
+
+    @property
+    def codigo_usina_montante_1(self) -> Optional[int]:
+        """
+        O código da 1ª usina de montante a seção de rio.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_usina_montante_1.setter
+    def codigo_usina_montante_1(self, n: int):
+        self.data[2] = n
+
+    @property
+    def fator_participacao_1(self) -> Optional[float]:
+        """
+        O fator de participação da 1ª usina de montante a seção de rio.
+
+        :return: O fator.
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @fator_participacao_1.setter
+    def fator_participacao_1(self, n: float):
+        self.data[3] = n
+
+    @property
+    def codigo_usina_montante_2(self) -> Optional[int]:
+        """
+        O código da 2ª usina de montante a seção de rio.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @codigo_usina_montante_2.setter
+    def codigo_usina_montante_2(self, n: int):
+        self.data[4] = n
+
+    @property
+    def fator_participacao_2(self) -> Optional[float]:
+        """
+        O fator de participação da 2ª usina de montante a seção de rio.
+
+        :return: O fator.
+        :rtype: float | None
+        """
+        return self.data[5]
+
+    @fator_participacao_2.setter
+    def fator_participacao_2(self, n: float):
+        self.data[5] = n
+
+    @property
+    def codigo_usina_montante_3(self) -> Optional[int]:
+        """
+        O código da 3ª usina de montante a seção de rio.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[6]
+
+    @codigo_usina_montante_3.setter
+    def codigo_usina_montante_3(self, n: int):
+        self.data[6] = n
+
+    @property
+    def fator_participacao_3(self) -> Optional[float]:
+        """
+        O fator de participação da 3ª usina de montante a seção de rio.
+
+        :return: O fator.
+        :rtype: float | None
+        """
+        return self.data[7]
+
+    @fator_participacao_3.setter
+    def fator_participacao_3(self, n: float):
+        self.data[7] = n
+
+    @property
+    def codigo_usina_montante_4(self) -> Optional[int]:
+        """
+        O código da 4ª usina de montante a seção de rio.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[8]
+
+    @codigo_usina_montante_4.setter
+    def codigo_usina_montante_4(self, n: int):
+        self.data[8] = n
+
+    @property
+    def fator_participacao_4(self) -> Optional[float]:
+        """
+        O fator de participação da 4ª usina de montante a seção de rio.
+
+        :return: O fator.
+        :rtype: float | None
+        """
+        return self.data[9]
+
+    @fator_participacao_4.setter
+    def fator_participacao_4(self, n: float):
+        self.data[9] = n
+
+    @property
+    def codigo_usina_montante_5(self) -> Optional[int]:
+        """
+        O código da 5ª usina de montante a seção de rio.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[10]
+
+    @codigo_usina_montante_5.setter
+    def codigo_usina_montante_5(self, n: int):
+        self.data[10] = n
+
+    @property
+    def fator_participacao_5(self) -> Optional[float]:
+        """
+        O fator de participação da 5ª usina de montante a seção de rio.
+
+        :return: O fator.
+        :rtype: float | None
+        """
+        return self.data[11]
+
+    @fator_participacao_5.setter
+    def fator_participacao_5(self, n: float):
+        self.data[11] = n
+
+
 # class MP(Register):
 #     """
 #     Registro que contém as manutenções programadas das UHEs.
