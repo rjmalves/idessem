@@ -35,6 +35,8 @@ from idessem.dessem.modelos.entdados import (
     FC,
     CI,
     CE,
+    MH,
+    PE,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -97,6 +99,8 @@ from tests.mocks.arquivos.entdados import (
     MockFC,
     MockCI,
     MockCE,
+    MockMH,
+    MockPE,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -1566,6 +1570,62 @@ def test_registro_ce_entdados():
     ]
 
 
+def test_registro_mh_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockMH))
+    r = MH()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [34, 2, 3, [11, 0, 0], [13, 0, 0], 0]
+    assert r.codigo_usina == 34
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = -1
+    assert r.codigo_conjunto == -1
+    assert r.codigo_unidade == 3
+    r.codigo_unidade = -1
+    assert r.codigo_unidade == -1
+    assert r.dia_inicial == 11
+    r.dia_inicial = -1
+    assert r.dia_inicial == -1
+    assert r.hora_inicial == 0
+    r.hora_inicial = 2
+    assert r.hora_inicial == 2
+    assert r.meia_hora_inicial == 0
+    r.meia_hora_inicial = 2
+    assert r.meia_hora_inicial == 2
+    assert r.dia_final == 13
+    r.dia_final = 0
+    assert r.dia_final == 0
+    assert r.hora_final == 0
+    r.hora_final = 2
+    assert r.hora_final == 2
+    assert r.meia_hora_final == 0
+    r.meia_hora_final = 2
+    assert r.meia_hora_final == 2
+    assert r.disponivel == 0
+    r.disponivel = 2
+    assert r.disponivel == 2
+
+
+def test_registro_pe_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockPE))
+    r = PE()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [0.002, 1.0]
+    assert r.penalidade_vertimento == 0.002
+    r.penalidade_vertimento = 1
+    assert r.penalidade_vertimento == 1
+    assert r.fator_penalidade_violacao == 1
+    r.fator_penalidade_violacao = 0
+    assert r.fator_penalidade_violacao == 0
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1899,23 +1959,8 @@ def test_campos_nao_encontrados_entdados():
     assert d.fe() is None
     assert d.fr() is None
     assert d.fc() is None
-    # assert d.ct(0, 0) is None
-    # assert d.dp(0, 0) is None
-    # assert d.ac(0, ACNUMCON, mes="", revisao=0, ano=0) is None
-    # assert d.cd(0, 0) is None
-    # assert d.vi(0) is None
-    # assert d.ir("") is None
-    # assert d.rt("") is None
-    # assert d.fc("") is None
-    # assert d.ti(0) is None
-    # assert d.fp(0, 0) is None
-    # assert d.ve(0) is None
-    # assert d.hv(0) is None
-    # assert d.lv(0, 0) is None
-    # assert d.hq(0) is None
-    # assert d.lq(0, 0) is None
-    # assert d.he(0, 0) is None
-    # assert d.cm(0) is None
+    assert d.mh() is None
+    assert d.pe is None
 
 
 def test_campos_encontrados_entdados():
@@ -1959,48 +2004,8 @@ def test_campos_encontrados_entdados():
     assert d.fe() is not None
     assert d.fr() is not None
     assert d.fc() is not None
-
-
-# def test_cria_lu_entdados():
-#     m: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m):
-#         d = Entdados.le_arquivo("", "")
-#         lu = d.lu(1, 2)
-#         assert lu is not None
-#         assert lu.limites_inferiores == d.lu(1, 1).limites_inferiores
-#         lu.limites_inferiores = [0.0]
-#         assert lu.limites_inferiores != d.lu(1, 1).limites_inferiores
-#         assert lu.limites_superiores == d.lu(1, 1).limites_superiores
-#         lu.limites_superiores = [0.0]
-#         assert lu.limites_superiores != d.lu(1, 1).limites_superiores
-
-
-# def test_cria_lv_entdados():
-#     m: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m):
-#         d = Entdados.le_arquivo("", "")
-#         lv = d.lv(3, 2)
-#         assert lv is not None
-#         assert lv.limite_inferior == d.lv(3, 1).limite_inferior
-#         lv.limite_inferior = 0.0
-#         assert lv.limite_inferior != d.lv(3, 1).limite_inferior
-#         assert lv.limite_superior == d.lv(3, 1).limite_superior
-#         lv.limite_superior = 0.0
-#         assert lv.limite_superior != d.lv(3, 1).limite_superior
-
-
-# def test_cria_lq_entdados():
-#     m: MagicMock = mock_open(read_data="".join(MockEntDados))
-#     with patch("builtins.open", m):
-#         d = Entdados.le_arquivo("", "")
-#         lq = d.lq(5, 2)
-#         assert lq is not None
-#         assert lq.limites_inferiores == d.lq(5, 1).limites_inferiores
-#         lq.limites_inferiores = [0.0]
-#         assert lq.limites_inferiores != d.lq(5, 1).limites_inferiores
-#         assert lq.limites_superiores == d.lq(5, 1).limites_superiores
-#         lq.limites_superiores = [0.0]
-#         assert lq.limites_superiores != d.lq(5, 1).limites_superiores
+    assert d.mh() is not None
+    assert d.pe is not None
 
 
 def test_eq_entdados():

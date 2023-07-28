@@ -47,6 +47,8 @@ MockCI = (
     "CI 131 E2POL1-I-F  70572  I       F               0.0    1575.0       0.0"
 )
 MockCE = "CE 142 E3POL4-E-F  70552  I       F               0.0    1575.0       0.0  "
+MockMH = "MH   34  2  0311  0 0 13  0 0 0"
+MockPE = "PE  0.002     1.0"
 MockACVTFUGA = "AC  103  VTFUGA    1\n"
 MockACVOLMAX = "AC   38  VOLMAX         544.2\n"
 MockACVOLMIN = "AC   34  VOLMIN         15563\n"

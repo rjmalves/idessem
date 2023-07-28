@@ -35,6 +35,8 @@ from idessem.dessem.modelos.entdados import (
     FC,
     CI,
     CE,
+    MH,
+    PE,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -57,7 +59,7 @@ import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from cfinterface.components.register import Register
 from typing import Type, List, Optional, TypeVar, Union, Any
-from datetime import datetime
+
 
 # Para compatibilidade - até versão 1.0.0
 from os.path import join
@@ -137,6 +139,8 @@ class Entdados(RegisterFile):
         FC,
         CI,
         CE,
+        MH,
+        PE,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -1475,90 +1479,51 @@ class Entdados(RegisterFile):
                 coeficiente=coeficiente,
             )
 
-    # def pe(
-    #     self,
-    #     subsistema: Optional[int] = None,
-    #     tipo: Optional[int] = None,
-    #     penalidade: Optional[float] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[PE, List[PE], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que altera penalidades de vertimento,
-    #         intercâmbio e desvios.
+    def mh(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        disponivel: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[Union[MH, List[MH], pd.DataFrame]]:
+        """
+        Obtém um registro que especifica a taxa de retirada de água
+        para uma usina existente no estudo especificado no :class:`Entdados`
 
-    #     :param subsistema: Índice do subsistema
-    #     :type subsistema: int | None
-    #     :param tipo: tipo de restrição a ser modificada
-    #     :type tipo: int | None
-    #     :param penalidade: valor da penalidade
-    #     :type penalidade: float | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
+        :param codigo_usina: Código da usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: Código do conjunto
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: Código da unidade
+        :type codigo_unidade: int | None
+        :param disponivel: Flag disponibilidade
+        :type disponivel: int | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
 
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`PE` | list[:class:`PE`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(PE)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             PE, subsistema=subsistema, tipo=tipo, penalidade=penalidade
-    #         )
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`MH` | list[:class:`MH`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(MH)
+        else:
+            return self.__obtem_registros_com_filtros(
+                MH,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                disponivel=disponivel,
+            )
 
-    # def pv(
-    #     self,
-    #     penalidade_variaveis_folga: Optional[float] = None,
-    #     tolerancia_viabilidade_restricoes: Optional[float] = None,
-    #     iteracoes_atualizacao_penalidade: Optional[int] = None,
-    #     fator_multiplicacao_folga: Optional[float] = None,
-    #     valor_inicial_variaveis_folga: Optional[float] = None,
-    #     valor_final_variaveis_folga: Optional[float] = None,
-    # ) -> Optional[Union[PV, List[PV]]]:
-    #     """
-    #     Obtém um registro que altera as penalidades das variáveis
-    #         de folga.
+    @property
+    def pe(self) -> Optional[PE]:
+        """
+        Obtém o (único) registro que contém penalidades no estudo
+        definido no :class:`Entdados`
 
-    #     :param penalidade_variaveis_folga: valor da nova penalidade das
-    #         variáveis de folga
-    #     :type penalidade_variaveis_folga: float | None
-    #     :param tolerancia_viabilidade_restricoes: valor da tolerância para
-    #         a viabilidade das restrições
-    #     :type tolerancia_viabilidade_restricoes: float | None
-    #     :param iteracoes_atualizacao_penalidade: número de iterações para
-    #         a atualização da penalidade variável
-    #     :type iteracoes_atualizacao_penalidade: int | None
-    #     :param fator_multiplicacao_folga: o fator para multiplicação da
-    #         folga
-    #     :type fator_multiplicacao_folga: float | None
-    #     :param valor_inicial_variaveis_folga: o valor inicial para as
-    #         variáveis de folga
-    #     :type valor_inicial_variaveis_folga: float | None
-    #     :param valor_final_variaveis_folga: o valor final para as
-    #         variáveis de folga
-    #     :type valor_final_variaveis_folga: float | None
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`PV` | list[:class:`PV`] | None
-    #     """
-    #     return self.__obtem_registros_com_filtros(
-    #         PV,
-    #         penalidade_variaveis_folga=penalidade_variaveis_folga,
-    #         tolerancia_viabilidade_restricoes=tolerancia_viabilidade_restricoes,
-    #         iteracoes_atualizacao_penalidade=iteracoes_atualizacao_penalidade,
-    #         fator_multiplicacao_folga=fator_multiplicacao_folga,
-    #         valor_inicial_variaveis_folga=valor_inicial_variaveis_folga,
-    #         valor_final_variaveis_folga=valor_final_variaveis_folga,
-    #     )
-
-    # def pd(
-    #     self, algoritmo: Optional[str] = None
-    # ) -> Optional[Union[PD, List[PD]]]:
-    #     """
-    #     Obtém um registro que especifica o algoritmo usado para a solução.
-
-    #     :param algoritmo: Mnemônico do algoritmo
-    #     :type algoritmo: str | None
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`PD` | list[:class:`PD`] | None
-    #     """
-    #     return self.__obtem_registros_com_filtros(PD, algoritmo=algoritmo)
+        :return: Um registro, se existir.
+        :rtype: :class:`PE` | None.
+        """
+        return self.__obtem_registro(PE)

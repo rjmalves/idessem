@@ -5238,253 +5238,207 @@ class CE(Register):
     )
 
 
-# class MP(Register):
-#     """
-#     Registro que contém as manutenções programadas das UHEs.
+class MH(Register):
+    """
+    Registro que contém as manutenções programadas das unidades
+    geradoras hidráulicas.
 
-#     *OBS: Suporta apenas 12 estágios no momento*
-#     """
+    """
 
-#     IDENTIFIER = "MP  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(2, 7),
-#             FloatField(5, 9, 3),
-#             FloatField(5, 14, 3),
-#             FloatField(5, 19, 3),
-#             FloatField(5, 24, 3),
-#             FloatField(5, 29, 3),
-#             FloatField(5, 34, 3),
-#             FloatField(5, 39, 3),
-#             FloatField(5, 44, 3),
-#             FloatField(5, 49, 3),
-#             FloatField(5, 54, 3),
-#             FloatField(5, 59, 3),
-#             FloatField(5, 64, 3),
-#             FloatField(5, 69, 3),
-#         ]
-#     )
+    IDENTIFIER = "MH  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line(
+        [
+            IntegerField(3, 4),
+            IntegerField(2, 9),
+            IntegerField(2, 12),
+            StageDateField(starting_position=14, special_day_character="I"),
+            StageDateField(starting_position=22, special_day_character="F"),
+            IntegerField(1, 30),
+        ]
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto de unidades geradoras.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def codigo_unidade(self) -> Optional[int]:
+        """
+        O código da unidade geradora.
+
+        :return: O código.
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_unidade.setter
+    def codigo_unidade(self, c: int):
+        self.data[2] = c
+
+    @property
+    def dia_inicial(self) -> Optional[Union[str, int]]:
+        """
+        O dia inicial.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[3][0]
+
+    @dia_inicial.setter
+    def dia_inicial(self, n: Union[str, int]):
+        self.data[3][0] = n
+
+    @property
+    def hora_inicial(self) -> Optional[int]:
+        """
+        A hora inicial.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[3][1]
+
+    @hora_inicial.setter
+    def hora_inicial(self, n: int):
+        self.data[3][1] = n
+
+    @property
+    def meia_hora_inicial(self) -> Optional[int]:
+        """
+        A meia-hora inicial.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[3][2]
+
+    @meia_hora_inicial.setter
+    def meia_hora_inicial(self, n: int):
+        self.data[3][2] = n
+
+    @property
+    def dia_final(self) -> Optional[Union[str, int]]:
+        """
+        O dia final.
+
+        :return: O dia.
+        :rtype: str | int | None
+        """
+
+        return self.data[4][0]
+
+    @dia_final.setter
+    def dia_final(self, n: Union[str, int]):
+        self.data[4][0] = n
+
+    @property
+    def hora_final(self) -> Optional[int]:
+        """
+        A hora final.
+
+        :return: A hora.
+        :rtype: int | None
+        """
+        return self.data[4][1]
+
+    @hora_final.setter
+    def hora_final(self, n: int):
+        self.data[4][1] = n
+
+    @property
+    def meia_hora_final(self) -> Optional[int]:
+        """
+        A meia-hora final.
+
+        :return: A meia-hora.
+        :rtype: int | None
+        """
+        return self.data[4][2]
+
+    @meia_hora_final.setter
+    def meia_hora_final(self, n: int):
+        self.data[4][2] = n
+
+    @property
+    def disponivel(self) -> Optional[int]:
+        """
+        O flag que indica se a unidade está disponível
+        (0=indisponível, 1=disponível).
+
+        :return: O flag.
+        :rtype: int | None
+        """
+        return self.data[5]
+
+    @disponivel.setter
+    def disponivel(self, n: int):
+        self.data[5] = n
 
 
-# class PD(Register):
-#     """
-#     Registro que contém a escolha do algoritmo para
-#     resolução do PL.
-#     """
+class PE(Register):
+    """
+    Registro para definição de penalidades a serem consideradas
+    no problema de otimização.
+    """
 
-#     IDENTIFIER = "PD  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             LiteralField(6, 4),
-#         ]
-#     )
+    IDENTIFIER = "PE  "
+    IDENTIFIER_DIGITS = 4
+    LINE = Line([FloatField(10, 4, 3), FloatField(10, 14, 3)])
 
-#     @property
-#     def algoritmo(self) -> Optional[str]:
-#         """
-#         O algoritmo considerado.
+    @property
+    def penalidade_vertimento(self) -> Optional[float]:
+        """
+        A penalidade de vertimento ($/hm³).
 
-#         :return: O identificador do algoritmo.
-#         :rtype: str | None
-#         """
-#         return self.data[0]
+        :return: A penalidade.
+        :rtype: float | None
+        """
 
-#     @algoritmo.setter
-#     def algoritmo(self, m: str):
-#         self.data[0] = m
+        return self.data[0]
 
+    @penalidade_vertimento.setter
+    def penalidade_vertimento(self, n: float):
+        self.data[0] = n
 
-# class PU(Register):
-#     """
-#     Registro que habilita a solução do problema
-#     via PL único.
-#     """
+    @property
+    def fator_penalidade_violacao(self) -> Optional[float]:
+        """
+        O fator a ser aplicado à penalidade de violação de retrições
+        físicas e operativas.
 
-#     IDENTIFIER = "PU  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(1, 4),
-#         ]
-#     )
+        :return: O fator.
+        :rtype: float | None
+        """
 
-#     @property
-#     def pl(self) -> Optional[int]:
-#         """
-#         O tipo de pl considerado.
+        return self.data[1]
 
-#         :return: O identificador do pl.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @pl.setter
-#     def pl(self, m: int):
-#         self.data[0] = m
-
-
-# class PE(Register):
-#     """
-#     Registro que altera as penalidades de vertimento,
-#     intercâmbio e desvios.
-#     """
-
-#     IDENTIFIER = "PE  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(2, 4),
-#             IntegerField(1, 7),
-#             FloatField(10, 9, 6),
-#         ]
-#     )
-
-#     @property
-#     def subsistema(self) -> Optional[int]:
-#         """
-#         O índice do subsistema considerado
-
-#         :return: O índice do subsistema.
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @subsistema.setter
-#     def subsistema(self, m: int):
-#         self.data[0] = m
-
-#     @property
-#     def tipo(self) -> Optional[int]:
-#         """
-#         O tipo de penalidade a ser modificado
-
-#         :return: O indice do tipo de penalidade
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @tipo.setter
-#     def tipo(self, m: int):
-#         self.data[1] = m
-
-#     @property
-#     def penalidade(self) -> Optional[float]:
-#         """
-#         O novo valor de penalidade
-
-#         :return: O valor da penalidade
-#         :rtype: float | None
-#         """
-#         return self.data[2]
-
-#     @penalidade.setter
-#     def penalidade(self, m: float):
-#         self.data[2] = m
-
-
-# class PV(Register):
-#     """
-#     Registro que altera as penalidades das variáveis de folga
-#     do problema e as tolerâncias para a viabilidade das restrições.
-#     """
-
-#     IDENTIFIER = "PV  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             FloatField(20, 5, 5),
-#             FloatField(20, 28, 5),
-#             IntegerField(3, 51),
-#             FloatField(3, 57, 1),
-#             FloatField(20, 63, 5),
-#             FloatField(20, 86, 5),
-#         ]
-#     )
-
-#     @property
-#     def penalidade_variaveis_folga(self) -> Optional[float]:
-#         """
-#         A nova penalidade para as variáveis de folga (R$/MWh).
-
-#         :return: A tolerância
-#         :rtype: float | None
-#         """
-#         return self.data[0]
-
-#     @penalidade_variaveis_folga.setter
-#     def penalidade_variaveis_folga(self, m: float):
-#         self.data[0] = m
-
-#     @property
-#     def tolerancia_viabilidade_restricoes(self) -> Optional[float]:
-#         """
-#         A nova tolerância para a viabilidade das restrições.
-
-#         :return: A tolerância
-#         :rtype: float | None
-#         """
-#         return self.data[1]
-
-#     @tolerancia_viabilidade_restricoes.setter
-#     def tolerancia_viabilidade_restricoes(self, m: float):
-#         self.data[1] = m
-
-#     @property
-#     def iteracoes_atualizacao_penalidade(self) -> Optional[int]:
-#         """
-#         O número de iterações para atualização da penalidade variável
-#         iterativa para as folgas.
-
-#         :return: O número de iterações
-#         :rtype: int | None
-#         """
-#         return self.data[2]
-
-#     @iteracoes_atualizacao_penalidade.setter
-#     def iteracoes_atualizacao_penalidade(self, m: int):
-#         self.data[2] = m
-
-#     @property
-#     def fator_multiplicacao_folga(self) -> Optional[float]:
-#         """
-#         O fator para multiplicação da folga ao longo das restrições.
-
-#         :return: A tolerância
-#         :rtype: float | None
-#         """
-#         return self.data[3]
-
-#     @fator_multiplicacao_folga.setter
-#     def fator_multiplicacao_folga(self, m: float):
-#         self.data[3] = m
-
-#     @property
-#     def valor_inicial_variaveis_folga(self) -> Optional[float]:
-#         """
-#         O valor inicial ou mínimo para as variáveis de folga.
-
-#         :return: O valor mínimo
-#         :rtype: float | None
-#         """
-#         return self.data[4]
-
-#     @valor_inicial_variaveis_folga.setter
-#     def valor_inicial_variaveis_folga(self, m: float):
-#         self.data[4] = m
-
-#     @property
-#     def valor_final_variaveis_folga(self) -> Optional[float]:
-#         """
-#         O valor final ou máximo para as variáveis de folga.
-
-#         :return: O valor máximo
-#         :rtype: float | None
-#         """
-#         return self.data[5]
-
-#     @valor_final_variaveis_folga.setter
-#     def valor_final_variaveis_folga(self, m: float):
-#         self.data[5] = m
+    @fator_penalidade_violacao.setter
+    def fator_penalidade_violacao(self, n: float):
+        self.data[1] = n
