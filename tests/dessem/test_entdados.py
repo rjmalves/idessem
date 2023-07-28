@@ -18,6 +18,7 @@ from idessem.dessem.modelos.entdados import (
     IT,
     NI,
     VE,
+    FP,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -63,6 +64,7 @@ from tests.mocks.arquivos.entdados import (
     MockGP,
     MockNI,
     MockVE,
+    MockFP,
     MockACVTFUGA,
     MockACVOLMAX,
     MockACVOLMIN,
@@ -940,6 +942,40 @@ def test_registro_ve_entdados():
     assert r.volume == -1
 
 
+def test_registro_fp_entdados():
+    m: MagicMock = mock_open(read_data="".join(MockFP))
+    r = FP()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 1, 5, 3, None, None, 10, None]
+    assert r.codigo == 1
+    r.codigo = -1
+    assert r.codigo == -1
+    assert r.tipo_tratamento_volume == 1
+    r.tipo_tratamento_volume = 2
+    assert r.tipo_tratamento_volume == 2
+    assert r.numero_pontos_turbinamento == 5
+    r.numero_pontos_turbinamento = 2
+    assert r.numero_pontos_turbinamento == 2
+    assert r.numero_pontos_volume == 3
+    r.numero_pontos_volume = 2
+    assert r.numero_pontos_volume == 2
+    assert r.verifica_concavidade is None
+    r.verifica_concavidade = 2
+    assert r.verifica_concavidade == 2
+    assert r.ajuste_minimos_quadrados is None
+    r.ajuste_minimos_quadrados = 2
+    assert r.ajuste_minimos_quadrados == 2
+    assert r.comprimento_janela_volume == 10.0
+    r.comprimento_janela_volume = -1
+    assert r.comprimento_janela_volume == -1
+    assert r.tolerancia_desvio is None
+    r.tolerancia_desvio = -1
+    assert r.tolerancia_desvio == -1
+
+
 def test_registro_acvtfuga_entdados():
     m: MagicMock = mock_open(read_data="".join(MockACVTFUGA))
     r = ACVTFUGA()
@@ -1313,6 +1349,7 @@ def test_campos_encontrados_entdados():
     assert d.ac(45, modificacao=ACVMDESV) is not None
     assert d.ni is not None
     assert d.ve() is not None
+    assert d.fp() is not None
 
 
 # def test_cria_lu_entdados():

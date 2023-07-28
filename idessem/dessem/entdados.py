@@ -18,6 +18,7 @@ from idessem.dessem.modelos.entdados import (
     GP,
     NI,
     VE,
+    FP,
     ACVTFUGA,
     ACVOLMAX,
     ACVOLMIN,
@@ -95,12 +96,14 @@ class Entdados(RegisterFile):
         DP,
         DE,
         CD,
+        PQ,
         IT,
         RI,
         IA,
         GP,
         NI,
         VE,
+        FP,
         ACVTFUGA,
         ACVOLMAX,
         ACVOLMIN,
@@ -792,6 +795,65 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(VE, codigo=codigo)
 
+    def fp(
+        self,
+        codigo: Optional[int] = None,
+        tipo_tratamento_volume: Optional[int] = None,
+        numero_pontos_turbinamento: Optional[int] = None,
+        numero_pontos_volume: Optional[int] = None,
+        verifica_concavidade: Optional[int] = None,
+        ajuste_minimos_quadrados: Optional[int] = None,
+        comprimento_janela_volume: Optional[float] = None,
+        tolerancia_desvio: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[Union[FP, List[FP], pd.DataFrame]]:
+        """
+        Obtém um registro que que contém alteração de parâmetros para
+        a construção da função de produção aproximada (FPHA)
+        das usinas existente no estudo especificado no :class:`Entdados`
+
+        :param codigo: Código da UHE associada ao registro
+        :type codigo: int | None
+        :param tipo_tratamento_volume: Tipo de tratamento para o eixo de
+            volume
+        :type tipo_tratamento_volume: int | None
+        :param numero_pontos_turbinamento: número de pontos para
+            discretização da janela
+        :type numero_pontos_turbinamento: int | None
+        :param numero_pontos_volume: número de pontos para
+            discretização da janela
+        :type numero_pontos_volume: int | None
+        :param verifica_concavidade: Verificação da concavidade
+        :type verifica_concavidade: int | None
+        :param ajuste_minimos_quadrados: Ajuste de mínimos quadrados
+        :type ajuste_minimos_quadrados: int | None
+        :param comprimento_janela_volume: Comprimento da janela para
+            discretização do volume
+        :type comprimento_janela_volume: float | None
+        :param tolerancia_desvio: Tolerância para desvio para na função
+        :type tolerancia_desvio: float | None
+        :param df: ignorar os filtros e retornar
+            todos os dados de registros como um DataFrame
+        :type df: bool
+
+        :return: Um ou mais registros, se existirem.
+        :rtype: :class:`FP` | list[:class:`FP`] | :class:`pd.DataFrame` | None
+        """
+        if df:
+            return self._as_df(FP)
+        else:
+            return self.__obtem_registros_com_filtros(
+                FP,
+                codigo=codigo,
+                tipo_tratamento_volume=tipo_tratamento_volume,
+                numero_pontos_turbinamento=numero_pontos_turbinamento,
+                numero_pontos_volume=numero_pontos_volume,
+                verifica_concavidade=verifica_concavidade,
+                ajuste_minimos_quadrados=ajuste_minimos_quadrados,
+                comprimento_janela_volume=comprimento_janela_volume,
+                tolerancia_desvio=tolerancia_desvio,
+            )
+
     # @property
     # def tx(self) -> Optional[TX]:
     #     """
@@ -1222,76 +1284,6 @@ class Entdados(RegisterFile):
     #         return self._as_df(TI)
     #     else:
     #         return self.__obtem_registros_com_filtros(TI, codigo=codigo)
-
-    # def fp(
-    #     self,
-    #     codigo: Optional[int] = None,
-    #     estagio: Optional[int] = None,
-    #     tipo_entrada_janela_turbinamento: Optional[int] = None,
-    #     numero_pontos_turbinamento: Optional[int] = None,
-    #     limite_inferior_janela_turbinamento: Optional[float] = None,
-    #     limite_superior_janela_turbinamento: Optional[float] = None,
-    #     tipo_entrada_janela_volume: Optional[int] = None,
-    #     numero_pontos_volume: Optional[int] = None,
-    #     limite_inferior_janela_volume: Optional[float] = None,
-    #     limite_superior_janela_volume: Optional[float] = None,
-    #     df: bool = False,
-    # ) -> Optional[Union[FP, List[FP], pd.DataFrame]]:
-    #     """
-    #     Obtém um registro que especifica as taxas de irrigação
-    #     por posto (UHE) existente no estudo especificado no :class:`Dadger`
-
-    #     :param codigo: Código da UHE associada ao registro
-    #     :type codigo: int | None
-    #     :param estagio: Estágio de definição da FP da UHE
-    #     :type estagio: int | None
-    #     :param tipo_entrada_janela_turbinamento: unidade de entrada
-    #         dos valores da janela de turbinamento
-    #     :type tipo_entrada_janela_turbinamento: int | None
-    #     :param numero_pontos_turbinamento: número de pontos para
-    #         discretização da janela
-    #     :type numero_pontos_turbinamento: int | None
-    #     :param limite_inferior_janela_turbinamento: limite inferior
-    #         da janela
-    #     :type limite_inferior_janela_turbinamento: float | None
-    #     :param limite_superior_janela_turbinamento: limite superior
-    #         da janela
-    #     :type limite_superior_janela_turbinamento: float | None
-    #     :param tipo_entrada_janela_volume: unidade de entrada
-    #         dos valores da janela de volume
-    #     :type tipo_entrada_janela_volume: int | None
-    #     :param numero_pontos_volume: número de pontos para
-    #         discretização da janela
-    #     :type numero_pontos_volume: int | None
-    #     :param limite_inferior_janela_volume: limite inferior
-    #         da janela
-    #     :type limite_inferior_janela_volume: float | None
-    #     :param limite_superior_janela_volume: limite superior
-    #         da janela
-    #     :type limite_superior_janela_volume: float | None
-    #     :param df: ignorar os filtros e retornar
-    #         todos os dados de registros como um DataFrame
-    #     :type df: bool
-
-    #     :return: Um ou mais registros, se existirem.
-    #     :rtype: :class:`FP` | list[:class:`FP`] | :class:`pd.DataFrame` | None
-    #     """
-    #     if df:
-    #         return self._as_df(FP)
-    #     else:
-    #         return self.__obtem_registros_com_filtros(
-    #             FP,
-    #             codigo=codigo,
-    #             estagio=estagio,
-    #             tipo_entrada_janela_turbinamento=tipo_entrada_janela_turbinamento,
-    #             numero_pontos_turbinamento=numero_pontos_turbinamento,
-    #             limite_inferior_janela_turbinamento=limite_inferior_janela_turbinamento,
-    #             limite_superior_janela_turbinamento=limite_superior_janela_turbinamento,
-    #             tipo_entrada_janela_volume=tipo_entrada_janela_volume,
-    #             numero_pontos_volume=numero_pontos_volume,
-    #             limite_inferior_janela_volume=limite_inferior_janela_volume,
-    #             limite_superior_janela_volume=limite_superior_janela_volume,
-    #         )
 
     # def rq(
     #     self, ree: Optional[int] = None, df: bool = False

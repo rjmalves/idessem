@@ -3146,6 +3146,145 @@ class VE(Register):
         self.data[3] = v
 
 
+class FP(Register):
+    """
+    Registro que contém alteração de parâmetros para a construção da
+    função de produção aproximada (FPHA) das usinas.
+    """
+
+    IDENTIFIER = "FP "
+    IDENTIFIER_DIGITS = 3
+    LINE = Line(
+        [
+            IntegerField(3, 3),
+            IntegerField(1, 7),
+            IntegerField(3, 10),
+            IntegerField(3, 15),
+            IntegerField(1, 20),
+            IntegerField(1, 24),
+            FloatField(10, 29, 2),
+            FloatField(10, 39, 2),
+        ]
+    )
+
+    @property
+    def codigo(self) -> Optional[int]:
+        """
+        O código da UHE associada à restrição FP.
+
+        :return: O código
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo.setter
+    def codigo(self, c: int):
+        self.data[0] = c
+
+    @property
+    def tipo_tratamento_volume(self) -> Optional[int]:
+        """
+        O tipo de tratamento do volume na construção da FPHA
+        (1 = aproximação linear; 2 = envoltória 3d).
+
+        :return: O tipo de tratamento
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @tipo_tratamento_volume.setter
+    def tipo_tratamento_volume(self, t: int):
+        self.data[1] = t
+
+    @property
+    def numero_pontos_turbinamento(self) -> Optional[int]:
+        """
+        O número de pontos para discretização da janela de
+        turbinamento.
+
+        :return: O número de pontos
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @numero_pontos_turbinamento.setter
+    def numero_pontos_turbinamento(self, n: int):
+        self.data[2] = n
+
+    @property
+    def numero_pontos_volume(self) -> Optional[int]:
+        """
+        O número de pontos para discretização da janela de
+        volume.
+
+        :return: O número de pontos
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @numero_pontos_volume.setter
+    def numero_pontos_volume(self, n: int):
+        self.data[3] = n
+
+    @property
+    def verifica_concavidade(self) -> Optional[int]:
+        """
+        O flag para habilitar verificação da concavidade da
+        curva da função de produção.
+
+        :return: O flag para verificar concavidade
+        :rtype: int | None
+        """
+        return self.data[4]
+
+    @verifica_concavidade.setter
+    def verifica_concavidade(self, n: int):
+        self.data[4] = n
+
+    @property
+    def ajuste_minimos_quadrados(self) -> Optional[int]:
+        """
+        O flag para habilitar ajuste de mínimos quadrados da função.
+
+        :return: O flag para ajuste de mínimos quadrados
+        :rtype: int | None
+        """
+        return self.data[5]
+
+    @ajuste_minimos_quadrados.setter
+    def ajuste_minimos_quadrados(self, n: int):
+        self.data[5] = n
+
+    @property
+    def comprimento_janela_volume(self) -> Optional[float]:
+        """
+        O comprimento da janela para discretização do volume
+        (em % do volume útil).
+
+        :return: O comprimento.
+        :rtype: float | None
+        """
+        return self.data[6]
+
+    @comprimento_janela_volume.setter
+    def comprimento_janela_volume(self, lim: float):
+        self.data[6] = lim
+
+    @property
+    def tolerancia_desvio(self) -> Optional[float]:
+        """
+        A tolerância para desvio na função de produção (%).
+
+        :return: A tolerância.
+        :rtype: float | None
+        """
+        return self.data[7]
+
+    @tolerancia_desvio.setter
+    def tolerancia_desvio(self, lim: float):
+        self.data[7] = lim
+
+
 # class TX(Register):
 #     """
 #     Registro que contém a taxa de desconto anual do modelo.
@@ -4175,181 +4314,6 @@ class VE(Register):
 #     @taxas.setter
 #     def taxas(self, tx: List[float]):
 #         self.__atualiza_dados_lista(tx, 1, 1)
-
-
-# class FP(Register):
-#     """
-#     Registro que contém os cadastros de restrições de alteração na
-#     função de produção das usinas.
-#     """
-
-#     IDENTIFIER = "FP  "
-#     IDENTIFIER_DIGITS = 4
-#     LINE = Line(
-#         [
-#             IntegerField(3, 4),
-#             IntegerField(3, 9),
-#             IntegerField(1, 14),
-#             IntegerField(4, 16),
-#             FloatField(5, 21, 0),
-#             FloatField(5, 27, 0),
-#             IntegerField(1, 34),
-#             IntegerField(4, 36),
-#             FloatField(5, 41, 0),
-#             FloatField(5, 47, 0),
-#             FloatField(5, 54, 0),
-#             FloatField(5, 60, 0),
-#             FloatField(5, 66, 0),
-#         ]
-#     )
-
-#     @property
-#     def codigo(self) -> Optional[int]:
-#         """
-#         O código da UHE associada à restrição FP.
-
-#         :return: O código
-#         :rtype: int | None
-#         """
-#         return self.data[0]
-
-#     @codigo.setter
-#     def codigo(self, c: int):
-#         self.data[0] = c
-
-#     @property
-#     def estagio(self) -> Optional[int]:
-#         """
-#         O estágio associado à restrição FP.
-
-#         :return: O estágio
-#         :rtype: int | None
-#         """
-#         return self.data[1]
-
-#     @estagio.setter
-#     def estagio(self, e: int):
-#         self.data[1] = e
-
-#     @property
-#     def tipo_entrada_janela_turbinamento(self) -> Optional[int]:
-#         """
-#         O tipo de entrada da janela de turbinamento fornecido
-#         na restrição FP. 0 para limites em percentual da vazão turbinada
-#         máxima das usinas, 1 para limites em m3/s.
-
-#         :return: O tipo de entrada
-#         :rtype: int | None
-#         """
-#         return self.data[2]
-
-#     @tipo_entrada_janela_turbinamento.setter
-#     def tipo_entrada_janela_turbinamento(self, t: int):
-#         self.data[2] = t
-
-#     @property
-#     def numero_pontos_turbinamento(self) -> Optional[int]:
-#         """
-#         O número de pontos para discretização da janela de
-#         turbinamento. Máximo permitido de 1000 pontos.
-
-#         :return: O número de pontos
-#         :rtype: int | None
-#         """
-#         return self.data[3]
-
-#     @numero_pontos_turbinamento.setter
-#     def numero_pontos_turbinamento(self, n: int):
-#         self.data[3] = n
-
-#     @property
-#     def limite_inferior_janela_turbinamento(self) -> Optional[float]:
-#         """
-#         O limite inferior da janela de turbinamento.
-
-#         :return: O limite.
-#         :rtype: float | None
-#         """
-#         return self.data[4]
-
-#     @limite_inferior_janela_turbinamento.setter
-#     def limite_inferior_janela_turbinamento(self, lim: float):
-#         self.data[4] = lim
-
-#     @property
-#     def limite_superior_janela_turbinamento(self) -> Optional[float]:
-#         """
-#         O limite superior da janela de turbinamento.
-
-#         :return: O limite.
-#         :rtype: float | None
-#         """
-#         return self.data[5]
-
-#     @limite_superior_janela_turbinamento.setter
-#     def limite_superior_janela_turbinamento(self, lim: float):
-#         self.data[5] = lim
-
-#     @property
-#     def tipo_entrada_janela_volume(self) -> Optional[int]:
-#         """
-#         O tipo de entrada da janela de volume fornecido
-#         na restrição FP. 0 para limites em percentual do volume útil
-#         das usinas, 1 para limites em hm3.
-
-#         :return: O tipo de entrada.
-#         :rtype: int | None
-#         """
-#         return self.data[6]
-
-#     @tipo_entrada_janela_volume.setter
-#     def tipo_entrada_janela_volume(self, t: int):
-#         self.data[6] = t
-
-#     @property
-#     def numero_pontos_volume(self) -> Optional[int]:
-#         """
-#         O número de pontos para discretização da janela de
-#         volume. Máximo permitido de 1000 pontos.
-
-#         :return: O número de pontos.
-#         :rtype: int | None
-#         """
-#         return self.data[7]
-
-#     @numero_pontos_volume.setter
-#     def numero_pontos_volume(self, n: int):
-#         self.data[7] = n
-
-#     @property
-#     def limite_inferior_janela_volume(self) -> Optional[float]:
-#         """
-#         A redução aplicada ao volume útil da usina, para ser utilizado
-#         como limite inferior da janela de volume.
-
-#         :return: O limite.
-#         :rtype: float | None
-#         """
-#         return self.data[8]
-
-#     @limite_inferior_janela_volume.setter
-#     def limite_inferior_janela_volume(self, lim: float):
-#         self.data[8] = lim
-
-#     @property
-#     def limite_superior_janela_volume(self) -> Optional[float]:
-#         """
-#         O acréscimo aplicado ao volume útil da usina, para ser utilizado
-#         como limite superior da janela de volume.
-
-#         :return: O limite.
-#         :rtype: float | None
-#         """
-#         return self.data[9]
-
-#     @limite_superior_janela_volume.setter
-#     def limite_superior_janela_volume(self, lim: float):
-#         self.data[9] = lim
 
 
 # class RQ(Register):
