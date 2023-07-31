@@ -51,6 +51,7 @@ Arquivos
    arquivos/pdo_eco_usih
    arquivos/pdo_eco_usih_polin
    arquivos/pdo_eco_fcfcortes
+   arquivos/pdo_eolica
    arquivos/pdo_hidr
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
