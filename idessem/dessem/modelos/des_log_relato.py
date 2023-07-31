@@ -64,7 +64,7 @@ class BlocoTempoProcessamento(Block):
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, BlocoTempoProcessamento):
             return False
-        if not all([type(self.data) == timedelta, type(o.data) == timedelta]):
+        if not all([type(self.data) is timedelta, type(o.data) is timedelta]):
             return False
         else:
             return self.data == o.data
