@@ -53,6 +53,7 @@ Arquivos
    arquivos/pdo_eco_fcfcortes
    arquivos/pdo_eolica
    arquivos/pdo_hidr
+   arquivos/pdo_inter
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
    arquivos/polinjus
