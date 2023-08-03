@@ -55,6 +55,46 @@ a leitura normalmente, e acessar todas as propriedades encontradas. Para o :ref:
 Alguns arquivos do modelo DESSEM podem sofrer alterações de sintaxe conforme são feitas atualizações no modelo.
 Desta forma, poderia ser necessário criar mais de uma classe para dar suporte ao mesmo arquivo. Todavia, o framework
 `cfinterface <https://github.com/rjmalves/cfi>`_ possui uma modelagem para dar suporte a mais de uma
-versão do mesmo arquivo fazendo uso do método `set_version` de cada uma das classes.
+versão do mesmo arquivo fazendo uso do método `set_version` de cada uma das classes. Caso não seja especificada a versão 
+por meio do método `set_version`, será considerada a versão mais recente do arquivo. Por exemplo, o arquivo 
+:ref:`AVL_FPHA1.DAT <avl_fpha1>` possui diferentes formatos dependendo da versão do modelo DESSEM:  
 
-.. TODO - colocar exemplo de um arquivo diferente em duas versões (code-block text) e depois um exemplo de chamada do set_version
+
+.. code-block:: text
+
+    *  MODELO DESSEM     - VERSAO 19.3 - Janeiro de 2023 (CPLEX)                         *
+
+    -----;--------------;-------;---------;------------;-------------;-------------;-------------;
+    USIH ;    Nome      ;SegFPHA; Fcorrec ;    Rhs     ;    Varm     ;    Qtur     ;    Qlat     ;
+    -----;--------------;-------;---------;------------;-------------;-------------;-------------;
+     001 ; CAMARGOS     ;    1  ; 1.00000 ;   -11.8461 ;    0.020604 ;    0.224440 ;    0.000000 ;
+     001 ; CAMARGOS     ;    2  ; 1.00000 ;    -5.7558 ;    0.020604 ;    0.186494 ;    0.000000 ;
+     001 ; CAMARGOS     ;    3  ; 1.00000 ;     0.0000 ;    0.000000 ;    0.225931 ;    0.000000 ;
+     001 ; CAMARGOS     ;    4  ; 1.00000 ;     7.0475 ;    0.000000 ;    0.182021 ;    0.000000 ;
+
+
+
+
+.. code-block:: text
+
+    *  MODELO DESSEM     - VERSAO 19.3.1 - Fevereiro de 2023 (CPLEX)                     *
+
+    -----;--------------;-------;---------;--------;------------;-------------;-------------;-------------;
+    USIH ;    Nome      ;SegFPHA; Fcorrec ; QlatpM ;    Rhs     ;    Varm     ;    Qtur     ;    Qlat     ;
+    -----;--------------;-------;---------;--------;------------;-------------;-------------;-------------;
+     001 ; CAMARGOS     ;    1  ; 1.00000 ;   0.00 ;   -11.4690 ;    0.020604 ;    0.223018 ;    0.000000 ;
+     001 ; CAMARGOS     ;    2  ; 1.00000 ;   0.00 ;    -7.8204 ;    0.013736 ;    0.225763 ;    0.000000 ;
+     001 ; CAMARGOS     ;    3  ; 1.00000 ;   0.00 ;    -7.7113 ;    0.013736 ;    0.224743 ;    0.000000 ;
+     001 ; CAMARGOS     ;    4  ; 1.00000 ;   0.00 ;    -5.2177 ;    0.020604 ;    0.184069 ;    0.000000 ;
+
+
+Para a leitura deste arquivo gerado em uma versão inferior do modelo DESSEM, deve ser especificada a versão 
+desejada antes de efetuar a leitura do arquivo. 
+
+.. code-block:: python
+
+    from idessem.dessem.avlfpha1 import AvlFpha1
+    AvlFpha1.set_version("19.3")
+    arq_avfpha1 = AvlFpha1.read("./AVL_FPHA1.DAT")
+
+
