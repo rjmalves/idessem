@@ -53,6 +53,7 @@ Arquivos
    arquivos/pdo_eco_fcfcortes
    arquivos/pdo_hidr
    arquivos/pdo_oper_uct
+   arquivos/pdo_operacao
    arquivos/pdo_sist
    arquivos/polinjus
    arquivos/renovaveis  
