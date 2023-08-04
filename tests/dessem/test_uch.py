@@ -12,6 +12,9 @@ from idessem.dessem.modelos.uch import (
     UchOpcaoUnidadeVazioPadrao,
     UchOpcaoConjuntoVazioPadrao,
     UchOpcaoUsinaVazioPadrao,
+    UchConsumoAguaVazioUsina,
+    UchConsumoAguaVazioConjunto,
+    UchConsumoAguaVazioUnidade,
 )
 import pandas as pd  # type: ignore
 from tests.mocks.mock_open import mock_open
@@ -31,6 +34,9 @@ from tests.mocks.arquivos.uch import (
     MockUchOpcaoUnidadeVazioPadrao,
     MockUchOpcaoConjuntoVazioPadrao,
     MockUchOpcaoUsinaVazioPadrao,
+    MockUchConsumoAguaVazioConjunto,
+    MockUchConsumoAguaVazioUnidade,
+    MockUchConsumoAguaVazioUsina,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -52,6 +58,9 @@ def test_atributos_encontrados_uch():
         assert uch.opcao_usina_vazio_padrao() is None
         assert uch.opcao_conjunto_vazio_padrao() is None
         assert uch.opcao_unidade_vazio_padrao() is None
+        assert uch.consumo_agua_vazio_unidade() is None
+        assert uch.consumo_agua_vazio_conjunto() is None
+        assert uch.consumo_agua_vazio_usina() is None
 
 
 def test_registro_uch_opcao_padrao():
@@ -357,6 +366,65 @@ def test_registro_uch_opcao_usina_vazio_padrao():
     assert r.considera_operacao_vazio == 1
     r.considera_operacao_vazio = 0
     assert r.considera_operacao_vazio == 0
+
+
+def test_registro_uch_consumo_agua_vazio_unidade():
+    m: MagicMock = mock_open(read_data="".join(MockUchConsumoAguaVazioUnidade))
+    r = UchConsumoAguaVazioUnidade()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 10.0]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.consumo_agua == 10
+    r.consumo_agua = 0
+    assert r.consumo_agua == 0
+
+
+def test_registro_uch_consumo_agua_vazio_conjunto():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchConsumoAguaVazioConjunto)
+    )
+    r = UchConsumoAguaVazioConjunto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 10.0]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.consumo_agua == 10
+    r.consumo_agua = 0
+    assert r.consumo_agua == 0
+
+
+def test_registro_uch_consumo_agua_vazio_usina():
+    m: MagicMock = mock_open(read_data="".join(MockUchConsumoAguaVazioUsina))
+    r = UchConsumoAguaVazioUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 10.0]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.consumo_agua == 10
+    r.consumo_agua = 0
+    assert r.consumo_agua == 0
 
 
 def test_eq_uch():

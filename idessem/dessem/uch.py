@@ -15,6 +15,9 @@ from idessem.dessem.modelos.uch import (
     UchGminGmaxUnidade,
     UchQturminQturmaxUnidade,
     UchCondicaoInicialUnidade,
+    UchConsumoAguaVazioUnidade,
+    UchConsumoAguaVazioConjunto,
+    UchConsumoAguaVazioUsina,
 )
 
 # Para compatibilidade - até versão 1.0.0
@@ -28,6 +31,9 @@ class Uch(RegisterFile):
     T = TypeVar("T")
 
     REGISTERS = [
+        UchConsumoAguaVazioUnidade,
+        UchConsumoAguaVazioConjunto,
+        UchConsumoAguaVazioUsina,
         UchCondicaoInicialUnidade,
         UchQturminQturmaxUnidade,
         UchGminGmaxUnidade,
@@ -306,8 +312,6 @@ class Uch(RegisterFile):
                 considera_operacao_vazio=considera_operacao_vazio,
             )
 
-    # aqui
-
     def ton_toff_unidade(
         self,
         codigo_usina: Optional[int] = None,
@@ -584,4 +588,121 @@ class Uch(RegisterFile):
                 tempo_permanencia_unidade=tempo_permanencia_unidade,
                 geracao_inicial_unidade=geracao_inicial_unidade,
                 turbinamento_inicial_unidade=turbinamento_inicial_unidade,
+            )
+
+    def consumo_agua_vazio_unidade(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        consumo_agua: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchConsumoAguaVazioUnidade,
+            List[UchConsumoAguaVazioUnidade],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o consumo de água incorrido de
+        forma contínua enquanto a unidade geradora de um determinado
+        conjunto de uma usina hidrelétrica está operando em vazio. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param consumo_agua: consumo de água
+        :type consumo_agua: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchConsumoAguaVazioUnidade` |
+            List[`UchConsumoAguaVazioUnidade`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchConsumoAguaVazioUnidade)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchConsumoAguaVazioUnidade,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                consumo_agua=consumo_agua,
+            )
+
+    def consumo_agua_vazio_conjunto(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        consumo_agua: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchConsumoAguaVazioConjunto,
+            List[UchConsumoAguaVazioConjunto],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o consumo de água incorrido de
+        forma contínua enquanto as unidades do conjunto de uma usina hidrelétrica
+        estão operando em vazio. Opcionalmente, o retorno pode ser transformado
+        em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param consumo_agua: consumo de água
+        :type consumo_agua: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchConsumoAguaVazioConjunto` |
+            List[`UchConsumoAguaVazioConjunto`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchConsumoAguaVazioConjunto)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchConsumoAguaVazioConjunto,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                consumo_agua=consumo_agua,
+            )
+
+    def consumo_agua_vazio_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        consumo_agua: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchConsumoAguaVazioUsina,
+            List[UchConsumoAguaVazioUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o consumo de água incorrido de
+        forma contínua enquanto a usina hidrelétrica
+        estão operando em vazio. Opcionalmente, o retorno pode ser transformado
+        em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param consumo_agua: consumo de água
+        :type consumo_agua: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchConsumoAguaVazioUsina` |
+            List[`UchConsumoAguaVazioUsina`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchConsumoAguaVazioUsina)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchConsumoAguaVazioUsina,
+                codigo_usina=codigo_usina,
+                consumo_agua=consumo_agua,
             )

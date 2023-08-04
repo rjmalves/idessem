@@ -87,3 +87,6 @@ MockUchQturminQturmaxUnidade = (
 MockUchCondicaoInicialUnidade = (
     "UCH-CONDICAO-INICIAL-UNIDADE;  2;   3;  1;     0;    5;   0;      0;\n"
 )
+MockUchConsumoAguaVazioUnidade = "UCH-CONSUMO-AGUA-VAZIO-UNIDADE;1;2;2;10.0"
+MockUchConsumoAguaVazioConjunto = "UCH-CONSUMO-AGUA-VAZIO-CONJUNTO;1;2;10.0"
+MockUchConsumoAguaVazioUsina = "UCH-CONSUMO-AGUA-VAZIO-USINA;1;10.0"

@@ -63,7 +63,7 @@ class UchOpcaoUsina(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -211,7 +211,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -225,7 +225,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -240,7 +240,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
     def codigo_unidade(self) -> Optional[int]:
         """
         O código da unidade geradora do conjunto da usina
-        hidrelétrica relacionada ao polinômio.
+        hidrelétrica.
 
         :return: O código da unidade
         :rtype: int | None
@@ -283,7 +283,7 @@ class UchOpcaoConjuntoVazioPadrao(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -297,7 +297,7 @@ class UchOpcaoConjuntoVazioPadrao(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -339,7 +339,7 @@ class UchOpcaoUsinaVazioPadrao(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -384,7 +384,7 @@ class UchTonToffUnidade(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -398,7 +398,7 @@ class UchTonToffUnidade(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -413,7 +413,7 @@ class UchTonToffUnidade(Register):
     def codigo_unidade(self) -> Optional[int]:
         """
         O código da unidade geradora do conjunto da usina
-        hidrelétrica relacionada ao polinômio.
+        hidrelétrica.
 
         :return: O código da unidade
         :rtype: int | None
@@ -471,7 +471,7 @@ class UchTonToffConjunto(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -485,7 +485,7 @@ class UchTonToffConjunto(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -542,7 +542,7 @@ class UchTonToffUsina(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -601,7 +601,7 @@ class UchGminGmaxUnidade(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -615,7 +615,7 @@ class UchGminGmaxUnidade(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -630,7 +630,7 @@ class UchGminGmaxUnidade(Register):
     def codigo_unidade(self) -> Optional[int]:
         """
         O código da unidade geradora do conjunto da usina
-        hidrelétrica relacionada ao polinômio.
+        hidrelétrica.
 
         :return: O código da unidade
         :rtype: int | None
@@ -689,7 +689,7 @@ class UchQturminQturmaxUnidade(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -703,7 +703,7 @@ class UchQturminQturmaxUnidade(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -718,7 +718,7 @@ class UchQturminQturmaxUnidade(Register):
     def codigo_unidade(self) -> Optional[int]:
         """
         O código da unidade geradora do conjunto da usina
-        hidrelétrica relacionada ao polinômio.
+        hidrelétrica.
 
         :return: O código da unidade
         :rtype: int | None
@@ -779,7 +779,7 @@ class UchCondicaoInicialUnidade(Register):
     @property
     def codigo_usina(self) -> Optional[int]:
         """
-        O código da usina hidrelétrica relacionada ao polinômio.
+        O código da usina hidrelétrica.
 
         :return: O código da usina
         :rtype: int | None
@@ -793,7 +793,7 @@ class UchCondicaoInicialUnidade(Register):
     @property
     def codigo_conjunto(self) -> Optional[int]:
         """
-        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+        O código do conjunto da usina hidrelétrica.
 
         :return: O código do conjunto
         :rtype: int | None
@@ -808,7 +808,7 @@ class UchCondicaoInicialUnidade(Register):
     def codigo_unidade(self) -> Optional[int]:
         """
         O código da unidade geradora do conjunto da usina
-        hidrelétrica relacionada ao polinômio.
+        hidrelétrica.
 
         :return: O código da unidade
         :rtype: int | None
@@ -874,3 +874,175 @@ class UchCondicaoInicialUnidade(Register):
     @turbinamento_inicial_unidade.setter
     def turbinamento_inicial_unidade(self, c: float):
         self.data[6] = c
+
+
+class UchConsumoAguaVazioUnidade(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CONSUMO-AGUA-VAZIO-UNIDADE"
+    IDENTIFIER_DIGITS = 30
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def codigo_unidade(self) -> Optional[int]:
+        """
+        O código da unidade geradora do conjunto da usina
+        hidrelétrica.
+
+        :return: O código da unidade
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_unidade.setter
+    def codigo_unidade(self, c: int):
+        self.data[2] = c
+
+    @property
+    def consumo_agua(self) -> Optional[float]:
+        """
+        O consumo de água durante a operação em vazio (m³/s).
+
+        :return: O consumo
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @consumo_agua.setter
+    def consumo_agua(self, c: float):
+        self.data[3] = c
+
+
+class UchConsumoAguaVazioConjunto(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CONSUMO-AGUA-VAZIO-CONJUNTO"
+    IDENTIFIER_DIGITS = 31
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def consumo_agua(self) -> Optional[float]:
+        """
+        O consumo de água durante a operação em vazio (m³/s).
+
+        :return: O consumo
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @consumo_agua.setter
+    def consumo_agua(self, c: float):
+        self.data[2] = c
+
+
+class UchConsumoAguaVazioUsina(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CONSUMO-AGUA-VAZIO-USINA"
+    IDENTIFIER_DIGITS = 28
+    LINE = Line(
+        [
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def consumo_agua(self) -> Optional[float]:
+        """
+        O consumo de água durante a operação em vazio (m³/s).
+
+        :return: O consumo
+        :rtype: float | None
+        """
+        return self.data[1]
+
+    @consumo_agua.setter
+    def consumo_agua(self, c: float):
+        self.data[1] = c
