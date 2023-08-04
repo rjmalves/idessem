@@ -18,7 +18,7 @@ class DataEstudo(Block):
             return False
         else:
             if not all(
-                [type(self.data) == datetime, type(o.data) == datetime]
+                [type(self.data) is datetime, type(o.data) is datetime]
             ):
                 return False
             return self.data == o.data

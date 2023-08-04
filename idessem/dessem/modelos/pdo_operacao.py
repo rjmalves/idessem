@@ -1,7 +1,6 @@
 from cfinterface.components.block import Block
-from typing import List, IO
+from typing import IO
 import pandas as pd  # type: ignore
-from datetime import timedelta
 
 
 class BlocoCustos(Block):
