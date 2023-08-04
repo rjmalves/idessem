@@ -6,9 +6,6 @@ from cfinterface.components.floatfield import FloatField
 from typing import Optional
 
 # Registros faltantes
-# UCH-OPCAO-UNIDADE-VAZIO-PADRAO
-# UCH-OPCAO-CONJUNTO-VAZIO-PADRAO
-# UCH-OPCAO-USINA-VAZIO-PADRAO
 # UCH-CUSTO-PARTIDA-UNIDADE
 # UCH-CUSTO-PARTIDA-CONJUNTO
 # UCH-CUSTO-PARTIDA-USINA
@@ -194,6 +191,178 @@ class UchOpcaoPadraoData(Register):
     @meia_hora_final.setter
     def meia_hora_final(self, n: int):
         self.data[5] = n
+
+
+class UchOpcaoUnidadeVazioPadrao(Register):
+    """ """
+
+    IDENTIFIER = "UCH-OPCAO-UNIDADE-VAZIO-PADRAO"
+    IDENTIFIER_DIGITS = 30
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica relacionada ao polinômio.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def codigo_unidade(self) -> Optional[int]:
+        """
+        O código da unidade geradora do conjunto da usina
+        hidrelétrica relacionada ao polinômio.
+
+        :return: O código da unidade
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_unidade.setter
+    def codigo_unidade(self, c: int):
+        self.data[2] = c
+
+    @property
+    def considera_operacao_vazio(self) -> Optional[int]:
+        """
+        O flag se a unidade considerará operação a vazio.
+
+        :return: O flag
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @considera_operacao_vazio.setter
+    def considera_operacao_vazio(self, c: int):
+        self.data[3] = c
+
+
+class UchOpcaoConjuntoVazioPadrao(Register):
+    """ """
+
+    IDENTIFIER = "UCH-OPCAO-CONJUNTO-VAZIO-PADRAO"
+    IDENTIFIER_DIGITS = 31
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica relacionada ao polinômio.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica relacionada ao polinômio.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def considera_operacao_vazio(self) -> Optional[int]:
+        """
+        O flag se o conjunto considerará operação a vazio.
+
+        :return: O flag
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @considera_operacao_vazio.setter
+    def considera_operacao_vazio(self, c: int):
+        self.data[2] = c
+
+
+class UchOpcaoUsinaVazioPadrao(Register):
+    """ """
+
+    IDENTIFIER = "UCH-OPCAO-USINA-VAZIO-PADRAO"
+    IDENTIFIER_DIGITS = 28
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica relacionada ao polinômio.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def considera_operacao_vazio(self) -> Optional[int]:
+        """
+        O flag se a usina considerará operação a vazio.
+
+        :return: O flag
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @considera_operacao_vazio.setter
+    def considera_operacao_vazio(self, c: int):
+        self.data[1] = c
 
 
 class UchTonToffUnidade(Register):

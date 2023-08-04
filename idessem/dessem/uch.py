@@ -6,6 +6,9 @@ from idessem.dessem.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
     UchOpcaoPadraoData,
+    UchOpcaoUnidadeVazioPadrao,
+    UchOpcaoConjuntoVazioPadrao,
+    UchOpcaoUsinaVazioPadrao,
     UchTonToffUnidade,
     UchTonToffConjunto,
     UchTonToffUsina,
@@ -33,6 +36,9 @@ class Uch(RegisterFile):
         UchTonToffUnidade,
         UchOpcaoPadraoData,
         UchOpcaoPadrao,
+        UchOpcaoUsinaVazioPadrao,
+        UchOpcaoConjuntoVazioPadrao,
+        UchOpcaoUnidadeVazioPadrao,
         UchOpcaoUsina,
     ]
 
@@ -184,6 +190,123 @@ class Uch(RegisterFile):
         """
 
         return self.__obtem_registro(UchOpcaoPadraoData)
+
+    def opcao_unidade_vazio_padrao(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        considera_operacao_vazio: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchOpcaoUnidadeVazioPadrao,
+            List[UchOpcaoUnidadeVazioPadrao],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam se a unidade geradora de um determinado
+        conjunto de uma usina hidrelétrica poderá operar em vazio. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param considera_operacao_vazio: flag se considera operação a vazio
+        :type considera_operacao_vazio: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchOpcaoUnidadeVazioPadrao` |
+            List[`UchOpcaoUnidadeVazioPadrao`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchOpcaoUnidadeVazioPadrao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchOpcaoUnidadeVazioPadrao,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                considera_operacao_vazio=considera_operacao_vazio,
+            )
+
+    def opcao_conjunto_vazio_padrao(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        considera_operacao_vazio: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchOpcaoConjuntoVazioPadrao,
+            List[UchOpcaoConjuntoVazioPadrao],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam se um conjunto de uma usina
+        hidrelétrica poderá operar em vazio. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`,
+        apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param considera_operacao_vazio: flag se considera operação a vazio
+        :type considera_operacao_vazio: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchOpcaoConjuntoVazioPadrao` |
+            List[`UchOpcaoConjuntoVazioPadrao`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchOpcaoConjuntoVazioPadrao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchOpcaoConjuntoVazioPadrao,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                considera_operacao_vazio=considera_operacao_vazio,
+            )
+
+    def opcao_usina_vazio_padrao(
+        self,
+        codigo_usina: Optional[int] = None,
+        considera_operacao_vazio: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchOpcaoUsinaVazioPadrao,
+            List[UchOpcaoUsinaVazioPadrao],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam se uma usina hidrelétrica
+        poderá operar em vazio. Opcionalmente, o retorno pode ser transformado
+        em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param considera_operacao_vazio: flag se considera operação a vazio
+        :type considera_operacao_vazio: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchOpcaoUsinaVazioPadrao` |
+            List[`UchOpcaoUsinaVazioPadrao`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchOpcaoUsinaVazioPadrao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchOpcaoUsinaVazioPadrao,
+                codigo_usina=codigo_usina,
+                considera_operacao_vazio=considera_operacao_vazio,
+            )
+
+    # aqui
 
     def ton_toff_unidade(
         self,
