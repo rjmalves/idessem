@@ -15,6 +15,9 @@ from idessem.dessem.modelos.uch import (
     UchConsumoAguaVazioUsina,
     UchConsumoAguaVazioConjunto,
     UchConsumoAguaVazioUnidade,
+    UchLimiteMudancaStatusVazioUsina,
+    UchLimiteMudancaStatusVazioConjunto,
+    UchLimiteMudancaStatusVazioUnidade,
 )
 import pandas as pd  # type: ignore
 from tests.mocks.mock_open import mock_open
@@ -37,6 +40,9 @@ from tests.mocks.arquivos.uch import (
     MockUchConsumoAguaVazioConjunto,
     MockUchConsumoAguaVazioUnidade,
     MockUchConsumoAguaVazioUsina,
+    MockUchLimiteMudancaStatusVazioUnidade,
+    MockUchLimiteMudancaStatusVazioConjunto,
+    MockUchLimiteMudancaStatusVazioUsina,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -61,6 +67,9 @@ def test_atributos_encontrados_uch():
         assert uch.consumo_agua_vazio_unidade() is None
         assert uch.consumo_agua_vazio_conjunto() is None
         assert uch.consumo_agua_vazio_usina() is None
+        assert uch.limite_mudanca_status_vazio_unidade() is None
+        assert uch.limite_mudanca_status_vazio_conjunto() is None
+        assert uch.limite_mudanca_status_vazio_usina() is None
 
 
 def test_registro_uch_opcao_padrao():
@@ -425,6 +434,69 @@ def test_registro_uch_consumo_agua_vazio_usina():
     assert r.consumo_agua == 10
     r.consumo_agua = 0
     assert r.consumo_agua == 0
+
+
+def test_registro_uch_limite_mudanca_status_vazio_unidade():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchLimiteMudancaStatusVazioUnidade)
+    )
+    r = UchLimiteMudancaStatusVazioUnidade()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 5]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.limite_maximo_mudancas == 5
+    r.limite_maximo_mudancas = 0
+    assert r.limite_maximo_mudancas == 0
+
+
+def test_registro_uch_limite_mudanca_status_vazio_conjunto():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchLimiteMudancaStatusVazioConjunto)
+    )
+    r = UchLimiteMudancaStatusVazioConjunto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 5]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.limite_maximo_mudancas == 5
+    r.limite_maximo_mudancas = 0
+    assert r.limite_maximo_mudancas == 0
+
+
+def test_registro_uch_limite_mudanca_status_vazio_usina():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchLimiteMudancaStatusVazioUsina)
+    )
+    r = UchLimiteMudancaStatusVazioUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 5]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.limite_maximo_mudancas == 5
+    r.limite_maximo_mudancas = 0
+    assert r.limite_maximo_mudancas == 0
 
 
 def test_eq_uch():

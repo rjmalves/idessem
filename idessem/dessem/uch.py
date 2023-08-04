@@ -18,6 +18,9 @@ from idessem.dessem.modelos.uch import (
     UchConsumoAguaVazioUnidade,
     UchConsumoAguaVazioConjunto,
     UchConsumoAguaVazioUsina,
+    UchLimiteMudancaStatusVazioUnidade,
+    UchLimiteMudancaStatusVazioConjunto,
+    UchLimiteMudancaStatusVazioUsina,
 )
 
 # Para compatibilidade - até versão 1.0.0
@@ -31,6 +34,9 @@ class Uch(RegisterFile):
     T = TypeVar("T")
 
     REGISTERS = [
+        UchLimiteMudancaStatusVazioUnidade,
+        UchLimiteMudancaStatusVazioConjunto,
+        UchLimiteMudancaStatusVazioUsina,
         UchConsumoAguaVazioUnidade,
         UchConsumoAguaVazioConjunto,
         UchConsumoAguaVazioUsina,
@@ -705,4 +711,119 @@ class Uch(RegisterFile):
                 UchConsumoAguaVazioUsina,
                 codigo_usina=codigo_usina,
                 consumo_agua=consumo_agua,
+            )
+
+    def limite_mudanca_status_vazio_unidade(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        limite_maximo_mudancas: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchLimiteMudancaStatusVazioUnidade,
+            List[UchLimiteMudancaStatusVazioUnidade],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o limite máximo de mudança de status
+        para operar em vazio para a unidade geradora de um determinado
+        conjunto de uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param limite_maximo_mudancas: limite máximo de mudança de status para operar vazio
+        :type limite_maximo_mudancas: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchLimiteMudancaStatusVazioUnidade` |
+            List[`UchLimiteMudancaStatusVazioUnidade`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchLimiteMudancaStatusVazioUnidade)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchLimiteMudancaStatusVazioUnidade,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                limite_maximo_mudancas=limite_maximo_mudancas,
+            )
+
+    def limite_mudanca_status_vazio_conjunto(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        limite_maximo_mudancas: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchLimiteMudancaStatusVazioConjunto,
+            List[UchLimiteMudancaStatusVazioConjunto],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o limite máximo de mudança de status
+        para operar em vazio por conjunto de uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param limite_maximo_mudancas: limite máximo de mudança de status para operar vazio
+        :type limite_maximo_mudancas: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchLimiteMudancaStatusVazioConjunto` |
+            List[`UchLimiteMudancaStatusVazioConjunto`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchLimiteMudancaStatusVazioConjunto)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchLimiteMudancaStatusVazioConjunto,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                limite_maximo_mudancas=limite_maximo_mudancas,
+            )
+
+    def limite_mudanca_status_vazio_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        limite_maximo_mudancas: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchLimiteMudancaStatusVazioUsina,
+            List[UchLimiteMudancaStatusVazioUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o limite máximo de mudança de status
+        para operar em vazio para uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param limite_maximo_mudancas: limite máximo de mudança de status para operar vazio
+        :type limite_maximo_mudancas: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchLimiteMudancaStatusVazioUsina` |
+            List[`UchLimiteMudancaStatusVazioUsina`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchLimiteMudancaStatusVazioUsina)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchLimiteMudancaStatusVazioUsina,
+                codigo_usina=codigo_usina,
+                limite_maximo_mudancas=limite_maximo_mudancas,
             )

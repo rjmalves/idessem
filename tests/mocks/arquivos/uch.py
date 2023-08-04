@@ -90,3 +90,12 @@ MockUchCondicaoInicialUnidade = (
 MockUchConsumoAguaVazioUnidade = "UCH-CONSUMO-AGUA-VAZIO-UNIDADE;1;2;2;10.0"
 MockUchConsumoAguaVazioConjunto = "UCH-CONSUMO-AGUA-VAZIO-CONJUNTO;1;2;10.0"
 MockUchConsumoAguaVazioUsina = "UCH-CONSUMO-AGUA-VAZIO-USINA;1;10.0"
+MockUchLimiteMudancaStatusVazioUnidade = (
+    "UCH-LIMITE-MUDANCA-STATUS-VAZIO-UNIDADE;1;2;2;5"
+)
+MockUchLimiteMudancaStatusVazioConjunto = (
+    "UCH-LIMITE-MUDANCA-STATUS-VAZIO-CONJUNTO;1;2;5"
+)
+MockUchLimiteMudancaStatusVazioUsina = (
+    "UCH-LIMITE-MUDANCA-STATUS-VAZIO-USINA;1;5"
+)

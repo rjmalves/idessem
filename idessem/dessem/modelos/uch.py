@@ -12,12 +12,6 @@ from typing import Optional
 # UCH-CUSTO-PARTIDA-VAZIO-UNIDADE
 # UCH-CUSTO-PARTIDA-VAZIO-CONJUNTO
 # UCH-CUSTO-PARTIDA-VAZIO-USINA
-# UCH-CONSUMO-AGUA-VAZIO-UNIDADE
-# UCH-CONSUMO-AGUA-VAZIO-CONJUNTO
-# UCH-CONSUMO-AGUA-VAZIO-USINA
-# UCH-LIMITE-MUDANCA-STATUS-VAZIO-UNIDADE
-# UCH-LIMITE-MUDANCA-STATUS-VAZIO-CONJUNTO
-# UCH-LIMITE-MUDANCA-STATUS-VAZIO-USINA
 
 
 class UchOpcaoPadrao(Register):
@@ -1045,4 +1039,176 @@ class UchConsumoAguaVazioUsina(Register):
 
     @consumo_agua.setter
     def consumo_agua(self, c: float):
+        self.data[1] = c
+
+
+class UchLimiteMudancaStatusVazioUnidade(Register):
+    """ """
+
+    IDENTIFIER = "UCH-LIMITE-MUDANCA-STATUS-VAZIO-UNIDADE"
+    IDENTIFIER_DIGITS = 39
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def codigo_unidade(self) -> Optional[int]:
+        """
+        O código da unidade geradora do conjunto da usina
+        hidrelétrica.
+
+        :return: O código da unidade
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_unidade.setter
+    def codigo_unidade(self, c: int):
+        self.data[2] = c
+
+    @property
+    def limite_maximo_mudancas(self) -> Optional[int]:
+        """
+        O limite máximo de mudanças de status para operar em vazio.
+
+        :return: O limite
+        :rtype: int | None
+        """
+        return self.data[3]
+
+    @limite_maximo_mudancas.setter
+    def limite_maximo_mudancas(self, c: int):
+        self.data[3] = c
+
+
+class UchLimiteMudancaStatusVazioConjunto(Register):
+    """ """
+
+    IDENTIFIER = "UCH-LIMITE-MUDANCA-STATUS-VAZIO-CONJUNTO"
+    IDENTIFIER_DIGITS = 40
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def limite_maximo_mudancas(self) -> Optional[int]:
+        """
+        O limite máximo de mudanças de status para operar em vazio.
+
+        :return: O limite
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @limite_maximo_mudancas.setter
+    def limite_maximo_mudancas(self, c: int):
+        self.data[2] = c
+
+
+class UchLimiteMudancaStatusVazioUsina(Register):
+    """ """
+
+    IDENTIFIER = "UCH-LIMITE-MUDANCA-STATUS-VAZIO-USINA"
+    IDENTIFIER_DIGITS = 37
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def limite_maximo_mudancas(self) -> Optional[int]:
+        """
+        O limite máximo de mudanças de status para operar em vazio.
+
+        :return: O limite
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @limite_maximo_mudancas.setter
+    def limite_maximo_mudancas(self, c: int):
         self.data[1] = c
