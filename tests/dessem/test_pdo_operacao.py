@@ -2,6 +2,7 @@ from idessem.dessem.pdo_operacao import PdoOperacao
 from idessem.dessem.modelos.pdo_operacao import (
     BlocoCustos,
     BlocoCortesAtivos,
+    BlocoDiscretizacaoTempo,
 )
 from datetime import datetime
 from tests.mocks.mock_open import mock_open
@@ -10,6 +11,7 @@ from tests.mocks.arquivos.pdo_operacao import (
     MockPdoOperacao,
     MockBlocoCustosOperacao,
     MockBlocoCortesAtivos,
+    MockBlocoDiscretizacaoTempo,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -23,6 +25,7 @@ def test_atributos_encontrados_pdo_operacao():
         assert pdo.data_estudo is not None
         assert pdo.custos_operacao is not None
         assert pdo.cortes_ativos is not None
+        assert pdo.discretizacao is not None
 
 
 def test_atributos_naoencontrados_pdo_operacao():
@@ -33,6 +36,7 @@ def test_atributos_naoencontrados_pdo_operacao():
         assert pdo.data_estudo is None
         assert pdo.custos_operacao is None
         assert pdo.cortes_ativos is None
+        assert pdo.discretizacao is None
 
 
 def test_versao_pdo_operacao():
@@ -47,6 +51,49 @@ def test_data_estudo_pdo_operacao():
     with patch("builtins.open", m):
         pdo = PdoOperacao.read(ARQ_TESTE)
         assert pdo.data_estudo == datetime(year=2022, month=8, day=1)
+
+
+def test_eq_blocodiscretizacao():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoDiscretizacaoTempo))
+    b1 = BlocoDiscretizacaoTempo()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoDiscretizacaoTempo()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    assert b1 == b2
+
+
+def test_neq_blocodiscretizacao():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoDiscretizacaoTempo))
+    b1 = BlocoDiscretizacaoTempo()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b1.read(fp)
+    b2 = BlocoDiscretizacaoTempo()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            b2.read(fp)
+    b1.data.iloc[0, 0] = -1
+    assert b1 != b2
+
+
+def test_blocodiscretizacao():
+    m: MagicMock = mock_open(read_data="".join(MockBlocoDiscretizacaoTempo))
+    bloco = BlocoDiscretizacaoTempo()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            bloco.read(fp)
+        assert bloco.data.at[0, "estagio"] == 1
+        assert bloco.data.at[0, "data_inicial"] == datetime(
+            year=2022, month=8, day=1, hour=0, minute=0
+        )
+        assert bloco.data.at[0, "data_final"] == datetime(
+            year=2022, month=8, day=1, hour=0, minute=30
+        )
+        assert bloco.data.at[0, "duracao"] == 0.5
 
 
 def test_eq_blococustos():
