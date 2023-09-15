@@ -1,4 +1,8 @@
-from idessem.dessem.modelos.pdo_operacao import BlocoCustos, BlocoCortesAtivos
+from idessem.dessem.modelos.pdo_operacao import (
+    BlocoCustos,
+    BlocoCortesAtivos,
+    BlocoDiscretizacaoTempo,
+)
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -24,6 +28,7 @@ class PdoOperacao(BlockFile):
     BLOCKS = [
         VersaoModelo,
         DataEstudo,
+        BlocoDiscretizacaoTempo,
         BlocoCustos,
         BlocoCortesAtivos,
     ]
@@ -108,6 +113,25 @@ class PdoOperacao(BlockFile):
         :rtype: datetime | None
         """
         b = self._bloco_por_tipo(DataEstudo, 0)
+        if b is not None:
+            return b.data
+        return None
+
+    @property
+    def discretizacao(self) -> pd.DataFrame:
+        """
+        Obtém tabela com informações referentes a discretização
+        de tempo do estudo.
+
+        - estagio (`int`)
+        - data_inicial (`datetime`)
+        - data_final (`datetime`)
+        - duracao (`float`)
+
+        :return: A tabela como um dataframe
+        :rtype: pd.DataFrame | None
+        """
+        b = self._bloco_por_tipo(BlocoDiscretizacaoTempo, 0)
         if b is not None:
             return b.data
         return None
