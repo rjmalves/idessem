@@ -59,7 +59,6 @@ class BlocoDiscretizacaoTempo(Block):
                 continue
 
             dados_linha = [i for i in linha.split(" ") if i != ""]
-            print(dados_linha)
             estagio = int(dados_linha[0])
             date_format = "%d/%m/%Y %H:%M"
             datainicial_str = dados_linha[1] + " " + dados_linha[2]
