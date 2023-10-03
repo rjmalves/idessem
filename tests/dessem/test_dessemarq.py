@@ -29,6 +29,7 @@ from idessem.dessem.modelos.dessemarq import (
     RegistroRestseg,
     RegistroRespotele,
     RegistroIlibs,
+    RegistroUch,
 )
 from idessem.dessem.dessemarq import DessemArq
 from tests.mocks.mock_open import mock_open
@@ -65,6 +66,7 @@ from tests.mocks.arquivos.dessemarq import (
     MockRegistroRestseg,
     MockRegistroRespotele,
     MockRegistroIlibs,
+    MockRegistroUch,
     MockDessemArq,
 )
 
@@ -644,6 +646,25 @@ def test_registro_ilibs():
     assert r.valor == "indice"
 
 
+def test_registro_uch():
+    m: MagicMock = mock_open(read_data="".join(MockRegistroUch))
+    r = RegistroUch()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [
+        "Dados UCH",
+        "uch.csv",
+    ]
+    assert r.descricao == "Dados UCH"
+    r.descricao = "UCH"
+    assert r.descricao == "UCH"
+    assert r.valor == "uch.csv"
+    r.valor = "uch"
+    assert r.valor == "uch"
+
+
 def test_campos_nao_encontrados_dessemarq():
     m: MagicMock = mock_open(read_data="")
     with patch("builtins.open", m):
@@ -678,6 +699,7 @@ def test_campos_nao_encontrados_dessemarq():
     assert d.restseg is None
     assert d.respotele is None
     assert d.ilibs is None
+    assert d.uch is None
 
 
 def test_campos_encontrados_dessemarq():
@@ -714,6 +736,7 @@ def test_campos_encontrados_dessemarq():
     assert d.restseg is not None
     assert d.respotele is not None
     assert d.ilibs is not None
+    assert d.uch is None
 
 
 def test_eq_dessemarq():

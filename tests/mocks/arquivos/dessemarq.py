@@ -32,7 +32,7 @@ MockRegistroRespotele = (
 MockRegistroIlibs = (
     "ILIBS     FUNCIONALIDADES LIBS                    indice_csv.csv"
 )
-
+MockRegistroUch = "UCH       Dados UCH                              uch.csv   "
 MockDessemArq = [
     "&Mnem        Descricao                           Arquivo\n",
     "&XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n",
