@@ -1071,7 +1071,7 @@ class DP(Register):
     IDENTIFIER_DIGITS = 4
     LINE = Line(
         [
-            IntegerField(3, 4),
+            IntegerField(2, 4),
             StageDateField(starting_position=8, special_day_character="I"),
             StageDateField(starting_position=16, special_day_character="F"),
             FloatField(10, 24, 1),
@@ -3521,13 +3521,13 @@ class CR(Register):
             IntegerField(3, 4),
             LiteralField(12, 9),
             IntegerField(2, 24),
-            FloatField(15, 28, 7, format="E"),
-            FloatField(15, 44, 7, format="E"),
-            FloatField(15, 60, 7, format="E"),
-            FloatField(15, 76, 7, format="E"),
-            FloatField(15, 92, 7, format="E"),
-            FloatField(15, 108, 7, format="E"),
-            FloatField(15, 124, 7, format="E"),
+            FloatField(15, 27, 7, format="E"),
+            FloatField(15, 43, 7, format="E"),
+            FloatField(15, 59, 7, format="E"),
+            FloatField(15, 75, 7, format="E"),
+            FloatField(15, 91, 7, format="E"),
+            FloatField(15, 107, 7, format="E"),
+            FloatField(15, 123, 7, format="E"),
         ]
     )
 
