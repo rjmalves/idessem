@@ -3521,13 +3521,13 @@ class CR(Register):
             IntegerField(3, 4),
             LiteralField(12, 9),
             IntegerField(2, 24),
-            FloatField(15, 28, 7, format="E"),
-            FloatField(15, 44, 7, format="E"),
-            FloatField(15, 60, 7, format="E"),
-            FloatField(15, 76, 7, format="E"),
-            FloatField(15, 92, 7, format="E"),
-            FloatField(15, 108, 7, format="E"),
-            FloatField(15, 124, 7, format="E"),
+            FloatField(15, 27, 7, format="E"),
+            FloatField(15, 43, 7, format="E"),
+            FloatField(15, 59, 7, format="E"),
+            FloatField(15, 75, 7, format="E"),
+            FloatField(15, 91, 7, format="E"),
+            FloatField(15, 107, 7, format="E"),
+            FloatField(15, 123, 7, format="E"),
         ]
     )
 
