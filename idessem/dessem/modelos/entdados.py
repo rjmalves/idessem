@@ -1071,7 +1071,7 @@ class DP(Register):
     IDENTIFIER_DIGITS = 4
     LINE = Line(
         [
-            IntegerField(3, 4),
+            IntegerField(2, 4),
             StageDateField(starting_position=8, special_day_character="I"),
             StageDateField(starting_position=16, special_day_character="F"),
             FloatField(10, 24, 1),
