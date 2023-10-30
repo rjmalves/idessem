@@ -43,7 +43,7 @@ class AvlFpha1(ArquivoCSV):
         """
         Obtém a tabela com informações referente aos coeficientes da função de produção.
 
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
         - segmento_fpha (`int`)
         - fator_correcao (`float`)

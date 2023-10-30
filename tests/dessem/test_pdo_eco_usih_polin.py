@@ -37,7 +37,7 @@ def test_tabela_pdo_eco_usih_polin():
     with patch("builtins.open", m):
         pdo = PdoEcoUsihPolin.read(ARQ_TESTE)
 
-        assert pdo.tabela.at[0, "indice_usina"] == 1
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert pdo.tabela.at[0, "indice_coeficiente"] == 0
         assert pdo.tabela.at[0, "coeficiente_cota_volume"] == 0.89296997e03

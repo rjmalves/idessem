@@ -37,10 +37,10 @@ class PdoOperUct(ArquivoCSV):
         Obtém a tabela com informações referente a operação das unidades térmicas.
 
         - estagio (`int`)
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - unidade (`int`)
         - nome_usina (`str`)
-        - submercado (`str`)
+        - nome_submercado (`str`)
         - barra (`int`)
         - numero_maximo_oscilacoes (`int`)
         - flag_geracao_minima_maxima (`int`)

@@ -37,8 +37,8 @@ def test_tabela_pdo_sist():
     with patch("builtins.open", m):
         log = PdoSist.read(ARQ_TESTE)
         assert log.tabela.at[0, "estagio"] == 1
-        assert log.tabela.at[0, "patamar"] == "LEVE"
-        assert log.tabela.at[0, "submercado"] == "SE"
+        assert log.tabela.at[0, "nome_patamar"] == "LEVE"
+        assert log.tabela.at[0, "nome_submercado"] == "SE"
         assert log.tabela.at[0, "cmo"] == 71.48
         assert log.tabela.at[0, "demanda"] == 36935.91
         assert log.tabela.at[0, "perdas"] == "-"

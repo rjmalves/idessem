@@ -34,7 +34,7 @@ class TabelaPdoEcoUsihPolin(TabelaCSV):
         delimiter=";",
     )
     COLUMN_NAMES = [
-        "indice_usina",
+        "codigo_usina",
         "nome_usina",
         "indice_coeficiente",
         "coeficiente_cota_volume",

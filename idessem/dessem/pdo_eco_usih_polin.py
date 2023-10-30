@@ -37,7 +37,7 @@ class PdoEcoUsihPolin(ArquivoCSV):
         Obtém a tabela com informações referente aos polinômios utilizados
         para cálculo das grandezas das usinas hidrelétricas.
 
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
         - indice_coeficiente (`int`)
         - coeficiente_cota_volume (`float`)

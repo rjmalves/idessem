@@ -330,8 +330,8 @@ class Entdados(RegisterFile):
         :type duracao: float | None
         :param duracao: flag para consideração da rede elétrica
         :type duracao: int | None
-        :param patamar_de_carga: nome do patamar de carga
-        :type patamar_de_carga: str | None
+        :param nome_patamar: nome do patamar de carga
+        :type nome_patamar: str | None
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`TM` | list[:class:`TM`] | :class:`pd.DataFrame` | None
         """
@@ -347,22 +347,18 @@ class Entdados(RegisterFile):
 
     def sist(
         self,
-        codigo: Optional[int] = None,
-        nome: Optional[str] = None,
+        codigo_submercado: Optional[int] = None,
+        nome_submercado: Optional[str] = None,
         df: bool = False,
     ) -> Optional[Union[SIST, List[SIST], pd.DataFrame]]:
         """
         Obtém um registro que define os submercados existentes
         no estudo descrito pelo :class:`Entdados`.
 
-        :param codigo: código que especifica o registro do submercado
-        :type codigo: int | None
-        :param mnemônico: mnemônico do submercado
-        :type mnemônico: str | None
-        :param ficticio: flag que identifica submercado fictício
-        :type ficticio: int | None
-        :param nome: nome do submercado
-        :type nome: str | None
+        :param codigo_submercado: código que especifica o registro do submercado
+        :type codigo_submercado: int | None
+        :param nome_submercado: nome do submercado
+        :type nome_submercado: str | None
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`SIST` | list[:class:`SIST`] | :class:`pd.DataFrame` | None
         """
@@ -370,26 +366,28 @@ class Entdados(RegisterFile):
             return self._as_df(SIST)
         else:
             return self.__obtem_registros_com_filtros(
-                SIST, codigo=codigo, nome=nome
+                SIST,
+                codigo_submercado=codigo_submercado,
+                nome_submercado=nome_submercado,
             )
 
     def ree(
         self,
-        codigo: Optional[int] = None,
-        submercado: Optional[int] = None,
-        nome: Optional[str] = None,
+        codigo_ree: Optional[int] = None,
+        codigo_submercado: Optional[int] = None,
+        nome_ree: Optional[str] = None,
         df: bool = False,
     ) -> Optional[Union[REE, List[REE], pd.DataFrame]]:
         """
         Obtém um registro que define os reservatórios equivalentes
         de energia existentes no estudo descrito pelo :class:`Entdados`.
 
-        :param codigo: código que especifica o registro do submercado
-        :type codigo: int | None
-        :param submercado: código do submercado correspondente
-        :type submercado: str | None
-        :param nome: nome do REE
-        :type nome: int | None
+        :param codigo_ree: código que especifica o registro do submercado
+        :type codigo_ree: int | None
+        :param codigo_submercado: código do submercado correspondente
+        :type codigo_submercado: str | None
+        :param nome_ree: nome do REE
+        :type nome_ree: int | None
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`REE` | list[:class:`REE`] | :class:`pd.DataFrame` | None
         """
@@ -397,14 +395,17 @@ class Entdados(RegisterFile):
             return self._as_df(REE)
         else:
             return self.__obtem_registros_com_filtros(
-                REE, codigo=codigo, submercado=submercado, nome=nome
+                REE,
+                codigo_ree=codigo_ree,
+                codigo_submercado=codigo_submercado,
+                nome_ree=nome_ree,
             )
 
     def uh(
         self,
-        codigo: Optional[int] = None,
-        nome: Optional[str] = None,
-        ree: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
+        nome_usina: Optional[str] = None,
+        codigo_ree: Optional[int] = None,
         volume_inicial: Optional[float] = None,
         evaporacao: Optional[int] = None,
         df: bool = False,
@@ -413,12 +414,12 @@ class Entdados(RegisterFile):
         Obtém um registro que define uma usina hidrelétrica existente
         no estudo descrito pelo :class:`Entdados`.
 
-        :param codigo: índice do código que especifica o registro da UHE
-        :type codigo: int | None
-        :param nome: nome da UHE
-        :type nome: str | None
-        :param ree: índice do ree da UHE
-        :type ree: int | None
+        :param codigo_usina: índice do código que especifica o registro da UHE
+        :type codigo_usina: int | None
+        :param nome_usina: nome da UHE
+        :type nome_usina: str | None
+        :param codigo_ree: índice do ree da UHE
+        :type codigo_ree: int | None
         :param volume_inicial: volume inicial da UHE
         :type volume_inicial: float | None
         :param evaporacao: consideração da evaporação na UHE
@@ -435,17 +436,17 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 UH,
-                codigo=codigo,
-                nome=nome,
-                ree=ree,
+                codigo_usina=codigo_usina,
+                nome_usina=nome_usina,
+                codigo_ree=codigo_ree,
                 volume_inicial=volume_inicial,
                 evaporacao=evaporacao,
             )
 
     def tviag(
         self,
-        uhe_montante: Optional[int] = None,
-        elemento_jusante: Optional[int] = None,
+        codigo_usina_montante: Optional[int] = None,
+        codigo_elemento_jusante: Optional[int] = None,
         tipo_elemento_jusante: Optional[str] = None,
         duracao: Optional[int] = None,
         tipo_tempo_viagem: Optional[int] = None,
@@ -456,10 +457,10 @@ class Entdados(RegisterFile):
         água entre uma UHE existente e um elemento a jusante
         no estudo descrito pelo :class:`Entdados`.
 
-        :param uhe_montante: Índice da UHE a montante com tempo de viagem
-        :type uhe_montante: int | None
-        :param elemento_jusante: Índice do elemento a jusante
-        :type elemento_jusante: int | None
+        :param codigo_usina_montante: Índice da UHE a montante com tempo de viagem
+        :type codigo_usina_montante: int | None
+        :param codigo_elemento_jusante: Índice do elemento a jusante
+        :type codigo_elemento_jusante: int | None
         :param tipo_elemento_jusante: Tipo do elemento a jusante (seção ou UHE)
         :type tipo_elemento_jusante: str | None
         :param duracao: duração, em horas, da viagem da água
@@ -478,8 +479,8 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 TVIAG,
-                uhe_montante=uhe_montante,
-                elemento_jusante=elemento_jusante,
+                codigo_usina_montante=codigo_usina_montante,
+                codigo_elemento_jusante=codigo_elemento_jusante,
                 tipo_elemento_jusante=tipo_elemento_jusante,
                 duracao=duracao,
                 tipo_tempo_viagem=tipo_tempo_viagem,
@@ -487,9 +488,9 @@ class Entdados(RegisterFile):
 
     def ut(
         self,
-        codigo: Optional[int] = None,
-        nome: Optional[str] = None,
-        submercado: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
+        nome_usina: Optional[str] = None,
+        codigo_submercado: Optional[int] = None,
         tipo_restricao: Optional[int] = None,
         geracao_minima: Optional[float] = None,
         geracao_maxima: Optional[float] = None,
@@ -499,12 +500,12 @@ class Entdados(RegisterFile):
         Obtém um registro que define uma usina termelétrica existente
         no estudo descrito pelo :class:`Entdados`.
 
-        :param codigo: índice do código que especifica o registro da UTE
-        :type codigo: int | None
-        :param nome: nome da UTE
-        :type nome: str | None
-        :param submercado: índice do submercado da UTE
-        :type submercado: int | None
+        :param codigo_usina: índice do código que especifica o registro da UTE
+        :type codigo_usina: int | None
+        :param nome_usina: nome da UTE
+        :type nome_usina: str | None
+        :param codigo_submercado: índice do submercado da UTE
+        :type codigo_submercado: int | None
         :param tipo_restricao: tipo de restrição
         :type tipo_restricao: int | None
         :param geracao_minima: limite de geração mínima (ou, caso restrição de rampa,
@@ -525,9 +526,9 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 UT,
-                codigo=codigo,
-                nome=nome,
-                submercado=submercado,
+                codigo_usina=codigo_usina,
+                nome_usina=nome_usina,
+                codigo_submercado=codigo_submercado,
                 tipo_restricao=tipo_restricao,
                 geracao_minima=geracao_minima,
                 geracao_maxima=geracao_maxima,
@@ -535,27 +536,27 @@ class Entdados(RegisterFile):
 
     def usie(
         self,
-        codigo: Optional[int] = None,
-        submercado: Optional[int] = None,
-        nome: Optional[str] = None,
-        uhe_montante: Optional[int] = None,
-        uhe_jusante: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
+        codigo_submercado: Optional[int] = None,
+        nome_usina: Optional[str] = None,
+        codigo_usina_montante: Optional[int] = None,
+        codigo_usina_jusante: Optional[int] = None,
         df: bool = False,
     ) -> Optional[Union[USIE, List[USIE], pd.DataFrame]]:
         """
         Obtém um registro que define as usinas elevatórias da configuração
         e seus principais dados físicos no estudo descrito pelo :class:`Entdados`.
 
-        :param codigo: código que especifica a usina elevatória
-        :type codigo: int | None
-        :param submercado: código do submercado correspondente
-        :type submercado: str | None
-        :param nome: nome da usina elevatória
-        :type nome: int | None
-        :param uhe_montante: código da usina a montante
-        :type uhe_montante: int | None
-        :param uhe_jusante: código da usina a jusante
-        :type uhe_jusante: int | None
+        :param codigo_usina: código que especifica a usina elevatória
+        :type codigo_usina: int | None
+        :param codigo_submercado: código do submercado correspondente
+        :type codigo_submercado: str | None
+        :param nome_usina: nome da usina elevatória
+        :type nome_usina: int | None
+        :param codigo_usina_montante: código da usina a montante
+        :type codigo_usina_montante: int | None
+        :param codigo_usina_jusante: código da usina a jusante
+        :type codigo_usina_jusante: int | None
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`USIE` | list[:class:`USIE`] | :class:`pd.DataFrame` | None
         """
@@ -564,16 +565,16 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 USIE,
-                codigo=codigo,
-                submercado=submercado,
-                nome=nome,
-                uhe_montante=uhe_montante,
-                uhe_jusante=uhe_jusante,
+                codigo_usina=codigo_usina,
+                codigo_submercado=codigo_submercado,
+                nome_usina=nome_usina,
+                codigo_usina_montante=codigo_usina_montante,
+                codigo_usina_jusante=codigo_usina_jusante,
             )
 
     def dp(
         self,
-        submercado: Optional[int] = None,
+        codigo_submercado: Optional[int] = None,
         df: bool = False,
     ) -> Optional[Union[DP, List[DP], pd.DataFrame]]:
         """
@@ -582,9 +583,9 @@ class Entdados(RegisterFile):
         que não se considerada a rede elétrica no estudo descrito
         pelo :class:`Entdados`.
 
-        :param submercado: subsistema para o qual
+        :param codigo_submercado: subsistema para o qual
             valerão os patamares.
-        :type submercado: int | None
+        :type codigo_submercado: int | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -598,12 +599,12 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 DP,
-                submercado=submercado,
+                codigo_submercado=codigo_submercado,
             )
 
     def de(
         self,
-        codigo: Optional[int] = None,
+        codigo_demanda_especial: Optional[int] = None,
         df: bool = False,
     ) -> Optional[Union[DE, List[DE], pd.DataFrame]]:
         """
@@ -611,8 +612,8 @@ class Entdados(RegisterFile):
         serem representadas em restrições elétricas no estudo descrito
         pelo :class:`Entdados`.
 
-        :param codigo: código da demanda especial.
-        :type codigo: int | None
+        :param codigo_demanda_especial: código da demanda especial.
+        :type codigo_demanda_especial: int | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -626,12 +627,12 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 DE,
-                codigo=codigo,
+                codigo_demanda_especial=codigo_demanda_especial,
             )
 
     def cd(
         self,
-        submercado: Optional[int] = None,
+        codigo_submercado: Optional[int] = None,
         numero_curva: Optional[int] = None,
         df: bool = False,
     ) -> Optional[Union[CD, List[CD], pd.DataFrame]]:
@@ -639,8 +640,8 @@ class Entdados(RegisterFile):
         Obtém um registro que define as curvas de déficit
         no estudo descrito pelo :class:`Entdados`.
 
-        :param submercado: submercado para o qual valerá a curva
-        :type submercado: int | None
+        :param codigo_submercado: submercado para o qual valerá a curva
+        :type codigo_submercado: int | None
         :param numero_curva: índice da curva de déficit descrita
         :type numero_curva: int | None
         :param df: ignorar os filtros e retornar
@@ -655,14 +656,14 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 CD,
-                submercado=submercado,
+                codigo_submercado=codigo_submercado,
                 numero_curva=numero_curva,
             )
 
     def pq(
         self,
-        codigo: Optional[int] = None,
-        nome: Optional[str] = None,
+        codigo_usina: Optional[int] = None,
+        nome_usina: Optional[str] = None,
         localizacao: Optional[int] = None,
         df: bool = False,
     ) -> Optional[Union[PQ, List[PQ], pd.DataFrame]]:
@@ -670,10 +671,10 @@ class Entdados(RegisterFile):
         Obtém um registro que define as gerações das pequenas usinas
         no estudo descrito pelo :class:`Entdados`.
 
-        :param codigo: o código das gerações
-        :type codigo: str | None
-        :param nome: o nome das gerações
-        :type nome: str | None
+        :param codigo_usina: o código das gerações
+        :type codigo_usina: str | None
+        :param nome_usina: o nome das gerações
+        :type nome_usina: str | None
         :param localizacao: índice do subsistema ou barra
             associado à geração
         :type localizacao: int | None
@@ -689,8 +690,8 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 PQ,
-                codigo=codigo,
-                nome=nome,
+                codigo_usina=codigo_usina,
+                nome_usina=nome_usina,
                 localizacao=localizacao,
             )
 
@@ -731,18 +732,18 @@ class Entdados(RegisterFile):
 
     def ia(
         self,
-        submercado_de: Optional[str] = None,
-        submercado_para: Optional[str] = None,
+        nome_submercado_de: Optional[str] = None,
+        nome_submercado_para: Optional[str] = None,
         df: bool = False,
     ) -> Optional[Union[IA, List[IA], pd.DataFrame]]:
         """
         Obtém um registro que define as capacidades de intercâmbio
         no estudo descrito pelo :class:`Entdados`.
 
-        :param submercado_de: mnemônico do submercado de origem (de).
-        :type submercado_de: str | None
-        :param submercado_para: mnemônico do submercado de destino (para).
-        :type submercado_para: str | None
+        :param nome_submercado_de: mnemônico do submercado de origem (de).
+        :type nome_submercado_de: str | None
+        :param nome_submercado_para: mnemônico do submercado de destino (para).
+        :type nome_submercado_para: str | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -755,8 +756,8 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 IA,
-                submercado_de=submercado_de,
-                submercado_para=submercado_para,
+                nome_submercado_de=nome_submercado_de,
+                nome_submercado_para=nome_submercado_para,
             )
 
     @property
@@ -772,7 +773,7 @@ class Entdados(RegisterFile):
 
     def ac(
         self,
-        uhe: int,
+        codigo_usina: int,
         modificacao: Any,
         df: bool = False,
         **kwargs,
@@ -781,8 +782,8 @@ class Entdados(RegisterFile):
         Obtém um registro que define modificações nos parâmetros
         das UHE em um :class:`Entdados`.
 
-        :param uhe: código da UHE modificada
-        :type uhe: int
+        :param codigo_usina: código da UHE modificada
+        :type codigo_usina: int
         :param modificacao: classe da modificação realizada
         :type modificacao: subtipos do tipo `AC`
         :param df: ignorar os filtros e retornar
@@ -796,7 +797,7 @@ class Entdados(RegisterFile):
             return self._as_df(modificacao)
         else:
             return self.__obtem_registros_com_filtros(
-                modificacao, **{"uhe": uhe, **kwargs}
+                modificacao, **{"codigo_usina": codigo_usina, **kwargs}
             )
 
     @property
@@ -812,14 +813,14 @@ class Entdados(RegisterFile):
         return self.__obtem_registro(NI)
 
     def ve(
-        self, codigo: Optional[int] = None, df: bool = False
+        self, codigo_usina: Optional[int] = None, df: bool = False
     ) -> Optional[Union[VE, List[VE], pd.DataFrame]]:
         """
         Obtém um registro que especifica o volume de espera
         por UHE existente no estudo especificado no :class:`Entdados`
 
-        :param codigo: Código da usina
-        :type codigo: int | None
+        :param codigo_usina: Código da usina
+        :type codigo_usina: int | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -830,11 +831,11 @@ class Entdados(RegisterFile):
         if df:
             return self._as_df(VE)
         else:
-            return self.__obtem_registros_com_filtros(VE, codigo=codigo)
+            return self.__obtem_registros_com_filtros(VE, codigo_usina=codigo_usina)
 
     def fp(
         self,
-        codigo: Optional[int] = None,
+        codigo_usina: Optional[int] = None,
         tipo_tratamento_volume: Optional[int] = None,
         numero_pontos_turbinamento: Optional[int] = None,
         numero_pontos_volume: Optional[int] = None,
@@ -849,8 +850,8 @@ class Entdados(RegisterFile):
         a construção da função de produção aproximada (FPHA)
         das usinas existente no estudo especificado no :class:`Entdados`
 
-        :param codigo: Código da UHE associada ao registro
-        :type codigo: int | None
+        :param codigo_usina: Código da UHE associada ao registro
+        :type codigo_usina: int | None
         :param tipo_tratamento_volume: Tipo de tratamento para o eixo de
             volume
         :type tipo_tratamento_volume: int | None
@@ -881,7 +882,7 @@ class Entdados(RegisterFile):
         else:
             return self.__obtem_registros_com_filtros(
                 FP,
-                codigo=codigo,
+                codigo_usina=codigo_usina,
                 tipo_tratamento_volume=tipo_tratamento_volume,
                 numero_pontos_turbinamento=numero_pontos_turbinamento,
                 numero_pontos_volume=numero_pontos_volume,
@@ -903,15 +904,15 @@ class Entdados(RegisterFile):
         return self.__obtem_registro(TX)
 
     def ez(
-        self, uhe: Optional[int] = None, df: bool = False
+        self, codigo_usina: Optional[int] = None, df: bool = False
     ) -> Optional[Union[EZ, List[EZ], pd.DataFrame]]:
         """
         Obtém um registro que especifica o percentual máximo do
         volume útil para acoplamento no estudo especificado
         no :class:`Entdados`
 
-        :param uhe: Código da usina
-        :type uhe: int | None
+        :param codigo_usina: Código da usina
+        :type codigo_usina: int | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -922,7 +923,9 @@ class Entdados(RegisterFile):
         if df:
             return self._as_df(EZ)
         else:
-            return self.__obtem_registros_com_filtros(EZ, uhe=uhe)
+            return self.__obtem_registros_com_filtros(
+                EZ, codigo_usina=codigo_usina
+            )
 
     def r11(
         self, df: bool = False
@@ -1133,7 +1136,7 @@ class Entdados(RegisterFile):
         hora_final: Optional[int] = None,
         meia_hora_final: Optional[int] = None,
         codigo_usina: Optional[int] = None,
-        conjunto: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
         coeficiente: Optional[float] = None,
         df: bool = False,
     ) -> Optional[Union[FH, List[FH], pd.DataFrame]]:
@@ -1157,8 +1160,8 @@ class Entdados(RegisterFile):
         :type meia_hora_final: int | None
         :param codigo_usina: código da usina hidráulica
         :type codigo_usina: int | None
-        :param conjunto: conjunto de máquinas da usina
-        :type conjunto: int | None
+        :param codigo_conjunto: conjunto de máquinas da usina
+        :type codigo_conjunto: int | None
         :param coeficiente: coeficiente de participação da usina na restrição
         :type coeficiente: int | None
         :param df: ignorar os filtros e retornar
@@ -1181,7 +1184,7 @@ class Entdados(RegisterFile):
                 hora_final=hora_final,
                 meia_hora_final=meia_hora_final,
                 codigo_usina=codigo_usina,
-                conjunto=conjunto,
+                codigo_conjunto=codigo_conjunto,
                 coeficiente=coeficiente,
             )
 
@@ -1252,8 +1255,8 @@ class Entdados(RegisterFile):
         dia_final: Optional[Union[str, int]] = None,
         hora_final: Optional[int] = None,
         meia_hora_final: Optional[int] = None,
-        submercado_de: Optional[int] = None,
-        submercado_para: Optional[int] = None,
+        nome_submercado_de: Optional[int] = None,
+        nome_submercado_para: Optional[int] = None,
         coeficiente: Optional[float] = None,
         df: bool = False,
     ) -> Optional[Union[FI, List[FI], pd.DataFrame]]:
@@ -1275,10 +1278,10 @@ class Entdados(RegisterFile):
         :type hora_final: int | None
         :param meia_hora_final: meia-hora final
         :type meia_hora_final: int | None
-        :param submercado_de: mnemônico do submercado origem (de)
-        :type submercado_de: str | None
-        :param submercado_para: mnemônico do submercado destino (para)
-        :type submercado_para: str | None
+        :param nome_submercado_de: mnemônico do submercado origem (de)
+        :type nome_submercado_de: str | None
+        :param nome_submercado_para: mnemônico do submercado destino (para)
+        :type nome_submercado_para: str | None
         :param coeficiente: coeficiente de participação do fluxo na restrição
         :type coeficiente: int | None
         :param df: ignorar os filtros e retornar
@@ -1300,8 +1303,8 @@ class Entdados(RegisterFile):
                 dia_final=dia_final,
                 hora_final=hora_final,
                 meia_hora_final=meia_hora_final,
-                submercado_de=submercado_de,
-                submercado_para=submercado_para,
+                nome_submercado_de=nome_submercado_de,
+                nome_submercado_para=nome_submercado_para,
                 coeficiente=coeficiente,
             )
 

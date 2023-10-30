@@ -71,7 +71,7 @@ class BlocoInitUT(Block):
     def read(self, file: IO, *args, **kwargs):
         def converte_tabela_em_df() -> pd.DataFrame:
             cols = [
-                "indice_usina",
+                "codigo_usina",
                 "indice_unidade_geradora",
                 "estado",
                 "geracao_inicial",
@@ -84,7 +84,7 @@ class BlocoInitUT(Block):
             df = pd.DataFrame(tabela, columns=cols)
             df = df.astype(
                 {
-                    "indice_usina": int,
+                    "codigo_usina": int,
                     "indice_unidade_geradora": int,
                     "estado": int,
                     "tempo_permanencia_estado": int,
@@ -221,7 +221,7 @@ class BlocoOper(Block):
     def read(self, file: IO, *args, **kwargs):
         def converte_tabela_em_df() -> pd.DataFrame:
             cols = [
-                "indice_usina",
+                "codigo_usina",
                 "indice_unidade_geradora",
                 "dia_inicial",
                 "hora_inicial",
@@ -236,7 +236,7 @@ class BlocoOper(Block):
             df = pd.DataFrame(tabela, columns=cols)
             df = df.astype(
                 {
-                    "indice_usina": int,
+                    "codigo_usina": int,
                     "indice_unidade_geradora": int,
                     "dia_inicial": int,
                     "hora_inicial": int,

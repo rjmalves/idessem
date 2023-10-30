@@ -38,10 +38,10 @@ def test_tabela_pdo_oper_uct():
         pdo = PdoOperUct.read(ARQ_TESTE)
 
         assert pdo.tabela.at[0, "estagio"] == 1
-        assert pdo.tabela.at[0, "indice_usina"] == 1
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "unidade"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "ANGRA 1"
-        assert pdo.tabela.at[0, "submercado"] == "SE"
+        assert pdo.tabela.at[0, "nome_submercado"] == "SE"
         assert pdo.tabela.at[0, "barra"] == 10
         assert pdo.tabela.at[0, "numero_maximo_oscilacoes"] == 0
         assert pdo.tabela.at[0, "flag_geracao_minima_maxima"] == 0

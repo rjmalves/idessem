@@ -37,7 +37,7 @@ class PdoInter(ArquivoCSV):
         Obtém a tabela com informações referente aos intercâmbios.
 
         - estagio (`int`)
-        - patamar (`str`)
+        - nome_patamar (`str`)
         - indice_intercambio (`int`)
         - nome_submercado_de (`str`)
         - nome_submercado_para (`str`)

@@ -37,8 +37,8 @@ class PdoSist(ArquivoCSV):
         Obtém a tabela com informações referente a operação por submercado.
 
         - estagio (`int`)
-        - patamar (`float`)
-        - submercado (`str`)
+        - nome_patamar (`str`)
+        - nome_submercado (`str`)
         - cmo (`float`)
         - demanda (`float`)
         - perdas (`str`)

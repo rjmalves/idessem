@@ -37,10 +37,10 @@ def test_tabela_pdo_hidr():
     with patch("builtins.open", m):
         log = PdoHidr.read(ARQ_TESTE)
         assert log.tabela.at[2, "estagio"] == 1
-        assert log.tabela.at[2, "patamar"] == "LEVE"
-        assert log.tabela.at[2, "indice_usina"] == 1
+        assert log.tabela.at[2, "nome_patamar"] == "LEVE"
+        assert log.tabela.at[2, "codigo_usina"] == 1
         assert log.tabela.at[2, "nome_usina"] == "CAMARGOS"
-        assert log.tabela.at[2, "submercado"] == "SE"
+        assert log.tabela.at[2, "nome_submercado"] == "SE"
         assert log.tabela.at[2, "conjunto"] == 99
         assert log.tabela.at[2, "unidade"] == 99
         assert log.tabela.at[2, "valor_agua"] == 64.44
@@ -71,7 +71,7 @@ def test_tabela_pdo_hidr():
         assert log.tabela.at[2, "geracao"] == 36.14
         assert log.tabela.at[2, "geracao_maxima"] == 46.0
         assert log.tabela.at[2, "capacidade"] == 46.0
-        assert log.tabela.at[2, "ld"] == "-"
+        assert log.tabela.at[2, "status"] == "-"
         assert log.tabela.at[2, "perdas_hidraulicas"] == 0.0
         assert log.tabela.at[2, "altura_queda"] == 25.68
 

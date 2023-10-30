@@ -26,7 +26,7 @@ class TabelaAvlFpha1(TabelaCSV):
         delimiter=";",
     )
     COLUMN_NAMES = [
-        "indice_usina",
+        "codigo_usina",
         "nome_usina",
         "segmento_fpha",
         "fator_correcao",
@@ -60,7 +60,7 @@ class TabelaAvlFpha1v1903(TabelaCSV):
         delimiter=";",
     )
     COLUMN_NAMES = [
-        "indice_usina",
+        "codigo_usina",
         "nome_usina",
         "segmento_fpha",
         "fator_correcao",

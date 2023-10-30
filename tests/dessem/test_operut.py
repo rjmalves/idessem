@@ -123,7 +123,7 @@ def test_bloco_init():
         with open("", "") as fp:
             b.read(fp)
 
-    assert b.data[1].at[0, "indice_usina"] == 1
+    assert b.data[1].at[0, "codigo_usina"] == 1
     assert b.data[1].at[0, "nome_usina"] == "ANGRA 1"
     assert b.data[1].at[0, "indice_unidade_geradora"] == 1
     assert b.data[1].at[0, "estado"] == 1
@@ -170,7 +170,7 @@ def test_bloco_oper():
         with open("", "") as fp:
             b.read(fp)
 
-    assert b.data[1].at[0, "indice_usina"] == 1
+    assert b.data[1].at[0, "codigo_usina"] == 1
     assert b.data[1].at[0, "nome_usina"] == "ANGRA 1"
     assert b.data[1].at[0, "indice_unidade_geradora"] == 1
     assert b.data[1].at[0, "dia_inicial"] == 6
