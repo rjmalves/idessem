@@ -99,7 +99,7 @@ class Operut(BlockFile):
         """
         Tabela com as condições iniciais das UTEs.
 
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
         - indice_unidade_geradora (`int`)
         - estado (`int`)
@@ -131,7 +131,7 @@ class Operut(BlockFile):
         """
         Tabela com os limites e condições oeprativas das unidades.
 
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
         - indice_unidade_geradora (`int`)
         - dia_inicial (`int`)

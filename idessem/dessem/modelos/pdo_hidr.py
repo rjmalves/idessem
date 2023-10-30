@@ -56,10 +56,10 @@ class TabelaPdoHidr(TabelaCSV):
     )
     COLUMN_NAMES = [
         "estagio",
-        "patamar",
-        "indice_usina",
+        "nome_patamar",
+        "codigo_usina",
         "nome_usina",
-        "submercado",
+        "nome_submercado",
         "conjunto",
         "unidade",
         "valor_agua",
@@ -90,7 +90,7 @@ class TabelaPdoHidr(TabelaCSV):
         "geracao",
         "geracao_maxima",
         "capacidade",
-        "ld",
+        "status",
         "perdas_hidraulicas",
         "altura_queda",
     ]

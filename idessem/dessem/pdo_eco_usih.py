@@ -44,12 +44,12 @@ class PdoEcoUsih(ArquivoCSV):
         Obtém a tabela com informações referente a caracaterísticas das usinas
         hidrelétricas e topologia das cascatas.
 
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
-        - submercado (`str`)
-        - indice_usina_jusante (`int`)
-        - indice_usina_desvio (`int`)
-        - indice_usina_jusante_earm (`int`)
+        - nome_submercado (`str`)
+        - codigo_usina_jusante (`int`)
+        - codigo_usina_desvio (`int`)
+        - codigo_usina_jusante_earm (`int`)
         - estagio_inicial (`int`)
         - volume_morto_inicial_hm3 (`float`)
         - volume_morto_inicial_percentual (`float`)

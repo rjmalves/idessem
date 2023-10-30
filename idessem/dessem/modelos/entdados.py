@@ -299,7 +299,7 @@ class TM(Register):
         self.data[4] = cod
 
     @property
-    def patamar_de_carga(self) -> Optional[str]:
+    def nome_patamar(self) -> Optional[str]:
         """
         O nome do patamar de carga.
 
@@ -308,8 +308,8 @@ class TM(Register):
         """
         return self.data[5]
 
-    @patamar_de_carga.setter
-    def patamar_de_carga(self, n: str):
+    @nome_patamar.setter
+    def nome_patamar(self, n: str):
         self.data[5] = n
 
 
@@ -330,7 +330,7 @@ class SIST(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_submercado(self) -> Optional[int]:
         """
         O código de cadastro do submercado.
 
@@ -339,12 +339,12 @@ class SIST(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, cod: int):
+    @codigo_submercado.setter
+    def codigo_submercado(self, cod: int):
         self.data[0] = cod
 
     @property
-    def mnemonico(self) -> Optional[str]:
+    def mnemonico_submercado(self) -> Optional[str]:
         """
         O mnemônico de cadastro do submercado.
 
@@ -353,8 +353,8 @@ class SIST(Register):
         """
         return self.data[1]
 
-    @mnemonico.setter
-    def mnemonico(self, n: str):
+    @mnemonico_submercado.setter
+    def mnemonico_submercado(self, n: str):
         self.data[1] = n
 
     @property
@@ -372,7 +372,7 @@ class SIST(Register):
         self.data[2] = cod
 
     @property
-    def nome(self) -> Optional[str]:
+    def nome_submercado(self) -> Optional[str]:
         """
         O nome de cadastro do submercado.
 
@@ -381,8 +381,8 @@ class SIST(Register):
         """
         return self.data[3]
 
-    @nome.setter
-    def nome(self, n: str):
+    @nome_submercado.setter
+    def nome_submercado(self, n: str):
         self.data[3] = n
 
 
@@ -403,7 +403,7 @@ class REE(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_ree(self) -> Optional[int]:
         """
         O código de cadastro do REE.
 
@@ -412,12 +412,12 @@ class REE(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, cod: int):
+    @codigo_ree.setter
+    def codigo_ree(self, cod: int):
         self.data[0] = cod
 
     @property
-    def submercado(self) -> Optional[int]:
+    def codigo_submercado(self) -> Optional[int]:
         """
         O código do submercado que pertence o REE.
 
@@ -426,12 +426,12 @@ class REE(Register):
         """
         return self.data[1]
 
-    @submercado.setter
-    def submercado(self, cod: int):
+    @codigo_submercado.setter
+    def codigo_submercado(self, cod: int):
         self.data[1] = cod
 
     @property
-    def nome(self) -> Optional[str]:
+    def nome_ree(self) -> Optional[str]:
         """
         O nome de cadastro do REE.
 
@@ -440,8 +440,8 @@ class REE(Register):
         """
         return self.data[2]
 
-    @nome.setter
-    def nome(self, n: str):
+    @nome_ree.setter
+    def nome_ree(self, n: str):
         self.data[2] = n
 
 
@@ -468,7 +468,7 @@ class UH(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         """
         O código de cadastro da UHE.
 
@@ -477,12 +477,12 @@ class UH(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, cod: int):
+    @codigo_usina.setter
+    def codigo_usina(self, cod: int):
         self.data[0] = cod
 
     @property
-    def nome(self) -> Optional[str]:
+    def nome_usina(self) -> Optional[str]:
         """
         O nome da UHE.
 
@@ -491,12 +491,12 @@ class UH(Register):
         """
         return self.data[1]
 
-    @nome.setter
-    def nome(self, n: str):
+    @nome_usina.setter
+    def nome_usina(self, n: str):
         self.data[1] = n
 
     @property
-    def ree(self) -> Optional[int]:
+    def codigo_ree(self) -> Optional[int]:
         """
         O REE de cadastro da UHE.
 
@@ -505,8 +505,8 @@ class UH(Register):
         """
         return self.data[2]
 
-    @ree.setter
-    def ree(self, n: int):
+    @codigo_ree.setter
+    def codigo_ree(self, n: int):
         self.data[2] = n
 
     @property
@@ -641,7 +641,7 @@ class TVIAG(Register):
     )
 
     @property
-    def uhe_montante(self) -> Optional[int]:
+    def codigo_usina_montante(self) -> Optional[int]:
         """
         O código da UHE a montante a partir do qual é contabilizado
         o tempo de viagem.
@@ -651,12 +651,12 @@ class TVIAG(Register):
         """
         return self.data[0]
 
-    @uhe_montante.setter
-    def uhe_montante(self, u: int):
+    @codigo_usina_montante.setter
+    def codigo_usina_montante(self, u: int):
         self.data[0] = u
 
     @property
-    def elemento_jusante(self) -> Optional[int]:
+    def codigo_elemento_jusante(self) -> Optional[int]:
         """
         O código do elemento a jusante do qual é contabilizado
         o tempo de viagem.
@@ -666,8 +666,8 @@ class TVIAG(Register):
         """
         return self.data[1]
 
-    @elemento_jusante.setter
-    def elemento_jusante(self, u: int):
+    @codigo_elemento_jusante.setter
+    def codigo_elemento_jusante(self, u: int):
         self.data[1] = u
 
     @property
@@ -739,7 +739,7 @@ class UT(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         """
         O código de cadastro da UTE.
 
@@ -748,12 +748,12 @@ class UT(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, codigo: int):
+    @codigo_usina.setter
+    def codigo_usina(self, codigo: int):
         self.data[0] = codigo
 
     @property
-    def nome(self) -> Optional[str]:
+    def nome_usina(self) -> Optional[str]:
         """
         O nome de cadastro da UTE.
 
@@ -762,12 +762,12 @@ class UT(Register):
         """
         return self.data[1]
 
-    @nome.setter
-    def nome(self, nome: str):
+    @nome_usina.setter
+    def nome_usina(self, nome: str):
         self.data[1] = nome
 
     @property
-    def submercado(self) -> Optional[int]:
+    def codigo_submercado(self) -> Optional[int]:
         """
         O submercado de cadastro da UTE.
 
@@ -776,8 +776,8 @@ class UT(Register):
         """
         return self.data[2]
 
-    @submercado.setter
-    def submercado(self, submercado: int):
+    @codigo_submercado.setter
+    def codigo_submercado(self, submercado: int):
         self.data[2] = submercado
 
     @property
@@ -948,7 +948,7 @@ class USIE(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         """
         O código de cadastro da UE.
 
@@ -957,12 +957,12 @@ class USIE(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, cod: int):
+    @codigo_usina.setter
+    def codigo_usina(self, cod: int):
         self.data[0] = cod
 
     @property
-    def submercado(self) -> Optional[int]:
+    def codigo_submercado(self) -> Optional[int]:
         """
         O submercado de cadastro da UE.
 
@@ -971,12 +971,12 @@ class USIE(Register):
         """
         return self.data[1]
 
-    @submercado.setter
-    def submercado(self, n: int):
+    @codigo_submercado.setter
+    def codigo_submercado(self, n: int):
         self.data[1] = n
 
     @property
-    def nome(self) -> Optional[str]:
+    def nome_usina(self) -> Optional[str]:
         """
         O nome da usina elevatória.
 
@@ -985,12 +985,12 @@ class USIE(Register):
         """
         return self.data[2]
 
-    @nome.setter
-    def nome(self, v: str):
+    @nome_usina.setter
+    def nome_usina(self, v: str):
         self.data[2] = v
 
     @property
-    def uhe_montante(self) -> Optional[int]:
+    def codigo_usina_montante(self) -> Optional[int]:
         """
         O código da UHE a montante, conforme registro UH.
 
@@ -999,12 +999,12 @@ class USIE(Register):
         """
         return self.data[3]
 
-    @uhe_montante.setter
-    def uhe_montante(self, v: int):
+    @codigo_usina_montante.setter
+    def codigo_usina_montante(self, v: int):
         self.data[3] = v
 
     @property
-    def uhe_jusante(self) -> Optional[int]:
+    def codigo_usina_jusante(self) -> Optional[int]:
         """
         O código da UHE a jusante, conforme registro UH.
 
@@ -1013,8 +1013,8 @@ class USIE(Register):
         """
         return self.data[4]
 
-    @uhe_jusante.setter
-    def uhe_jusante(self, e: int):
+    @codigo_usina_jusante.setter
+    def codigo_usina_jusante(self, e: int):
         self.data[4] = e
 
     @property
@@ -1079,7 +1079,7 @@ class DP(Register):
     )
 
     @property
-    def submercado(self) -> Optional[int]:
+    def codigo_submercado(self) -> Optional[int]:
         """
         O submercado associado à demanada especificada.
 
@@ -1088,8 +1088,8 @@ class DP(Register):
         """
         return self.data[0]
 
-    @submercado.setter
-    def submercado(self, sub: int):
+    @codigo_submercado.setter
+    def codigo_submercado(self, sub: int):
         self.data[0] = sub
 
     @property
@@ -1213,7 +1213,7 @@ class DE(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_demanda_especial(self) -> Optional[int]:
         """
         O código da demanda especial.
 
@@ -1222,8 +1222,8 @@ class DE(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, sub: int):
+    @codigo_demanda_especial.setter
+    def codigo_demanda_especial(self, sub: int):
         self.data[0] = sub
 
     @property
@@ -1359,7 +1359,7 @@ class CD(Register):
     )
 
     @property
-    def submercado(self) -> Optional[int]:
+    def codigo_submercado(self) -> Optional[int]:
         """
         O índice do submercado associado.
 
@@ -1368,8 +1368,8 @@ class CD(Register):
         """
         return self.data[0]
 
-    @submercado.setter
-    def submercado(self, s: int):
+    @codigo_submercado.setter
+    def codigo_submercado(self, s: int):
         self.data[0] = s
 
     @property
@@ -1521,7 +1521,7 @@ class PQ(Register):
     )
 
     @property
-    def codigo(self) -> Optional[str]:
+    def codigo_usina(self) -> Optional[str]:
         """
         O código da pequena usina.
 
@@ -1530,12 +1530,12 @@ class PQ(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, nome: str):
+    @codigo_usina.setter
+    def codigo_usina(self, nome: str):
         self.data[0] = nome
 
     @property
-    def nome(self) -> Optional[str]:
+    def nome_usina(self) -> Optional[str]:
         """
         O nome da pequena usina.
 
@@ -1544,8 +1544,8 @@ class PQ(Register):
         """
         return self.data[1]
 
-    @nome.setter
-    def nome(self, nome: str):
+    @nome_usina.setter
+    def nome_usina(self, nome: str):
         self.data[1] = nome
 
     @property
@@ -1683,7 +1683,7 @@ class IT(Register):
     )
 
     @property
-    def ree(self) -> Optional[int]:
+    def codigo_ree(self) -> Optional[int]:
         """
         O código do REE em que se encontra a usina
         de Itaipu.
@@ -1694,8 +1694,8 @@ class IT(Register):
 
         return self.data[0]
 
-    @ree.setter
-    def ree(self, n: int):
+    @codigo_ree.setter
+    def codigo_ree(self, n: int):
         self.data[0] = n
 
     @property
@@ -1971,7 +1971,7 @@ class IA(Register):
     )
 
     @property
-    def submercado_de(self) -> Optional[str]:
+    def nome_submercado_de(self) -> Optional[str]:
         """
         O submercado de origem (de).
 
@@ -1981,12 +1981,12 @@ class IA(Register):
 
         return self.data[0]
 
-    @submercado_de.setter
-    def submercado_de(self, n: str):
+    @nome_submercado_de.setter
+    def nome_submercado_de(self, n: str):
         self.data[0] = n
 
     @property
-    def submercado_para(self) -> Optional[str]:
+    def nome_submercado_para(self) -> Optional[str]:
         """
         O submercado de destino (para).
 
@@ -1996,8 +1996,8 @@ class IA(Register):
 
         return self.data[1]
 
-    @submercado_para.setter
-    def submercado_para(self, n: str):
+    @nome_submercado_para.setter
+    def nome_submercado_para(self, n: str):
         self.data[1] = n
 
     @property
@@ -2186,11 +2186,11 @@ class ACVTFUGA(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2229,11 +2229,11 @@ class ACVOLMAX(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2272,11 +2272,11 @@ class ACVOLMIN(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2316,11 +2316,11 @@ class ACVSVERT(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2360,11 +2360,11 @@ class ACVMDESV(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2406,11 +2406,11 @@ class ACCOTVAZ(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2467,11 +2467,11 @@ class ACCOTVOL(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2520,11 +2520,11 @@ class ACCOTTAR(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2571,11 +2571,11 @@ class ACNUMCON(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2614,11 +2614,11 @@ class ACNUMJUS(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2657,19 +2657,19 @@ class ACNUMPOS(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
-    def posto(self) -> Optional[int]:
+    def codigo_posto(self) -> Optional[int]:
         return self.data[1]
 
-    @posto.setter
-    def posto(self, u: int):
+    @codigo_posto.setter
+    def codigo_posto(self, u: int):
         self.data[1] = u
 
 
@@ -2701,11 +2701,11 @@ class ACJUSENA(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2744,11 +2744,11 @@ class ACJUSMED(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2789,11 +2789,11 @@ class ACCOFEVA(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -2842,27 +2842,27 @@ class ACNUMMAQ(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
-    def conjunto(self) -> Optional[int]:
+    def codigo_conjunto(self) -> Optional[int]:
         return self.data[1]
 
-    @conjunto.setter
-    def conjunto(self, u: int):
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, u: int):
         self.data[1] = u
 
     @property
-    def maquinas(self) -> Optional[int]:
+    def numero_maquinas(self) -> Optional[int]:
         return self.data[2]
 
-    @maquinas.setter
-    def maquinas(self, u: int):
+    @numero_maquinas.setter
+    def numero_maquinas(self, u: int):
         self.data[2] = u
 
 
@@ -2895,19 +2895,19 @@ class ACPOTEFE(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
-    def conjunto(self) -> Optional[int]:
+    def codigo_conjunto(self) -> Optional[int]:
         return self.data[1]
 
-    @conjunto.setter
-    def conjunto(self, u: int):
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, u: int):
         self.data[1] = u
 
     @property
@@ -2948,11 +2948,11 @@ class ACDESVIO(Register):
         return True
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -3032,7 +3032,7 @@ class VE(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         """
         O código da usina associada ao volume.
 
@@ -3041,8 +3041,8 @@ class VE(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, c: int):
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
         self.data[0] = c
 
     @property
@@ -3168,7 +3168,7 @@ class FP(Register):
     )
 
     @property
-    def codigo(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         """
         O código da UHE associada à restrição FP.
 
@@ -3177,8 +3177,8 @@ class FP(Register):
         """
         return self.data[0]
 
-    @codigo.setter
-    def codigo(self, c: int):
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
         self.data[0] = c
 
     @property
@@ -3330,7 +3330,7 @@ class EZ(Register):
     )
 
     @property
-    def uhe(self) -> Optional[int]:
+    def codigo_usina(self) -> Optional[int]:
         """
         Código da UHE.
 
@@ -3339,8 +3339,8 @@ class EZ(Register):
         """
         return self.data[0]
 
-    @uhe.setter
-    def uhe(self, u: int):
+    @codigo_usina.setter
+    def codigo_usina(self, u: int):
         self.data[0] = u
 
     @property
@@ -4406,7 +4406,7 @@ class FH(Register):
         self.data[3] = c
 
     @property
-    def conjunto(self) -> Optional[int]:
+    def codigo_conjunto(self) -> Optional[int]:
         """
         O conjunto de máquinas da usina.
 
@@ -4415,8 +4415,8 @@ class FH(Register):
         """
         return self.data[4]
 
-    @conjunto.setter
-    def conjunto(self, c: int):
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
         self.data[4] = c
 
     @property
@@ -4701,7 +4701,7 @@ class FI(Register):
         self.data[2][2] = n
 
     @property
-    def submercado_de(self) -> Optional[str]:
+    def nome_submercado_de(self) -> Optional[str]:
         """
         O submercado de origem (de).
 
@@ -4710,12 +4710,12 @@ class FI(Register):
         """
         return self.data[3]
 
-    @submercado_de.setter
-    def submercado_de(self, s: str):
+    @nome_submercado_de.setter
+    def nome_submercado_de(self, s: str):
         self.data[3] = s
 
     @property
-    def submercado_para(self) -> Optional[str]:
+    def nome_submercado_para(self) -> Optional[str]:
         """
         O submercado de destino (para).
 
@@ -4724,8 +4724,8 @@ class FI(Register):
         """
         return self.data[4]
 
-    @submercado_para.setter
-    def submercado_para(self, s: str):
+    @nome_submercado_para.setter
+    def nome_submercado_para(self, s: str):
         self.data[4] = s
 
     @property
@@ -5157,7 +5157,7 @@ class FC(Register):
         self.data[2][2] = n
 
     @property
-    def codigo_demanda(self) -> Optional[int]:
+    def codigo_demanda_especial(self) -> Optional[int]:
         """
         O código da demanda especial.
 
@@ -5166,8 +5166,8 @@ class FC(Register):
         """
         return self.data[3]
 
-    @codigo_demanda.setter
-    def codigo_demanda(self, c: int):
+    @codigo_demanda_especial.setter
+    def codigo_demanda_especial(self, c: int):
         self.data[3] = c
 
     @property

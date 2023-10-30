@@ -39,8 +39,8 @@ def test_tabela_avl_altqueda():
         assert log.tabela.at[0, "estagio"] == 1
         assert log.tabela.at[0, "iteracao"] == 1
         assert log.tabela.at[0, "ides"] == "S"
-        assert log.tabela.at[0, "patamar"] == "LEVE"
-        assert log.tabela.at[0, "indice_usina"] == 1
+        assert log.tabela.at[0, "nome_patamar"] == "LEVE"
+        assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert log.tabela.at[0, "altura_montante"] == 911.78
         assert log.tabela.at[0, "altura_jusante"] == 886.10

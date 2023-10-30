@@ -24,7 +24,7 @@ class TabelaPdoInter(TabelaCSV):
     )
     COLUMN_NAMES = [
         "estagio",
-        "patamar",
+        "nome_patamar",
         "indice_intercambio",
         "nome_submercado_de",
         "nome_submercado_para",

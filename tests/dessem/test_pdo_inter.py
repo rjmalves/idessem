@@ -37,7 +37,7 @@ def test_tabela_pdo_inter():
     with patch("builtins.open", m):
         pdo = PdoInter.read(ARQ_TESTE)
         assert pdo.tabela.at[1, "estagio"] == 1
-        assert pdo.tabela.at[1, "patamar"] == "LEVE"
+        assert pdo.tabela.at[1, "nome_patamar"] == "LEVE"
         assert pdo.tabela.at[1, "indice_intercambio"] == 1
         assert pdo.tabela.at[1, "nome_submercado_de"] == "S"
         assert pdo.tabela.at[1, "nome_submercado_para"] == "IV"

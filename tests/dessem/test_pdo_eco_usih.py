@@ -40,12 +40,12 @@ def test_tabela_pdo_eco_usih():
     with patch("builtins.open", m):
         pdo = PdoEcoUsih.read(ARQ_TESTE)
 
-        assert pdo.tabela.at[0, "indice_usina"] == 1
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
-        assert pdo.tabela.at[0, "submercado"] == "SE"
-        assert pdo.tabela.at[0, "indice_usina_jusante"] == 2
-        assert pd.isna(pdo.tabela.at[0, "indice_usina_desvio"])
-        assert pdo.tabela.at[0, "indice_usina_jusante_earm"] == 2
+        assert pdo.tabela.at[0, "nome_submercado"] == "SE"
+        assert pdo.tabela.at[0, "codigo_usina_jusante"] == 2
+        assert pd.isna(pdo.tabela.at[0, "codigo_usina_desvio"])
+        assert pdo.tabela.at[0, "codigo_usina_jusante_earm"] == 2
         assert pdo.tabela.at[0, "estagio_inicial"] == 1
         assert pd.isna(pdo.tabela.at[0, "volume_morto_inicial_hm3"])
         assert pd.isna(pdo.tabela.at[0, "volume_morto_inicial_percentual"])
@@ -122,12 +122,12 @@ def test_tabela_pdo_eco_usih_190301():
         PdoEcoUsih.set_version("19.3.1")
         pdo = PdoEcoUsih.read(ARQ_TESTE)
 
-        assert pdo.tabela.at[0, "indice_usina"] == 1
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
-        assert pdo.tabela.at[0, "submercado"] == "SE"
-        assert pdo.tabela.at[0, "indice_usina_jusante"] == 2
-        assert pd.isna(pdo.tabela.at[0, "indice_usina_desvio"])
-        assert pdo.tabela.at[0, "indice_usina_jusante_earm"] == 2
+        assert pdo.tabela.at[0, "nome_submercado"] == "SE"
+        assert pdo.tabela.at[0, "codigo_usina_jusante"] == 2
+        assert pd.isna(pdo.tabela.at[0, "codigo_usina_desvio"])
+        assert pdo.tabela.at[0, "codigo_usina_jusante_earm"] == 2
         assert pdo.tabela.at[0, "estagio_inicial"] == 1
         assert pd.isna(pdo.tabela.at[0, "volume_morto_inicial_hm3"])
         assert pd.isna(pdo.tabela.at[0, "volume_morto_inicial_percentual"])

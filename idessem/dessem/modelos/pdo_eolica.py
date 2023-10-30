@@ -30,7 +30,7 @@ class TabelaPdoEolica(TabelaCSV):
         "codigo_usina",
         "nome_usina",
         "barra",
-        "submercado",
+        "nome_submercado",
         "potencia",
         "fator_de_capacidade",
         "geracao_pre_definida",

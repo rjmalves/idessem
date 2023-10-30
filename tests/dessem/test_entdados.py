@@ -223,9 +223,9 @@ def test_registro_tm_entdados():
     assert r.consideracao_rede_eletrica == 1
     r.consideracao_rede_eletrica = -1
     assert r.consideracao_rede_eletrica == -1
-    assert r.patamar_de_carga == "LEVE"
-    r.patamar_de_carga = "XX"
-    assert r.patamar_de_carga == "XX"
+    assert r.nome_patamar == "LEVE"
+    r.nome_patamar = "XX"
+    assert r.nome_patamar == "XX"
 
 
 def test_registro_sist_entdados():
@@ -242,18 +242,18 @@ def test_registro_sist_entdados():
         "SUDESTE",
     ]
 
-    assert r.codigo == 1
-    r.codigo = 0
-    assert r.codigo == 0
-    assert r.mnemonico == "SE"
-    r.mnemonico = "XX"
-    assert r.mnemonico == "XX"
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = 0
+    assert r.codigo_submercado == 0
+    assert r.mnemonico_submercado == "SE"
+    r.mnemonico_submercado = "XX"
+    assert r.mnemonico_submercado == "XX"
     assert r.ficticio == 0
     r.ficticio = -1
     assert r.ficticio == -1
-    assert r.nome == "SUDESTE"
-    r.nome = "XX"
-    assert r.nome == "XX"
+    assert r.nome_submercado == "SUDESTE"
+    r.nome_submercado = "XX"
+    assert r.nome_submercado == "XX"
 
 
 def test_registro_ree_entdados():
@@ -269,15 +269,15 @@ def test_registro_ree_entdados():
         "SUDESTE",
     ]
 
-    assert r.codigo == 1
-    r.codigo = 0
-    assert r.codigo == 0
-    assert r.submercado == 1
-    r.submercado = -1
-    assert r.submercado == -1
-    assert r.nome == "SUDESTE"
-    r.nome = "XX"
-    assert r.nome == "XX"
+    assert r.codigo_ree == 1
+    r.codigo_ree = 0
+    assert r.codigo_ree == 0
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = -1
+    assert r.codigo_submercado == -1
+    assert r.nome_ree == "SUDESTE"
+    r.nome_ree = "XX"
+    assert r.nome_ree == "XX"
 
 
 def test_registro_uh_entdados_literal():
@@ -298,15 +298,15 @@ def test_registro_uh_entdados_literal():
         None,
         None,
     ]
-    assert r.codigo == 34
-    r.codigo = 0
-    assert r.codigo == 0
-    assert r.nome == "I. SOLTEIRA"
-    r.nome = "ILHA"
-    assert r.nome == "ILHA"
-    assert r.ree == 10
-    r.ree = 0
-    assert r.ree == 0
+    assert r.codigo_usina == 34
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.nome_usina == "I. SOLTEIRA"
+    r.nome_usina = "ILHA"
+    assert r.nome_usina == "ILHA"
+    assert r.codigo_ree == 10
+    r.codigo_ree = 0
+    assert r.codigo_ree == 0
     assert r.volume_inicial == 80.77
     r.volume_inicial = 0
     assert r.volume_inicial == 0
@@ -352,15 +352,15 @@ def test_registro_uh_entdados_inteiro():
         1,
     ]
 
-    assert r.codigo == 34
-    r.codigo = 0
-    assert r.codigo == 0
-    assert r.nome == "I. SOLTEIRA"
-    r.nome = "ILHA"
-    assert r.nome == "ILHA"
-    assert r.ree == 10
-    r.ree = 0
-    assert r.ree == 0
+    assert r.codigo_usina == 34
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.nome_usina == "I. SOLTEIRA"
+    r.nome_usina = "ILHA"
+    assert r.nome_usina == "ILHA"
+    assert r.codigo_ree == 10
+    r.codigo_ree = 0
+    assert r.codigo_ree == 0
     assert r.volume_inicial == 80.77
     r.volume_inicial = 0
     assert r.volume_inicial == 0
@@ -402,12 +402,12 @@ def test_registro_tviag_entdados():
         2,
     ]
 
-    assert r.uhe_montante == 66
-    r.uhe_montante = -1
-    assert r.uhe_montante == -1
-    assert r.elemento_jusante == 1
-    r.elemento_jusante = -1
-    assert r.elemento_jusante == -1
+    assert r.codigo_usina_montante == 66
+    r.codigo_usina_montante = -1
+    assert r.codigo_usina_montante == -1
+    assert r.codigo_elemento_jusante == 1
+    r.codigo_elemento_jusante = -1
+    assert r.codigo_elemento_jusante == -1
     assert r.tipo_elemento_jusante == "S"
     r.tipo_elemento_jusante = "X"
     assert r.tipo_elemento_jusante == "X"
@@ -437,15 +437,15 @@ def test_registro_ut_entdados_literal():
         582.0,
         582.0,
     ]
-    assert r.codigo == 1
-    r.codigo = 0
-    assert r.codigo == 0
-    assert r.nome == "ANGRA 1"
-    r.nome = "ILHA"
-    assert r.nome == "ILHA"
-    assert r.submercado == 1
-    r.submercado = 0
-    assert r.submercado == 0
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.nome_usina == "ANGRA 1"
+    r.nome_usina = "ILHA"
+    assert r.nome_usina == "ILHA"
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = 0
+    assert r.codigo_submercado == 0
     assert r.tipo_restricao == 2
     r.tipo_restricao = 0
     assert r.tipo_restricao == 0
@@ -496,15 +496,15 @@ def test_registro_ut_entdados_inteiro():
         582.0,
         582.0,
     ]
-    assert r.codigo == 1
-    r.codigo = 0
-    assert r.codigo == 0
-    assert r.nome == "ANGRA 1"
-    r.nome = "ILHA"
-    assert r.nome == "ILHA"
-    assert r.submercado == 1
-    r.submercado = 0
-    assert r.submercado == 0
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.nome_usina == "ANGRA 1"
+    r.nome_usina = "ILHA"
+    assert r.nome_usina == "ILHA"
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = 0
+    assert r.codigo_submercado == 0
     assert r.tipo_restricao == 2
     r.tipo_restricao = 0
     assert r.tipo_restricao == 0
@@ -555,21 +555,21 @@ def test_registro_usie_entdados():
         0.20,
     ]
 
-    assert r.codigo == 1
-    r.codigo = -1
-    assert r.codigo == -1
-    assert r.submercado == 1
-    r.submercado = -1
-    assert r.submercado == -1
-    assert r.nome == "Sta Cecilia"
-    r.nome = "XX"
-    assert r.nome == "XX"
-    assert r.uhe_montante == 181
-    r.uhe_montante = -1
-    assert r.uhe_montante == -1
-    assert r.uhe_jusante == 125
-    r.uhe_jusante = -1
-    assert r.uhe_jusante == -1
+    assert r.codigo_usina == 1
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = -1
+    assert r.codigo_submercado == -1
+    assert r.nome_usina == "Sta Cecilia"
+    r.nome_usina = "XX"
+    assert r.nome_usina == "XX"
+    assert r.codigo_usina_montante == 181
+    r.codigo_usina_montante = -1
+    assert r.codigo_usina_montante == -1
+    assert r.codigo_usina_jusante == 125
+    r.codigo_usina_jusante = -1
+    assert r.codigo_usina_jusante == -1
     assert r.vazao_minima_bombeavel == 0.00
     r.vazao_minima_bombeavel = -1
     assert r.vazao_minima_bombeavel == -1
@@ -594,9 +594,9 @@ def test_registro_dp_entdados_literal():
         ["F", None, None],
         36904,
     ]
-    assert r.submercado == 1
-    r.submercado = -1
-    assert r.submercado == -1
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = -1
+    assert r.codigo_submercado == -1
     assert r.dia_inicial == "I"
     r.dia_inicial = 0
     assert r.dia_inicial == 0
@@ -633,9 +633,9 @@ def test_registro_dp_entdados_inteiro():
         [12, 1, 1],
         36904,
     ]
-    assert r.submercado == 1
-    r.submercado = -1
-    assert r.submercado == -1
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = -1
+    assert r.codigo_submercado == -1
     assert r.dia_inicial == 11
     r.dia_inicial = -1
     assert r.dia_inicial == -1
@@ -667,9 +667,9 @@ def test_registro_de_entdados():
             r.read(fp)
 
     assert r.data == [1, [11, 0, 0], ["F", None, None], 1469, ""]
-    assert r.codigo == 1
-    r.codigo = -1
-    assert r.codigo == -1
+    assert r.codigo_demanda_especial == 1
+    r.codigo_demanda_especial = -1
+    assert r.codigo_demanda_especial == -1
     assert r.dia_inicial == 11
     r.dia_inicial = -1
     assert r.dia_inicial == -1
@@ -704,9 +704,9 @@ def test_registro_cd_entdados():
             r.read(fp)
 
     assert r.data == [1, 1, [6, 0, 0], ["F", None, None], 7643.82, 100]
-    assert r.submercado == 1
-    r.submercado = -1
-    assert r.submercado == -1
+    assert r.codigo_submercado == 1
+    r.codigo_submercado = -1
+    assert r.codigo_submercado == -1
     assert r.numero_curva == 1
     r.numero_curva = -1
     assert r.numero_curva == -1
@@ -744,12 +744,12 @@ def test_registro_pq_entdados():
             r.read(fp)
 
     assert r.data == [1, "SE-Eolica", 1, ["I", None, None], [24, 0, 0], 3]
-    assert r.codigo == 1
-    r.codigo = -1
-    assert r.codigo == -1
-    assert r.nome == "SE-Eolica"
-    r.nome = -1
-    assert r.nome == -1
+    assert r.codigo_usina == 1
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
+    assert r.nome_usina == "SE-Eolica"
+    r.nome_usina = -1
+    assert r.nome_usina == -1
     assert r.localizacao == 1
     r.localizacao = -1
     assert r.localizacao == -1
@@ -789,9 +789,9 @@ def test_registro_it_entdados():
         4.1770037e-12,
         -4.0930359e-17,
     ]
-    assert r.ree == 1
-    r.ree = -1
-    assert r.ree == -1
+    assert r.codigo_ree == 1
+    r.codigo_ree = -1
+    assert r.codigo_ree == -1
     assert r.coeficiente_a0 == 7.8120269e01
     r.coeficiente_a0 = 0
     assert r.coeficiente_a0 == 0
@@ -875,12 +875,12 @@ def test_registro_ia_entdados():
         99999,
         99999,
     ]
-    assert r.submercado_de == "IV"
-    r.submercado_de = -1
-    assert r.submercado_de == -1
-    assert r.submercado_para == "S"
-    r.submercado_para = -1
-    assert r.submercado_para == -1
+    assert r.nome_submercado_de == "IV"
+    r.nome_submercado_de = -1
+    assert r.nome_submercado_de == -1
+    assert r.nome_submercado_para == "S"
+    r.nome_submercado_para = -1
+    assert r.nome_submercado_para == -1
     assert r.dia_inicial == "I"
     r.dia_inicial = -1
     assert r.dia_inicial == -1
@@ -952,9 +952,9 @@ def test_registro_ve_entdados():
         [12, 0, 0],
         100.0,
     ]
-    assert r.codigo == 190
-    r.codigo = -1
-    assert r.codigo == -1
+    assert r.codigo_usina == 190
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
     assert r.dia_inicial == 11
     r.dia_inicial = -1
     assert r.dia_inicial == -1
@@ -986,9 +986,9 @@ def test_registro_fp_entdados():
             r.read(fp)
 
     assert r.data == [1, 1, 5, 3, None, None, 10, None]
-    assert r.codigo == 1
-    r.codigo = -1
-    assert r.codigo == -1
+    assert r.codigo_usina == 1
+    r.codigo_usina = -1
+    assert r.codigo_usina == -1
     assert r.tipo_tratamento_volume == 1
     r.tipo_tratamento_volume = 2
     assert r.tipo_tratamento_volume == 2
@@ -1033,12 +1033,12 @@ def test_registro_ez_entdados():
             r.read(fp)
 
     assert r.data == [251, 55.0]
-    assert r.uhe == 251
-    r.uhe = 0
-    assert r.uhe == 0
+    assert r.codigo_usina == 251
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
     assert r.volume == 55.0
-    r.uhe = 0
-    assert r.uhe == 0
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
 
 
 def test_registro_r11_entdados():
@@ -1328,9 +1328,9 @@ def test_registro_fh_entdados():
     assert r.codigo_usina == 155
     r.codigo_usina = -1
     assert r.codigo_usina == -1
-    assert r.conjunto is None
-    r.conjunto = -1
-    assert r.conjunto == -1
+    assert r.codigo_conjunto is None
+    r.codigo_conjunto = -1
+    assert r.codigo_conjunto == -1
     assert r.coeficiente == 1
     r.coeficiente = -1
     assert r.coeficiente == -1
@@ -1402,12 +1402,12 @@ def test_registro_fi_entdados():
     assert r.meia_hora_final is None
     r.meia_hora_final = 2
     assert r.meia_hora_final == 2
-    assert r.submercado_de == "FC"
-    r.submercado_de = -1
-    assert r.submercado_de == -1
-    assert r.submercado_para == "N"
-    r.submercado_para = -1
-    assert r.submercado_para == -1
+    assert r.nome_submercado_de == "FC"
+    r.nome_submercado_de = -1
+    assert r.nome_submercado_de == -1
+    assert r.nome_submercado_para == "N"
+    r.nome_submercado_para = -1
+    assert r.nome_submercado_para == -1
     assert r.coeficiente == 1
     r.coeficiente = -1
     assert r.coeficiente == -1
@@ -1516,9 +1516,9 @@ def test_registro_fc_entdados():
     assert r.meia_hora_final is None
     r.meia_hora_final = 2
     assert r.meia_hora_final == 2
-    assert r.codigo_demanda == 4
-    r.codigo_demanda = -1
-    assert r.codigo_demanda == -1
+    assert r.codigo_demanda_especial == 4
+    r.codigo_demanda_especial = -1
+    assert r.codigo_demanda_especial == -1
     assert r.coeficiente == -1
     r.coeficiente = 2
     assert r.coeficiente == 2
@@ -1634,9 +1634,9 @@ def test_registro_acvtfuga_entdados():
             r.read(fp)
 
     assert r.data == [103, 1]
-    assert r.uhe == 103
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 103
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.influi == 1
     r.influi = 0
     assert r.influi == 0
@@ -1650,9 +1650,9 @@ def test_registro_acvolmax_entdados():
             r.read(fp)
 
     assert r.data == [38, 544.2]
-    assert r.uhe == 38
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 38
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.volume == 544.2
     r.volume = 0
     assert r.volume == 0
@@ -1666,9 +1666,9 @@ def test_registro_acvolmin_entdados():
             r.read(fp)
 
     assert r.data == [34, 15563]
-    assert r.uhe == 34
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 34
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.volume == 15563
     r.volume = 0
     assert r.volume == 0
@@ -1682,9 +1682,9 @@ def test_registro_acvsvert_entdados():
             r.read(fp)
 
     assert r.data == [124, 200]
-    assert r.uhe == 124
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 124
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.volume == 200.0
     r.volume = 0
     assert r.volume == 0
@@ -1698,9 +1698,9 @@ def test_registro_acvmdesv_entdados():
             r.read(fp)
 
     assert r.data == [124, 102]
-    assert r.uhe == 124
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 124
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.volume == 102.0
     r.volume = 0
     assert r.volume == 0
@@ -1714,9 +1714,9 @@ def test_registro_accotvaz_entdados():
             r.read(fp)
 
     assert r.data == [288, 1, -8.635887e-19, None]
-    assert r.uhe == 288
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 288
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.ordem == 1
     r.ordem = 0
     assert r.ordem == 0
@@ -1736,9 +1736,9 @@ def test_registro_accotvol_entdados():
             r.read(fp)
 
     assert r.data == [252, 2, -6.59226600e-06]
-    assert r.uhe == 252
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 252
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.ordem == 2
     r.ordem = 0
     assert r.ordem == 0
@@ -1755,9 +1755,9 @@ def test_registro_accottar_entdados():
             r.read(fp)
 
     assert r.data == [252, 2, -6.59226600e-06]
-    assert r.uhe == 252
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 252
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.ordem == 2
     r.ordem = 0
     assert r.ordem == 0
@@ -1774,9 +1774,9 @@ def test_registro_acnumcon_entdados():
             r.read(fp)
 
     assert r.data == [88, 1]
-    assert r.uhe == 88
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 88
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.numero_conjuntos == 1
     r.numero_conjuntos = 0
     assert r.numero_conjuntos == 0
@@ -1790,9 +1790,9 @@ def test_registro_acnumjus_entdados():
             r.read(fp)
 
     assert r.data == [34, 45]
-    assert r.uhe == 34
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 34
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.jusante == 45
     r.jusante = 0
     assert r.jusante == 0
@@ -1806,12 +1806,12 @@ def test_registro_acnumpos_entdados():
             r.read(fp)
 
     assert r.data == [305, 300]
-    assert r.uhe == 305
-    r.uhe = 40
-    assert r.uhe == 40
-    assert r.posto == 300
-    r.posto = 0
-    assert r.posto == 0
+    assert r.codigo_usina == 305
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
+    assert r.codigo_posto == 300
+    r.codigo_posto = 0
+    assert r.codigo_posto == 0
 
 
 def test_registro_acjusena_entdados():
@@ -1822,9 +1822,9 @@ def test_registro_acjusena_entdados():
             r.read(fp)
 
     assert r.data == [125, 131]
-    assert r.uhe == 125
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 125
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.aproveitamento == 131
     r.aproveitamento = 0
     assert r.aproveitamento == 0
@@ -1838,9 +1838,9 @@ def test_registro_acjusmed_entdados():
             r.read(fp)
 
     assert r.data == [275, 4.90]
-    assert r.uhe == 275
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 275
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.cota == 4.9
     r.cota = 0
     assert r.cota == 0
@@ -1854,9 +1854,9 @@ def test_registro_accofeva_entdados():
             r.read(fp)
 
     assert r.data == [95, 10, 0]
-    assert r.uhe == 95
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 95
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.mes_coeficiente == 10
     r.mes_coeficiente = 0
     assert r.mes_coeficiente == 0
@@ -1873,15 +1873,15 @@ def test_registro_acnummaq_entdados():
             r.read(fp)
 
     assert r.data == [272, 1, 2]
-    assert r.uhe == 272
-    r.uhe = 40
-    assert r.uhe == 40
-    assert r.conjunto == 1
-    r.conjunto = 0
-    assert r.conjunto == 0
-    assert r.maquinas == 2
-    r.maquinas = -1
-    assert r.maquinas == -1
+    assert r.codigo_usina == 272
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
+    assert r.codigo_conjunto == 1
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.numero_maquinas == 2
+    r.numero_maquinas = -1
+    assert r.numero_maquinas == -1
 
 
 def test_registro_acdesvio_entdados():
@@ -1892,9 +1892,9 @@ def test_registro_acdesvio_entdados():
             r.read(fp)
 
     assert r.data == [314, 288, 9999999.0]
-    assert r.uhe == 314
-    r.uhe = 40
-    assert r.uhe == 40
+    assert r.codigo_usina == 314
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
     assert r.jusante == 288
     r.jusante = 0
     assert r.jusante == 0
@@ -1911,12 +1911,12 @@ def test_registro_acpotefe_entdados():
             r.read(fp)
 
     assert r.data == [272, 1, 10.0]
-    assert r.uhe == 272
-    r.uhe = 40
-    assert r.uhe == 40
-    assert r.conjunto == 1
-    r.conjunto = 0
-    assert r.conjunto == 0
+    assert r.codigo_usina == 272
+    r.codigo_usina = 40
+    assert r.codigo_usina == 40
+    assert r.codigo_conjunto == 1
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
     assert r.potencia == 10
     r.potencia = -1
     assert r.potencia == -1

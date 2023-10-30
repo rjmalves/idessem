@@ -37,10 +37,10 @@ class PdoHidr(ArquivoCSV):
         Obtém a tabela com informações referente a operação das unidades hidráulicas.
 
         - estagio (`int`)
-        - patamar (`str`)
-        - indice_usina (`int`)
+        - nome_patamar (`str`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
-        - submercado (`str`)
+        - nome_submercado (`str`)
         - conjunto (`int`)
         - unidade (`int`)
         - valor_agua (`float`)
@@ -71,7 +71,7 @@ class PdoHidr(ArquivoCSV):
         - geracao (`float`)
         - geracao_maxima (`float`)
         - capacidade (`float`)
-        - ld (`str`)
+        - status (`str`)
         - perdas_hidraulicas (`float`)
         - altura_queda (`float`)
 

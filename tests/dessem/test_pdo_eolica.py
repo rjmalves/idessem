@@ -40,7 +40,7 @@ def test_tabela_pdo_eolica():
         assert pdo.tabela.at[1, "codigo_usina"] == 2
         assert pdo.tabela.at[1, "nome_usina"] == "A3BRAC_BRACO"
         assert pdo.tabela.at[1, "barra"] == 274
-        assert pdo.tabela.at[1, "submercado"] == "SE"
+        assert pdo.tabela.at[1, "nome_submercado"] == "SE"
         assert pdo.tabela.at[1, "potencia"] == 9999.00
         assert pdo.tabela.at[1, "fator_de_capacidade"] == 1
         assert pdo.tabela.at[1, "geracao_pre_definida"] == 4

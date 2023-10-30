@@ -44,7 +44,7 @@ class AvlDesvFpha(ArquivoCSV):
         Obtém a tabela com informações referente aos desvios da função de produção.
 
         - estagio (`int`)
-        - indice_usina (`int`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
         - volume_medio_hm3 (`float`)
         - volume_medio_percentual (`float`)

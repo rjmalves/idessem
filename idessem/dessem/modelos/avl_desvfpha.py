@@ -45,7 +45,7 @@ class TabelaAvlDesvFpha(TabelaCSV):
     )
     COLUMN_NAMES = [
         "estagio",
-        "indice_usina",
+        "codigo_usina",
         "nome_usina",
         "volume_medio_hm3",
         "volume_medio_percentual",
@@ -111,7 +111,7 @@ class TabelaAvlDesvFpha190300(TabelaCSV):
     )
     COLUMN_NAMES = [
         "estagio",
-        "indice_usina",
+        "codigo_usina",
         "nome_usina",
         "volume_medio_hm3",
         "volume_medio_percentual",

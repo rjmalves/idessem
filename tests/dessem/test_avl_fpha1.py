@@ -36,7 +36,7 @@ def test_tabela_avl_fpha1():
     m: MagicMock = mock_open(read_data="".join(MockAvlFpha1))
     with patch("builtins.open", m):
         log = AvlFpha1.read(ARQ_TESTE)
-        assert log.tabela.at[0, "indice_usina"] == 1
+        assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert log.tabela.at[0, "segmento_fpha"] == 1
         assert log.tabela.at[0, "fator_correcao"] == 1.0
@@ -95,7 +95,7 @@ def test_tabela_avl_fpha1_v190300():
     with patch("builtins.open", m):
         AvlFpha1.set_version("19.3")
         log = AvlFpha1.read(ARQ_TESTE)
-        assert log.tabela.at[0, "indice_usina"] == 1
+        assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert log.tabela.at[0, "segmento_fpha"] == 1
         assert log.tabela.at[0, "fator_correcao"] == 1.0

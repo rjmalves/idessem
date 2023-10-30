@@ -40,7 +40,7 @@ class PdoEolica(ArquivoCSV):
         - codigo_usina (`int`)
         - nome_usina (`str`)
         - barra (`int`)
-        - submercado (`str`)
+        - nome_submercado (`str`)
         - potencia (`float`)
         - fator_de_capacidade (`float`)
         - geracao_pre_definida (`float`)

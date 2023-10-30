@@ -40,7 +40,7 @@ def test_tabela_avl_desvfpha():
     with patch("builtins.open", m):
         log = AvlDesvFpha.read(ARQ_TESTE)
         assert log.tabela.at[0, "estagio"] == 1
-        assert log.tabela.at[0, "indice_usina"] == 1
+        assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert log.tabela.at[0, "volume_medio_hm3"] == 766.94
         assert log.tabela.at[0, "volume_medio_percentual"] == 96.27
@@ -116,7 +116,7 @@ def test_tabela_avl_desvfpha_190300():
         AvlDesvFpha.set_version("19.3")
         log = AvlDesvFpha.read(ARQ_TESTE)
         assert log.tabela.at[0, "estagio"] == 1
-        assert log.tabela.at[0, "indice_usina"] == 1
+        assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
         assert log.tabela.at[0, "volume_medio_hm3"] == 700.64
         assert log.tabela.at[0, "volume_medio_percentual"] == 86.40

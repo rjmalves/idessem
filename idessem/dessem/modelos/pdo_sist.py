@@ -38,8 +38,8 @@ class TabelaPdoSist(TabelaCSV):
     )
     COLUMN_NAMES = [
         "estagio",
-        "patamar",
-        "submercado",
+        "nome_patamar",
+        "nome_submercado",
         "cmo",
         "demanda",
         "perdas",
