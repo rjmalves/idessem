@@ -37,11 +37,11 @@ def test_tabela_pdo_term():
     with patch("builtins.open", m):
         pdo = PdoTerm.read(ARQ_TESTE)
         assert pdo.tabela.at[0, "estagio"] == 1
-        assert pdo.tabela.at[0, "patamar"] == "LEVE"
-        assert pdo.tabela.at[0, "indice_usina"] == 1
+        assert pdo.tabela.at[0, "nome_patamar"] == "LEVE"
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "ANGRA 1"
-        assert pdo.tabela.at[0, "unidade"] == 1
-        assert pdo.tabela.at[0, "submercado"] == "SE"
+        assert pdo.tabela.at[0, "codigo_unidade"] == 1
+        assert pdo.tabela.at[0, "nome_submercado"] == "SE"
         assert pdo.tabela.at[0, "geracao"] == 582.00
         assert pdo.tabela.at[0, "geracao_minima"] == 0.00
         assert pdo.tabela.at[0, "geracao_maxima"] == 640.00

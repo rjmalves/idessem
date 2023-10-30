@@ -30,11 +30,11 @@ class TabelaPdoTerm(TabelaCSV):
     )
     COLUMN_NAMES = [
         "estagio",
-        "patamar",
-        "indice_usina",
+        "nome_patamar",
+        "codigo_usina",
         "nome_usina",
-        "unidade",
-        "submercado",
+        "codigo_unidade",
+        "nome_submercado",
         "geracao",
         "geracao_minima",
         "geracao_maxima",

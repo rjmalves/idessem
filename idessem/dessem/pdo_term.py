@@ -37,11 +37,11 @@ class PdoTerm(ArquivoCSV):
         Obtém a tabela com informações referente a operação das unidades térmicas.
 
         - estagio (`int`)
-        - patamar (`str`)
-        - indice_usina (`int`)
+        - nome_patamar (`str`)
+        - codigo_usina (`int`)
         - nome_usina (`str`)
-        - unidade (`int`)
-        - submercado (`str`)
+        - codigo_unidade (`int`)
+        - nome_submercado (`str`)
         - geracao (`float`)
         - geracao_minima (`float`)
         - geracao_maxima (`float`)
