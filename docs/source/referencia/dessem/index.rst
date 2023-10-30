@@ -24,6 +24,7 @@ DESSEM
    arquivos/pdo_inter
    arquivos/pdo_oper_uct
    arquivos/pdo_sist
+   arquivos/pdo_term
    arquivos/polinjus
    arquivos/renovaveis  
    arquivos/uch 
