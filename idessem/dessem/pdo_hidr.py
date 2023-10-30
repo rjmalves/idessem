@@ -71,7 +71,7 @@ class PdoHidr(ArquivoCSV):
         - geracao (`float`)
         - geracao_maxima (`float`)
         - capacidade (`float`)
-        - ld (`str`)
+        - status (`str`)
         - perdas_hidraulicas (`float`)
         - altura_queda (`float`)
 

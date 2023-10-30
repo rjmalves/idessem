@@ -90,7 +90,7 @@ class TabelaPdoHidr(TabelaCSV):
         "geracao",
         "geracao_maxima",
         "capacidade",
-        "ld",
+        "status",
         "perdas_hidraulicas",
         "altura_queda",
     ]

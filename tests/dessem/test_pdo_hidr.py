@@ -71,7 +71,7 @@ def test_tabela_pdo_hidr():
         assert log.tabela.at[2, "geracao"] == 36.14
         assert log.tabela.at[2, "geracao_maxima"] == 46.0
         assert log.tabela.at[2, "capacidade"] == 46.0
-        assert log.tabela.at[2, "ld"] == "-"
+        assert log.tabela.at[2, "status"] == "-"
         assert log.tabela.at[2, "perdas_hidraulicas"] == 0.0
         assert log.tabela.at[2, "altura_queda"] == 25.68
 
