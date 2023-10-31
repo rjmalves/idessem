@@ -5,14 +5,6 @@ from cfinterface.components.floatfield import FloatField
 
 from typing import Optional
 
-# Registros faltantes
-# UCH-CUSTO-PARTIDA-UNIDADE
-# UCH-CUSTO-PARTIDA-CONJUNTO
-# UCH-CUSTO-PARTIDA-USINA
-# UCH-CUSTO-PARTIDA-VAZIO-UNIDADE
-# UCH-CUSTO-PARTIDA-VAZIO-CONJUNTO
-# UCH-CUSTO-PARTIDA-VAZIO-USINA
-
 
 class UchOpcaoPadrao(Register):
     """ """
@@ -586,8 +578,8 @@ class UchGminGmaxUnidade(Register):
             IntegerField(),
             IntegerField(),
             IntegerField(),
-            FloatField(decimal_digits=2),
-            FloatField(decimal_digits=2),
+            FloatField(decimal_digits=3),
+            FloatField(decimal_digits=3),
         ],
         delimiter=";",
     )
@@ -1211,4 +1203,348 @@ class UchLimiteMudancaStatusVazioUsina(Register):
 
     @limite_maximo_mudancas.setter
     def limite_maximo_mudancas(self, c: int):
+        self.data[1] = c
+
+
+class UchCustoPartidaUnidade(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CUSTO-PARTIDA-UNIDADE"
+    IDENTIFIER_DIGITS = 25
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def codigo_unidade(self) -> Optional[int]:
+        """
+        O código da unidade geradora do conjunto da usina
+        hidrelétrica.
+
+        :return: O código da unidade
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_unidade.setter
+    def codigo_unidade(self, c: int):
+        self.data[2] = c
+
+    @property
+    def custo_partida(self) -> Optional[float]:
+        """
+        O custo de partida para acionamento (R$).
+
+        :return: O custo
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @custo_partida.setter
+    def custo_partida(self, c: float):
+        self.data[3] = c
+
+
+class UchCustoPartidaConjunto(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CUSTO-PARTIDA-CONJUNTO"
+    IDENTIFIER_DIGITS = 26
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def custo_partida(self) -> Optional[float]:
+        """
+        O custo de partida para acionamento (R$).
+
+        :return: O custo
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @custo_partida.setter
+    def custo_partida(self, c: float):
+        self.data[2] = c
+
+
+class UchCustoPartidaUsina(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CUSTO-PARTIDA-USINA"
+    IDENTIFIER_DIGITS = 23
+    LINE = Line(
+        [
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def custo_partida(self) -> Optional[float]:
+        """
+        O custo de partida para acionamento (R$).
+
+        :return: O custo
+        :rtype: float | None
+        """
+        return self.data[1]
+
+    @custo_partida.setter
+    def custo_partida(self, c: float):
+        self.data[1] = c
+
+
+class UchCustoPartidaVazioUnidade(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE"
+    IDENTIFIER_DIGITS = 31
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def codigo_unidade(self) -> Optional[int]:
+        """
+        O código da unidade geradora do conjunto da usina
+        hidrelétrica.
+
+        :return: O código da unidade
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @codigo_unidade.setter
+    def codigo_unidade(self, c: int):
+        self.data[2] = c
+
+    @property
+    def custo_partida(self) -> Optional[float]:
+        """
+        O custo de partida (transição) de desligado para vazio (R$).
+
+        :return: O custo
+        :rtype: float | None
+        """
+        return self.data[3]
+
+    @custo_partida.setter
+    def custo_partida(self, c: float):
+        self.data[3] = c
+
+
+class UchCustoPartidaVazioConjunto(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CUSTO-PARTIDA-VAZIO-CONJUNTO"
+    IDENTIFIER_DIGITS = 32
+    LINE = Line(
+        [
+            IntegerField(),
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def codigo_conjunto(self) -> Optional[int]:
+        """
+        O código do conjunto da usina hidrelétrica.
+
+        :return: O código do conjunto
+        :rtype: int | None
+        """
+        return self.data[1]
+
+    @codigo_conjunto.setter
+    def codigo_conjunto(self, c: int):
+        self.data[1] = c
+
+    @property
+    def custo_partida(self) -> Optional[float]:
+        """
+        O custo de partida (transição) de desligado para vazio (R$).
+
+        :return: O custo
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @custo_partida.setter
+    def custo_partida(self, c: float):
+        self.data[2] = c
+
+
+class UchCustoPartidaVazioUsina(Register):
+    """ """
+
+    IDENTIFIER = "UCH-CUSTO-PARTIDA-VAZIO-USINA"
+    IDENTIFIER_DIGITS = 29
+    LINE = Line(
+        [
+            IntegerField(),
+            FloatField(decimal_digits=2),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int):
+        self.data[0] = c
+
+    @property
+    def custo_partida(self) -> Optional[float]:
+        """
+        O custo de partida (transição) de desligado para vazio (R$).
+
+        :return: O custo
+        :rtype: float | None
+        """
+        return self.data[1]
+
+    @custo_partida.setter
+    def custo_partida(self, c: float):
         self.data[1] = c
