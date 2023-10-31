@@ -6,12 +6,27 @@ from idessem.dessem.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
     UchOpcaoPadraoData,
+    UchOpcaoUnidadeVazioPadrao,
+    UchOpcaoConjuntoVazioPadrao,
+    UchOpcaoUsinaVazioPadrao,
     UchTonToffUnidade,
     UchTonToffConjunto,
     UchTonToffUsina,
     UchGminGmaxUnidade,
     UchQturminQturmaxUnidade,
     UchCondicaoInicialUnidade,
+    UchConsumoAguaVazioUnidade,
+    UchConsumoAguaVazioConjunto,
+    UchConsumoAguaVazioUsina,
+    UchLimiteMudancaStatusVazioUnidade,
+    UchLimiteMudancaStatusVazioConjunto,
+    UchLimiteMudancaStatusVazioUsina,
+    UchCustoPartidaVazioUnidade,
+    UchCustoPartidaVazioConjunto,
+    UchCustoPartidaVazioUsina,
+    UchCustoPartidaUnidade,
+    UchCustoPartidaConjunto,
+    UchCustoPartidaUsina,
 )
 
 # Para compatibilidade - até versão 1.0.0
@@ -25,6 +40,18 @@ class Uch(RegisterFile):
     T = TypeVar("T")
 
     REGISTERS = [
+        UchCustoPartidaVazioUnidade,
+        UchCustoPartidaVazioConjunto,
+        UchCustoPartidaVazioUsina,
+        UchCustoPartidaUnidade,
+        UchCustoPartidaConjunto,
+        UchCustoPartidaUsina,
+        UchLimiteMudancaStatusVazioUnidade,
+        UchLimiteMudancaStatusVazioConjunto,
+        UchLimiteMudancaStatusVazioUsina,
+        UchConsumoAguaVazioUnidade,
+        UchConsumoAguaVazioConjunto,
+        UchConsumoAguaVazioUsina,
         UchCondicaoInicialUnidade,
         UchQturminQturmaxUnidade,
         UchGminGmaxUnidade,
@@ -33,6 +60,9 @@ class Uch(RegisterFile):
         UchTonToffUnidade,
         UchOpcaoPadraoData,
         UchOpcaoPadrao,
+        UchOpcaoUsinaVazioPadrao,
+        UchOpcaoConjuntoVazioPadrao,
+        UchOpcaoUnidadeVazioPadrao,
         UchOpcaoUsina,
     ]
 
@@ -184,6 +214,121 @@ class Uch(RegisterFile):
         """
 
         return self.__obtem_registro(UchOpcaoPadraoData)
+
+    def opcao_unidade_vazio_padrao(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        considera_operacao_vazio: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchOpcaoUnidadeVazioPadrao,
+            List[UchOpcaoUnidadeVazioPadrao],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam se a unidade geradora de um determinado
+        conjunto de uma usina hidrelétrica poderá operar em vazio. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param considera_operacao_vazio: flag se considera operação a vazio
+        :type considera_operacao_vazio: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchOpcaoUnidadeVazioPadrao` |
+            List[`UchOpcaoUnidadeVazioPadrao`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchOpcaoUnidadeVazioPadrao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchOpcaoUnidadeVazioPadrao,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                considera_operacao_vazio=considera_operacao_vazio,
+            )
+
+    def opcao_conjunto_vazio_padrao(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        considera_operacao_vazio: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchOpcaoConjuntoVazioPadrao,
+            List[UchOpcaoConjuntoVazioPadrao],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam se um conjunto de uma usina
+        hidrelétrica poderá operar em vazio. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`,
+        apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param considera_operacao_vazio: flag se considera operação a vazio
+        :type considera_operacao_vazio: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchOpcaoConjuntoVazioPadrao` |
+            List[`UchOpcaoConjuntoVazioPadrao`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchOpcaoConjuntoVazioPadrao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchOpcaoConjuntoVazioPadrao,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                considera_operacao_vazio=considera_operacao_vazio,
+            )
+
+    def opcao_usina_vazio_padrao(
+        self,
+        codigo_usina: Optional[int] = None,
+        considera_operacao_vazio: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchOpcaoUsinaVazioPadrao,
+            List[UchOpcaoUsinaVazioPadrao],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam se uma usina hidrelétrica
+        poderá operar em vazio. Opcionalmente, o retorno pode ser transformado
+        em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param considera_operacao_vazio: flag se considera operação a vazio
+        :type considera_operacao_vazio: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchOpcaoUsinaVazioPadrao` |
+            List[`UchOpcaoUsinaVazioPadrao`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchOpcaoUsinaVazioPadrao)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchOpcaoUsinaVazioPadrao,
+                codigo_usina=codigo_usina,
+                considera_operacao_vazio=considera_operacao_vazio,
+            )
 
     def ton_toff_unidade(
         self,
@@ -461,4 +606,473 @@ class Uch(RegisterFile):
                 tempo_permanencia_unidade=tempo_permanencia_unidade,
                 geracao_inicial_unidade=geracao_inicial_unidade,
                 turbinamento_inicial_unidade=turbinamento_inicial_unidade,
+            )
+
+    def consumo_agua_vazio_unidade(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        consumo_agua: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchConsumoAguaVazioUnidade,
+            List[UchConsumoAguaVazioUnidade],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o consumo de água incorrido de
+        forma contínua enquanto a unidade geradora de um determinado
+        conjunto de uma usina hidrelétrica está operando em vazio. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param consumo_agua: consumo de água
+        :type consumo_agua: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchConsumoAguaVazioUnidade` |
+            List[`UchConsumoAguaVazioUnidade`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchConsumoAguaVazioUnidade)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchConsumoAguaVazioUnidade,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                consumo_agua=consumo_agua,
+            )
+
+    def consumo_agua_vazio_conjunto(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        consumo_agua: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchConsumoAguaVazioConjunto,
+            List[UchConsumoAguaVazioConjunto],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o consumo de água incorrido de
+        forma contínua enquanto as unidades do conjunto de uma usina hidrelétrica
+        estão operando em vazio. Opcionalmente, o retorno pode ser transformado
+        em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param consumo_agua: consumo de água
+        :type consumo_agua: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchConsumoAguaVazioConjunto` |
+            List[`UchConsumoAguaVazioConjunto`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchConsumoAguaVazioConjunto)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchConsumoAguaVazioConjunto,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                consumo_agua=consumo_agua,
+            )
+
+    def consumo_agua_vazio_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        consumo_agua: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchConsumoAguaVazioUsina,
+            List[UchConsumoAguaVazioUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o consumo de água incorrido de
+        forma contínua enquanto a usina hidrelétrica
+        estão operando em vazio. Opcionalmente, o retorno pode ser transformado
+        em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param consumo_agua: consumo de água
+        :type consumo_agua: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchConsumoAguaVazioUsina` |
+            List[`UchConsumoAguaVazioUsina`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchConsumoAguaVazioUsina)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchConsumoAguaVazioUsina,
+                codigo_usina=codigo_usina,
+                consumo_agua=consumo_agua,
+            )
+
+    def limite_mudanca_status_vazio_unidade(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        limite_maximo_mudancas: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchLimiteMudancaStatusVazioUnidade,
+            List[UchLimiteMudancaStatusVazioUnidade],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o limite máximo de mudança de status
+        para operar em vazio para a unidade geradora de um determinado
+        conjunto de uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param limite_maximo_mudancas: limite máximo de mudança de status para operar vazio
+        :type limite_maximo_mudancas: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchLimiteMudancaStatusVazioUnidade` |
+            List[`UchLimiteMudancaStatusVazioUnidade`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchLimiteMudancaStatusVazioUnidade)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchLimiteMudancaStatusVazioUnidade,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                limite_maximo_mudancas=limite_maximo_mudancas,
+            )
+
+    def limite_mudanca_status_vazio_conjunto(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        limite_maximo_mudancas: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchLimiteMudancaStatusVazioConjunto,
+            List[UchLimiteMudancaStatusVazioConjunto],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o limite máximo de mudança de status
+        para operar em vazio por conjunto de uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param limite_maximo_mudancas: limite máximo de mudança de status para operar vazio
+        :type limite_maximo_mudancas: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchLimiteMudancaStatusVazioConjunto` |
+            List[`UchLimiteMudancaStatusVazioConjunto`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchLimiteMudancaStatusVazioConjunto)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchLimiteMudancaStatusVazioConjunto,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                limite_maximo_mudancas=limite_maximo_mudancas,
+            )
+
+    def limite_mudanca_status_vazio_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        limite_maximo_mudancas: Optional[int] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchLimiteMudancaStatusVazioUsina,
+            List[UchLimiteMudancaStatusVazioUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o limite máximo de mudança de status
+        para operar em vazio para uma usina hidrelétrica. Opcionalmente,
+        o retorno pode ser transformado em um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param limite_maximo_mudancas: limite máximo de mudança de status para operar vazio
+        :type limite_maximo_mudancas: int | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchLimiteMudancaStatusVazioUsina` |
+            List[`UchLimiteMudancaStatusVazioUsina`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchLimiteMudancaStatusVazioUsina)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchLimiteMudancaStatusVazioUsina,
+                codigo_usina=codigo_usina,
+                limite_maximo_mudancas=limite_maximo_mudancas,
+            )
+
+    def custo_partida_vazio_unidade(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        custo_partida: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchCustoPartidaVazioUnidade,
+            List[UchCustoPartidaVazioUnidade],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o custo de partida
+        para operar em vazio (transição de desligado para vazio)
+        para uma unidade geradora de um determinado conjunto de uma usina
+        hidrelétrica. Opcionalmente, o retorno pode ser transformado em
+        um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param custo_partida: custo de partida
+        :type custo_partida: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchCustoPartidaVazioUnidade` |
+            List[`UchCustoPartidaVazioUnidade`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchCustoPartidaVazioUnidade)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchCustoPartidaVazioUnidade,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                custo_partida=custo_partida,
+            )
+
+    def custo_partida_vazio_conjunto(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        custo_partida: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchCustoPartidaVazioConjunto,
+            List[UchCustoPartidaVazioConjunto],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o custo de partida
+        para operar em vazio (transição de desligado para vazio)
+        para as unidades geradoras de um determinado conjunto de uma usina
+        hidrelétrica. Opcionalmente, o retorno pode ser transformado em
+        um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param custo_partida: custo de partida
+        :type custo_partida: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchCustoPartidaVazioConjunto` |
+            List[`UchCustoPartidaVazioConjunto`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchCustoPartidaVazioConjunto)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchCustoPartidaVazioConjunto,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                custo_partida=custo_partida,
+            )
+
+    def custo_partida_vazio_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        custo_partida: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchCustoPartidaVazioUsina,
+            List[UchCustoPartidaVazioUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o custo de partida
+        para operar em vazio (transição de desligado para vazio)
+        para as unidades geradoras de uma usina
+        hidrelétrica. Opcionalmente, o retorno pode ser transformado em
+        um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param custo_partida: custo de partida
+        :type custo_partida: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchCustoPartidaVazioUsina` |
+            List[`UchCustoPartidaVazioUsina`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchCustoPartidaVazioUsina)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchCustoPartidaVazioUsina,
+                codigo_usina=codigo_usina,
+                custo_partida=custo_partida,
+            )
+
+    def custo_partida_unidade(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        codigo_unidade: Optional[int] = None,
+        custo_partida: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchCustoPartidaUnidade,
+            List[UchCustoPartidaUnidade],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o custo de partida
+        para acionamento de uma unidade geradora de um determinado conjunto de uma usina
+        hidrelétrica. Opcionalmente, o retorno pode ser transformado em
+        um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param codigo_unidade: código da unidade geradora do conjunto
+        :type codigo_unidade: int | None
+        :param custo_partida: custo de partida
+        :type custo_partida: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchCustoPartidaUnidade` |
+            List[`UchCustoPartidaUnidade`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchCustoPartidaUnidade)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchCustoPartidaUnidade,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                codigo_unidade=codigo_unidade,
+                custo_partida=custo_partida,
+            )
+
+    def custo_partida_conjunto(
+        self,
+        codigo_usina: Optional[int] = None,
+        codigo_conjunto: Optional[int] = None,
+        custo_partida: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchCustoPartidaConjunto,
+            List[UchCustoPartidaConjunto],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o custo de partida
+        para acionamento das unidades geradoras de um determinado conjunto de uma usina
+        hidrelétrica. Opcionalmente, o retorno pode ser transformado em
+        um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param codigo_conjunto: código do conjunto da usina
+        :type codigo_conjunto: int | None
+        :param custo_partida: custo de partida
+        :type custo_partida: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchCustoPartidaConjunto` |
+            List[`UchCustoPartidaConjunto`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchCustoPartidaConjunto)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchCustoPartidaConjunto,
+                codigo_usina=codigo_usina,
+                codigo_conjunto=codigo_conjunto,
+                custo_partida=custo_partida,
+            )
+
+    def custo_partida_usina(
+        self,
+        codigo_usina: Optional[int] = None,
+        custo_partida: Optional[float] = None,
+        df: bool = False,
+    ) -> Optional[
+        Union[
+            UchCustoPartidaUsina,
+            List[UchCustoPartidaUsina],
+            pd.DataFrame,
+        ]
+    ]:
+        """
+        Obtém registros que determinam o custo de partida
+        para acionamento das unidades geradoras de uma usina
+        hidrelétrica. Opcionalmente, o retorno pode ser transformado em
+        um `DataFrame`, apenas para leitura das informações.
+
+        :param codigo_usina: código que especifica a usina
+        :type codigo_usina: int | None
+        :param custo_partida: custo de partida
+        :type custo_partida: float | None
+        :return: Um ou mais registros, se existirem.
+        :rtype: `UchCustoPartidaUsina` |
+            List[`UchCustoPartidaUsina`] | `None` | `DataFrame`
+        """
+        if df:
+            return self._as_df(UchCustoPartidaUsina)
+        else:
+            return self.__obtem_registros_com_filtros(
+                UchCustoPartidaUsina,
+                codigo_usina=codigo_usina,
+                custo_partida=custo_partida,
             )

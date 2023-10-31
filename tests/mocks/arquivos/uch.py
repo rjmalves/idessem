@@ -72,6 +72,9 @@ MockUch = [
 MockUchOpcaoPadrao = "UCH-OPCAO-PADRAO;1;\n"
 MockUchOpcaoUsina = "UCH-OPCAO-USINA;2;1;\n"
 MockUchOpcaoPadraoData = "UCH-OPCAO-PADRAO-DATA;31;0;0;31;23;1;\n"
+MockUchOpcaoUsinaVazioPadrao = "UCH-OPCAO-USINA-VAZIO-PADRAO;1;1"
+MockUchOpcaoConjuntoVazioPadrao = "UCH-OPCAO-USINA-VAZIO-PADRAO;1;2;1"
+MockUchOpcaoUnidadeVazioPadrao = "UCH-OPCAO-USINA-VAZIO-PADRAO;1;2;2;1"
 MockUchTonToffUnidade = "UCH-TON-TOFF-UNIDADE;1;2;1;5;10;\n"
 MockUchTonToffConjunto = "UCH-TON-TOFF-CONJUNTO;2;1;5;10;\n"
 MockUchTonToffUsina = "UCH-TON-TOFF-USINA; 1; 5; 10;\n"
@@ -84,3 +87,23 @@ MockUchQturminQturmaxUnidade = (
 MockUchCondicaoInicialUnidade = (
     "UCH-CONDICAO-INICIAL-UNIDADE;  2;   3;  1;     0;    5;   0;      0;\n"
 )
+MockUchConsumoAguaVazioUnidade = "UCH-CONSUMO-AGUA-VAZIO-UNIDADE;1;2;2;10.0"
+MockUchConsumoAguaVazioConjunto = "UCH-CONSUMO-AGUA-VAZIO-CONJUNTO;1;2;10.0"
+MockUchConsumoAguaVazioUsina = "UCH-CONSUMO-AGUA-VAZIO-USINA;1;10.0"
+MockUchLimiteMudancaStatusVazioUnidade = (
+    "UCH-LIMITE-MUDANCA-STATUS-VAZIO-UNIDADE;1;2;2;5"
+)
+MockUchLimiteMudancaStatusVazioConjunto = (
+    "UCH-LIMITE-MUDANCA-STATUS-VAZIO-CONJUNTO;1;2;5"
+)
+MockUchLimiteMudancaStatusVazioUsina = (
+    "UCH-LIMITE-MUDANCA-STATUS-VAZIO-USINA;1;5"
+)
+MockUchCustoPartidaUnidade = "UCH-CUSTO-PARTIDA-UNIDADE;1;2;2;300.50"
+MockUchCustoPartidaConjunto = "UCH-CUSTO-PARTIDA-UNIDADE;1;2;300.50"
+MockUchCustoPartidaUsina = "UCH-CUSTO-PARTIDA-UNIDADE;1;300.50"
+MockUchCustoPartidaVazioUnidade = (
+    "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;2;2;100.50"
+)
+MockUchCustoPartidaVazioConjunto = "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;2;100.50"
+MockUchCustoPartidaVazioUsina = "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;100.50"

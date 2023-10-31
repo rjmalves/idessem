@@ -9,6 +9,21 @@ from idessem.dessem.modelos.uch import (
     UchGminGmaxUnidade,
     UchQturminQturmaxUnidade,
     UchCondicaoInicialUnidade,
+    UchOpcaoUnidadeVazioPadrao,
+    UchOpcaoConjuntoVazioPadrao,
+    UchOpcaoUsinaVazioPadrao,
+    UchConsumoAguaVazioUsina,
+    UchConsumoAguaVazioConjunto,
+    UchConsumoAguaVazioUnidade,
+    UchLimiteMudancaStatusVazioUsina,
+    UchLimiteMudancaStatusVazioConjunto,
+    UchLimiteMudancaStatusVazioUnidade,
+    UchCustoPartidaVazioUnidade,
+    UchCustoPartidaVazioConjunto,
+    UchCustoPartidaVazioUsina,
+    UchCustoPartidaUnidade,
+    UchCustoPartidaConjunto,
+    UchCustoPartidaUsina,
 )
 import pandas as pd  # type: ignore
 from tests.mocks.mock_open import mock_open
@@ -25,6 +40,21 @@ from tests.mocks.arquivos.uch import (
     MockUchGminGmaxUnidade,
     MockUchQturminQturmaxUnidade,
     MockUchCondicaoInicialUnidade,
+    MockUchOpcaoUnidadeVazioPadrao,
+    MockUchOpcaoConjuntoVazioPadrao,
+    MockUchOpcaoUsinaVazioPadrao,
+    MockUchConsumoAguaVazioConjunto,
+    MockUchConsumoAguaVazioUnidade,
+    MockUchConsumoAguaVazioUsina,
+    MockUchLimiteMudancaStatusVazioUnidade,
+    MockUchLimiteMudancaStatusVazioConjunto,
+    MockUchLimiteMudancaStatusVazioUsina,
+    MockUchCustoPartidaUnidade,
+    MockUchCustoPartidaConjunto,
+    MockUchCustoPartidaUsina,
+    MockUchCustoPartidaVazioUnidade,
+    MockUchCustoPartidaVazioConjunto,
+    MockUchCustoPartidaVazioUsina,
 )
 
 ARQ_TESTE = "./tests/__init__.py"
@@ -43,6 +73,21 @@ def test_atributos_encontrados_uch():
         assert uch.gmin_gmax_unidade() is not None
         assert uch.qturmin_qturmax_unidade() is None
         assert uch.condicao_inicial_unidade() is not None
+        assert uch.opcao_usina_vazio_padrao() is None
+        assert uch.opcao_conjunto_vazio_padrao() is None
+        assert uch.opcao_unidade_vazio_padrao() is None
+        assert uch.consumo_agua_vazio_unidade() is None
+        assert uch.consumo_agua_vazio_conjunto() is None
+        assert uch.consumo_agua_vazio_usina() is None
+        assert uch.limite_mudanca_status_vazio_unidade() is None
+        assert uch.limite_mudanca_status_vazio_conjunto() is None
+        assert uch.limite_mudanca_status_vazio_usina() is None
+        assert uch.custo_partida_vazio_unidade() is None
+        assert uch.custo_partida_vazio_conjunto() is None
+        assert uch.custo_partida_vazio_usina() is None
+        assert uch.custo_partida_unidade() is None
+        assert uch.custo_partida_conjunto() is None
+        assert uch.custo_partida_usina() is None
 
 
 def test_registro_uch_opcao_padrao():
@@ -291,82 +336,303 @@ def test_df_uch_condicao_inicial_unidade():
         assert df_uch.at[2, "turbinamento_inicial_unidade"] == 0
 
 
-# def test_df_polinjus_hidreletrica_curvajusante_polinomio():
-#     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
-#     with patch("builtins.open", m):
-#         polinjus = Polinjus.read(ARQ_TESTE)
-#         df_curvajusante_polinomio = (
-#             polinjus.hidreletrica_curvajusante_polinomio(df=True)
-#         )
-#         assert df_curvajusante_polinomio.at[2, "codigo_usina"] == 1
-#         assert df_curvajusante_polinomio.at[2, "indice_familia"] == 3
-#         assert df_curvajusante_polinomio.at[2, "numero_polinomios"] == 3
+def test_registro_uch_opcao_unidade_vazio_padrao():
+    m: MagicMock = mock_open(read_data="".join(MockUchOpcaoUnidadeVazioPadrao))
+    r = UchOpcaoUnidadeVazioPadrao()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 1]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.considera_operacao_vazio == 1
+    r.considera_operacao_vazio = 0
+    assert r.considera_operacao_vazio == 0
 
 
-# def test_df_polinjus_hidreletrica_curvajusante_polinomio_segmento():
-#     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
-#     with patch("builtins.open", m):
-#         polinjus = Polinjus.read(ARQ_TESTE)
-#         df_curvajusante_polinomio_segmento = (
-#             polinjus.hidreletrica_curvajusante_polinomio_segmento(df=True)
-#         )
-#         assert df_curvajusante_polinomio_segmento.at[2, "codigo_usina"] == 1
-#         assert df_curvajusante_polinomio_segmento.at[2, "indice_familia"] == 2
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[2, "indice_polinomio"] == 1
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[
-#                 2, "limite_inferior_vazao_jusante"
-#             ]
-#             == 0.0
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[
-#                 2, "limite_superior_vazao_jusante"
-#             ]
-#             == 123.055
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[2, "coeficiente_a0"] == 885.4
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[2, "coeficiente_a1"]
-#             == 0.002226482
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[2, "coeficiente_a2"]
-#             == 7.226778e-06
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[2, "coeficiente_a3"]
-#             == -4.675277e-07
-#         )
-#         assert (
-#             df_curvajusante_polinomio_segmento.at[2, "coeficiente_a4"]
-#             == 2.806664e-09
-#         )
+def test_registro_uch_opcao_conjunto_vazio_padrao():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchOpcaoConjuntoVazioPadrao)
+    )
+    r = UchOpcaoConjuntoVazioPadrao()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 1]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.considera_operacao_vazio == 1
+    r.considera_operacao_vazio = 0
+    assert r.considera_operacao_vazio == 0
 
 
-# def test_df_polinjus_hidreletrica_curvajusante_afogamentoexplicito_usina():
-#     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
-#     with patch("builtins.open", m):
-#         polinjus = Polinjus.read(ARQ_TESTE)
-#         df_curvajusante_afogamentoexplicito_usina = (
-#             polinjus.hidreletrica_curvajusante_afogamentoexplicito_usina(
-#                 df=True
-#             )
-#         )
-#         assert (
-#             df_curvajusante_afogamentoexplicito_usina.at[2, "codigo_usina"]
-#             == 54
-#         )
-#         assert (
-#             df_curvajusante_afogamentoexplicito_usina.at[
-#                 2, "considera_afogamento"
-#             ]
-#             == "nao"
-#         )
+def test_registro_uch_opcao_usina_vazio_padrao():
+    m: MagicMock = mock_open(read_data="".join(MockUchOpcaoUsinaVazioPadrao))
+    r = UchOpcaoUsinaVazioPadrao()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 1]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.considera_operacao_vazio == 1
+    r.considera_operacao_vazio = 0
+    assert r.considera_operacao_vazio == 0
+
+
+def test_registro_uch_consumo_agua_vazio_unidade():
+    m: MagicMock = mock_open(read_data="".join(MockUchConsumoAguaVazioUnidade))
+    r = UchConsumoAguaVazioUnidade()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 10.0]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.consumo_agua == 10
+    r.consumo_agua = 0
+    assert r.consumo_agua == 0
+
+
+def test_registro_uch_consumo_agua_vazio_conjunto():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchConsumoAguaVazioConjunto)
+    )
+    r = UchConsumoAguaVazioConjunto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 10.0]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.consumo_agua == 10
+    r.consumo_agua = 0
+    assert r.consumo_agua == 0
+
+
+def test_registro_uch_consumo_agua_vazio_usina():
+    m: MagicMock = mock_open(read_data="".join(MockUchConsumoAguaVazioUsina))
+    r = UchConsumoAguaVazioUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 10.0]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.consumo_agua == 10
+    r.consumo_agua = 0
+    assert r.consumo_agua == 0
+
+
+def test_registro_uch_limite_mudanca_status_vazio_unidade():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchLimiteMudancaStatusVazioUnidade)
+    )
+    r = UchLimiteMudancaStatusVazioUnidade()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 5]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.limite_maximo_mudancas == 5
+    r.limite_maximo_mudancas = 0
+    assert r.limite_maximo_mudancas == 0
+
+
+def test_registro_uch_limite_mudanca_status_vazio_conjunto():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchLimiteMudancaStatusVazioConjunto)
+    )
+    r = UchLimiteMudancaStatusVazioConjunto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 5]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.limite_maximo_mudancas == 5
+    r.limite_maximo_mudancas = 0
+    assert r.limite_maximo_mudancas == 0
+
+
+def test_registro_uch_limite_mudanca_status_vazio_usina():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchLimiteMudancaStatusVazioUsina)
+    )
+    r = UchLimiteMudancaStatusVazioUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 5]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.limite_maximo_mudancas == 5
+    r.limite_maximo_mudancas = 0
+    assert r.limite_maximo_mudancas == 0
+
+
+def test_registro_uch_custo_partida_vazio_unidade():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchCustoPartidaVazioUnidade)
+    )
+    r = UchCustoPartidaVazioUnidade()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 100.50]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.custo_partida == 100.50
+    r.custo_partida = 0
+    assert r.custo_partida == 0
+
+
+def test_registro_uch_custo_partida_vazio_conjunto():
+    m: MagicMock = mock_open(
+        read_data="".join(MockUchCustoPartidaVazioConjunto)
+    )
+    r = UchCustoPartidaVazioConjunto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 100.50]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.custo_partida == 100.50
+    r.custo_partida = 0
+    assert r.custo_partida == 0
+
+
+def test_registro_uch_custo_partida_vazio_usina():
+    m: MagicMock = mock_open(read_data="".join(MockUchCustoPartidaVazioUsina))
+    r = UchCustoPartidaVazioUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 100.50]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.custo_partida == 100.50
+    r.custo_partida = 0
+    assert r.custo_partida == 0
+
+
+def test_registro_uch_custo_partida_unidade():
+    m: MagicMock = mock_open(read_data="".join(MockUchCustoPartidaUnidade))
+    r = UchCustoPartidaUnidade()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 2, 300.50]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.codigo_unidade == 2
+    r.codigo_unidade = 0
+    assert r.codigo_unidade == 0
+    assert r.custo_partida == 300.50
+    r.custo_partida = 0
+    assert r.custo_partida == 0
+
+
+def test_registro_uch_custo_partida_conjunto():
+    m: MagicMock = mock_open(read_data="".join(MockUchCustoPartidaConjunto))
+    r = UchCustoPartidaConjunto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 2, 300.50]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.codigo_conjunto == 2
+    r.codigo_conjunto = 0
+    assert r.codigo_conjunto == 0
+    assert r.custo_partida == 300.50
+    r.custo_partida = 0
+    assert r.custo_partida == 0
+
+
+def test_registro_uch_custo_partida_usina():
+    m: MagicMock = mock_open(read_data="".join(MockUchCustoPartidaUsina))
+    r = UchCustoPartidaUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [1, 300.50]
+    assert r.codigo_usina == 1
+    r.codigo_usina = 0
+    assert r.codigo_usina == 0
+    assert r.custo_partida == 300.50
+    r.custo_partida = 0
+    assert r.custo_partida == 0
 
 
 def test_eq_uch():
