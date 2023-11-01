@@ -15,6 +15,7 @@ DESSEM
    arquivos/entdados
    arquivos/hidr
    arquivos/log_matriz
+   arquivos/operuh
    arquivos/operut
    arquivos/pdo_eco_usih
    arquivos/pdo_eco_usih_polin
