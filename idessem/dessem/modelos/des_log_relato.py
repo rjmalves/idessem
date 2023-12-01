@@ -2,6 +2,7 @@ from cfinterface.components.block import Block
 from typing import List, IO
 import pandas as pd  # type: ignore
 from datetime import timedelta
+from cfinterface.components.floatfield import FloatField
 
 
 class BlocoVariaveisOtimizacao(Block):
@@ -43,11 +44,12 @@ class BlocoVariaveisOtimizacao(Block):
             if len(linha) < 5:
                 continue
             dados_linha = linha.split(":")
-            valor_linha = float(
+            var_linha = (
                 dados_linha[1].split("(")[0]
                 if "(" in dados_linha[1]
                 else dados_linha[1]
             )
+            valor_linha = FloatField(size=19).read(var_linha.strip())
             variavel.append(dados_linha[0].strip())
             valores.append(valor_linha)
 
