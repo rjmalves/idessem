@@ -2,6 +2,8 @@ from cfinterface.components.block import Block
 from typing import IO
 import pandas as pd  # type: ignore
 from datetime import datetime
+from cfinterface.components.floatfield import FloatField
+from cfinterface.components.integerfield import IntegerField
 
 
 class BlocoDiscretizacaoTempo(Block):
@@ -125,9 +127,13 @@ class BlocoCustos(Block):
             if len(linha) < 5 or "---------" in linha:
                 continue
 
-            custo_presente = float(linha.split(":")[1])
+            custo_presente = FloatField(size=15).read(
+                linha.split(":")[1].strip()
+            )
             linha = file.readline()
-            custo_futuro = float(linha.split(":")[1])
+            custo_futuro = FloatField(size=15).read(
+                linha.split(":")[1].strip()
+            )
 
             estagios.append(estagio)
             custos_presentes.append(custo_presente)
@@ -181,8 +187,10 @@ class BlocoCortesAtivos(Block):
             if "---------" in linha:
                 continue
 
-            iteracao = int(linha.strip(" ").split(" ")[0])
-            mutiplicador = float(linha.strip(" ").split(" ")[-1])
+            iteracao = IntegerField().read(linha.strip(" ").split(" ")[0])
+            multiplicador = FloatField(size=10).read(
+                linha.strip(" ").split(" ")[-1]
+            )
 
             iteracoes.append(iteracao)
-            multiplicadores.append(mutiplicador)
+            multiplicadores.append(multiplicador)
