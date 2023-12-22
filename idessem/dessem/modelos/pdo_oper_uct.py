@@ -47,7 +47,7 @@ class TabelaPdoOperUct(TabelaCSV):
     COLUMN_NAMES = [
         "estagio",
         "codigo_usina",
-        "unidade",
+        "codigo_unidade",
         "nome_usina",
         "nome_submercado",
         "barra",

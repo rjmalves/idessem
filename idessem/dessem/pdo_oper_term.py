@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.pdo_oper_uct import TabelaPdoOperUct
+from idessem.dessem.modelos.pdo_oper_term import TabelaPdoOperTerm
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -10,20 +10,20 @@ from os.path import join
 import warnings
 
 
-class PdoOperUct(ArquivoCSV):
+class PdoOperTerm(ArquivoCSV):
     """
     Armazena os dados das saídas referentes as unidades térmicas.
 
-    Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_OPER_UCT.
+    Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_OPER_TERM.
     """
 
-    BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoOperUct]
+    BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoOperTerm]
     ENCODING = "iso-8859-1"
 
     @classmethod
     def le_arquivo(
-        cls, diretorio: str, nome_arquivo="PDO_OPER_UCT.DAT"
-    ) -> "PdoOperUct":
+        cls, diretorio: str, nome_arquivo="PDO_OPER_TERM.DAT"
+    ) -> "PdoOperTerm":
         msg = (
             "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
             + " na versão 1.0.0 - use o método read(caminho_arquivo)"
