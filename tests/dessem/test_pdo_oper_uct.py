@@ -39,7 +39,7 @@ def test_tabela_pdo_oper_uct():
 
         assert pdo.tabela.at[0, "estagio"] == 1
         assert pdo.tabela.at[0, "codigo_usina"] == 1
-        assert pdo.tabela.at[0, "unidade"] == 1
+        assert pdo.tabela.at[0, "codigo_unidade"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "ANGRA 1"
         assert pdo.tabela.at[0, "nome_submercado"] == "SE"
         assert pdo.tabela.at[0, "barra"] == 10

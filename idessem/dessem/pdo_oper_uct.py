@@ -38,7 +38,7 @@ class PdoOperUct(ArquivoCSV):
 
         - estagio (`int`)
         - codigo_usina (`int`)
-        - unidade (`int`)
+        - codigo_unidade (`int`)
         - nome_usina (`str`)
         - nome_submercado (`str`)
         - barra (`int`)
