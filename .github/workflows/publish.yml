@@ -7,6 +7,11 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/idecomp
+    permissions:
+      id-token: write
     steps:
     - uses: actions/checkout@v3
     - name: Configura o Python
@@ -32,7 +37,4 @@ jobs:
         python setup.py sdist bdist_wheel
     - name: Publica o pacote no PyPI
       if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
+      uses: pypa/gh-action-pypi-publish@release/v1
