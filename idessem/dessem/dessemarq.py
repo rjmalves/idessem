@@ -30,6 +30,7 @@ from idessem.dessem.modelos.dessemarq import (
     RegistroRespotele,
     RegistroIlibs,
     RegistroUch,
+    RegistroDessopc,
 )
 
 from cfinterface.files.registerfile import RegisterFile
@@ -89,6 +90,7 @@ class DessemArq(RegisterFile):
         RegistroRespotele,
         RegistroIlibs,
         RegistroUch,
+        RegistroDessopc,
     ]
 
     def __init__(self, data=...) -> None:
@@ -478,6 +480,16 @@ class DessemArq(RegisterFile):
         Hidráulico (UCH).
 
         :return: Um registro, se existir.
-        :rtype:  :class:`RegistroIlibs` | None.
+        :rtype:  :class:`RegistroUch` | None.
         """
         return self.__obtem_registro(RegistroUch)
+
+    @property
+    def dessopc(self) -> Optional[RegistroDessopc]:
+        """
+        O nome do arquivo com as opções de execução.
+
+        :return: Um registro, se existir.
+        :rtype:  :class:`RegistroDessopc` | None.
+        """
+        return self.__obtem_registro(RegistroDessopc)

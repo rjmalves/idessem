@@ -1,4 +1,4 @@
-from idessem.dessem.modelos.operut import (
+from idessem.dessem.modelos.dessopc import (
     BlocoUctPar,
     BlocoUcTerm,
     BlocoPint,

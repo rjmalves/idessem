@@ -30,6 +30,7 @@ from idessem.dessem.modelos.dessemarq import (
     RegistroRespotele,
     RegistroIlibs,
     RegistroUch,
+    RegistroDessopc,
 )
 from idessem.dessem.dessemarq import DessemArq
 from tests.mocks.mock_open import mock_open
@@ -67,6 +68,7 @@ from tests.mocks.arquivos.dessemarq import (
     MockRegistroRespotele,
     MockRegistroIlibs,
     MockRegistroUch,
+    MockRegistroDessopc,
     MockDessemArq,
 )
 
@@ -663,6 +665,24 @@ def test_registro_uch():
     assert r.valor == "uch.csv"
     r.valor = "uch"
     assert r.valor == "uch"
+
+    def test_registro_dessopc():
+        m: MagicMock = mock_open(read_data="".join(MockRegistroDessopc))
+        r = RegistroDessopc()
+        with patch("builtins.open", m):
+            with open("", "") as fp:
+                r.read(fp)
+
+        assert r.data == [
+            "OPCOES DE EXECUCAO",
+            "dessopc.dat",
+        ]
+        assert r.descricao == "OPCOES DE EXECUCAO"
+        r.descricao = "UCH"
+        assert r.descricao == "UCH"
+        assert r.valor == "dessopc.dat"
+        r.valor = "uch"
+        assert r.valor == "uch"
 
 
 def test_campos_nao_encontrados_dessemarq():

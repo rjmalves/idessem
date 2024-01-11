@@ -33,6 +33,9 @@ MockRegistroIlibs = (
     "ILIBS     FUNCIONALIDADES LIBS                    indice_csv.csv"
 )
 MockRegistroUch = "UCH       Dados UCH                              uch.csv   "
+MockRegistroDessopc = (
+    "DESSOPC   OPCOES DE EXECUCAO                      dessopc.dat"
+)
 MockDessemArq = [
     "&Mnem        Descricao                           Arquivo\n",
     "&XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n",
@@ -66,4 +69,5 @@ MockDessemArq = [
     "RESTSEG   RESTRICOES TABELA                       restseg.dat                                                                     \n",
     "RESPOTELE RESERVA DE POTENCIA REDE ELETR (F)      respotele.dat\n",
     "ILIBS     FUNCIONALIDADES LIBS                    indice_csv.csv\n",
+    "DESSOPC   OPCOES DE EXECUCAO                      dessopc.dat\n",
 ]
