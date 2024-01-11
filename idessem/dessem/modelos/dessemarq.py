@@ -1366,3 +1366,47 @@ class RegistroUch(Register):
     @valor.setter
     def valor(self, c: str):
         self.data[1] = c
+
+
+class RegistroDessopc(Register):
+    """
+    Registro com uma informação do arquivo de entrada do DESSEM `dessem.arq`
+    com dados de opções de execução.
+    """
+
+    IDENTIFIER = "DESSOPC  "
+    IDENTIFIER_DIGITS = 9
+    LINE = Line(
+        [
+            LiteralField(size=38, starting_position=10),
+            LiteralField(size=80, starting_position=49),
+        ],
+    )
+
+    @property
+    def descricao(self) -> Optional[str]:
+        """
+        A descrição do campo.
+
+        :return: A descrição do campo como uma string.
+        :rtype: str | None
+        """
+        return self.data[0].strip()
+
+    @descricao.setter
+    def descricao(self, c: str):
+        self.data[0] = c
+
+    @property
+    def valor(self) -> Optional[str]:
+        """
+        O valor do campo.
+
+        :return: O valor do campo como uma string.
+        :rtype: str | None
+        """
+        return self.data[1].strip()
+
+    @valor.setter
+    def valor(self, c: str):
+        self.data[1] = c
