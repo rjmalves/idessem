@@ -10,6 +10,8 @@ DESSEM
    arquivos/avl_desvfpha
    arquivos/avl_estatfpha
    arquivos/avl_fpha1
+   arquivos/avl_fpha2
+   arquivos/avl_fpha3
    arquivos/des_log_relato
    arquivos/dessemarq
    arquivos/entdados
