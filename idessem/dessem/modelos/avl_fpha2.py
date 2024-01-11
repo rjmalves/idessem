@@ -3,7 +3,6 @@ from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
 from cfinterface.components.line import Line
-from idessem.dessem.modelos.blocos.tabelacsv import TabelaCSV
 import pandas as pd  # type: ignore
 from typing import IO, Dict, List
 
@@ -16,20 +15,7 @@ class TabelaAvlFpha2(Block):
     """
 
     BEGIN_PATTERN = "-----;--------------;------;"
-    LINE_MODEL = Line(
-        [
-            IntegerField(size=5),
-            LiteralField(size=14),
-            IntegerField(size=7),
-            FloatField(size=9, decimal_digits=5),
-            FloatField(size=8, decimal_digits=2),
-            FloatField(size=12, decimal_digits=4),
-            FloatField(size=13, decimal_digits=6),
-            FloatField(size=13, decimal_digits=6),
-            FloatField(size=13, decimal_digits=6),
-        ],
-        delimiter=";",
-    )
+
     COLUMN_NAMES = [
         "codigo_usina",
         "nome_usina",

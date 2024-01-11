@@ -17,7 +17,7 @@ import warnings
 class AvlFpha2(BlockFile):
     """
     Armazena os dados referentes aos desvios da função de produção das usinas hidráulicas
-    nos planos de volume armaenado e vazão turbinada (V-Q).
+    nos planos de volume armazenado e vazão turbinada (V-Q).
 
     Essa classe lida com as informações de saída fornecidas pelo arquivo AVL_FPHA2.
     """
