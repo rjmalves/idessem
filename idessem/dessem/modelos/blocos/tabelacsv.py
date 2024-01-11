@@ -8,7 +8,7 @@ from typing import IO, List, Dict
 class TabelaCSV(Block):
     """
     Bloco para ler uma tabela com separadores CSV fornecidos
-    a partir de um modelo de linha, para arquivos de saída do decomp.
+    a partir de um modelo de linha, para arquivos de saída do DESSEM.
     """
 
     BEGIN_PATTERN = ""
