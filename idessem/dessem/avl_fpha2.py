@@ -2,7 +2,6 @@ from idessem.dessem.modelos.avl_fpha2 import TabelaAvlFpha2
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
-    ArquivoCSV,
 )
 from cfinterface.files.blockfile import BlockFile
 from typing import Optional, TypeVar
