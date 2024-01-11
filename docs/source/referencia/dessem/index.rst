@@ -12,6 +12,7 @@ DESSEM
    arquivos/avl_fpha1
    arquivos/des_log_relato
    arquivos/dessemarq
+   arquivos/dessopc
    arquivos/entdados
    arquivos/hidr
    arquivos/log_matriz
