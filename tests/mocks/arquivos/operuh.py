@@ -1,4 +1,4 @@
-MockREST = "OPERUH REST   00970  V     RHQ               489."
+MockREST = "OPERUH REST   00970  V P    RHQ               489."
 MockELEM = "OPERUH ELEM   00970 228  COLIDER         3   1.0"
 MockLIM = "OPERUH LIM    00066  I       F                         600"
 MockVAR = "OPERUH VAR    00970 I       F                                             550"
