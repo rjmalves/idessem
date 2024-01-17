@@ -21,13 +21,16 @@ def test_registro_rest_operuh():
         with open("", "") as fp:
             r.read(fp)
 
-    assert r.data == [970, "V", "RHQ", 489]
+    assert r.data == [970, "V", "P", "RHQ", 489]
     assert r.codigo_restricao == 970
     r.codigo_restricao = -1
     assert r.codigo_restricao == -1
     assert r.tipo == "V"
     r.tipo = "X"
     assert r.tipo == "X"
+    assert r.intervalo_aplicacao == "P"
+    r.intervalo_aplicacao = "X"
+    assert r.intervalo_aplicacao == "X"
     assert r.justificativa == "RHQ"
     r.justificativa = "X"
     assert r.justificativa == "X"

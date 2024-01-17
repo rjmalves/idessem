@@ -18,6 +18,7 @@ class REST(Register):
         [
             IntegerField(size=5, starting_position=14),
             LiteralField(size=1, starting_position=21),
+            LiteralField(size=1, starting_position=23),
             LiteralField(size=12, starting_position=27),
             FloatField(size=10, starting_position=40, decimal_digits=2),
         ]
@@ -52,6 +53,20 @@ class REST(Register):
         self.data[1] = c
 
     @property
+    def intervalo_aplicacao(self) -> Optional[str]:
+        """
+        O intervalo de aplicação.
+
+        :return: O tipo.
+        :rtype: str | None
+        """
+        return self.data[2]
+
+    @intervalo_aplicacao.setter
+    def intervalo_aplicacao(self, c: str):
+        self.data[2] = c
+
+    @property
     def justificativa(self) -> Optional[str]:
         """
         A justificativa para a restrição (informativo).
@@ -59,11 +74,11 @@ class REST(Register):
         :return: A justificativa.
         :rtype: str | None
         """
-        return self.data[2]
+        return self.data[3]
 
     @justificativa.setter
     def justificativa(self, c: str):
-        self.data[2] = c
+        self.data[3] = c
 
     @property
     def valor_inicial(self) -> Optional[float]:
@@ -74,11 +89,11 @@ class REST(Register):
         :return: O valor inicial.
         :rtype: float | None
         """
-        return self.data[3]
+        return self.data[4]
 
     @valor_inicial.setter
     def valor_inicial(self, c: float):
-        self.data[3] = c
+        self.data[4] = c
 
 
 class ELEM(Register):
