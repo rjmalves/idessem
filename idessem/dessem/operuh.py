@@ -144,6 +144,7 @@ class Operuh(RegisterFile):
         self,
         codigo_restricao: Optional[int] = None,
         tipo: Optional[str] = None,
+        intervalo_aplicacao: Optional[str] = None,
         df: bool = False,
     ) -> Optional[Union[REST, List[REST], pd.DataFrame]]:
         """
@@ -168,6 +169,7 @@ class Operuh(RegisterFile):
                 REST,
                 codigo_restricao=codigo_restricao,
                 tipo=tipo,
+                intervalo_aplicacao=intervalo_aplicacao,
             )
 
     def elem(

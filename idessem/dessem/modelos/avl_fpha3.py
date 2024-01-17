@@ -45,16 +45,16 @@ class TabelaAvlFpha3(Block):
         while True:
             linha = file.readline()
             if "QLAT" in linha:
-                num_vazlat = linha.count("QLAT") - 1
+                num_vazlat = linha.count("QLAT")
                 self.__linha = Line(
                     [
                         IntegerField(size=5),
                         LiteralField(size=14),
-                        FloatField(size=8, decimal_digits=2),
-                        FloatField(size=9, decimal_digits=2),
+                        FloatField(size=8, decimal_digits=1),
+                        FloatField(size=9, decimal_digits=1),
                     ]
                     + [
-                        FloatField(size=9, decimal_digits=2)
+                        FloatField(size=9, decimal_digits=1)
                         for _ in range(num_vazlat)
                     ],
                     delimiter=";",
@@ -73,7 +73,10 @@ class TabelaAvlFpha3(Block):
         dados: Dict[str, List] = {c: [] for c in self.__class__.COLUMN_NAMES}
         while True:
             linha = file.readline()
-            if len(linha) < 3 or "-----;--------------;--------;" in linha:
+            if (
+                len(linha) < 3
+                or "---------------------------------------------" in linha
+            ):
                 self.data = self._monta_df(dados)
                 return
             dados_linha = self.__linha.read(linha)
