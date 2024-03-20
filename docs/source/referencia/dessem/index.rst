@@ -20,6 +20,7 @@ DESSEM
    arquivos/log_matriz
    arquivos/operuh
    arquivos/operut
+   arquivo/pdo_aval_qmaxusih
    arquivos/pdo_eco_usih
    arquivos/pdo_eco_usih_polin
    arquivos/pdo_eco_fcfcortes
