@@ -27,6 +27,7 @@ DESSEM
    arquivos/pdo_eolica
    arquivos/pdo_hidr
    arquivos/pdo_inter
+   arquivos/pdo_oper_tviag_calha
    arquivos/pdo_oper_uct
    arquivos/pdo_reserva
    arquivos/pdo_sist
