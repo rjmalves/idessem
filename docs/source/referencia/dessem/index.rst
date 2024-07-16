@@ -22,6 +22,7 @@ DESSEM
    arquivos/operut
    arquivo/pdo_aval_qmaxusih
    arquivos/pdo_eco_usih
+   arquivos/pdo_eco_usih_conj
    arquivos/pdo_eco_usih_polin
    arquivos/pdo_eco_fcfcortes
    arquivos/pdo_eolica
