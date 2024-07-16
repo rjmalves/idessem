@@ -1,7 +1,7 @@
 .. _pdo_oper_tviag_calha:
 
 ===============================================================================
-Operação dos Columes na Calha no Fim do Horizonte (PDO_OPER_TVIAG_CALHA.DAT)
+Operação dos Volumes na Calha no Fim do Horizonte (PDO_OPER_TVIAG_CALHA.DAT)
 ===============================================================================
 
 .. currentmodule:: idessem.dessem.pdo_oper_tviag_calha

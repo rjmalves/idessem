@@ -12,8 +12,8 @@ import warnings
 
 class PdoOperTviagCalha(ArquivoCSV):
     """
-    Armazena os dados das saídas referentes a operação dos volumes das usinas hidráulicas na calha do rio
-    no fim do horizonte do estudo.
+    Armazena os dados das saídas referentes a operação dos volumes das usinas hidráulicas
+    na calha do rio no fim do horizonte do estudo.
 
     Essa classe lida com as informações de saída fornecidas pelo arquivo PDO_OPER_TVIAG_CALHA.
     """
