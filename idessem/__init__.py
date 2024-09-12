@@ -7,3 +7,5 @@ e saída do DESSEM.
 """
 
 __version__ = "0.0.22"
+
+from . import dessem  # noqa
