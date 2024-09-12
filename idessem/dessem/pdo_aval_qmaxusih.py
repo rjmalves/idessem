@@ -1,4 +1,7 @@
-from idessem.dessem.modelos.pdo_aval_qmaxusih import TabelaPdoAvalQmaxUsih
+from idessem.dessem.modelos.pdo_aval_qmaxusih import (
+    TabelaPdoAvalQmaxUsih,
+    TabelaPdoAvalQmaxUsih2001,
+)
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -19,6 +22,10 @@ class PdoAvalQmaxUsih(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoAvalQmaxUsih]
+    VERSIONS = {
+        "20.1": [VersaoModelo, DataEstudo, TabelaPdoAvalQmaxUsih2001],
+        "20.4": [VersaoModelo, DataEstudo, TabelaPdoAvalQmaxUsih],
+    }
     ENCODING = "iso-8859-1"
 
     @classmethod
@@ -43,6 +50,10 @@ class PdoAvalQmaxUsih(ArquivoCSV):
         - volume_medio_percentual (`float`)
         - vazao_turbinada_m3s (`float`)
         - vazao_vertida_m3s (`float`)
+        - altura_montante (`float`)
+        - vazao_jusante_m3s (`float`)
+        - altura_jusante (`float`)
+        - altura_liquida (`float`)
         - vazao_turbinada_maxima_m3s (`float`)
         - engolimento_maximo_m3s (`float`)
         - geracao_maxima (`float`)
