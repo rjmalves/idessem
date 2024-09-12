@@ -1,5 +1,6 @@
 from idessem.dessem.modelos.pdo_eco_usih import (
     TabelaPdoEcoUsih,
+    TabelaPdoEcoUsih190402,
     TabelaPdoEcoUsih190301,
 )
 from idessem.dessem.modelos.arquivos.arquivocsv import (
@@ -23,7 +24,8 @@ class PdoEcoUsih(ArquivoCSV):
     BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoEcoUsih]
     VERSIONS = {
         "19.3.1": [VersaoModelo, DataEstudo, TabelaPdoEcoUsih190301],
-        "19.4.2": [VersaoModelo, DataEstudo, TabelaPdoEcoUsih],
+        "19.4.2": [VersaoModelo, DataEstudo, TabelaPdoEcoUsih190402],
+        "20.3": [VersaoModelo, DataEstudo, TabelaPdoEcoUsih],
     }
     ENCODING = "iso-8859-1"
 
