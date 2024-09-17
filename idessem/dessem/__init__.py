@@ -14,6 +14,7 @@ from .entdados import Entdados    # noqa
 from .hidr import Hidr    # noqa
 from .log_matriz import LogMatriz    # noqa
 from .operuh import Operuh    # noqa
+from .operut import Operut    # noqa
 from .pdo_aval_qmaxusih import PdoAvalQmaxUsih    # noqa
 from .pdo_eco_fcfcortes import PdoEcoFcfCortes    # noqa
 from .pdo_eco_usih_conj import PdoEcoUsihConj    # noqa
