@@ -32,7 +32,7 @@ class StageDateField(Field):
 
     # Override
     def _textual_read(self, line: str) -> list:
-        values: list[Optional[Union[str, int]]] = []
+        values: List[Optional[Union[str, int]]] = []
         try:
             for f in self.__subfields:
                 values.append(f._textual_read(line))
