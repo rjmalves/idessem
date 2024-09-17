@@ -1,4 +1,4 @@
-from typing import Optional, Union, List, Tuple
+from typing import List, Optional, Tuple, Union
 
 from cfinterface.components.field import Field
 from cfinterface.components.integerfield import IntegerField
@@ -32,7 +32,7 @@ class StageDateField(Field):
 
     # Override
     def _textual_read(self, line: str) -> list:
-        values = []
+        values: list[Optional[Union[str, int]]] = []
         try:
             for f in self.__subfields:
                 values.append(f._textual_read(line))
