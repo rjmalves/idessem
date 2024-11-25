@@ -1,4 +1,7 @@
-from idessem.dessem.modelos.pdo_eco_fcfcortes import TabelaPdoEcoFcfCortes
+from idessem.dessem.modelos.pdo_eco_fcfcortes import (
+    TabelaPdoEcoFcfCortes,
+    TabelaPdoEcoFcfCortes19,
+)
 from idessem.dessem.modelos.arquivos.arquivocsv import (
     DataEstudo,
     VersaoModelo,
@@ -18,6 +21,10 @@ class PdoEcoFcfCortes(ArquivoCSV):
     """
 
     BLOCKS = [VersaoModelo, DataEstudo, TabelaPdoEcoFcfCortes]
+    VERSIONS = {
+        "19": [VersaoModelo, DataEstudo, TabelaPdoEcoFcfCortes19],
+        "20.1": [VersaoModelo, DataEstudo, TabelaPdoEcoFcfCortes],
+    }
     ENCODING = "iso-8859-1"
 
     @classmethod
