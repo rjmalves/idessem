@@ -187,7 +187,7 @@ class Term(RegisterFile):
             return self._as_df(CADUNIDT)
         else:
             return self.__obtem_registros_com_filtros(
-                CADUSIT,
+                CADUNIDT,
                 codigo_usina=codigo_usina,
                 codigo_unidade=codigo_unidade,
             )
@@ -220,7 +220,7 @@ class Term(RegisterFile):
             return self._as_df(CADCONF)
         else:
             return self.__obtem_registros_com_filtros(
-                CADUSIT,
+                CADCONF,
                 codigo_usina=codigo_usina,
                 codigo_unidade_equivalente=codigo_unidade_equivalente,
                 codigo_unidade=codigo_unidade,
@@ -252,7 +252,7 @@ class Term(RegisterFile):
             return self._as_df(CADMIN)
         else:
             return self.__obtem_registros_com_filtros(
-                CADUSIT,
+                CADMIN,
                 codigo_usina=codigo_usina,
                 codigo_unidade_equivalente=codigo_unidade_equivalente,
             )
