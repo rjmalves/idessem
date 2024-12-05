@@ -17,11 +17,11 @@ seja desejado pelo usuário. Por exemplo, pode-se fazer uma sensibilidade de alt
 
     from idessem.dessem.entdados import Entdados
     arq_entdados = Entdados.read("./entdados.dat")
-    arq_entdados.uh(codigo=6).volume_inicial
+    arq_entdados.uh(codigo_usina=6).volume_inicial
     69.51
     
-    arq_entdados.uh(codigo=6).volume_inicial*= 1.1
-    arq_entdados.uh(codigo=6).volume_inicial
+    arq_entdados.uh(codigo_usina=6).volume_inicial*= 1.1
+    arq_entdados.uh(codigo_usina=6).volume_inicial
     76.46100000000001
 
     arq_entdados.write("./entdados.dat")
