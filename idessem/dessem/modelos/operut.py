@@ -108,7 +108,7 @@ class BlocoInitUT(Block):
             linha = file.readline()
             # Confere se terminou o bloco
             if BlocoInitUT.END_PATTERN in linha[:4]:
-                tabela = tabela[:indice_linha, :]
+                tabela = tabela[:indice_linha, :]  # type: ignore
                 df = converte_tabela_em_df()
                 self.data = [comentarios, df]
                 break
@@ -258,7 +258,7 @@ class BlocoOper(Block):
             linha = file.readline()
             # Confere se terminou o bloco
             if BlocoOper.END_PATTERN in linha[:4]:
-                tabela = tabela[:indice_linha, :]
+                tabela = tabela[:indice_linha, :]  # type: ignore
                 df = converte_tabela_em_df()
                 self.data = [comentarios, df]
                 break
