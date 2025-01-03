@@ -1,3 +1,0 @@
-numpy
-pandas
-cfinterface>=1.7.1
