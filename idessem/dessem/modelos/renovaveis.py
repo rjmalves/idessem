@@ -1,9 +1,10 @@
-from cfinterface.components.register import Register
-from cfinterface.components.line import Line
-from cfinterface.components.integerfield import IntegerField
-from cfinterface.components.literalfield import LiteralField
-from cfinterface.components.floatfield import FloatField
 from typing import Optional
+
+from cfinterface.components.floatfield import FloatField
+from cfinterface.components.integerfield import IntegerField
+from cfinterface.components.line import Line
+from cfinterface.components.literalfield import LiteralField
+from cfinterface.components.register import Register
 
 
 class EOLICA(Register):
@@ -16,7 +17,7 @@ class EOLICA(Register):
     IDENTIFIER_DIGITS = 6
     LINE = Line(
         [
-            IntegerField(1, 0),
+            IntegerField(5, 0),
             LiteralField(40, 0),
             FloatField(10, 0, decimal_digits=0),
             FloatField(10, 0, decimal_digits=0),
