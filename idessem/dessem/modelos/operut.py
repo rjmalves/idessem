@@ -1,11 +1,13 @@
-from cfinterface.components.block import Block
-from cfinterface.components.line import Line
-from cfinterface.components.integerfield import IntegerField
-from cfinterface.components.literalfield import LiteralField
-from cfinterface.components.floatfield import FloatField
-from typing import List, Dict, IO
-import pandas as pd  # type: ignore
+from typing import IO, Dict, List
+
 import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
+from cfinterface.components.block import Block
+from cfinterface.components.floatfield import FloatField
+from cfinterface.components.integerfield import IntegerField
+from cfinterface.components.line import Line
+from cfinterface.components.literalfield import LiteralField
+
 from idessem.config import MAX_UG_UCT
 
 
@@ -108,7 +110,7 @@ class BlocoInitUT(Block):
             linha = file.readline()
             # Confere se terminou o bloco
             if BlocoInitUT.END_PATTERN in linha[:4]:
-                tabela = tabela[:indice_linha, :]
+                tabela = tabela[:indice_linha, :]  # type: ignore
                 df = converte_tabela_em_df()
                 self.data = [comentarios, df]
                 break
@@ -258,7 +260,7 @@ class BlocoOper(Block):
             linha = file.readline()
             # Confere se terminou o bloco
             if BlocoOper.END_PATTERN in linha[:4]:
-                tabela = tabela[:indice_linha, :]
+                tabela = tabela[:indice_linha, :]  # type: ignore
                 df = converte_tabela_em_df()
                 self.data = [comentarios, df]
                 break
