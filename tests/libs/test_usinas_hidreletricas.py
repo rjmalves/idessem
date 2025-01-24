@@ -1,13 +1,14 @@
-from idessem.dessem.polinjus import Polinjus
-from idessem.dessem.polinjus import (
+from idessem.libs.usinas_hidreletricas import UsinasHidreletricas
+from idessem.libs.modelos.usinas_hidreletricas import (
     HidreletricaCurvaJusante,
     HidreletricaCurvaJusantePolinomioPorPartes,
     HidreletricaCurvaJusantePolinomioPorPartesSegmento,
     HidreletricaCurvaJusanteAfogamentoExplicitoUsina,
     HidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
+    HidreletricaVazaoJusanteInfluenciaUsina,
+    HidreletricaVazaoJusanteInfluenciaDefluencia,
+    HidreletricaVazaoJusanteInfluenciaPosto,
 )
-import pandas as pd  # type: ignore
-from datetime import datetime
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
 
@@ -19,14 +20,21 @@ from tests.mocks.arquivos.polinjus import (
     MockHidreletricaCurvaJusanteAfogamentoExplicitoUsina,
     MockHidreletricaCurvaJusanteAfogamentoExplicitoPadrao,
 )
+from tests.mocks.arquivos.vazaolateral import (
+    MockVazaoLateral,
+    MockHidreletricaVazaoJusanteInfluenciaUsina,
+    MockHidreletricaVazaoJusanteInfluenciaPosto,
+    MockHidreletricaVazaoJusanteInfluenciaDefluencia,
+)
 
 ARQ_TESTE = "./tests/__init__.py"
 
 
+# Polinjus
 def test_atributos_encontrados_polinjus():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        polinjus = Polinjus.read(ARQ_TESTE)
+        polinjus = UsinasHidreletricas.read(ARQ_TESTE)
         assert polinjus.hidreletrica_curvajusante() is not None
         assert polinjus.hidreletrica_curvajusante_polinomio() is not None
         assert (
@@ -45,7 +53,7 @@ def test_atributos_encontrados_polinjus():
 def test_df_polinjus_hidreletrica_curvajusante():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        polinjus = Polinjus.read(ARQ_TESTE)
+        polinjus = UsinasHidreletricas.read(ARQ_TESTE)
         df_curvajusante = polinjus.hidreletrica_curvajusante(df=True)
         assert df_curvajusante.at[2, "codigo_usina"] == 1
         assert df_curvajusante.at[2, "indice_familia"] == 3
@@ -74,7 +82,7 @@ def test_registro_polinjus_hidreletrica_curvajusante():
 def test_df_polinjus_hidreletrica_curvajusante_polinomio():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        polinjus = Polinjus.read(ARQ_TESTE)
+        polinjus = UsinasHidreletricas.read(ARQ_TESTE)
         df_curvajusante_polinomio = (
             polinjus.hidreletrica_curvajusante_polinomio(df=True)
         )
@@ -107,7 +115,7 @@ def test_registro_polinjus_hidreletrica_curvajusante_polinomio():
 def test_df_polinjus_hidreletrica_curvajusante_polinomio_segmento():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        polinjus = Polinjus.read(ARQ_TESTE)
+        polinjus = UsinasHidreletricas.read(ARQ_TESTE)
         df_curvajusante_polinomio_segmento = (
             polinjus.hidreletrica_curvajusante_polinomio_segmento(df=True)
         )
@@ -206,7 +214,7 @@ def test_registro_polinjus_hidreletrica_curvajusante_polinomio_segmento():
 def test_df_polinjus_hidreletrica_curvajusante_afogamentoexplicito_usina():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        polinjus = Polinjus.read(ARQ_TESTE)
+        polinjus = UsinasHidreletricas.read(ARQ_TESTE)
         df_curvajusante_afogamentoexplicito_usina = (
             polinjus.hidreletrica_curvajusante_afogamentoexplicito_usina(
                 df=True
@@ -262,17 +270,111 @@ def test_registro_polinjus_hidreletrica_curvajusante_afogamentoexplicito_padrao(
 def test_eq_polinjus():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        log1 = Polinjus.read(ARQ_TESTE)
-        log2 = Polinjus.read(ARQ_TESTE)
+        log1 = UsinasHidreletricas.read(ARQ_TESTE)
+        log2 = UsinasHidreletricas.read(ARQ_TESTE)
         assert log1 == log2
 
 
 def test_neq_polinjus():
     m: MagicMock = mock_open(read_data="".join(MockPolinjus))
     with patch("builtins.open", m):
-        log1 = Polinjus.read(ARQ_TESTE)
-        log2 = Polinjus.read(ARQ_TESTE)
+        log1 = UsinasHidreletricas.read(ARQ_TESTE)
+        log2 = UsinasHidreletricas.read(ARQ_TESTE)
         log1.hidreletrica_curvajusante_polinomio_segmento()[
             0
         ].codigo_usina = -1
         assert log1 != log2
+
+
+# Vazao Lateral
+
+
+def test_atributos_encontrados_vazao_lateral():
+    m: MagicMock = mock_open(read_data="".join(MockVazaoLateral))
+    with patch("builtins.open", m):
+        vazaolateral = UsinasHidreletricas.read(ARQ_TESTE)
+        assert vazaolateral.vazao_jusante_influencia_defluencia() is not None
+        assert vazaolateral.vazao_jusante_influencia_usina() is not None
+        assert vazaolateral.vazao_jusante_influencia_posto() is not None
+
+
+def test_registro_influencia_defluencia():
+    m: MagicMock = mock_open(
+        read_data="".join(MockHidreletricaVazaoJusanteInfluenciaDefluencia)
+    )
+    r = HidreletricaVazaoJusanteInfluenciaDefluencia()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [288, 1, 1]
+    assert r.codigo_usina_influenciada == 288
+    r.codigo_usina_influenciada = 0
+    assert r.codigo_usina_influenciada == 0
+    assert r.fator_impacto_turbinamento == 1
+    r.fator_impacto_turbinamento = 0
+    assert r.fator_impacto_turbinamento == 0
+    assert r.fator_impacto_vertimento == 1
+    r.fator_impacto_vertimento = 0
+    assert r.fator_impacto_vertimento == 0
+
+
+def test_registro_influencia_usina():
+    m: MagicMock = mock_open(
+        read_data="".join(MockHidreletricaVazaoJusanteInfluenciaUsina)
+    )
+    r = HidreletricaVazaoJusanteInfluenciaUsina()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [288, 314, 1]
+    assert r.codigo_usina_influenciada == 288
+    r.codigo_usina_influenciada = 0
+    assert r.codigo_usina_influenciada == 0
+    assert r.codigo_usina_influenciadora == 314
+    r.codigo_usina_influenciadora = 0
+    assert r.codigo_usina_influenciadora == 0
+    assert r.fator_impacto == 1
+    r.fator_impacto = 0
+    assert r.fator_impacto == 0
+
+
+def test_registro_influencia_posto():
+    m: MagicMock = mock_open(
+        read_data="".join(MockHidreletricaVazaoJusanteInfluenciaPosto)
+    )
+    r = HidreletricaVazaoJusanteInfluenciaPosto()
+    with patch("builtins.open", m):
+        with open("", "") as fp:
+            r.read(fp)
+
+    assert r.data == [288, 314, 0.07]
+    assert r.codigo_usina_influenciada == 288
+    r.codigo_usina_influenciada = 0
+    assert r.codigo_usina_influenciada == 0
+    assert r.codigo_usina_influenciadora == 314
+    r.codigo_usina_influenciadora = 0
+    assert r.codigo_usina_influenciadora == 0
+    assert r.fator_impacto == 0.07
+    r.fator_impacto = 0
+    assert r.fator_impacto == 0
+
+
+def test_eq_vazaolateral():
+    m: MagicMock = mock_open(read_data="".join(MockVazaoLateral))
+    with patch("builtins.open", m):
+        arq1 = UsinasHidreletricas.read(ARQ_TESTE)
+        arq2 = UsinasHidreletricas.read(ARQ_TESTE)
+        assert arq1 == arq2
+
+
+def test_neq_vazaolateral():
+    m: MagicMock = mock_open(read_data="".join(MockVazaoLateral))
+    with patch("builtins.open", m):
+        arq1 = UsinasHidreletricas.read(ARQ_TESTE)
+        arq2 = UsinasHidreletricas.read(ARQ_TESTE)
+        arq1.vazao_jusante_influencia_defluencia()[
+            0
+        ].codigo_usina_influenciada = 200
+        assert arq1 != arq2
