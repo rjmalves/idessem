@@ -136,3 +136,6 @@ teste.txt
 
 # Deck de teste
 deck_teste/**
+
+# UV
+uv.lock
