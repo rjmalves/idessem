@@ -1,10 +1,12 @@
-from cfinterface.components.register import Register
-from cfinterface.components.line import Line
-from cfinterface.components.integerfield import IntegerField
-from cfinterface.components.literalfield import LiteralField
-from cfinterface.components.floatfield import FloatField
-from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 from typing import Optional, Union
+
+from cfinterface.components.floatfield import FloatField
+from cfinterface.components.integerfield import IntegerField
+from cfinterface.components.line import Line
+from cfinterface.components.literalfield import LiteralField
+from cfinterface.components.register import Register
+
+from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 
 
 class REST(Register):
@@ -21,6 +23,8 @@ class REST(Register):
             LiteralField(size=1, starting_position=23),
             LiteralField(size=12, starting_position=27),
             FloatField(size=10, starting_position=40, decimal_digits=2),
+            IntegerField(size=1, starting_position=51),
+            FloatField(size=5, starting_position=55, decimal_digits=2),
         ]
     )
 
@@ -39,7 +43,7 @@ class REST(Register):
         self.data[0] = c
 
     @property
-    def tipo(self) -> Optional[str]:
+    def tipo_restricao(self) -> Optional[str]:
         """
         O tipo da restrição.
 
@@ -48,8 +52,8 @@ class REST(Register):
         """
         return self.data[1]
 
-    @tipo.setter
-    def tipo(self, c: str):
+    @tipo_restricao.setter
+    def tipo_restricao(self, c: str):
         self.data[1] = c
 
     @property
@@ -94,6 +98,34 @@ class REST(Register):
     @valor_inicial.setter
     def valor_inicial(self, c: float):
         self.data[4] = c
+
+    @property
+    def tipo_restricao_variacao(self) -> Optional[int]:
+        """
+        O tipo da restrição de variação.
+
+        :return: O tipo da restrição de variação.
+        :rtype: int | None
+        """
+        return self.data[5]
+
+    @tipo_restricao_variacao.setter
+    def tipo_restricao_variacao(self, c: int):
+        self.data[5] = c
+
+    @property
+    def duracao_janela(self) -> Optional[float]:
+        """
+        A duração de cada janela de restrição de variação em horas.
+
+        :return: A duração da janela.
+        :rtype: float | None
+        """
+        return self.data[6]
+
+    @duracao_janela.setter
+    def duracao_janela(self, c: float):
+        self.data[6] = c
 
 
 class ELEM(Register):
