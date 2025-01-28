@@ -1,15 +1,15 @@
-from idessem.dessem.modelos.operuh import REST, ELEM, LIM, VAR
-from idessem.dessem.operuh import Operuh
-from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
 
+from idessem.dessem.modelos.operuh import ELEM, LIM, REST, VAR
+from idessem.dessem.operuh import Operuh
 from tests.mocks.arquivos.operuh import (
-    MockREST,
-    MockLIM,
     MockELEM,
-    MockVAR,
+    MockLIM,
     MockOperuh,
+    MockREST,
+    MockVAR,
 )
+from tests.mocks.mock_open import mock_open
 
 ARQ_TESTE = "./tests/__init__.py"
 
@@ -21,13 +21,13 @@ def test_registro_rest_operuh():
         with open("", "") as fp:
             r.read(fp)
 
-    assert r.data == [970, "V", "P", "RHQ", 489]
+    assert r.data == [970, "V", "P", "RHQ", 489, None, None]
     assert r.codigo_restricao == 970
     r.codigo_restricao = -1
     assert r.codigo_restricao == -1
-    assert r.tipo == "V"
-    r.tipo = "X"
-    assert r.tipo == "X"
+    assert r.tipo_restricao == "V"
+    r.tipo_restricao = "X"
+    assert r.tipo_restricao == "X"
     assert r.intervalo_aplicacao == "P"
     r.intervalo_aplicacao = "X"
     assert r.intervalo_aplicacao == "X"
@@ -37,6 +37,12 @@ def test_registro_rest_operuh():
     assert r.valor_inicial == 489
     r.valor_inicial = -1
     assert r.valor_inicial == -1
+    assert r.tipo_restricao_variacao is None
+    r.tipo_restricao_variacao = 1
+    assert r.tipo_restricao_variacao == 1
+    assert r.duracao_janela is None
+    r.duracao_janela = 1
+    assert r.duracao_janela == 1
 
 
 def test_registro_lim_operuh():
@@ -199,9 +205,7 @@ def test_leitura_escrita_operuh():
         d1.write("./tests/mocks/arquivos/operuh.py")
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
-        linhas_escritas = [
-            chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
-        ]
+        linhas_escritas = [chamadas[i].args[0] for i in range(1, len(chamadas) - 1)]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
         d2 = Operuh.read("./tests/mocks/arquivos/operuh.py")

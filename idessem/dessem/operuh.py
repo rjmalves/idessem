@@ -1,13 +1,14 @@
-from idessem.dessem.modelos.operuh import REST, ELEM, LIM, VAR
-import pandas as pd  # type: ignore
-from cfinterface.files.registerfile import RegisterFile
-from cfinterface.components.register import Register
-from typing import Type, List, Optional, TypeVar, Union
-
+import warnings
 
 # Para compatibilidade - até versão 1.0.0
 from os.path import join
-import warnings
+from typing import List, Optional, Type, TypeVar, Union
+
+import pandas as pd  # type: ignore
+from cfinterface.components.register import Register
+from cfinterface.files.registerfile import RegisterFile
+
+from idessem.dessem.modelos.operuh import ELEM, LIM, REST, VAR
 
 
 class Operuh(RegisterFile):
@@ -83,9 +84,7 @@ class Operuh(RegisterFile):
                     condicoes.append(getattr(r, k) == v)
             return all(condicoes)
 
-        regs_filtro = [
-            r for r in self.__obtem_registros(tipo_registro) if __atende(r)
-        ]
+        regs_filtro = [r for r in self.__obtem_registros(tipo_registro) if __atende(r)]
         if len(regs_filtro) == 0:
             return None
         elif len(regs_filtro) == 1:
@@ -143,8 +142,11 @@ class Operuh(RegisterFile):
     def rest(
         self,
         codigo_restricao: Optional[int] = None,
-        tipo: Optional[str] = None,
+        tipo_restricao: Optional[str] = None,
         intervalo_aplicacao: Optional[str] = None,
+        valor_inicial: Optional[float] = None,
+        tipo_restricao_variacao: Optional[int] = None,
+        duracao_janela: Optional[float] = None,
         df: bool = False,
     ) -> Optional[Union[REST, List[REST], pd.DataFrame]]:
         """
@@ -153,8 +155,16 @@ class Operuh(RegisterFile):
 
         :param codigo_restricao: código que especifica o registro
         :type codigo_restricao: int | None
-        :param tipo: tipo da restrição (L,V)
-        :type tipo: str | None
+        :param tipo_restricao: tipo da restrição (L,V)
+        :type tipo_restricao: str | None
+        :param intervalo_aplicacao: intervalo de aplicação
+        :type intervalo_aplicacao: str | None
+        :param valor_inicial: valor inicial da variável
+        :type valor_inicial: float | None
+        :param tipo_restricao_variacao: tipo da restrição de variação
+        :type tipo_restricao_variacao: int | None
+        :param duracao_janela: duração da janela da restrição de variação
+        :type duracao_janela: float | None
         :param df: ignorar os filtros e retornar
             todos os dados de registros como um DataFrame
         :type df: bool
@@ -168,8 +178,11 @@ class Operuh(RegisterFile):
             return self.__obtem_registros_com_filtros(
                 REST,
                 codigo_restricao=codigo_restricao,
-                tipo=tipo,
+                tipo_restricao=tipo_restricao,
                 intervalo_aplicacao=intervalo_aplicacao,
+                valor_inicial=valor_inicial,
+                tipo_restricao_variacao=tipo_restricao_variacao,
+                duracao_janela=duracao_janela,
             )
 
     def elem(
