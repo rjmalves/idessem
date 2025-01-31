@@ -21,14 +21,14 @@ def test_versao_pdo_cmobar():
     m: MagicMock = mock_open(read_data="".join(MockPdoCmoBar))
     with patch("builtins.open", m):
         log = PdoCmoBar.read(ARQ_TESTE)
-        assert log.versao == "19.3"
+        assert log.versao == "20.0.11"
 
 
 def test_data_estudo_pdo_cmobar():
     m: MagicMock = mock_open(read_data="".join(MockPdoCmoBar))
     with patch("builtins.open", m):
         log = PdoCmoBar.read(ARQ_TESTE)
-        assert log.data_estudo == datetime(year=2022, month=8, day=11)
+        assert log.data_estudo == datetime(year=2025, month=1, day=24)
 
 
 def test_tabela_pdo_cmobar():
@@ -36,10 +36,11 @@ def test_tabela_pdo_cmobar():
     with patch("builtins.open", m):
         log = PdoCmoBar.read(ARQ_TESTE)
         assert log.tabela.at[0, "estagio"] == 1
-        assert log.tabela.at[0, "nome_patamar"] == "LEVE"
+        assert log.tabela.at[0, "nome_patamar"] == "MEDIA"
+        assert log.tabela.at[0, "codigo_barra"] == 10
         assert log.tabela.at[0, "nome_barra"] == "ANGRA1UNE001"
         assert log.tabela.at[0, "nome_submercado"] == "SE"
-        assert log.tabela.at[0, "cmo"] == 71.48
+        assert log.tabela.at[0, "cmo"] == 62.97
 
 
 def test_eq_pdo_cmobar():
