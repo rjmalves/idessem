@@ -17,6 +17,7 @@ DESSEM
    arquivos/dessopc
    arquivos/entdados
    arquivos/hidr
+   arquivos/log_inviab
    arquivos/log_matriz
    arquivos/operuh
    arquivos/operut
