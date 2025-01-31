@@ -28,6 +28,7 @@ Interface de Programação para o DESSEM
    :maxdepth: 2
 
    referencia/dessem/index.rst
+   referencia/libs/index.rst
 
 
 :ref:`genindex`

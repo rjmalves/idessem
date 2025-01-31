@@ -33,8 +33,6 @@ DESSEM
    arquivos/pdo_reserva
    arquivos/pdo_sist
    arquivos/pdo_term
-   arquivos/polinjus
    arquivos/renovaveis
    arquivos/termdat  
    arquivos/uch 
-   arquivos/vazaolateral
