@@ -6,6 +6,7 @@ DESSEM
 .. toctree::
    :maxdepth: 2
 
+   arquivos/areacont
    arquivos/avl_altqueda
    arquivos/avl_desvfpha
    arquivos/avl_estatfpha

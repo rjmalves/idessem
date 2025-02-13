@@ -1,5 +1,6 @@
 # Inclui os membros
 
+from .areacont import Areacont  # noqa
 from .avl_altqueda import AvlAltQueda  # noqa
 from .avl_desvfpha import AvlDesvFpha  # noqa
 from .avl_estatfpha import AvlEstatFpha  # noqa
@@ -18,9 +19,9 @@ from .operut import Operut  # noqa
 from .pdo_aval_qmaxusih import PdoAvalQmaxUsih  # noqa
 from .pdo_cmobar import PdoCmoBar  # noqa
 from .pdo_eco_fcfcortes import PdoEcoFcfCortes  # noqa
+from .pdo_eco_usih import PdoEcoUsih  # noqa
 from .pdo_eco_usih_conj import PdoEcoUsihConj  # noqa
 from .pdo_eco_usih_polin import PdoEcoUsihPolin  # noqa
-from .pdo_eco_usih import PdoEcoUsih  # noqa
 from .pdo_eolica import PdoEolica  # noqa
 from .pdo_hidr import PdoHidr  # noqa
 from .pdo_inter import PdoInter  # noqa
