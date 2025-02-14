@@ -88,9 +88,10 @@ class BlocoArea(Block):
             else:
                 # Senão, lê como dado/tabela
                 dados_linha = self.__linha.read(linha)
+                indice_linha += 1
                 for i, c in enumerate(cols):
                     dados[c].append(dados_linha[i])
-                    indice_linha += 1
+                    
 
     # Override
     def write(self, file: IO, *args, **kwargs):
@@ -197,9 +198,10 @@ class BlocoUsina(Block):
             else:
                 # Senão, lê como dado/tabela
                 dados_linha = self.__linha.read(linha)
+                indice_linha += 1
                 for i, c in enumerate(cols):
                     dados[c].append(dados_linha[i])
-                    indice_linha += 1
+                    
 
     # Override
     def write(self, file: IO, *args, **kwargs):
