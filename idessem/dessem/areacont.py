@@ -45,7 +45,7 @@ class Areacont(BlockFile):
     @property
     def area(self) -> Optional[pd.DataFrame]:
         """
-        Tabela com as condições iniciais das UTEs.
+        Tabela com as areas de controle.
 
         - codigo_area (`int`)
         - nome_area (`str`)
@@ -68,7 +68,7 @@ class Areacont(BlockFile):
     @property
     def usina(self) -> Optional[pd.DataFrame]:
         """
-        Tabela com os limites e condições oeprativas das unidades.
+        Tabela com a composição das áreas de controle.
 
         - codigo_area (`int`)
         - codigo_conjunto (`int`)

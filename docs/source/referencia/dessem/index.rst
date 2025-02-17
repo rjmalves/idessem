@@ -42,6 +42,7 @@ DESSEM
    arquivos/pdo_term
    arquivos/polinjus
    arquivos/renovaveis
+   arquivos/respot
    arquivos/termdat  
    arquivos/uch 
    arquivos/vazaolateral

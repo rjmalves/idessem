@@ -37,5 +37,6 @@ from .pdo_sist import PdoSist  # noqa
 from .pdo_somflux import PdoSomFlux  # noqa
 from .pdo_term import PdoTerm  # noqa
 from .renovaveis import Renovaveis  # noqa
+from .respot import Respot #noqa
 from .termdat import Term  # noqa
 from .uch import Uch  # noqa
