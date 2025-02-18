@@ -13,6 +13,7 @@ DESSEM
    arquivos/avl_fpha1
    arquivos/avl_fpha2
    arquivos/avl_fpha3
+   arquivos/dadvaz
    arquivos/deflant
    arquivos/des_log_relato
    arquivos/dessemarq

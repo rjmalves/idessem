@@ -247,7 +247,7 @@ class BlocoVazoes(Section):
             else:
                 return [lista[coluna][elemento] for lista in listas] 
 
-        def transforma_uhes_em_tabela() -> pd.DataFrame:
+        def transforma_uhes_em_df() -> pd.DataFrame:
             # Converte as informações de cada linha em colunas
             col_num = extrai_coluna_de_listas(dados_uhes, 0)
             col_nome = extrai_coluna_de_listas(dados_uhes, 1)
@@ -271,7 +271,8 @@ class BlocoVazoes(Section):
                 "meia_hora_final": col_meia_hora_final,
                 "vazao": col_vazao
             }
-            return pd.DataFrame(data=dados)
+            df = pd.DataFrame(data=dados)
+            return df
 
         # Salta as linhas adicionais
         for _ in range(3):
@@ -285,7 +286,7 @@ class BlocoVazoes(Section):
             if len(linha) < 5:
                 # Converte para df e salva na variável
                 if len(dados_uhes) > 0:
-                    self.data = transforma_uhes_em_tabela()
+                    self.data = transforma_uhes_em_df()
                 break
             dados_uhe = self.__linha.read(linha)
             dados_uhes.append(dados_uhe)
@@ -299,6 +300,9 @@ class BlocoVazoes(Section):
             raise ValueError("Dados do dadvaz.dat não foram lidos com sucesso")
 
         for _, lin in self.data.iterrows():
-            file.write(self.__linha.write(lin.tolist()))
+            # Adapta para campos StageField
+            lin = lin.tolist()
+            linha_escrita = lin[0:3] + [[lin[3],lin[4],lin[5]]] + [[lin[6],lin[7],lin[8]]] + lin[9:]
+            file.write(self.__linha.write(linha_escrita))
 
 

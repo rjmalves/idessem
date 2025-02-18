@@ -7,6 +7,7 @@ from .avl_estatfpha import AvlEstatFpha  # noqa
 from .avl_fpha1 import AvlFpha1  # noqa
 from .avl_fpha2 import AvlFpha2  # noqa
 from .avl_fpha3 import AvlFpha3  # noqa
+from .dadvaz import Dadvaz #noqa
 from .deflant import Deflant #noqa
 from .des_log_relato import DesLogRelato  # noqa
 from .dessemarq import DessemArq  # noqa
