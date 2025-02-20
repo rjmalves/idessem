@@ -7,9 +7,10 @@ from .avl_estatfpha import AvlEstatFpha  # noqa
 from .avl_fpha1 import AvlFpha1  # noqa
 from .avl_fpha2 import AvlFpha2  # noqa
 from .avl_fpha3 import AvlFpha3  # noqa
-from .dadvaz import Dadvaz #noqa
-from .deflant import Deflant #noqa
+from .dadvaz import Dadvaz  # noqa
+from .deflant import Deflant  # noqa
 from .des_log_relato import DesLogRelato  # noqa
+from .desselet import Desselet  # noqa
 from .dessemarq import DessemArq  # noqa
 from .dessopc import Dessopc  # noqa
 from .entdados import Entdados  # noqa
@@ -38,6 +39,6 @@ from .pdo_sist import PdoSist  # noqa
 from .pdo_somflux import PdoSomFlux  # noqa
 from .pdo_term import PdoTerm  # noqa
 from .renovaveis import Renovaveis  # noqa
-from .respot import Respot #noqa
+from .respot import Respot  # noqa
 from .termdat import Term  # noqa
 from .uch import Uch  # noqa

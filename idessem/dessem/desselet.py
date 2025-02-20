@@ -11,7 +11,7 @@ from idessem.dessem.modelos.desselet import (
 
 class Desselet(SectionFile):
     """
-    Armazena os dados ... no DESSEM.
+    Armazena os dados para a rede elétrica nos estágios do DESSEM.
 
     Esta classe lida com informações de entrada fornecidas ao DESSEM e
     que podem ser modificadas através do arquivo `desselet.dat`.

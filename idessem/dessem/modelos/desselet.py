@@ -30,13 +30,13 @@ class BlocoCasosBase(Section):
         bloco: BlocoCasosBase = o
         if not all(
             [
-                isinstance(self.data, list),
-                isinstance(o.data, list),
+                isinstance(self.data, pd.DataFrame),
+                isinstance(o.data, pd.DataFrame),
             ]
         ):
             return False
         else:
-            return self.data == bloco.data
+            return self.data.equals(bloco.data)
 
     def read(self, file: IO, *args, **kwargs):
 
@@ -46,9 +46,11 @@ class BlocoCasosBase(Section):
         ) -> list:
             return [lista[coluna] for lista in listas]
 
-        def transforma_em_df(dados: list, mapa: dict) -> pd.DataFrame:
+        def transforma_em_df(dados: list, mapa: dict) -> pd.DataFrame | None:
+            if len(dados) == 0:
+                return None
             dados_df = {}
-            for key, value in mapa:
+            for key, value in mapa.items():
                 col = extrai_coluna_de_listas(dados, value)
                 dados_df[key] = col
             return pd.DataFrame(data=dados_df)
@@ -59,23 +61,26 @@ class BlocoCasosBase(Section):
         dados: List[list] = []
         while True:
             linha = file.readline()
+            # Converte para df
+            if BlocoCasosBase.FIM_BLOCO in linha[:6] or len(linha) < 1:
+                self.data = transforma_em_df(dados, mapa)
+                break
             # Armazena linhas de comentarios
             if "(" == linha[0]:
                 self.__comentarios.append(linha)
-            # Converte para df
-            if BlocoCasosBase.FIM_BLOCO == linha[:6]:
-                self.data = transforma_em_df(dados, mapa)  # TODO
-                break
-            dados = self.__linha.read(linha)
-            dados.append(dados)
+            else:
+                dados.append(self.__linha.read(linha))
 
-    # # Override
-    # def write(self, file: IO, *args, **kwargs):
-    #     for linha in self.__comentarios:  # TODO mudar
-    #         file.write(linha)
-    #     if not isinstance(self.data, list):
-    #         raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
-    #     file.write(self.__linha.write(self.data))
+    # Override
+    def write(self, file: IO, *args, **kwargs):
+        for linha in self.__comentarios:
+            file.write(linha)
+        if not isinstance(self.data, pd.DataFrame):
+            raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
+        for _, lin in self.data.iterrows():
+            linha_escrita = lin.tolist()
+            file.write(self.__linha.write(linha_escrita))
+        file.write(BlocoCasosBase.FIM_BLOCO + "\n")
 
 
 class BlocoCasosModificacao(Section):
@@ -99,8 +104,8 @@ class BlocoCasosModificacao(Section):
                 IntegerField(2, 27),
                 IntegerField(2, 30),
                 FloatField(5, 32, 1),
-                IntegerField(2, 40),
-                LiteralField(2, 45),
+                IntegerField(4, 40),
+                LiteralField(40, 45),
             ]
         )
         self.__comentarios: List[str] = []
@@ -129,9 +134,11 @@ class BlocoCasosModificacao(Section):
         ) -> list:
             return [lista[coluna] for lista in listas]
 
-        def transforma_em_df(dados: list, mapa: dict) -> pd.DataFrame:
+        def transforma_em_df(dados: list, mapa: dict) -> pd.DataFrame | None:
+            if len(dados) == 0:
+                return None
             dados_df = {}
-            for key, value in mapa:
+            for key, value in mapa.items():
                 col = extrai_coluna_de_listas(dados, value)
                 dados_df[key] = col
             return pd.DataFrame(data=dados_df)
@@ -153,12 +160,23 @@ class BlocoCasosModificacao(Section):
         dados: List[list] = []
         while True:
             linha = file.readline()
+            # Converte para df
+            if BlocoCasosModificacao.FIM_BLOCO in linha[:6] or len(linha) < 1:
+                self.data = transforma_em_df(dados, mapa)
+                break
             # Armazena linhas de comentarios
             if "(" == linha[0]:
                 self.__comentarios.append(linha)
-            # Converte para df
-            if BlocoCasosBase.FIM_BLOCO == linha[:6]:
-                self.data = transforma_em_df(dados, mapa)  # TODO
-                break
-            dados = self.__linha.read(linha)
-            dados.append(dados)
+            else:
+                dados.append(self.__linha.read(linha))
+
+    # Override
+    def write(self, file: IO, *args, **kwargs):
+        for linha in self.__comentarios:
+            file.write(linha)
+        if not isinstance(self.data, pd.DataFrame):
+            raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
+        for _, lin in self.data.iterrows():
+            linha_escrita = lin.tolist()
+            file.write(self.__linha.write(linha_escrita))
+        file.write(BlocoCasosModificacao.FIM_BLOCO + "\n")

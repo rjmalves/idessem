@@ -16,6 +16,7 @@ DESSEM
    arquivos/dadvaz
    arquivos/deflant
    arquivos/des_log_relato
+   arquivos/desselet
    arquivos/dessemarq
    arquivos/dessopc
    arquivos/entdados
