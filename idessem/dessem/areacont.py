@@ -56,11 +56,12 @@ class Areacont(BlockFile):
         b = self.data.get_blocks_of_type(BlocoArea)
         if isinstance(b, BlocoArea):
             return b.data[1]
+        return None
 
     @area.setter
     def area(self, valor: pd.DataFrame):
         b = self.data.get_blocks_of_type(BlocoArea)
-        if b is not None:
+        if isinstance(b, BlocoArea):
             b.data[1] = valor
         else:
             raise ValueError("Campo não lido")
@@ -82,11 +83,12 @@ class Areacont(BlockFile):
         b = self.data.get_blocks_of_type(BlocoUsina)
         if isinstance(b, BlocoUsina):
             return b.data[1]
+        return None
 
     @usina.setter
     def usina(self, valor: pd.DataFrame):
         b = self.data.get_blocks_of_type(BlocoUsina)
-        if b is not None:
+        if isinstance(b, BlocoUsina):
             b.data[1] = valor
         else:
             raise ValueError("Campo não lido")

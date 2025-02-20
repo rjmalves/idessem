@@ -115,7 +115,7 @@ class Dadvaz(SectionFile):
         return None
 
     @considera_periodo_simulacao.setter
-    def considera_periodo_simulacaonumero_semanas(self, n: int):
+    def considera_periodo_simulacao(self, n: int):
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
             b.data = n
