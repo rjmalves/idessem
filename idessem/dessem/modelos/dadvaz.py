@@ -24,10 +24,6 @@ class BlocoDataInicioEstudo(Section):
         self.__linha = Line(
             [
                 DatetimeField(size=16, format="%H  %d  %m  %Y"),
-                # IntegerField(2, 0),
-                # IntegerField(2, 4),
-                # IntegerField(2, 8),
-                # IntegerField(4, 12),
             ]
         )
         self.__cabecalhos: List[str] = []
@@ -72,62 +68,6 @@ class BlocoDataInicioEstudo(Section):
     @data_inicio.setter
     def data_inicio(self, d: datetime):
         self.data[0] = d
-
-    # @property
-    # def hora(self) -> Optional[int]:
-    #     """
-    #     A hora de referência para realização do estudo
-
-    #     :return: A hora
-    #     :rtype: int | None
-    #     """
-    #     return self.data[0]
-
-    # @hora.setter
-    # def hora(self, d: int):
-    #     self.data[0] = d
-
-    # @property
-    # def dia(self) -> Optional[int]:
-    #     """
-    #     O dia de referência para realização do estudo
-
-    #     :return: O dia
-    #     :rtype: int | None
-    #     """
-    #     return self.data[1]
-
-    # @dia.setter
-    # def dia(self, d: int):
-    #     self.data[1] = d
-
-    # @property
-    # def mes(self) -> Optional[int]:
-    #     """
-    #     O mês de referência para realização do estudo
-
-    #     :return: O mês
-    #     :rtype: int | None
-    #     """
-    #     return self.data[2]
-
-    # @mes.setter
-    # def mes(self, m: int):
-    #     self.data[2] = m
-
-    # @property
-    # def ano(self) -> Optional[int]:
-    #     """
-    #     O ano de referência para realização do estudo
-
-    #     :return: O ano
-    #     :rtype: int | None
-    #     """
-    #     return self.data[3]
-
-    # @ano.setter
-    # def ano(self, a: int):
-    #     self.data[3] = a
 
 
 class BlocoDadosHorizonte(Section):
