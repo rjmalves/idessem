@@ -1,9 +1,10 @@
-from idessem.dessem.modelos.deflant import (
-    DEFANT
-)
+from typing import List, Optional, Type, TypeVar, Union
+
 import pandas as pd  # type: ignore
+from cfinterface.components.register import Register
 from cfinterface.files.registerfile import RegisterFile
-from typing import Type, List, Optional, TypeVar, Union
+
+from idessem.dessem.modelos.deflant import DEFANT
 
 
 class Deflant(RegisterFile):
@@ -17,11 +18,9 @@ class Deflant(RegisterFile):
 
     """
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
-    REGISTERS = [
-        DEFANT
-    ]
+    REGISTERS = [DEFANT]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -35,7 +34,6 @@ class Deflant(RegisterFile):
             kwargs_sem_df = {k: v for k, v in kwargs.items() if k != "df"}
             return self.data.get_registers_of_type(t, **kwargs_sem_df)
 
-
     def defant(
         self,
         codigo_usina_montante: Optional[int] = None,
@@ -46,7 +44,7 @@ class Deflant(RegisterFile):
     ) -> Optional[Union[DEFANT, List[DEFANT], pd.DataFrame]]:
         """
         Obtém um registro que especifica as defluências anteriores
-         ao início do estudo para consideração dos tempos de viagem 
+         ao início do estudo para consideração dos tempos de viagem
           descritas pelo :class:`Deflant`.
 
         :param codigo_usina_montante: Índice da UHE a montante com tempo de viagem
@@ -54,7 +52,7 @@ class Deflant(RegisterFile):
         :param codigo_elemento_jusante: Índice do elemento a jusante
         :type codigo_elemento_jusante: int | None
         :param tipo_elemento_jusante: Tipo do elemento a jusante (seção ou UHE)
-        :type tipo_elemento_jusante: str | 
+        :type tipo_elemento_jusante: str |
         :param defluencia: Defluência
         :type defluencia: float | None
         :param df: ignorar os filtros e retornar

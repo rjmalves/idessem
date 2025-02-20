@@ -1,10 +1,10 @@
-from idessem.dessem.modelos.respot import (
-    RP,
-    LM
-)
+from typing import List, Optional, Type, TypeVar, Union
+
 import pandas as pd  # type: ignore
+from cfinterface.components.register import Register
 from cfinterface.files.registerfile import RegisterFile
-from typing import Type, List, Optional, TypeVar, Union
+
+from idessem.dessem.modelos.respot import LM, RP
 
 
 class Respot(RegisterFile):
@@ -18,11 +18,9 @@ class Respot(RegisterFile):
 
     """
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
-    REGISTERS = [
-        RP, LM
-    ]
+    REGISTERS = [RP, LM]
 
     def __init__(self, data=...) -> None:
         super().__init__(data)
@@ -35,7 +33,6 @@ class Respot(RegisterFile):
         else:
             kwargs_sem_df = {k: v for k, v in kwargs.items() if k != "df"}
             return self.data.get_registers_of_type(t, **kwargs_sem_df)
-
 
     def rp(
         self,
