@@ -1,19 +1,19 @@
-from idessem.dessem.modelos.dadvaz import (
-    BlocoDataInicioEstudo,
-    BlocoDadosHorizonte,
-    BlocoVazoes
-)
-from idessem.dessem.dadvaz import Dadvaz
-from tests.mocks.mock_open import mock_open
+from datetime import datetime
 from unittest.mock import MagicMock, patch
 
-
-from tests.mocks.arquivos.dadvaz import (
-    MockDadvaz,
-    MockBlocoDataInicioEstudo,
-    MockBlocoDadosHorizonte,
-    MockBlocoVazoes
+from idessem.dessem.dadvaz import Dadvaz
+from idessem.dessem.modelos.dadvaz import (
+    BlocoDadosHorizonte,
+    BlocoDataInicioEstudo,
+    BlocoVazoes,
 )
+from tests.mocks.arquivos.dadvaz import (
+    MockBlocoDadosHorizonte,
+    MockBlocoDataInicioEstudo,
+    MockBlocoVazoes,
+    MockDadvaz,
+)
+from tests.mocks.mock_open import mock_open
 
 ARQ_TESTE = "./tests/__init__.py"
 
@@ -23,10 +23,7 @@ def test_atributos_encontrados_dadvaz():
     with patch("builtins.open", m):
         ad = Dadvaz.read(ARQ_TESTE)
         assert ad.vazoes is not None
-        assert ad.hora is not None
-        assert ad.dia is not None
-        assert ad.mes is not None
-        assert ad.ano is not None
+        assert ad.data_inicio is not None
         assert ad.dia_semana_inicial is not None
         assert ad.semana_acoplamento_fcf is not None
         assert ad.numero_semanas is not None
@@ -38,10 +35,7 @@ def test_atributos_nao_encontrados_dadvaz():
     with patch("builtins.open", m):
         ad = Dadvaz.read(ARQ_TESTE)
         assert ad.vazoes is None
-        assert ad.hora is None
-        assert ad.dia is None
-        assert ad.mes is None
-        assert ad.ano is None
+        assert ad.data_inicio is None
         assert ad.dia_semana_inicial is None
         assert ad.semana_acoplamento_fcf is None
         assert ad.numero_semanas is None
@@ -54,11 +48,11 @@ def test_bloco_data_inicio_estudo():
     with patch("builtins.open", m):
         with open("", "") as fp:
             b.read(fp)
-        
-    assert b.hora == 0
-    assert b.dia == 11
-    assert b.mes == 8
-    assert b.ano == 2022
+    assert b.data == [datetime(2022, 8, 11, 0)]
+    assert b.data_inicio == datetime(2022, 8, 11, 0)
+    b.data_inicio = datetime(2022, 8, 12, 0)
+    assert b.data_inicio == datetime(2022, 8, 12, 0)
+
 
 def test_bloco_dados_horizonte():
     m: MagicMock = mock_open(read_data="".join(MockBlocoDadosHorizonte))
@@ -66,11 +60,20 @@ def test_bloco_dados_horizonte():
     with patch("builtins.open", m):
         with open("", "") as fp:
             b.read(fp)
-        
+
     assert b.semana_acoplamento_fcf == 1
+    b.semana_acoplamento_fcf = 0
+    assert b.semana_acoplamento_fcf == 0
     assert b.numero_semanas == 1
+    b.numero_semanas = 0
+    assert b.numero_semanas == 0
+    assert b.considera_periodo_simulacao == 0
+    b.considera_periodo_simulacao = 0
     assert b.considera_periodo_simulacao == 0
     assert b.dia_semana_inicial == 6
+    b.dia_semana_inicial = 0
+    assert b.dia_semana_inicial == 0
+
 
 def test_bloco_vazoes():
     m: MagicMock = mock_open(read_data="".join(MockBlocoVazoes))
@@ -79,16 +82,17 @@ def test_bloco_vazoes():
         with open("", "") as fp:
             b.read(fp)
 
-    assert b.data.at[0,"codigo_usina"] == 1
-    assert b.data.at[0,"nome_usina"] == "CAMARGOS"
-    assert b.data.at[0,"tipo_dado"] == 1
-    assert b.data.at[0,"dia_inicial"] == 11
-    assert b.data.at[0,"hora_inicial"] is None
-    assert b.data.at[0,"meia_hora_inicial"] is None
-    assert b.data.at[0,"dia_final"] == "F"
-    assert b.data.at[0,"hora_final"] is None
-    assert b.data.at[0,"meia_hora_final"] is None
-    assert b.data.at[0,"vazao"] == 45
+    assert b.data.at[0, "codigo_usina"] == 1
+    assert b.data.at[0, "nome_usina"] == "CAMARGOS"
+    assert b.data.at[0, "tipo_dado"] == 1
+    assert b.data.at[0, "dia_inicial"] == 11
+    assert b.data.at[0, "hora_inicial"] is None
+    assert b.data.at[0, "meia_hora_inicial"] is None
+    assert b.data.at[0, "dia_final"] == "F"
+    assert b.data.at[0, "hora_final"] is None
+    assert b.data.at[0, "meia_hora_final"] is None
+    assert b.data.at[0, "vazao"] == 45
+
 
 def test_eq_dadvaz():
     m: MagicMock = mock_open(read_data="".join(MockDadvaz))
@@ -116,9 +120,7 @@ def test_leitura_escrita_dadvaz():
         cf1.write(ARQ_TESTE)
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
-        linhas_escritas = [
-            chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
-        ]
+        linhas_escritas = [chamadas[i].args[0] for i in range(1, len(chamadas) - 1)]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
         cf2 = Dadvaz.read(ARQ_TESTE)

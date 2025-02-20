@@ -1,12 +1,16 @@
+from datetime import datetime
 from typing import IO, List, Optional
 
 import pandas as pd  # type: ignore
+from cfinterface.components.datetimefield import DatetimeField
 from cfinterface.components.floatfield import FloatField
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.line import Line
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.section import Section
+
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
+
 
 class BlocoDataInicioEstudo(Section):
     """
@@ -17,22 +21,27 @@ class BlocoDataInicioEstudo(Section):
 
     def __init__(self, previous=None, next=None, data=None) -> None:
         super().__init__(previous, next, data)
-        self.__linha = Line([
-            IntegerField(2, 0),
-            IntegerField(2, 4),
-            IntegerField(2, 8),
-            IntegerField(4, 12),
-        ])
+        self.__linha = Line(
+            [
+                DatetimeField(size=16, format="%H  %d  %m  %Y"),
+                # IntegerField(2, 0),
+                # IntegerField(2, 4),
+                # IntegerField(2, 8),
+                # IntegerField(4, 12),
+            ]
+        )
         self.__cabecalhos: List[str] = []
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, BlocoDataInicioEstudo):
             return False
         bloco: BlocoDataInicioEstudo = o
-        if not all([
-            isinstance(self.data, list),
-            isinstance(o.data, list),
-        ]):
+        if not all(
+            [
+                isinstance(self.data, list),
+                isinstance(o.data, list),
+            ]
+        ):
             return False
         else:
             return self.data == bloco.data
@@ -42,7 +51,7 @@ class BlocoDataInicioEstudo(Section):
             self.__cabecalhos.append(file.readline())
         self.data = self.__linha.read(file.readline())
 
-     # Override
+    # Override
     def write(self, file: IO, *args, **kwargs):
         for linha in self.__cabecalhos:
             file.write(linha)
@@ -51,7 +60,7 @@ class BlocoDataInicioEstudo(Section):
         file.write(self.__linha.write(self.data))
 
     @property
-    def hora(self) -> Optional[int]:
+    def data_inicio(self) -> Optional[datetime]:
         """
         A hora de referência para realização do estudo
 
@@ -60,51 +69,65 @@ class BlocoDataInicioEstudo(Section):
         """
         return self.data[0]
 
-    @hora.setter
-    def hora(self, d: int):
+    @data_inicio.setter
+    def data_inicio(self, d: datetime):
         self.data[0] = d
 
-    @property
-    def dia(self) -> Optional[int]:
-        """
-        O dia de referência para realização do estudo
+    # @property
+    # def hora(self) -> Optional[int]:
+    #     """
+    #     A hora de referência para realização do estudo
 
-        :return: O dia
-        :rtype: int | None
-        """
-        return self.data[1]
+    #     :return: A hora
+    #     :rtype: int | None
+    #     """
+    #     return self.data[0]
 
-    @dia.setter
-    def dia(self, d: int):
-        self.data[1] = d
+    # @hora.setter
+    # def hora(self, d: int):
+    #     self.data[0] = d
 
-    @property
-    def mes(self) -> Optional[int]:
-        """
-        O mês de referência para realização do estudo
+    # @property
+    # def dia(self) -> Optional[int]:
+    #     """
+    #     O dia de referência para realização do estudo
 
-        :return: O mês
-        :rtype: int | None
-        """
-        return self.data[2]
+    #     :return: O dia
+    #     :rtype: int | None
+    #     """
+    #     return self.data[1]
 
-    @mes.setter
-    def mes(self, m: int):
-        self.data[2] = m
+    # @dia.setter
+    # def dia(self, d: int):
+    #     self.data[1] = d
 
-    @property
-    def ano(self) -> Optional[int]:
-        """
-        O ano de referência para realização do estudo
+    # @property
+    # def mes(self) -> Optional[int]:
+    #     """
+    #     O mês de referência para realização do estudo
 
-        :return: O ano
-        :rtype: int | None
-        """
-        return self.data[3]
+    #     :return: O mês
+    #     :rtype: int | None
+    #     """
+    #     return self.data[2]
 
-    @ano.setter
-    def ano(self, a: int):
-        self.data[3] = a
+    # @mes.setter
+    # def mes(self, m: int):
+    #     self.data[2] = m
+
+    # @property
+    # def ano(self) -> Optional[int]:
+    #     """
+    #     O ano de referência para realização do estudo
+
+    #     :return: O ano
+    #     :rtype: int | None
+    #     """
+    #     return self.data[3]
+
+    # @ano.setter
+    # def ano(self, a: int):
+    #     self.data[3] = a
 
 
 class BlocoDadosHorizonte(Section):
@@ -116,40 +139,42 @@ class BlocoDadosHorizonte(Section):
 
     def __init__(self, previous=None, next=None, data=None) -> None:
         super().__init__(previous, next, data)
-        self.__linha = Line([
-            IntegerField(1, 0),
-            IntegerField(1, 2),
-            IntegerField(1, 4),
-            IntegerField(1, 6),
-        ])
+        self.__linha = Line(
+            [
+                IntegerField(1, 0),
+                IntegerField(1, 2),
+                IntegerField(1, 4),
+                IntegerField(1, 6),
+            ]
+        )
         self.__cabecalhos: List[str] = []
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, BlocoDadosHorizonte):
             return False
         bloco: BlocoDadosHorizonte = o
-        if not all([
-            isinstance(self.data, list),
-            isinstance(o.data, list),
-        ]):
+        if not all(
+            [
+                isinstance(self.data, list),
+                isinstance(o.data, list),
+            ]
+        ):
             return False
         else:
             return self.data == bloco.data
-        
 
     def read(self, file: IO, *args, **kwargs):
         for _ in range(2):
             self.__cabecalhos.append(file.readline())
         self.data = self.__linha.read(file.readline())
 
-     # Override
+    # Override
     def write(self, file: IO, *args, **kwargs):
         for linha in self.__cabecalhos:
             file.write(linha)
         if not isinstance(self.data, list):
             raise ValueError("Dados do dadvaz.dat não foram lidos com sucesso")
         file.write(self.__linha.write(self.data))
-
 
     @property
     def dia_semana_inicial(self) -> Optional[int]:
@@ -196,7 +221,7 @@ class BlocoDadosHorizonte(Section):
     @property
     def considera_periodo_simulacao(self) -> Optional[int]:
         """
-        O flag que indica presença de período de simulação 
+        O flag que indica presença de período de simulação
 
         :return: O código do dia
         :rtype: int | None
@@ -217,35 +242,41 @@ class BlocoVazoes(Section):
 
     def __init__(self, previous=None, next=None, data=None) -> None:
         super().__init__(previous, next, data)
-        self.__linha = Line([
-            IntegerField(3, 0),
-            LiteralField(12,4),
-            IntegerField(1, 19),
-            StageDateField(starting_position=24,special_day_character="I"),
-            StageDateField(starting_position=32,special_day_character="F"),
-            FloatField(9,44,2)
-        ])
+        self.__linha = Line(
+            [
+                IntegerField(3, 0),
+                LiteralField(12, 4),
+                IntegerField(1, 19),
+                StageDateField(starting_position=24, special_day_character="I"),
+                StageDateField(starting_position=32, special_day_character="F"),
+                FloatField(9, 44, 2),
+            ]
+        )
         self.__cabecalhos: List[str] = []
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, BlocoVazoes):
             return False
         bloco: BlocoVazoes = o
-        if not all([
-            isinstance(self.data, pd.DataFrame),
-            isinstance(o.data, pd.DataFrame),
-        ]):
+        if not all(
+            [
+                isinstance(self.data, pd.DataFrame),
+                isinstance(o.data, pd.DataFrame),
+            ]
+        ):
             return False
         else:
             return self.data.equals(bloco.data)
 
     # Override
     def read(self, file: IO, *args, **kwargs):
-        def extrai_coluna_de_listas(listas: List[list], coluna: int, elemento: int | None = None) -> list:
+        def extrai_coluna_de_listas(
+            listas: List[list], coluna: int, elemento: int | None = None
+        ) -> list:
             if elemento is None:
-                return [lista[coluna] for lista in listas] 
+                return [lista[coluna] for lista in listas]
             else:
-                return [lista[coluna][elemento] for lista in listas] 
+                return [lista[coluna][elemento] for lista in listas]
 
         def transforma_uhes_em_df() -> pd.DataFrame:
             # Converte as informações de cada linha em colunas
@@ -269,7 +300,7 @@ class BlocoVazoes(Section):
                 "dia_final": col_dia_final,
                 "hora_final": col_hora_final,
                 "meia_hora_final": col_meia_hora_final,
-                "vazao": col_vazao
+                "vazao": col_vazao,
             }
             df = pd.DataFrame(data=dados)
             return df
@@ -291,7 +322,6 @@ class BlocoVazoes(Section):
             dados_uhe = self.__linha.read(linha)
             dados_uhes.append(dados_uhe)
 
-
     # Override
     def write(self, file: IO, *args, **kwargs):
         for linha in self.__cabecalhos:
@@ -302,7 +332,10 @@ class BlocoVazoes(Section):
         for _, lin in self.data.iterrows():
             # Adapta para campos StageField
             lin = lin.tolist()
-            linha_escrita = lin[0:3] + [[lin[3],lin[4],lin[5]]] + [[lin[6],lin[7],lin[8]]] + lin[9:]
+            linha_escrita = (
+                lin[0:3]
+                + [[lin[3], lin[4], lin[5]]]
+                + [[lin[6], lin[7], lin[8]]]
+                + lin[9:]
+            )
             file.write(self.__linha.write(linha_escrita))
-
-

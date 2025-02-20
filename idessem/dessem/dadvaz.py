@@ -1,8 +1,14 @@
-from idessem.dessem.modelos.dadvaz import BlocoDataInicioEstudo, BlocoDadosHorizonte, BlocoVazoes
+from datetime import datetime
+from typing import Optional, TypeVar
 
-from cfinterface.files.sectionfile import SectionFile
-from typing import TypeVar, Optional
 import pandas as pd  # type: ignore
+from cfinterface.files.sectionfile import SectionFile
+
+from idessem.dessem.modelos.dadvaz import (
+    BlocoDadosHorizonte,
+    BlocoDataInicioEstudo,
+    BlocoVazoes,
+)
 
 
 class Dadvaz(SectionFile):
@@ -19,83 +25,106 @@ class Dadvaz(SectionFile):
 
     SECTIONS = [BlocoDataInicioEstudo, BlocoDadosHorizonte, BlocoVazoes]
 
-
     @property
-    def hora(self) -> Optional[int]:
+    def data_inicio(self) -> Optional[datetime]:
         """
-        A hora de referência para realização do estudo
+        A data de referência para realização do estudo
 
-        :return: A hora
-        :rtype: int | None
+        :return: A data
+        :rtype: datetime | None
         """
         b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
         if isinstance(b, BlocoDataInicioEstudo):
-            return b.hora
+            return b.data_inicio
         return None
 
-    @hora.setter
-    def hora(self, n: int):
+    @data_inicio.setter
+    def data_inicio(self, n: datetime):
         b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
         if isinstance(b, BlocoDataInicioEstudo):
-            b.data = n
+            b.data_inicio = n
 
+    # @hora.setter
+    # def hora(self, n: int):
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         b.data = n
 
-    @property
-    def dia(self) -> Optional[int]:
-        """
-        O dia de referência para realização do estudo
+    # @property
+    # def hora(self) -> Optional[int]:
+    #     """
+    #     A hora de referência para realização do estudo
 
-        :return: O dia
-        :rtype: int | None
-        """
-        b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
-        if isinstance(b, BlocoDataInicioEstudo):
-            return b.dia
-        return None
+    #     :return: A hora
+    #     :rtype: int | None
+    #     """
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         return b.hora
+    #     return None
 
-    @dia.setter
-    def dia(self, n: int):
-        b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
-        if isinstance(b, BlocoDataInicioEstudo):
-            b.data = n
+    # @hora.setter
+    # def hora(self, n: int):
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         b.data = n
 
-    @property
-    def mes(self) -> Optional[int]:
-        """
-        O mês de referência para realização do estudo
+    # @property
+    # def dia(self) -> Optional[int]:
+    #     """
+    #     O dia de referência para realização do estudo
 
-        :return: O mês
-        :rtype: int | None
-        """
-        b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
-        if isinstance(b, BlocoDataInicioEstudo):
-            return b.mes
-        return None
+    #     :return: O dia
+    #     :rtype: int | None
+    #     """
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         return b.dia
+    #     return None
 
-    @mes.setter
-    def mes(self, n: int):
-        b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
-        if isinstance(b, BlocoDataInicioEstudo):
-            b.data = n
+    # @dia.setter
+    # def dia(self, n: int):
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         b.data = n
 
-    @property
-    def ano(self) -> Optional[int]:
-        """
-        O ano de referência para realização do estudo
+    # @property
+    # def mes(self) -> Optional[int]:
+    #     """
+    #     O mês de referência para realização do estudo
 
-        :return: O ano
-        :rtype: int | None
-        """
-        b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
-        if isinstance(b, BlocoDataInicioEstudo):
-            return b.ano
-        return None
+    #     :return: O mês
+    #     :rtype: int | None
+    #     """
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         return b.mes
+    #     return None
 
-    @ano.setter
-    def ano(self, n: int):
-        b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
-        if isinstance(b, BlocoDataInicioEstudo):
-            b.data = n
+    # @mes.setter
+    # def mes(self, n: int):
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         b.data = n
+
+    # @property
+    # def ano(self) -> Optional[int]:
+    #     """
+    #     O ano de referência para realização do estudo
+
+    #     :return: O ano
+    #     :rtype: int | None
+    #     """
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         return b.ano
+    #     return None
+
+    # @ano.setter
+    # def ano(self, n: int):
+    #     b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
+    #     if isinstance(b, BlocoDataInicioEstudo):
+    #         b.data = n
 
     @property
     def dia_semana_inicial(self) -> Optional[int]:
@@ -157,7 +186,7 @@ class Dadvaz(SectionFile):
     @property
     def considera_periodo_simulacao(self) -> Optional[int]:
         """
-        O flag que indica presença de período de simulação 
+        O flag que indica presença de período de simulação
 
         :return: O código do dia
         :rtype: int | None
@@ -172,7 +201,6 @@ class Dadvaz(SectionFile):
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
             b.data = n
-
 
     @property
     def vazoes(self) -> Optional[pd.DataFrame]:
