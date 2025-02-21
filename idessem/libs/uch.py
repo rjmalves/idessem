@@ -2,7 +2,7 @@ from typing import Type, TypeVar, Optional, List, Union
 from cfinterface.components.register import Register
 from cfinterface.files.registerfile import RegisterFile
 import pandas as pd  # type: ignore
-from idessem.dessem.modelos.uch import (
+from idessem.libs.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
     UchOpcaoPadraoData,
@@ -35,7 +35,8 @@ import warnings
 
 
 class Uch(RegisterFile):
-    """ """
+    """Armazena os dados de entrada do DESSEM referentes aos dados
+    de unit commitment hidráulico (UCH) do problema."""
 
     T = TypeVar("T")
 
