@@ -27,13 +27,14 @@ from idessem.dessem.modelos.uch import (
     UchCustoPartidaConjunto,
     UchCustoPartidaUsina,
 )
+from cfinterface.components.register import Register
 
 
 class Uch(RegisterFile):
     """Armazena os dados de entrada do DESSEM referentes aos dados
     de unit commitment hidráulico (UCH) do problema."""
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
     REGISTERS = [
         UchCustoPartidaVazioUnidade,

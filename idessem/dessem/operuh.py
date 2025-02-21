@@ -4,6 +4,7 @@ import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 
 from idessem.dessem.modelos.operuh import ELEM, LIM, REST, VAR
+from cfinterface.components.register import Register
 
 
 class Operuh(RegisterFile):
@@ -17,7 +18,7 @@ class Operuh(RegisterFile):
 
     """
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
     REGISTERS = [
         REST,

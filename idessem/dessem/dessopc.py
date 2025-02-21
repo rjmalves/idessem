@@ -63,7 +63,7 @@ class Dessopc(BlockFile):
     @uctpar.setter
     def uctpar(self, valor: int):
         b = self.data.get_blocks_of_type(BlocoUctPar)
-        if b is not None:
+        if isinstance(b, BlocoUctPar):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -84,7 +84,7 @@ class Dessopc(BlockFile):
     @ucterm.setter
     def ucterm(self, valor: int):
         b = self.data.get_blocks_of_type(BlocoUcTerm)
-        if b is not None:
+        if isinstance(b, BlocoUcTerm):
             b.data = valor
         else:
             raise ValueError("Campo não lido")

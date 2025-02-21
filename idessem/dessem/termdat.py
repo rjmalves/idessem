@@ -2,6 +2,7 @@ from idessem.dessem.modelos.termdat import CADUSIT, CADUNIDT, CADCONF, CADMIN
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from typing import Type, List, Optional, TypeVar, Union
+from cfinterface.components.register import Register
 
 
 class Term(RegisterFile):
@@ -15,7 +16,7 @@ class Term(RegisterFile):
 
     """
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
     REGISTERS = [CADUSIT, CADUNIDT, CADCONF, CADMIN]
 

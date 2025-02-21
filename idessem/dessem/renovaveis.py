@@ -7,6 +7,7 @@ from idessem.dessem.modelos.renovaveis import (
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from typing import Type, List, Optional, TypeVar, Union
+from cfinterface.components.register import Register
 
 
 class Renovaveis(RegisterFile):
@@ -20,7 +21,7 @@ class Renovaveis(RegisterFile):
 
     """
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
     REGISTERS = [EOLICAGERACAO, EOLICASUBM, EOLICABARRA, EOLICA]
 

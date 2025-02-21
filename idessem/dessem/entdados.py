@@ -59,6 +59,7 @@ import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
 from typing import Type, List, Optional, TypeVar, Union, Any
 import numpy as np
+from cfinterface.components.register import Register
 
 
 class Entdados(RegisterFile):
@@ -71,7 +72,7 @@ class Entdados(RegisterFile):
 
     """
 
-    T = TypeVar("T")
+    T = TypeVar("T", bound=Register)
 
     AC = Union[
         ACVTFUGA,
