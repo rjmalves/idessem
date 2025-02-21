@@ -16,11 +16,7 @@ from idessem.dessem.modelos.dessopc import (
 )
 
 from cfinterface.files.blockfile import BlockFile
-from typing import Type, TypeVar, Optional, List
-
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
+from typing import TypeVar, Optional, List
 
 
 class Dessopc(BlockFile):
@@ -51,46 +47,6 @@ class Dessopc(BlockFile):
     def __init__(self, data=...) -> None:
         super().__init__(data)
 
-    @classmethod
-    def le_arquivo(
-        cls, diretorio: str, nome_arquivo="dessopc.dat"
-    ) -> "Dessopc":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
-
-    def escreve_arquivo(self, diretorio: str, nome_arquivo="dessopc.dat"):
-        msg = (
-            "O método escreve_arquivo(diretorio, nome_arquivo) será"
-            + " descontinuado na versão 1.0.0 -"
-            + " use o método write(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        self.write(join(diretorio, nome_arquivo))
-
-    def __bloco_por_tipo(self, bloco: Type[T], indice: int) -> Optional[T]:
-        """
-        Obtém um gerador de blocos de um tipo, se houver algum no arquivo.
-
-        :param bloco: Um tipo de bloco para ser lido
-        :type bloco: T
-        :param indice: O índice do bloco a ser acessado, dentre os do tipo
-        :type indice: int
-        :return: O gerador de blocos, se houver
-        :rtype: Optional[Generator[T], None, None]
-        """
-        try:
-            return next(
-                b
-                for i, b in enumerate(self.data.of_type(bloco))
-                if i == indice
-            )
-        except StopIteration:
-            return None
-
     @property
     def uctpar(self) -> Optional[int]:
         """
@@ -99,14 +55,14 @@ class Dessopc(BlockFile):
         :return: O valor do flag
         :rtype: int | None
         """
-        b = self.__bloco_por_tipo(BlocoUctPar, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoUctPar)
+        if isinstance(b, BlocoUctPar):
             return b.data
         return None
 
     @uctpar.setter
     def uctpar(self, valor: int):
-        b = self.__bloco_por_tipo(BlocoUctPar, 0)
+        b = self.data.get_blocks_of_type(BlocoUctPar)
         if b is not None:
             b.data = valor
         else:
@@ -120,14 +76,14 @@ class Dessopc(BlockFile):
         :return: O valor do flag
         :rtype: int | None
         """
-        b = self.__bloco_por_tipo(BlocoUcTerm, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoUcTerm)
+        if isinstance(b, BlocoUcTerm):
             return b.data
         return None
 
     @ucterm.setter
     def ucterm(self, valor: int):
-        b = self.__bloco_por_tipo(BlocoUcTerm, 0)
+        b = self.data.get_blocks_of_type(BlocoUcTerm)
         if b is not None:
             b.data = valor
         else:
@@ -141,8 +97,8 @@ class Dessopc(BlockFile):
         :return: O flag
         :rtype: str | None
         """
-        b = self.__bloco_por_tipo(BlocoPint, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoPint)
+        if isinstance(b, BlocoPint):
             return "PINT"
         return None
 
@@ -155,15 +111,15 @@ class Dessopc(BlockFile):
         :return: Lista com os flag
         :rtype: list | None
         """
-        b = self.__bloco_por_tipo(BlocoRegraNPTV, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoRegraNPTV)
+        if isinstance(b, BlocoRegraNPTV):
             return b.data
         return None
 
     @regranptv.setter
     def regranptv(self, valor: List[int]):
-        b = self.__bloco_por_tipo(BlocoRegraNPTV, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoRegraNPTV)
+        if isinstance(b, BlocoRegraNPTV):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -176,15 +132,15 @@ class Dessopc(BlockFile):
         :return: O valor do flag
         :rtype: int | None
         """
-        b = self.__bloco_por_tipo(BlocoAvlCmo, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoAvlCmo)
+        if isinstance(b, BlocoAvlCmo):
             return b.data
         return None
 
     @avlcmo.setter
     def avlcmo(self, valor: int):
-        b = self.__bloco_por_tipo(BlocoAvlCmo, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoAvlCmo)
+        if isinstance(b, BlocoAvlCmo):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -197,8 +153,8 @@ class Dessopc(BlockFile):
         :return: O flag
         :rtype: str | None
         """
-        b = self.__bloco_por_tipo(BlocoCplexLog, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoCplexLog)
+        if isinstance(b, BlocoCplexLog):
             return "CPLEXLOG"
         return None
 
@@ -210,8 +166,8 @@ class Dessopc(BlockFile):
         :return: O flag
         :rtype: str | None
         """
-        b = self.__bloco_por_tipo(BlocoUctBusLoc, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoUctBusLoc)
+        if isinstance(b, BlocoUctBusLoc):
             return "UCTBUSLOC"
         return None
 
@@ -224,15 +180,15 @@ class Dessopc(BlockFile):
         :return: Lista com os flag
         :rtype: list | None
         """
-        b = self.__bloco_por_tipo(BlocoUctHeurFp, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoUctHeurFp)
+        if isinstance(b, BlocoUctHeurFp):
             return b.data
         return None
 
     @uctheurfp.setter
     def uctheurfp(self, valor: List[int]):
-        b = self.__bloco_por_tipo(BlocoUctHeurFp, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoUctHeurFp)
+        if isinstance(b, BlocoUctHeurFp):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -245,15 +201,15 @@ class Dessopc(BlockFile):
         :return: Lista com os flag
         :rtype: list | None
         """
-        b = self.__bloco_por_tipo(BlocoConstDados, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoConstDados)
+        if isinstance(b, BlocoConstDados):
             return b.data
         return None
 
     @constdados.setter
     def constdados(self, valor: List[int]):
-        b = self.__bloco_por_tipo(BlocoConstDados, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoConstDados)
+        if isinstance(b, BlocoConstDados):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -266,15 +222,15 @@ class Dessopc(BlockFile):
         :return: Lista com os flag
         :rtype: list | None
         """
-        b = self.__bloco_por_tipo(BlocoAjusteFcf, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoAjusteFcf)
+        if isinstance(b, BlocoAjusteFcf):
             return b.data
         return None
 
     @ajustefcf.setter
     def ajustefcf(self, valor: List[int]):
-        b = self.__bloco_por_tipo(BlocoAjusteFcf, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoAjusteFcf)
+        if isinstance(b, BlocoAjusteFcf):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -287,15 +243,15 @@ class Dessopc(BlockFile):
         :return: O valor do flag
         :rtype: int | None
         """
-        b = self.__bloco_por_tipo(BlocoTolerIlh, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoTolerIlh)
+        if isinstance(b, BlocoTolerIlh):
             return b.data
         return None
 
     @tolerilh.setter
     def tolerilh(self, valor: int):
-        b = self.__bloco_por_tipo(BlocoTolerIlh, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoTolerIlh)
+        if isinstance(b, BlocoTolerIlh):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -309,15 +265,15 @@ class Dessopc(BlockFile):
         :return: Lista com os flag
         :rtype: list | None
         """
-        b = self.__bloco_por_tipo(BlocoCrossover, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoCrossover)
+        if isinstance(b, BlocoCrossover):
             return b.data
         return None
 
     @crossover.setter
     def crossover(self, valor: List[int]):
-        b = self.__bloco_por_tipo(BlocoCrossover, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoCrossover)
+        if isinstance(b, BlocoCrossover):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -330,15 +286,15 @@ class Dessopc(BlockFile):
         :return: O valor do flag
         :rtype: int | None
         """
-        b = self.__bloco_por_tipo(BlocoEngolimento, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoEngolimento)
+        if isinstance(b, BlocoEngolimento):
             return b.data
         return None
 
     @engolimento.setter
     def engolimento(self, valor: int):
-        b = self.__bloco_por_tipo(BlocoEngolimento, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoEngolimento)
+        if isinstance(b, BlocoEngolimento):
             b.data = valor
         else:
             raise ValueError("Campo não lido")
@@ -351,15 +307,15 @@ class Dessopc(BlockFile):
         :return: O valor do flag
         :rtype: int | None
         """
-        b = self.__bloco_por_tipo(BlocoTrataInviabIlha, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoTrataInviabIlha)
+        if isinstance(b, BlocoTrataInviabIlha):
             return b.data
         return None
 
     @tratainviabilha.setter
     def tratainviabilha(self, valor: int):
-        b = self.__bloco_por_tipo(BlocoTrataInviabIlha, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoTrataInviabIlha)
+        if isinstance(b, BlocoTrataInviabIlha):
             b.data = valor
         else:
             raise ValueError("Campo não lido")

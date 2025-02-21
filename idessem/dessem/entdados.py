@@ -57,13 +57,8 @@ from idessem.dessem.modelos.entdados import (
 )
 import pandas as pd  # type: ignore
 from cfinterface.files.registerfile import RegisterFile
-from cfinterface.components.register import Register
 from typing import Type, List, Optional, TypeVar, Union, Any
-
-
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
+import numpy as np
 
 
 class Entdados(RegisterFile):
@@ -73,10 +68,6 @@ class Entdados(RegisterFile):
     Esta classe lida com as informações de entrada fornecidas ao
     DESSEM no `entdados.dat`. Possui métodos para acessar individualmente
     cada registro, editá-lo e também cria alguns novos registros.
-
-    É possível ler as informações existentes em arquivos a partir do
-    método `le_arquivo()` e escreve um novo arquivo a partir do método
-    `escreve_arquivo()`.
 
     """
 
@@ -162,110 +153,31 @@ class Entdados(RegisterFile):
     def __init__(self, data=...) -> None:
         super().__init__(data)
 
-    @classmethod
-    def le_arquivo(
-        cls, diretorio: str, nome_arquivo="entdados.dat"
-    ) -> "Entdados":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
-
-    def escreve_arquivo(self, diretorio: str, nome_arquivo="entdados.dat"):
-        msg = (
-            "O método escreve_arquivo(diretorio, nome_arquivo) será"
-            + " descontinuado na versão 1.0.0 -"
-            + " use o método write(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        self.write(join(diretorio, nome_arquivo))
-
-    def __registros_por_tipo(self, registro: Type[T]) -> List[T]:
-        """
-        Obtém um gerador de blocos de um tipo, se houver algum no arquivo.
-        :param bloco: Um tipo de bloco para ser lido
-        :type bloco: T
-        :param indice: O índice do bloco a ser acessado, dentre os do tipo
-        :type indice: int
-        """
-        return [b for b in self.data.of_type(registro)]
-
-    def __obtem_registro(self, tipo: Type[T]) -> Optional[T]:
-        """ """
-        r = self.__obtem_registros(tipo)
-        return r[0] if len(r) > 0 else None
-
-    def __obtem_registros(self, tipo: Type[T]) -> List[T]:
-        return self.__registros_por_tipo(tipo)
-
-    def __obtem_registros_com_filtros(
-        self, tipo_registro: Type[T], **kwargs
-    ) -> Optional[Union[T, List[T]]]:
-        def __atende(r) -> bool:
-            condicoes: List[bool] = []
-            for k, v in kwargs.items():
-                if v is not None:
-                    condicoes.append(getattr(r, k) == v)
-            return all(condicoes)
-
-        regs_filtro = [
-            r for r in self.__obtem_registros(tipo_registro) if __atende(r)
+    def __expande_colunas_df(self, df: pd.DataFrame) -> pd.DataFrame:
+        colunas_com_listas = df.map(lambda linha: isinstance(linha, list)).all()
+        nomes_colunas = [
+            c for c in colunas_com_listas[colunas_com_listas].index
         ]
-        if len(regs_filtro) == 0:
-            return None
-        elif len(regs_filtro) == 1:
-            return regs_filtro[0]
+        for c in nomes_colunas:
+            num_elementos = len(df.at[0, c])
+            particoes_coluna = [f"{c}_{i}" for i in range(1, num_elementos + 1)]
+            df[particoes_coluna] = df.apply(
+                lambda linha: linha[c]
+                + [np.nan] * max(0, num_elementos - len(linha[c])),
+                axis=1,
+                result_type="expand",
+            )
+            df.drop(columns=[c], inplace=True)
+        return df
+
+    def __registros_ou_df(
+        self, t: Type[T], **kwargs
+    ) -> Optional[Union[T, List[T], pd.DataFrame]]:
+        if kwargs.get("df"):
+            return self.__expande_colunas_df(self._as_df(t))
         else:
-            return regs_filtro
-
-    def cria_registro(self, anterior: Register, registro: Register):
-        """
-        Adiciona um registro ao arquivo após um outro registro previamente
-        existente.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.add_after(anterior, registro)
-
-    def deleta_registro(self, registro: Register):
-        """
-        Remove um registro existente no arquivo.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.remove(registro)
-
-    def lista_registros(self, tipo: Type[T]) -> List[T]:
-        """
-        Lista todos os registros presentes no arquivo que tenham o tipo `T`.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        return [r for r in self.data.of_type(tipo)]
-
-    def append_registro(self, registro: Register):
-        """
-        Adiciona um registro ao arquivo na última posição.
-
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.append(registro)
-
-    def preppend_registro(self, registro: Register):
-        """
-        Adiciona um registro ao arquivo na primeira posição.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.preppend(registro)
+            kwargs_sem_df = {k: v for k, v in kwargs.items() if k != "df"}
+            return self.data.get_registers_of_type(t, **kwargs_sem_df)
 
     @property
     def rd(self) -> Optional[RD]:
@@ -276,7 +188,11 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`RD` | None
         """
-        return self.__obtem_registro(RD)
+        r = self.data.get_registers_of_type(RD)
+        if isinstance(r, RD):
+            return r
+        else:
+            return None
 
     def rivar(
         self,
@@ -300,14 +216,13 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`RIVAR` | list[:class:`RIVAR`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(RIVAR)
-        else:
-            return self.__obtem_registros_com_filtros(
-                RIVAR,
-                codigo_entidade=codigo_entidade,
-                tipo_variavel=tipo_variavel,
-            )
+
+        return self.__registros_ou_df(
+            RIVAR,
+            codigo_entidade=codigo_entidade,
+            tipo_variavel=tipo_variavel,
+            df=df,
+        )
 
     def tm(
         self,
@@ -335,15 +250,14 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`TM` | list[:class:`TM`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(TM)
-        else:
-            return self.__obtem_registros_com_filtros(
-                TM,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-            )
+
+        return self.__registros_ou_df(
+            TM,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            df=df,
+        )
 
     def sist(
         self,
@@ -362,14 +276,12 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`SIST` | list[:class:`SIST`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(SIST)
-        else:
-            return self.__obtem_registros_com_filtros(
-                SIST,
-                codigo_submercado=codigo_submercado,
-                nome_submercado=nome_submercado,
-            )
+        return self.__registros_ou_df(
+            SIST,
+            codigo_submercado=codigo_submercado,
+            nome_submercado=nome_submercado,
+            df=df,
+        )
 
     def ree(
         self,
@@ -391,15 +303,14 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`REE` | list[:class:`REE`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(REE)
-        else:
-            return self.__obtem_registros_com_filtros(
-                REE,
-                codigo_ree=codigo_ree,
-                codigo_submercado=codigo_submercado,
-                nome_ree=nome_ree,
-            )
+
+        return self.__registros_ou_df(
+            REE,
+            codigo_ree=codigo_ree,
+            codigo_submercado=codigo_submercado,
+            nome_ree=nome_ree,
+            df=df,
+        )
 
     def uh(
         self,
@@ -431,17 +342,16 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`UH` | list[:class:`UH`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(UH)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UH,
-                codigo_usina=codigo_usina,
-                nome_usina=nome_usina,
-                codigo_ree=codigo_ree,
-                volume_inicial=volume_inicial,
-                evaporacao=evaporacao,
-            )
+
+        return self.__registros_ou_df(
+            UH,
+            codigo_usina=codigo_usina,
+            nome_usina=nome_usina,
+            codigo_ree=codigo_ree,
+            volume_inicial=volume_inicial,
+            evaporacao=evaporacao,
+            df=df,
+        )
 
     def tviag(
         self,
@@ -474,17 +384,16 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`TVIAG` | list[:class:`TVIAG`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(TVIAG)
-        else:
-            return self.__obtem_registros_com_filtros(
-                TVIAG,
-                codigo_usina_montante=codigo_usina_montante,
-                codigo_elemento_jusante=codigo_elemento_jusante,
-                tipo_elemento_jusante=tipo_elemento_jusante,
-                duracao=duracao,
-                tipo_tempo_viagem=tipo_tempo_viagem,
-            )
+
+        return self.__registros_ou_df(
+            TVIAG,
+            codigo_usina_montante=codigo_usina_montante,
+            codigo_elemento_jusante=codigo_elemento_jusante,
+            tipo_elemento_jusante=tipo_elemento_jusante,
+            duracao=duracao,
+            tipo_tempo_viagem=tipo_tempo_viagem,
+            df=df,
+        )
 
     def ut(
         self,
@@ -521,18 +430,16 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`UT` | list[:class:`UT`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(UT)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UT,
-                codigo_usina=codigo_usina,
-                nome_usina=nome_usina,
-                codigo_submercado=codigo_submercado,
-                tipo_restricao=tipo_restricao,
-                geracao_minima=geracao_minima,
-                geracao_maxima=geracao_maxima,
-            )
+        return self.__registros_ou_df(
+            UT,
+            codigo_usina=codigo_usina,
+            nome_usina=nome_usina,
+            codigo_submercado=codigo_submercado,
+            tipo_restricao=tipo_restricao,
+            geracao_minima=geracao_minima,
+            geracao_maxima=geracao_maxima,
+            df=df,
+        )
 
     def usie(
         self,
@@ -560,17 +467,16 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`USIE` | list[:class:`USIE`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(USIE)
-        else:
-            return self.__obtem_registros_com_filtros(
-                USIE,
-                codigo_usina=codigo_usina,
-                codigo_submercado=codigo_submercado,
-                nome_usina=nome_usina,
-                codigo_usina_montante=codigo_usina_montante,
-                codigo_usina_jusante=codigo_usina_jusante,
-            )
+
+        return self.__registros_ou_df(
+            USIE,
+            codigo_usina=codigo_usina,
+            codigo_submercado=codigo_submercado,
+            nome_usina=nome_usina,
+            codigo_usina_montante=codigo_usina_montante,
+            codigo_usina_jusante=codigo_usina_jusante,
+            df=df,
+        )
 
     def dp(
         self,
@@ -594,13 +500,9 @@ class Entdados(RegisterFile):
         :rtype: :class:`DP` | list[:class:`DP`] |
             :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(DP)
-        else:
-            return self.__obtem_registros_com_filtros(
-                DP,
-                codigo_submercado=codigo_submercado,
-            )
+        return self.__registros_ou_df(
+            DP, codigo_submercado=codigo_submercado, df=df
+        )
 
     def de(
         self,
@@ -622,13 +524,9 @@ class Entdados(RegisterFile):
         :rtype: :class:`DE` | list[:class:`DE`] |
             :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(DE)
-        else:
-            return self.__obtem_registros_com_filtros(
-                DE,
-                codigo_demanda_especial=codigo_demanda_especial,
-            )
+        return self.__registros_ou_df(
+            DE, codigo_demanda_especial=codigo_demanda_especial, df=df
+        )
 
     def cd(
         self,
@@ -651,14 +549,12 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`CD` | list[:class:`CD`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(CD)
-        else:
-            return self.__obtem_registros_com_filtros(
-                CD,
-                codigo_submercado=codigo_submercado,
-                numero_curva=numero_curva,
-            )
+        return self.__registros_ou_df(
+            CD,
+            codigo_submercado=codigo_submercado,
+            numero_curva=numero_curva,
+            df=df,
+        )
 
     def pq(
         self,
@@ -685,15 +581,13 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`PQ` | list[:class:`PQ`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(PQ)
-        else:
-            return self.__obtem_registros_com_filtros(
-                PQ,
-                codigo_usina=codigo_usina,
-                nome_usina=nome_usina,
-                localizacao=localizacao,
-            )
+        return self.__registros_ou_df(
+            PQ,
+            codigo_usina=codigo_usina,
+            nome_usina=nome_usina,
+            localizacao=localizacao,
+            df=df,
+        )
 
     @property
     def it(self) -> Optional[IT]:
@@ -706,7 +600,11 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`IT` | None.
         """
-        return self.__obtem_registro(IT)
+        r = self.data.get_registers_of_type(IT)
+        if isinstance(r, IT):
+            return r
+        else:
+            return None
 
     def ri(
         self,
@@ -723,12 +621,7 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`RI` | list[:class:`RI`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(RI)
-        else:
-            return self.__obtem_registros_com_filtros(
-                RI,
-            )
+        return self.__registros_ou_df(RI, df=df)
 
     def ia(
         self,
@@ -751,14 +644,12 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`IA` | list[:class:`IA`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(IA)
-        else:
-            return self.__obtem_registros_com_filtros(
-                IA,
-                nome_submercado_de=nome_submercado_de,
-                nome_submercado_para=nome_submercado_para,
-            )
+        return self.__registros_ou_df(
+            IA,
+            nome_submercado_de=nome_submercado_de,
+            nome_submercado_para=nome_submercado_para,
+            df=df,
+        )
 
     @property
     def gp(self) -> Optional[GP]:
@@ -769,7 +660,11 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`GP` | None.
         """
-        return self.__obtem_registro(GP)
+        r = self.data.get_registers_of_type(GP)
+        if isinstance(r, GP):
+            return r
+        else:
+            return None
 
     def ac(
         self,
@@ -793,12 +688,9 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: `AC` | list[`AC`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(modificacao)
-        else:
-            return self.__obtem_registros_com_filtros(
-                modificacao, **{"codigo_usina": codigo_usina, **kwargs}
-            )
+        return self.__registros_ou_df(
+            modificacao, **{"codigo_usina": codigo_usina, **kwargs, "df": df}
+        )
 
     @property
     def ni(self) -> Optional[NI]:
@@ -810,7 +702,11 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`NI` | None.
         """
-        return self.__obtem_registro(NI)
+        r = self.data.get_registers_of_type(NI)
+        if isinstance(r, NI):
+            return r
+        else:
+            return None
 
     def ve(
         self, codigo_usina: Optional[int] = None, df: bool = False
@@ -828,10 +724,7 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`VE` | list[:class:`VE`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(VE)
-        else:
-            return self.__obtem_registros_com_filtros(VE, codigo_usina=codigo_usina)
+        return self.__registros_ou_df(VE, codigo_usina=codigo_usina, df=df)
 
     def fp(
         self,
@@ -877,20 +770,19 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`FP` | list[:class:`FP`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FP)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FP,
-                codigo_usina=codigo_usina,
-                tipo_tratamento_volume=tipo_tratamento_volume,
-                numero_pontos_turbinamento=numero_pontos_turbinamento,
-                numero_pontos_volume=numero_pontos_volume,
-                verifica_concavidade=verifica_concavidade,
-                ajuste_minimos_quadrados=ajuste_minimos_quadrados,
-                comprimento_janela_volume=comprimento_janela_volume,
-                tolerancia_desvio=tolerancia_desvio,
-            )
+
+        return self.__registros_ou_df(
+            FP,
+            codigo_usina=codigo_usina,
+            tipo_tratamento_volume=tipo_tratamento_volume,
+            numero_pontos_turbinamento=numero_pontos_turbinamento,
+            numero_pontos_volume=numero_pontos_volume,
+            verifica_concavidade=verifica_concavidade,
+            ajuste_minimos_quadrados=ajuste_minimos_quadrados,
+            comprimento_janela_volume=comprimento_janela_volume,
+            tolerancia_desvio=tolerancia_desvio,
+            df=df,
+        )
 
     @property
     def tx(self) -> Optional[TX]:
@@ -901,7 +793,11 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`TX` | None.
         """
-        return self.__obtem_registro(TX)
+        r = self.data.get_registers_of_type(TX)
+        if isinstance(r, TX):
+            return r
+        else:
+            return None
 
     def ez(
         self, codigo_usina: Optional[int] = None, df: bool = False
@@ -920,12 +816,7 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`EZ` | list[:class:`EZ`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(EZ)
-        else:
-            return self.__obtem_registros_com_filtros(
-                EZ, codigo_usina=codigo_usina
-            )
+        return self.__registros_ou_df(EZ, codigo_usina=codigo_usina, df=df)
 
     def r11(
         self, df: bool = False
@@ -942,10 +833,8 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`R11` | list[:class:`R11`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(R11)
-        else:
-            return self.__obtem_registros_com_filtros(R11)
+
+        return self.__registros_ou_df(R11, df=df)
 
     def cr(
         self,
@@ -971,12 +860,13 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`CR` | list[:class:`CR`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(CR)
-        else:
-            return self.__obtem_registros_com_filtros(
-                CR, codigo_secao=codigo_secao, nome_secao=nome_secao, grau=grau
-            )
+        return self.__registros_ou_df(
+            CR,
+            codigo_secao=codigo_secao,
+            nome_secao=nome_secao,
+            grau=grau,
+            df=df,
+        )
 
     def secr(
         self,
@@ -999,12 +889,9 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`SECR` | list[:class:`SECR`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(SECR)
-        else:
-            return self.__obtem_registros_com_filtros(
-                SECR, codigo_secao=codigo_secao, nome_secao=nome_secao
-            )
+        return self.__registros_ou_df(
+            SECR, codigo_secao=codigo_secao, nome_secao=nome_secao, df=df
+        )
 
     def da(
         self, codigo_usina: Optional[int] = None, df: bool = False
@@ -1022,12 +909,7 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`DA` | list[:class:`DA`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(DA)
-        else:
-            return self.__obtem_registros_com_filtros(
-                DA, codigo_usina=codigo_usina
-            )
+        return self.__registros_ou_df(DA, codigo_usina=codigo_usina, df=df)
 
     def re(
         self,
@@ -1065,13 +947,18 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`RE` | list[:class:`RE`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(RE)
-        else:
-            return self.__obtem_registros_com_filtros(
-                RE,
-                codigo_restricao=codigo_restricao,
-            )
+
+        return self.__registros_ou_df(
+            RE,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            df=df,
+        )
 
     def lu(
         self,
@@ -1112,19 +999,17 @@ class Entdados(RegisterFile):
 
         """
 
-        if df:
-            return self._as_df(LU)
-        else:
-            return self.__obtem_registros_com_filtros(
-                LU,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-            )
+        return self.__registros_ou_df(
+            LU,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            df=df,
+        )
 
     def fh(
         self,
@@ -1171,22 +1056,20 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se houverem.
         :rtype: :class:`FH` | list[:class:`FH`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FH)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FH,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                coeficiente=coeficiente,
-            )
+        return self.__registros_ou_df(
+            FH,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            coeficiente=coeficiente,
+            df=df,
+        )
 
     def ft(
         self,
@@ -1230,21 +1113,20 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se houverem.
         :rtype: :class:`FT` | list[:class:`FT`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FT)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FT,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-                codigo_usina=codigo_usina,
-                coeficiente=coeficiente,
-            )
+
+        return self.__registros_ou_df(
+            FT,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            codigo_usina=codigo_usina,
+            coeficiente=coeficiente,
+            df=df,
+        )
 
     def fi(
         self,
@@ -1291,22 +1173,21 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se houverem.
         :rtype: :class:`FI` | list[:class:`FI`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FI)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FI,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-                nome_submercado_de=nome_submercado_de,
-                nome_submercado_para=nome_submercado_para,
-                coeficiente=coeficiente,
-            )
+
+        return self.__registros_ou_df(
+            FI,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            nome_submercado_de=nome_submercado_de,
+            nome_submercado_para=nome_submercado_para,
+            coeficiente=coeficiente,
+            df=df,
+        )
 
     def fe(
         self,
@@ -1350,21 +1231,19 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se houverem.
         :rtype: :class:`FE` | list[:class:`FE`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FE)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FE,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-                codigo_contrato=codigo_contrato,
-                coeficiente=coeficiente,
-            )
+        return self.__registros_ou_df(
+            FE,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            codigo_contrato=codigo_contrato,
+            coeficiente=coeficiente,
+            df=df,
+        )
 
     def fr(
         self,
@@ -1408,21 +1287,19 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se houverem.
         :rtype: :class:`FR` | list[:class:`FR`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FR)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FR,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-                codigo_usina=codigo_usina,
-                coeficiente=coeficiente,
-            )
+        return self.__registros_ou_df(
+            FR,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            codigo_usina=codigo_usina,
+            coeficiente=coeficiente,
+            df=df,
+        )
 
     def fc(
         self,
@@ -1466,21 +1343,20 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se houverem.
         :rtype: :class:`FR` | list[:class:`FR`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(FC)
-        else:
-            return self.__obtem_registros_com_filtros(
-                FC,
-                codigo_restricao=codigo_restricao,
-                dia_inicial=dia_inicial,
-                hora_inicial=hora_inicial,
-                meia_hora_inicial=meia_hora_inicial,
-                dia_final=dia_final,
-                hora_final=hora_final,
-                meia_hora_final=meia_hora_final,
-                codigo_demanda=codigo_demanda,
-                coeficiente=coeficiente,
-            )
+
+        return self.__registros_ou_df(
+            FC,
+            codigo_restricao=codigo_restricao,
+            dia_inicial=dia_inicial,
+            hora_inicial=hora_inicial,
+            meia_hora_inicial=meia_hora_inicial,
+            dia_final=dia_final,
+            hora_final=hora_final,
+            meia_hora_final=meia_hora_final,
+            codigo_demanda=codigo_demanda,
+            coeficiente=coeficiente,
+            df=df,
+        )
 
     def mh(
         self,
@@ -1509,16 +1385,14 @@ class Entdados(RegisterFile):
         :return: Um ou mais registros, se existirem.
         :rtype: :class:`MH` | list[:class:`MH`] | :class:`pd.DataFrame` | None
         """
-        if df:
-            return self._as_df(MH)
-        else:
-            return self.__obtem_registros_com_filtros(
-                MH,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                disponivel=disponivel,
-            )
+        return self.__registros_ou_df(
+            MH,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            disponivel=disponivel,
+            df=df,
+        )
 
     @property
     def pe(self) -> Optional[PE]:
@@ -1529,4 +1403,8 @@ class Entdados(RegisterFile):
         :return: Um registro, se existir.
         :rtype: :class:`PE` | None.
         """
-        return self.__obtem_registro(PE)
+        r = self.data.get_registers_of_type(PE)
+        if isinstance(r, PE):
+            return r
+        else:
+            return None

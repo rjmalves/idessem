@@ -1,5 +1,4 @@
 from typing import Type, TypeVar, Optional, List, Union
-from cfinterface.components.register import Register
 from cfinterface.files.registerfile import RegisterFile
 import pandas as pd  # type: ignore
 from idessem.libs.modelos.uch import (
@@ -28,10 +27,6 @@ from idessem.libs.modelos.uch import (
     UchCustoPartidaConjunto,
     UchCustoPartidaUsina,
 )
-
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
 
 
 class Uch(RegisterFile):
@@ -67,98 +62,14 @@ class Uch(RegisterFile):
         UchOpcaoUsina,
     ]
 
-    @classmethod
-    def le_arquivo(cls, diretorio: str, nome_arquivo="uch.csv") -> "Uch":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
-
-    def escreve_arquivo(self, diretorio: str, nome_arquivo="uch.csv"):
-        msg = (
-            "O método escreve_arquivo(diretorio, nome_arquivo) será"
-            + " descontinuado na versão 1.0.0 -"
-            + " use o método write(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        self.write(join(diretorio, nome_arquivo))
-
-    def __registros_por_tipo(self, registro: Type[T]) -> List[T]:
-        """
-        Obtém os registro de um tipo, se houver algum no arquivo.
-
-        :param registro: Um tipo de registro para ser lido
-        :type registro: T
-        :param indice: O índice do bloco a ser acessado, dentre os do tipo
-        :type indice: int
-
-        """
-        return [b for b in self.data.of_type(registro)]
-
-    def __obtem_registro(self, tipo: Type[T]) -> Optional[T]:
-        """ """
-        r = self.__obtem_registros(tipo)
-        return r[0] if len(r) > 0 else None
-
-    def __obtem_registros(self, tipo: Type[T]) -> List[T]:
-        return self.__registros_por_tipo(tipo)
-
-    def __obtem_registros_com_filtros(
-        self, tipo_registro: Type[T], **kwargs
-    ) -> Optional[Union[T, List[T]]]:
-        def __atende(r) -> bool:
-            condicoes: List[bool] = []
-            for k, v in kwargs.items():
-                if v is not None:
-                    condicoes.append(getattr(r, k) == v)
-            return all(condicoes)
-
-        regs_filtro = [
-            r for r in self.__obtem_registros(tipo_registro) if __atende(r)
-        ]
-        if len(regs_filtro) == 0:
-            return None
-        elif len(regs_filtro) == 1:
-            return regs_filtro[0]
+    def __registros_ou_df(
+        self, t: Type[T], **kwargs
+    ) -> Optional[Union[T, List[T], pd.DataFrame]]:
+        if kwargs.get("df"):
+            return self._as_df(t)
         else:
-            return regs_filtro
-
-    def cria_registro(self, anterior: Register, registro: Register):
-        """
-        Adiciona um registro ao arquivo após um outro registro previamente
-        existente.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.add_after(anterior, registro)
-
-    def deleta_registro(self, registro: Register):
-        """
-        Remove um registro existente no arquivo.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.remove(registro)
-
-    def append_registro(self, registro: Register):
-        """
-        Adiciona um registro ao arquivo na última posição.
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.append(registro)
-
-    def preppend_registro(self, registro: Register):
-        """
-        Adiciona um registro ao arquivo na primeira posição.
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.preppend(registro)
+            kwargs_sem_df = {k: v for k, v in kwargs.items() if k != "df"}
+            return self.data.get_registers_of_type(t, **kwargs_sem_df)
 
     @property
     def opcao_padrao(
@@ -172,7 +83,11 @@ class Uch(RegisterFile):
         :rtype: `UchOpcaoPadrao` | `None`
         """
 
-        return self.__obtem_registro(UchOpcaoPadrao)
+        r = self.data.get_registers_of_type(UchOpcaoPadrao)
+        if isinstance(r, UchOpcaoPadrao):
+            return r
+        else:
+            return None
 
     def opcao_usina(
         self,
@@ -193,14 +108,12 @@ class Uch(RegisterFile):
         :rtype: `UchOpcaoUsina` |
             List[`UchOpcaoUsina`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchOpcaoUsina)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchOpcaoUsina,
-                codigo_usina=codigo_usina,
-                considera_uch_usina=considera_uch_usina,
-            )
+        return self.__registros_ou_df(
+            UchOpcaoUsina,
+            codigo_usina=codigo_usina,
+            considera_uch_usina=considera_uch_usina,
+            df=df,
+        )
 
     @property
     def opcao_padrao_data(
@@ -214,7 +127,11 @@ class Uch(RegisterFile):
         :rtype: `UchOpcaoPadrao` | `None`
         """
 
-        return self.__obtem_registro(UchOpcaoPadraoData)
+        r = self.data.get_registers_of_type(UchOpcaoPadraoData)
+        if isinstance(r, UchOpcaoPadraoData):
+            return r
+        else:
+            return None
 
     def opcao_unidade_vazio_padrao(
         self,
@@ -247,16 +164,15 @@ class Uch(RegisterFile):
         :rtype: `UchOpcaoUnidadeVazioPadrao` |
             List[`UchOpcaoUnidadeVazioPadrao`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchOpcaoUnidadeVazioPadrao)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchOpcaoUnidadeVazioPadrao,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                considera_operacao_vazio=considera_operacao_vazio,
-            )
+
+        return self.__registros_ou_df(
+            UchOpcaoUnidadeVazioPadrao,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            considera_operacao_vazio=considera_operacao_vazio,
+            df=df,
+        )
 
     def opcao_conjunto_vazio_padrao(
         self,
@@ -287,15 +203,14 @@ class Uch(RegisterFile):
         :rtype: `UchOpcaoConjuntoVazioPadrao` |
             List[`UchOpcaoConjuntoVazioPadrao`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchOpcaoConjuntoVazioPadrao)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchOpcaoConjuntoVazioPadrao,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                considera_operacao_vazio=considera_operacao_vazio,
-            )
+
+        return self.__registros_ou_df(
+            UchOpcaoConjuntoVazioPadrao,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            considera_operacao_vazio=considera_operacao_vazio,
+            df=df,
+        )
 
     def opcao_usina_vazio_padrao(
         self,
@@ -322,14 +237,13 @@ class Uch(RegisterFile):
         :rtype: `UchOpcaoUsinaVazioPadrao` |
             List[`UchOpcaoUsinaVazioPadrao`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchOpcaoUsinaVazioPadrao)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchOpcaoUsinaVazioPadrao,
-                codigo_usina=codigo_usina,
-                considera_operacao_vazio=considera_operacao_vazio,
-            )
+
+        return self.__registros_ou_df(
+            UchOpcaoUsinaVazioPadrao,
+            codigo_usina=codigo_usina,
+            considera_operacao_vazio=considera_operacao_vazio,
+            df=df,
+        )
 
     def ton_toff_unidade(
         self,
@@ -366,17 +280,16 @@ class Uch(RegisterFile):
         :rtype: `UchTonToffUnidade` |
             List[`UchTonToffUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchTonToffUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchTonToffUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                tempo_minimo_ligada=tempo_minimo_ligada,
-                tempo_maximo_ligada=tempo_maximo_ligada,
-            )
+
+        return self.__registros_ou_df(
+            UchTonToffUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            tempo_minimo_ligada=tempo_minimo_ligada,
+            tempo_maximo_ligada=tempo_maximo_ligada,
+            df=df,
+        )
 
     def ton_toff_conjunto(
         self,
@@ -410,16 +323,15 @@ class Uch(RegisterFile):
         :rtype: `UchTonToffConjunto` |
             List[`UchTonToffConjunto`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchTonToffConjunto)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchTonToffConjunto,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                tempo_minimo_ligada=tempo_minimo_ligada,
-                tempo_maximo_ligada=tempo_maximo_ligada,
-            )
+
+        return self.__registros_ou_df(
+            UchTonToffConjunto,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            tempo_minimo_ligada=tempo_minimo_ligada,
+            tempo_maximo_ligada=tempo_maximo_ligada,
+            df=df,
+        )
 
     def ton_toff_usina(
         self,
@@ -450,15 +362,14 @@ class Uch(RegisterFile):
         :rtype: `UchTonToffUsina` |
             List[`UchTonToffUsina`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchTonToffUsina)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchTonToffUsina,
-                codigo_usina=codigo_usina,
-                tempo_minimo_ligada=tempo_minimo_ligada,
-                tempo_maximo_ligada=tempo_maximo_ligada,
-            )
+
+        return self.__registros_ou_df(
+            UchTonToffUsina,
+            codigo_usina=codigo_usina,
+            tempo_minimo_ligada=tempo_minimo_ligada,
+            tempo_maximo_ligada=tempo_maximo_ligada,
+            df=df,
+        )
 
     def gmin_gmax_unidade(
         self,
@@ -495,17 +406,16 @@ class Uch(RegisterFile):
         :rtype: `UchGminGmaxUnidade` |
             List[`UchGminGmaxUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchGminGmaxUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchGminGmaxUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                geracao_minima_unidade=geracao_minima_unidade,
-                geracao_maxima_unidade=geracao_maxima_unidade,
-            )
+
+        return self.__registros_ou_df(
+            UchGminGmaxUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            geracao_minima_unidade=geracao_minima_unidade,
+            geracao_maxima_unidade=geracao_maxima_unidade,
+            df=df,
+        )
 
     def qturmin_qturmax_unidade(
         self,
@@ -542,17 +452,16 @@ class Uch(RegisterFile):
         :rtype: `UchQturminQturmaxUnidade` |
             List[`UchQturminQturmaxUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchQturminQturmaxUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchQturminQturmaxUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                turbinamento_minimo_unidade=turbinamento_minimo_unidade,
-                turbinamento_maximo_unidade=turbinamento_maximo_unidade,
-            )
+
+        return self.__registros_ou_df(
+            UchQturminQturmaxUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            turbinamento_minimo_unidade=turbinamento_minimo_unidade,
+            turbinamento_maximo_unidade=turbinamento_maximo_unidade,
+            df=df,
+        )
 
     def condicao_inicial_unidade(
         self,
@@ -595,19 +504,18 @@ class Uch(RegisterFile):
         :rtype: `UchCondicaoInicialUnidade` |
             List[`UchCondicaoInicialUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCondicaoInicialUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCondicaoInicialUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                status_inicial=status_inicial,
-                tempo_permanencia_unidade=tempo_permanencia_unidade,
-                geracao_inicial_unidade=geracao_inicial_unidade,
-                turbinamento_inicial_unidade=turbinamento_inicial_unidade,
-            )
+
+        return self.__registros_ou_df(
+            UchCondicaoInicialUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            status_inicial=status_inicial,
+            tempo_permanencia_unidade=tempo_permanencia_unidade,
+            geracao_inicial_unidade=geracao_inicial_unidade,
+            turbinamento_inicial_unidade=turbinamento_inicial_unidade,
+            df=df,
+        )
 
     def consumo_agua_vazio_unidade(
         self,
@@ -641,16 +549,15 @@ class Uch(RegisterFile):
         :rtype: `UchConsumoAguaVazioUnidade` |
             List[`UchConsumoAguaVazioUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchConsumoAguaVazioUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchConsumoAguaVazioUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                consumo_agua=consumo_agua,
-            )
+
+        return self.__registros_ou_df(
+            UchConsumoAguaVazioUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            consumo_agua=consumo_agua,
+            df=df,
+        )
 
     def consumo_agua_vazio_conjunto(
         self,
@@ -681,15 +588,14 @@ class Uch(RegisterFile):
         :rtype: `UchConsumoAguaVazioConjunto` |
             List[`UchConsumoAguaVazioConjunto`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchConsumoAguaVazioConjunto)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchConsumoAguaVazioConjunto,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                consumo_agua=consumo_agua,
-            )
+
+        return self.__registros_ou_df(
+            UchConsumoAguaVazioConjunto,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            consumo_agua=consumo_agua,
+            df=df,
+        )
 
     def consumo_agua_vazio_usina(
         self,
@@ -717,14 +623,13 @@ class Uch(RegisterFile):
         :rtype: `UchConsumoAguaVazioUsina` |
             List[`UchConsumoAguaVazioUsina`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchConsumoAguaVazioUsina)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchConsumoAguaVazioUsina,
-                codigo_usina=codigo_usina,
-                consumo_agua=consumo_agua,
-            )
+
+        return self.__registros_ou_df(
+            UchConsumoAguaVazioUsina,
+            codigo_usina=codigo_usina,
+            consumo_agua=consumo_agua,
+            df=df,
+        )
 
     def limite_mudanca_status_vazio_unidade(
         self,
@@ -758,16 +663,15 @@ class Uch(RegisterFile):
         :rtype: `UchLimiteMudancaStatusVazioUnidade` |
             List[`UchLimiteMudancaStatusVazioUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchLimiteMudancaStatusVazioUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchLimiteMudancaStatusVazioUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                limite_maximo_mudancas=limite_maximo_mudancas,
-            )
+
+        return self.__registros_ou_df(
+            UchLimiteMudancaStatusVazioUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            limite_maximo_mudancas=limite_maximo_mudancas,
+            df=df,
+        )
 
     def limite_mudanca_status_vazio_conjunto(
         self,
@@ -797,15 +701,14 @@ class Uch(RegisterFile):
         :rtype: `UchLimiteMudancaStatusVazioConjunto` |
             List[`UchLimiteMudancaStatusVazioConjunto`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchLimiteMudancaStatusVazioConjunto)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchLimiteMudancaStatusVazioConjunto,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                limite_maximo_mudancas=limite_maximo_mudancas,
-            )
+
+        return self.__registros_ou_df(
+            UchLimiteMudancaStatusVazioConjunto,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            limite_maximo_mudancas=limite_maximo_mudancas,
+            df=df,
+        )
 
     def limite_mudanca_status_vazio_usina(
         self,
@@ -832,14 +735,13 @@ class Uch(RegisterFile):
         :rtype: `UchLimiteMudancaStatusVazioUsina` |
             List[`UchLimiteMudancaStatusVazioUsina`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchLimiteMudancaStatusVazioUsina)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchLimiteMudancaStatusVazioUsina,
-                codigo_usina=codigo_usina,
-                limite_maximo_mudancas=limite_maximo_mudancas,
-            )
+
+        return self.__registros_ou_df(
+            UchLimiteMudancaStatusVazioUsina,
+            codigo_usina=codigo_usina,
+            limite_maximo_mudancas=limite_maximo_mudancas,
+            df=df,
+        )
 
     def custo_partida_vazio_unidade(
         self,
@@ -874,16 +776,15 @@ class Uch(RegisterFile):
         :rtype: `UchCustoPartidaVazioUnidade` |
             List[`UchCustoPartidaVazioUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCustoPartidaVazioUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCustoPartidaVazioUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                custo_partida=custo_partida,
-            )
+
+        return self.__registros_ou_df(
+            UchCustoPartidaVazioUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            custo_partida=custo_partida,
+            df=df,
+        )
 
     def custo_partida_vazio_conjunto(
         self,
@@ -915,15 +816,14 @@ class Uch(RegisterFile):
         :rtype: `UchCustoPartidaVazioConjunto` |
             List[`UchCustoPartidaVazioConjunto`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCustoPartidaVazioConjunto)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCustoPartidaVazioConjunto,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                custo_partida=custo_partida,
-            )
+
+        return self.__registros_ou_df(
+            UchCustoPartidaVazioConjunto,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            custo_partida=custo_partida,
+            df=df,
+        )
 
     def custo_partida_vazio_usina(
         self,
@@ -952,14 +852,13 @@ class Uch(RegisterFile):
         :rtype: `UchCustoPartidaVazioUsina` |
             List[`UchCustoPartidaVazioUsina`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCustoPartidaVazioUsina)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCustoPartidaVazioUsina,
-                codigo_usina=codigo_usina,
-                custo_partida=custo_partida,
-            )
+
+        return self.__registros_ou_df(
+            UchCustoPartidaVazioUsina,
+            codigo_usina=codigo_usina,
+            custo_partida=custo_partida,
+            df=df,
+        )
 
     def custo_partida_unidade(
         self,
@@ -993,16 +892,15 @@ class Uch(RegisterFile):
         :rtype: `UchCustoPartidaUnidade` |
             List[`UchCustoPartidaUnidade`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCustoPartidaUnidade)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCustoPartidaUnidade,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                codigo_unidade=codigo_unidade,
-                custo_partida=custo_partida,
-            )
+
+        return self.__registros_ou_df(
+            UchCustoPartidaUnidade,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            codigo_unidade=codigo_unidade,
+            custo_partida=custo_partida,
+            df=df,
+        )
 
     def custo_partida_conjunto(
         self,
@@ -1033,15 +931,14 @@ class Uch(RegisterFile):
         :rtype: `UchCustoPartidaConjunto` |
             List[`UchCustoPartidaConjunto`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCustoPartidaConjunto)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCustoPartidaConjunto,
-                codigo_usina=codigo_usina,
-                codigo_conjunto=codigo_conjunto,
-                custo_partida=custo_partida,
-            )
+
+        return self.__registros_ou_df(
+            UchCustoPartidaConjunto,
+            codigo_usina=codigo_usina,
+            codigo_conjunto=codigo_conjunto,
+            custo_partida=custo_partida,
+            df=df,
+        )
 
     def custo_partida_usina(
         self,
@@ -1069,11 +966,10 @@ class Uch(RegisterFile):
         :rtype: `UchCustoPartidaUsina` |
             List[`UchCustoPartidaUsina`] | `None` | `DataFrame`
         """
-        if df:
-            return self._as_df(UchCustoPartidaUsina)
-        else:
-            return self.__obtem_registros_com_filtros(
-                UchCustoPartidaUsina,
-                codigo_usina=codigo_usina,
-                custo_partida=custo_partida,
-            )
+
+        return self.__registros_ou_df(
+            UchCustoPartidaUsina,
+            codigo_usina=codigo_usina,
+            custo_partida=custo_partida,
+            df=df,
+        )

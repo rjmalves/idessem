@@ -13,10 +13,6 @@ from datetime import datetime
 import pandas as pd  # type: ignore
 from cfinterface.components.block import Block
 
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
-
 
 class PdoOperacao(BlockFile):
     """
@@ -38,37 +34,6 @@ class PdoOperacao(BlockFile):
     def __init__(self, data=...) -> None:
         super().__init__(data)
         self.__custos_operacao = None
-
-    @classmethod
-    def le_arquivo(
-        cls, diretorio: str, nome_arquivo="PDO_OPERACAO.DAT"
-    ) -> "PdoOperacao":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
-
-    def _bloco_por_tipo(self, bloco: Type[T], indice: int) -> Optional[T]:
-        """
-        Obtém um gerador de blocos de um tipo, se houver algum no arquivo.
-
-        :param bloco: Um tipo de bloco para ser lido
-        :type bloco: T
-        :param indice: O índice do bloco a ser acessado, dentre os do tipo
-        :type indice: int
-        :return: O gerador de blocos, se houver
-        :rtype: Optional[Generator[T], None, None]
-        """
-        try:
-            return next(
-                b
-                for i, b in enumerate(self.data.of_type(bloco))
-                if i == indice
-            )
-        except StopIteration:
-            return None
 
     def __concatena_blocos(self, bloco: Type[T]) -> Optional[pd.DataFrame]:
         """
@@ -99,8 +64,8 @@ class PdoOperacao(BlockFile):
         :return: A versão do modelo
         :rtype: str | None
         """
-        b = self._bloco_por_tipo(VersaoModelo, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(VersaoModelo)
+        if isinstance(b, VersaoModelo):
             return b.data
         return None
 
@@ -112,8 +77,8 @@ class PdoOperacao(BlockFile):
         :return: A data como objeto
         :rtype: datetime | None
         """
-        b = self._bloco_por_tipo(DataEstudo, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(DataEstudo)
+        if isinstance(b, DataEstudo):
             return b.data
         return None
 
@@ -131,8 +96,8 @@ class PdoOperacao(BlockFile):
         :return: A tabela como um dataframe
         :rtype: pd.DataFrame | None
         """
-        b = self._bloco_por_tipo(BlocoDiscretizacaoTempo, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoDiscretizacaoTempo)
+        if isinstance(b, BlocoDiscretizacaoTempo):
             return b.data
         return None
 
@@ -165,7 +130,7 @@ class PdoOperacao(BlockFile):
         :return: A tabela como um dataframe
         :rtype: pd.DataFrame | None
         """
-        b = self._bloco_por_tipo(BlocoCortesAtivos, 0)
-        if b is not None:
+        b = self.data.get_blocks_of_type(BlocoCortesAtivos)
+        if isinstance(b, BlocoCortesAtivos):
             return b.data
         return None
