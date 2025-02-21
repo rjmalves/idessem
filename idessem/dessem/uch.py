@@ -1,7 +1,7 @@
 from typing import Type, TypeVar, Optional, List, Union
 from cfinterface.files.registerfile import RegisterFile
 import pandas as pd  # type: ignore
-from idessem.libs.modelos.uch import (
+from idessem.dessem.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
     UchOpcaoPadraoData,
