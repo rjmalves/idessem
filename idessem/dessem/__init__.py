@@ -1,12 +1,16 @@
 # Inclui os membros
 
+from .areacont import Areacont  # noqa
 from .avl_altqueda import AvlAltQueda  # noqa
 from .avl_desvfpha import AvlDesvFpha  # noqa
 from .avl_estatfpha import AvlEstatFpha  # noqa
 from .avl_fpha1 import AvlFpha1  # noqa
 from .avl_fpha2 import AvlFpha2  # noqa
 from .avl_fpha3 import AvlFpha3  # noqa
+from .dadvaz import Dadvaz  # noqa
+from .deflant import Deflant  # noqa
 from .des_log_relato import DesLogRelato  # noqa
+from .desselet import Desselet  # noqa
 from .dessemarq import DessemArq  # noqa
 from .dessopc import Dessopc  # noqa
 from .entdados import Entdados  # noqa
@@ -18,9 +22,9 @@ from .operut import Operut  # noqa
 from .pdo_aval_qmaxusih import PdoAvalQmaxUsih  # noqa
 from .pdo_cmobar import PdoCmoBar  # noqa
 from .pdo_eco_fcfcortes import PdoEcoFcfCortes  # noqa
+from .pdo_eco_usih import PdoEcoUsih  # noqa
 from .pdo_eco_usih_conj import PdoEcoUsihConj  # noqa
 from .pdo_eco_usih_polin import PdoEcoUsihPolin  # noqa
-from .pdo_eco_usih import PdoEcoUsih  # noqa
 from .pdo_eolica import PdoEolica  # noqa
 from .pdo_hidr import PdoHidr  # noqa
 from .pdo_inter import PdoInter  # noqa
@@ -35,5 +39,5 @@ from .pdo_sist import PdoSist  # noqa
 from .pdo_somflux import PdoSomFlux  # noqa
 from .pdo_term import PdoTerm  # noqa
 from .renovaveis import Renovaveis  # noqa
+from .respot import Respot  # noqa
 from .termdat import Term  # noqa
-from .uch import Uch  # noqa

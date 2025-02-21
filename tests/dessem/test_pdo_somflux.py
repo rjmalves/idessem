@@ -1,10 +1,11 @@
 from datetime import datetime
 from unittest.mock import MagicMock, patch
 
+import numpy as np
+
 from idessem.dessem.pdo_somflux import PdoSomFlux
 from tests.mocks.arquivos.pdo_somflux import MockPdoSomFlux
 from tests.mocks.mock_open import mock_open
-import numpy as np
 
 ARQ_TESTE = "./tests/__init__.py"
 
@@ -36,7 +37,6 @@ def test_tabela_pdo_somflux():
     m: MagicMock = mock_open(read_data="".join(MockPdoSomFlux))
     with patch("builtins.open", m):
         log = PdoSomFlux.read(ARQ_TESTE)
-        print(log.tabela["restricao_violada"])
         assert log.tabela.at[0, "estagio"] == 1
         assert log.tabela.at[0, "indice_restricao"] == 1
         assert log.tabela.at[0, "nome_patamar"] == "MEDIA"

@@ -6,13 +6,17 @@ DESSEM
 .. toctree::
    :maxdepth: 2
 
+   arquivos/areacont
    arquivos/avl_altqueda
    arquivos/avl_desvfpha
    arquivos/avl_estatfpha
    arquivos/avl_fpha1
    arquivos/avl_fpha2
    arquivos/avl_fpha3
+   arquivos/dadvaz
+   arquivos/deflant
    arquivos/des_log_relato
+   arquivos/desselet
    arquivos/dessemarq
    arquivos/dessopc
    arquivos/entdados
@@ -39,5 +43,6 @@ DESSEM
    arquivos/pdo_somflux
    arquivos/pdo_term
    arquivos/renovaveis
+   arquivos/respot
    arquivos/termdat  
    arquivos/uch 

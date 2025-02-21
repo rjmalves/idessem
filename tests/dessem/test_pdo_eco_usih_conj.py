@@ -1,5 +1,4 @@
 from idessem.dessem.pdo_eco_usih_conj import PdoEcoUsihConj
-import pandas as pd  # type: ignore
 from datetime import datetime
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch

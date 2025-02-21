@@ -139,3 +139,6 @@ deck_teste/**
 
 # UV
 uv.lock
+
+# vscode settings json
+.vscode

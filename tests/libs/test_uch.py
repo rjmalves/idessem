@@ -1,5 +1,5 @@
-from idessem.dessem.uch import Uch
-from idessem.dessem.modelos.uch import (
+from idessem.libs.uch import Uch
+from idessem.libs.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
     UchOpcaoPadraoData,
@@ -25,7 +25,6 @@ from idessem.dessem.modelos.uch import (
     UchCustoPartidaConjunto,
     UchCustoPartidaUsina,
 )
-import pandas as pd  # type: ignore
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
 
@@ -359,9 +358,7 @@ def test_registro_uch_opcao_unidade_vazio_padrao():
 
 
 def test_registro_uch_opcao_conjunto_vazio_padrao():
-    m: MagicMock = mock_open(
-        read_data="".join(MockUchOpcaoConjuntoVazioPadrao)
-    )
+    m: MagicMock = mock_open(read_data="".join(MockUchOpcaoConjuntoVazioPadrao))
     r = UchOpcaoConjuntoVazioPadrao()
     with patch("builtins.open", m):
         with open("", "") as fp:
@@ -418,9 +415,7 @@ def test_registro_uch_consumo_agua_vazio_unidade():
 
 
 def test_registro_uch_consumo_agua_vazio_conjunto():
-    m: MagicMock = mock_open(
-        read_data="".join(MockUchConsumoAguaVazioConjunto)
-    )
+    m: MagicMock = mock_open(read_data="".join(MockUchConsumoAguaVazioConjunto))
     r = UchConsumoAguaVazioConjunto()
     with patch("builtins.open", m):
         with open("", "") as fp:
@@ -518,9 +513,7 @@ def test_registro_uch_limite_mudanca_status_vazio_usina():
 
 
 def test_registro_uch_custo_partida_vazio_unidade():
-    m: MagicMock = mock_open(
-        read_data="".join(MockUchCustoPartidaVazioUnidade)
-    )
+    m: MagicMock = mock_open(read_data="".join(MockUchCustoPartidaVazioUnidade))
     r = UchCustoPartidaVazioUnidade()
     with patch("builtins.open", m):
         with open("", "") as fp:
