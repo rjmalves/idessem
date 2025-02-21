@@ -31,7 +31,7 @@ def test_atributos_nao_encontrados_areacont():
         assert arq.usina is None
 
 
-# Bloco INIT
+# Bloco AREA
 def test_eq_blocoarea():
     m: MagicMock = mock_open(read_data="".join(MockBlocoArea))
     b1 = BlocoArea()
@@ -67,10 +67,12 @@ def test_bloco_area():
             b.read(fp)
 
     assert b.data[1].at[0, "codigo_area"] == 1
-    assert b.data[1].at[0, "nome_area"] == "FOLGA FPM - RESERVA DE POTENCIA DO SIN"
+    assert (
+        b.data[1].at[0, "nome_area"] == "FOLGA FPM - RESERVA DE POTENCIA DO SIN"
+    )
 
 
-# Bloco OPER
+# Bloco USINA
 def test_eq_blocousina():
     m: MagicMock = mock_open(read_data="".join(MockBlocoUsina))
     b1 = BlocoUsina()
@@ -112,6 +114,24 @@ def test_bloco_usina():
     assert b.data[1].at[0, "nome_componente"] == "LAJEADO"
 
 
+def test_blocos():
+    m: MagicMock = mock_open(read_data="".join(MockAreacont))
+    with patch("builtins.open", m):
+        ad = Areacont.read(ARQ_TESTE)
+
+        assert ad.area.at[0, "codigo_area"] == 1
+        df = ad.area
+        df.at[0, "codigo_area"] = 0
+        ad.area = df
+        assert ad.area.at[0, "codigo_area"] == 0
+
+        assert ad.usina.at[0, "codigo_area"] == 1
+        df = ad.usina
+        df.at[0, "codigo_area"] = 0
+        ad.usina = df
+        assert ad.usina.at[0, "codigo_area"] == 0
+
+
 def test_leitura_escrita_areacont():
     m_leitura: MagicMock = mock_open(read_data="".join(MockAreacont))
     with patch("builtins.open", m_leitura):
@@ -121,7 +141,9 @@ def test_leitura_escrita_areacont():
         d1.write(ARQ_TESTE)
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
-        linhas_escritas = [chamadas[i].args[0] for i in range(1, len(chamadas) - 1)]
+        linhas_escritas = [
+            chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
+        ]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
         d2 = Areacont.read(ARQ_TESTE)

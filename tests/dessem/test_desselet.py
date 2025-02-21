@@ -62,6 +62,24 @@ def test_bloco_caso_modificacao():
     assert b.data.at[0, "arquivo"] == "pat01.afp"
 
 
+def test_blocos():
+    m: MagicMock = mock_open(read_data="".join(MockDesselet))
+    with patch("builtins.open", m):
+        ad = Desselet.read(ARQ_TESTE)
+
+        assert ad.dados_casos_base.at[0, "indice_caso_base"] == 1
+        df = ad.dados_casos_base
+        df.at[0, "indice_caso_base"] = 0
+        ad.dados_casos_base = df
+        assert ad.dados_casos_base.at[0, "indice_caso_base"] == 0
+
+        assert ad.dados_modificacao.at[0, "codigo_estagio"] == 1
+        df = ad.dados_modificacao
+        df.at[0, "codigo_estagio"] = 0
+        ad.dados_modificacao = df
+        assert ad.dados_modificacao.at[0, "codigo_estagio"] == 0
+
+
 def test_eq_desselet():
     m: MagicMock = mock_open(read_data="".join(MockDesselet))
     with patch("builtins.open", m):
@@ -88,7 +106,9 @@ def test_leitura_escrita_desselet():
         cf1.write(ARQ_TESTE)
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
-        linhas_escritas = [chamadas[i].args[0] for i in range(1, len(chamadas) - 1)]
+        linhas_escritas = [
+            chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
+        ]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
         cf2 = Desselet.read(ARQ_TESTE)
