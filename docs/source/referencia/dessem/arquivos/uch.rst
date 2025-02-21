@@ -1,13 +1,13 @@
 .. _uch:
 
 =======================================================
-Dados de Unit Commitment Hidráulico (uch.csv)
+Dados de Unit Commitment Hidráulico
 =======================================================
 
 .. currentmodule:: idessem.dessem.uch
 
 Os dados de unit commitment hidráulico do DESSEM
-são armazenados na classe:
+localizados no arquivos uch.csv são armazenados na classe:
 
 .. autoclass:: Uch
    :members:

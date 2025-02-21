@@ -1,5 +1,5 @@
-from idessem.libs.uch import Uch
-from idessem.libs.modelos.uch import (
+from idessem.dessem.uch import Uch
+from idessem.dessem.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
     UchOpcaoPadraoData,

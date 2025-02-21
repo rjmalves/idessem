@@ -8,10 +8,6 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     ArquivoCSV,
 )
 
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
-
 
 class PdoEcoFcfCortes(ArquivoCSV):
     """
@@ -26,17 +22,6 @@ class PdoEcoFcfCortes(ArquivoCSV):
         "20.1": [VersaoModelo, DataEstudo, TabelaPdoEcoFcfCortes],
     }
     ENCODING = "iso-8859-1"
-
-    @classmethod
-    def le_arquivo(
-        cls, diretorio: str, nome_arquivo="PDO_ECO_FCFCORTES.DAT"
-    ) -> "PdoEcoFcfCortes":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
 
     @property
     def tabela(self):

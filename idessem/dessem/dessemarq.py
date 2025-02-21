@@ -34,12 +34,7 @@ from idessem.dessem.modelos.dessemarq import (
 )
 
 from cfinterface.files.registerfile import RegisterFile
-from cfinterface.components.register import Register
-from typing import Type, List, Optional, TypeVar
-
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
+from typing import Optional, TypeVar
 
 
 class DessemArq(RegisterFile):
@@ -50,9 +45,6 @@ class DessemArq(RegisterFile):
     DESSEM no `dessem.arq`. Possui métodos para acessar individualmente
     cada nome e editá-lo.
 
-    É possível ler as informações existentes em arquivos a partir do
-    método `le_arquivo()` e escreve um novo arquivo a partir do método
-    `escreve_arquivo()`.
 
     """
 
@@ -96,77 +88,6 @@ class DessemArq(RegisterFile):
     def __init__(self, data=...) -> None:
         super().__init__(data)
 
-    @classmethod
-    def le_arquivo(
-        cls, diretorio: str, nome_arquivo="dessem.arq"
-    ) -> "DessemArq":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
-
-    def escreve_arquivo(self, diretorio: str, nome_arquivo="dessem.arq"):
-        msg = (
-            "O método escreve_arquivo(diretorio, nome_arquivo) será"
-            + " descontinuado na versão 1.0.0 -"
-            + " use o método write(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        self.write(join(diretorio, nome_arquivo))
-
-    def __obtem_registro(self, tipo: Type[T]) -> Optional[T]:
-        r = [b for b in self.data.of_type(tipo)]
-        return r[0] if len(r) > 0 else None
-
-    def cria_registro(self, anterior: Register, registro: Register):
-        """
-        Adiciona um registro ao arquivo após um outro registro previamente
-        existente.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.add_after(anterior, registro)
-
-    def deleta_registro(self, registro: Register):
-        """
-        Remove um registro existente no arquivo.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.remove(registro)
-
-    def lista_registros(self, tipo: Type[T]) -> List[T]:
-        """
-        Lista todos os registros presentes no arquivo que tenham o tipo `T`.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        return [r for r in self.data.of_type(tipo)]
-
-    def append_registro(self, registro: Register):
-        """
-        Adiciona um registro ao arquivo na última posição.
-
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.append(registro)
-
-    def preppend_registro(self, registro: Register):
-        """
-        Adiciona um registro ao arquivo na primeira posição.
-
-        Este método existe para retrocompatibilidade e deve ser substituído
-        quando for suportado na classe :class:`RegisterFile`.
-        """
-        self.data.preppend(registro)
-
     @property
     def caso(self) -> Optional[RegistroCaso]:
         """
@@ -175,7 +96,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroCaso` | None.
         """
-        return self.__obtem_registro(RegistroCaso)
+        r = self.data.get_registers_of_type(RegistroCaso)
+        if isinstance(r, RegistroCaso):
+            return r
+        else:
+            return None
 
     @property
     def titulo(self) -> Optional[RegistroTitulo]:
@@ -185,7 +110,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroTitulo` | None.
         """
-        return self.__obtem_registro(RegistroTitulo)
+        r = self.data.get_registers_of_type(RegistroTitulo)
+        if isinstance(r, RegistroTitulo):
+            return r
+        else:
+            return None
 
     @property
     def vazoes(self) -> Optional[RegistroVazoes]:
@@ -195,7 +124,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroVazoes` | None.
         """
-        return self.__obtem_registro(RegistroVazoes)
+        r = self.data.get_registers_of_type(RegistroVazoes)
+        if isinstance(r, RegistroVazoes):
+            return r
+        else:
+            return None
 
     @property
     def dadger(self) -> Optional[RegistroDadger]:
@@ -205,7 +138,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroDadger` | None.
         """
-        return self.__obtem_registro(RegistroDadger)
+        r = self.data.get_registers_of_type(RegistroDadger)
+        if isinstance(r, RegistroDadger):
+            return r
+        else:
+            return None
 
     @property
     def mapfcf(self) -> Optional[RegistroMapfcf]:
@@ -215,7 +152,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroMapfcf` | None.
         """
-        return self.__obtem_registro(RegistroMapfcf)
+        r = self.data.get_registers_of_type(RegistroMapfcf)
+        if isinstance(r, RegistroMapfcf):
+            return r
+        else:
+            return None
 
     @property
     def cortfcf(self) -> Optional[RegistroCortfcf]:
@@ -225,7 +166,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroCortfcf` | None.
         """
-        return self.__obtem_registro(RegistroCortfcf)
+        r = self.data.get_registers_of_type(RegistroCortfcf)
+        if isinstance(r, RegistroCortfcf):
+            return r
+        else:
+            return None
 
     @property
     def cadusih(self) -> Optional[RegistroCadusih]:
@@ -235,7 +180,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroCadusih` | None.
         """
-        return self.__obtem_registro(RegistroCadusih)
+        r = self.data.get_registers_of_type(RegistroCadusih)
+        if isinstance(r, RegistroCadusih):
+            return r
+        else:
+            return None
 
     @property
     def operuh(self) -> Optional[RegistroOperuh]:
@@ -246,7 +195,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroOperuh` | None.
         """
-        return self.__obtem_registro(RegistroOperuh)
+        r = self.data.get_registers_of_type(RegistroOperuh)
+        if isinstance(r, RegistroOperuh):
+            return r
+        else:
+            return None
 
     @property
     def deflant(self) -> Optional[RegistroDeflant]:
@@ -257,7 +210,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroDeflant` | None.
         """
-        return self.__obtem_registro(RegistroDeflant)
+        r = self.data.get_registers_of_type(RegistroDeflant)
+        if isinstance(r, RegistroDeflant):
+            return r
+        else:
+            return None
 
     @property
     def cadterm(self) -> Optional[RegistroCadterm]:
@@ -267,7 +224,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroCadterm` | None.
         """
-        return self.__obtem_registro(RegistroCadterm)
+        r = self.data.get_registers_of_type(RegistroCadterm)
+        if isinstance(r, RegistroCadterm):
+            return r
+        else:
+            return None
 
     @property
     def operut(self) -> Optional[RegistroOperut]:
@@ -277,7 +238,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroOperut` | None.
         """
-        return self.__obtem_registro(RegistroOperut)
+        r = self.data.get_registers_of_type(RegistroOperut)
+        if isinstance(r, RegistroOperut):
+            return r
+        else:
+            return None
 
     @property
     def indelet(self) -> Optional[RegistroIndelet]:
@@ -287,7 +252,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroIndelet` | None.
         """
-        return self.__obtem_registro(RegistroIndelet)
+        r = self.data.get_registers_of_type(RegistroIndelet)
+        if isinstance(r, RegistroIndelet):
+            return r
+        else:
+            return None
 
     @property
     def ilstri(self) -> Optional[RegistroIlstri]:
@@ -297,7 +266,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroIlstri` | None.
         """
-        return self.__obtem_registro(RegistroIlstri)
+        r = self.data.get_registers_of_type(RegistroIlstri)
+        if isinstance(r, RegistroIlstri):
+            return r
+        else:
+            return None
 
     @property
     def cotasr11(self) -> Optional[RegistroCotasR11]:
@@ -307,7 +280,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroCotasR11` | None.
         """
-        return self.__obtem_registro(RegistroCotasR11)
+        r = self.data.get_registers_of_type(RegistroCotasR11)
+        if isinstance(r, RegistroCotasR11):
+            return r
+        else:
+            return None
 
     @property
     def simul(self) -> Optional[RegistroSimul]:
@@ -317,7 +294,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroSimul` | None.
         """
-        return self.__obtem_registro(RegistroSimul)
+        r = self.data.get_registers_of_type(RegistroSimul)
+        if isinstance(r, RegistroSimul):
+            return r
+        else:
+            return None
 
     @property
     def areacont(self) -> Optional[RegistroAreacont]:
@@ -327,7 +308,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroAreacont` | None.
         """
-        return self.__obtem_registro(RegistroAreacont)
+        r = self.data.get_registers_of_type(RegistroAreacont)
+        if isinstance(r, RegistroAreacont):
+            return r
+        else:
+            return None
 
     @property
     def respot(self) -> Optional[RegistroRespot]:
@@ -337,7 +322,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroRespot` | None.
         """
-        return self.__obtem_registro(RegistroRespot)
+        r = self.data.get_registers_of_type(RegistroRespot)
+        if isinstance(r, RegistroRespot):
+            return r
+        else:
+            return None
 
     @property
     def mlt(self) -> Optional[RegistroMlt]:
@@ -347,7 +336,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroMlt` | None.
         """
-        return self.__obtem_registro(RegistroMlt)
+        r = self.data.get_registers_of_type(RegistroMlt)
+        if isinstance(r, RegistroMlt):
+            return r
+        else:
+            return None
 
     @property
     def tolperd(self) -> Optional[RegistroTolperd]:
@@ -357,7 +350,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroTolperd` | None.
         """
-        return self.__obtem_registro(RegistroTolperd)
+        r = self.data.get_registers_of_type(RegistroTolperd)
+        if isinstance(r, RegistroTolperd):
+            return r
+        else:
+            return None
 
     @property
     def curvtviag(self) -> Optional[RegistroCurvtviag]:
@@ -368,7 +365,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroCurvtviag` | None.
         """
-        return self.__obtem_registro(RegistroCurvtviag)
+        r = self.data.get_registers_of_type(RegistroCurvtviag)
+        if isinstance(r, RegistroCurvtviag):
+            return r
+        else:
+            return None
 
     @property
     def ptoper(self) -> Optional[RegistroPtoper]:
@@ -379,7 +380,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroPtoper` | None.
         """
-        return self.__obtem_registro(RegistroPtoper)
+        r = self.data.get_registers_of_type(RegistroPtoper)
+        if isinstance(r, RegistroPtoper):
+            return r
+        else:
+            return None
 
     @property
     def infofcf(self) -> Optional[RegistroInfofcf]:
@@ -389,7 +394,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroInfofcf` | None.
         """
-        return self.__obtem_registro(RegistroInfofcf)
+        r = self.data.get_registers_of_type(RegistroInfofcf)
+        if isinstance(r, RegistroInfofcf):
+            return r
+        else:
+            return None
 
     @property
     def meta(self) -> Optional[RegistroMetas]:
@@ -399,7 +408,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroMetas` | None.
         """
-        return self.__obtem_registro(RegistroMetas)
+        r = self.data.get_registers_of_type(RegistroMetas)
+        if isinstance(r, RegistroMetas):
+            return r
+        else:
+            return None
 
     @property
     def ree(self) -> Optional[RegistroREE]:
@@ -410,7 +423,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroREE` | None.
         """
-        return self.__obtem_registro(RegistroREE)
+        r = self.data.get_registers_of_type(RegistroREE)
+        if isinstance(r, RegistroREE):
+            return r
+        else:
+            return None
 
     @property
     def eolica(self) -> Optional[RegistroEolica]:
@@ -420,7 +437,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroEolica` | None.
         """
-        return self.__obtem_registro(RegistroEolica)
+        r = self.data.get_registers_of_type(RegistroEolica)
+        if isinstance(r, RegistroEolica):
+            return r
+        else:
+            return None
 
     @property
     def rampas(self) -> Optional[RegistroRampas]:
@@ -430,7 +451,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroRampas` | None.
         """
-        return self.__obtem_registro(RegistroRampas)
+        r = self.data.get_registers_of_type(RegistroRampas)
+        if isinstance(r, RegistroRampas):
+            return r
+        else:
+            return None
 
     @property
     def rstlpp(self) -> Optional[RegistroRstlpp]:
@@ -440,7 +465,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroRstlpp` | None.
         """
-        return self.__obtem_registro(RegistroRstlpp)
+        r = self.data.get_registers_of_type(RegistroRstlpp)
+        if isinstance(r, RegistroRstlpp):
+            return r
+        else:
+            return None
 
     @property
     def restseg(self) -> Optional[RegistroRestseg]:
@@ -450,7 +479,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroRestseg` | None.
         """
-        return self.__obtem_registro(RegistroRestseg)
+        r = self.data.get_registers_of_type(RegistroRestseg)
+        if isinstance(r, RegistroRestseg):
+            return r
+        else:
+            return None
 
     @property
     def respotele(self) -> Optional[RegistroRespotele]:
@@ -461,7 +494,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroRespotele` | None.
         """
-        return self.__obtem_registro(RegistroRespotele)
+        r = self.data.get_registers_of_type(RegistroRespotele)
+        if isinstance(r, RegistroRespotele):
+            return r
+        else:
+            return None
 
     @property
     def ilibs(self) -> Optional[RegistroIlibs]:
@@ -471,7 +508,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroIlibs` | None.
         """
-        return self.__obtem_registro(RegistroIlibs)
+        r = self.data.get_registers_of_type(RegistroIlibs)
+        if isinstance(r, RegistroIlibs):
+            return r
+        else:
+            return None
 
     @property
     def uch(self) -> Optional[RegistroUch]:
@@ -482,7 +523,11 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroUch` | None.
         """
-        return self.__obtem_registro(RegistroUch)
+        r = self.data.get_registers_of_type(RegistroUch)
+        if isinstance(r, RegistroUch):
+            return r
+        else:
+            return None
 
     @property
     def dessopc(self) -> Optional[RegistroDessopc]:
@@ -492,4 +537,8 @@ class DessemArq(RegisterFile):
         :return: Um registro, se existir.
         :rtype:  :class:`RegistroDessopc` | None.
         """
-        return self.__obtem_registro(RegistroDessopc)
+        r = self.data.get_registers_of_type(RegistroDessopc)
+        if isinstance(r, RegistroDessopc):
+            return r
+        else:
+            return None

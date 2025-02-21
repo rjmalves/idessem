@@ -8,10 +8,6 @@ from typing import Optional, TypeVar
 import pandas as pd  # type: ignore
 from datetime import datetime
 
-# Para compatibilidade - até versão 1.0.0
-from os.path import join
-import warnings
-
 
 class AvlFpha3(BlockFile):
     """
@@ -29,17 +25,6 @@ class AvlFpha3(BlockFile):
     def __init__(self, data=...) -> None:
         super().__init__(data)
         self.__df_completo: Optional[pd.DataFrame] = None
-
-    @classmethod
-    def le_arquivo(
-        cls, diretorio: str, nome_arquivo="AVL_FPHA3.DAT"
-    ) -> "AvlFpha3":
-        msg = (
-            "O método le_arquivo(diretorio, nome_arquivo) será descontinuado"
-            + " na versão 1.0.0 - use o método read(caminho_arquivo)"
-        )
-        warnings.warn(msg, category=FutureWarning)
-        return cls.read(join(diretorio, nome_arquivo))
 
     @property
     def tabela(self):
@@ -61,6 +46,12 @@ class AvlFpha3(BlockFile):
         if self.__df_completo is None:
             tabelas = self.data.of_type(TabelaAvlFpha3)
             tabelas_validas = [t.data for t in tabelas if t is not None]
+            tabelas_validas = [
+                t for t in tabelas_validas if isinstance(t, pd.DataFrame)
+            ]
+            tabelas_validas = [
+                t.dropna(axis=1, how="all") for t in tabelas_validas
+            ]
             self.__df_completo = pd.concat(
                 [t for t in tabelas_validas if isinstance(t, pd.DataFrame)],
                 ignore_index=True,
