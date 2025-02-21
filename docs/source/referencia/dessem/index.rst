@@ -45,4 +45,3 @@ DESSEM
    arquivos/renovaveis
    arquivos/respot
    arquivos/termdat  
-   arquivos/uch 

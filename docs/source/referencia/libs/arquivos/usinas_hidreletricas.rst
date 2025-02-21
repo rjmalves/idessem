@@ -4,7 +4,7 @@
 Dados das Usinas Hidrelétricas
 =======================================================
 
-.. currentmodule:: idecomp.libs.usinas_hidreletricas
+.. currentmodule:: idessem.libs.usinas_hidreletricas
 
 As informações de usinas hidrelétricas no DESSEM,
 localizadas no arquivos das LIBS que são indicados
