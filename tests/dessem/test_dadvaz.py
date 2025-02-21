@@ -74,6 +74,30 @@ def test_bloco_dados_horizonte():
     b.dia_semana_inicial = 0
     assert b.dia_semana_inicial == 0
 
+def test_blocos():
+    m: MagicMock = mock_open(read_data="".join(MockDadvaz))
+    with patch("builtins.open", m):
+        ad = Dadvaz.read(ARQ_TESTE)
+        assert ad.data_inicio == datetime(2022, 8, 11, 0)
+        ad.data_inicio = datetime(2022, 8, 12, 0)
+        assert ad.data_inicio == datetime(2022, 8, 12, 0)
+        assert ad.semana_acoplamento_fcf == 1
+        ad.semana_acoplamento_fcf = 0
+        assert ad.semana_acoplamento_fcf == 0
+        assert ad.numero_semanas == 1
+        ad.numero_semanas = 0
+        assert ad.numero_semanas == 0
+        assert ad.considera_periodo_simulacao == 0
+        ad.considera_periodo_simulacao = 1
+        assert ad.considera_periodo_simulacao == 1
+        assert ad.dia_semana_inicial == 6
+        ad.dia_semana_inicial = 0
+        assert ad.dia_semana_inicial == 0
+        assert ad.vazoes.at[0,"codigo_usina"] == 1
+        df = ad.vazoes 
+        df.at[0,"codigo_usina"] = 0
+        ad.vazoes = df 
+        assert ad.vazoes.at[0,"codigo_usina"] == 0
 
 def test_bloco_vazoes():
     m: MagicMock = mock_open(read_data="".join(MockBlocoVazoes))

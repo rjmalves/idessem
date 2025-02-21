@@ -61,7 +61,7 @@ class Dadvaz(SectionFile):
     def dia_semana_inicial(self, n: int):
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
-            b.data = n
+            b.dia_semana_inicial = n
 
     @property
     def semana_acoplamento_fcf(self) -> Optional[int]:
@@ -80,7 +80,7 @@ class Dadvaz(SectionFile):
     def semana_acoplamento_fcf(self, n: int):
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
-            b.data = n
+            b.semana_acoplamento_fcf = n
 
     @property
     def numero_semanas(self) -> Optional[int]:
@@ -99,7 +99,7 @@ class Dadvaz(SectionFile):
     def numero_semanas(self, n: int):
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
-            b.data = n
+            b.numero_semanas = n
 
     @property
     def considera_periodo_simulacao(self) -> Optional[int]:
@@ -118,7 +118,7 @@ class Dadvaz(SectionFile):
     def considera_periodo_simulacao(self, n: int):
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
-            b.data = n
+            b.considera_periodo_simulacao = n
 
     @property
     def vazoes(self) -> Optional[pd.DataFrame]:
