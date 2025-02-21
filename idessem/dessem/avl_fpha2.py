@@ -45,8 +45,14 @@ class AvlFpha2(BlockFile):
         if self.__df_completo is None:
             tabelas = self.data.of_type(TabelaAvlFpha2)
             tabelas_validas = [t.data for t in tabelas if t is not None]
+            tabelas_validas = [
+                t for t in tabelas_validas if isinstance(t, pd.DataFrame)
+            ]
+            tabelas_validas = [
+                t.dropna(axis=1, how="all") for t in tabelas_validas
+            ]
             self.__df_completo = pd.concat(
-                [t for t in tabelas_validas if isinstance(t, pd.DataFrame)],
+                tabelas_validas,
                 ignore_index=True,
             )
         return self.__df_completo
