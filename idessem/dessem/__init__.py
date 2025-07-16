@@ -28,6 +28,7 @@ from .pdo_eco_usih_polin import PdoEcoUsihPolin  # noqa
 from .pdo_eolica import PdoEolica  # noqa
 from .pdo_hidr import PdoHidr  # noqa
 from .pdo_inter import PdoInter  # noqa
+from .pdo_oper_lpp import PdoOperLpp  # noqa
 from .pdo_oper_term import PdoOperTerm  # noqa
 from .pdo_oper_titulacao_contratos import PdoOperTitulacaoContratos  # noqa
 from .pdo_oper_titulacao_usinas import PdoOperTitulacaoUsinas  # noqa

@@ -34,6 +34,7 @@ DESSEM
    arquivos/pdo_eolica
    arquivos/pdo_hidr
    arquivos/pdo_inter
+   arquivos/pdo_oper_lpp
    arquivos/pdo_oper_titulacao_contratos
    arquivos/pdo_oper_titulacao_usinas
    arquivos/pdo_oper_tviag_calha
