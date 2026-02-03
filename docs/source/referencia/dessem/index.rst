@@ -27,10 +27,12 @@ DESSEM
    arquivos/operut
    arquivos/pdo_aval_qmaxusih
    arquivos/pdo_cmobar
+   arquivos/pdo_cmosist
    arquivos/pdo_eco_usih
    arquivos/pdo_eco_usih_conj
    arquivos/pdo_eco_usih_polin
    arquivos/pdo_eco_fcfcortes
+   arquivos/pdo_elev
    arquivos/pdo_eolica
    arquivos/pdo_hidr
    arquivos/pdo_inter
@@ -40,6 +42,7 @@ DESSEM
    arquivos/pdo_oper_titulacao_usinas
    arquivos/pdo_oper_tviag_calha
    arquivos/pdo_oper_uct
+   arquivos/pdo_oper_usih
    arquivos/pdo_reserva
    arquivos/pdo_sist
    arquivos/pdo_somflux
