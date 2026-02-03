@@ -25,7 +25,7 @@ DESSEM
    arquivos/log_matriz
    arquivos/operuh
    arquivos/operut
-   arquivo/pdo_aval_qmaxusih
+   arquivos/pdo_aval_qmaxusih
    arquivos/pdo_cmobar
    arquivos/pdo_eco_usih
    arquivos/pdo_eco_usih_conj
@@ -34,6 +34,7 @@ DESSEM
    arquivos/pdo_eolica
    arquivos/pdo_hidr
    arquivos/pdo_inter
+   arquivos/pdo_operacao
    arquivos/pdo_oper_lpp
    arquivos/pdo_oper_titulacao_contratos
    arquivos/pdo_oper_titulacao_usinas
