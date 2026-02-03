@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dados de início e horizonte do estudo e vazõe das usinas hidrelétricas (dadvaz.dat) &mdash; Documentação idessem 1.1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5f8a7760"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=71a39b36"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../../search.html" />
+    <link rel="next" title="Arquivo de defluências anteriores ao início do estudo (deflant.dat)" href="deflant.html" />
+    <link rel="prev" title="Desvios da Função de Produção no Plano QLAT (AVL_FPHA3.DAT)" href="avl_fpha3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/logo_idessem_svg.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Apresentação</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../apresentacao/apresentacao.html">Módulo de interface para o programa DESSEM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Geral</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../geral/instalacao.html">Instalação</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geral/instalacao.html#instalando-a-versao-distribuida-oficialmente">Instalando a versão distribuída oficialmente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geral/instalacao.html#instalando-a-versao-de-desenvolvimento">Instalando a versão de desenvolvimento</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geral/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Exemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geral/contribuicao.html">Como contribuir?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geral/contribuicao.html#o-framework-cfinterface-e-dependencias-de-desenvolvimento">O framework <code class="xref py py-obj docutils literal notranslate"><span class="pre">cfinterface</span></code> e dependências de desenvolvimento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geral/contribuicao.html#diretrizes-de-modelagem-para-o-modulo-idessem">Diretrizes de modelagem para o módulo <code class="xref py py-obj docutils literal notranslate"><span class="pre">idessem</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geral/contribuicao.html#convencoes-de-codigo">Convenções de código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geral/contribuicao.html#procedimentos-de-teste">Procedimentos de teste</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Referência</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DESSEM</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="areacont.html">Áreas de controle (areacont.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="areacont.html#idessem.dessem.areacont.Areacont"><code class="docutils literal notranslate"><span class="pre">Areacont</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="areacont.html#idessem.dessem.areacont.Areacont.area"><code class="docutils literal notranslate"><span class="pre">Areacont.area</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="areacont.html#idessem.dessem.areacont.Areacont.usina"><code class="docutils literal notranslate"><span class="pre">Areacont.usina</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="avl_altqueda.html">Altura de Queda as Usinas (AVL_ALTQUEDA.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="avl_altqueda.html#idessem.dessem.avl_altqueda.AvlAltQueda"><code class="docutils literal notranslate"><span class="pre">AvlAltQueda</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avl_altqueda.html#idessem.dessem.avl_altqueda.AvlAltQueda.tabela"><code class="docutils literal notranslate"><span class="pre">AvlAltQueda.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="avl_desvfpha.html">Desvios da Função de Produção (AVL_DESVFPHA.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="avl_desvfpha.html#idessem.dessem.avl_desvfpha.AvlDesvFpha"><code class="docutils literal notranslate"><span class="pre">AvlDesvFpha</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avl_desvfpha.html#idessem.dessem.avl_desvfpha.AvlDesvFpha.tabela"><code class="docutils literal notranslate"><span class="pre">AvlDesvFpha.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="avl_estatfpha.html">Estatísticas dos Desvios da Função de Produção (AVL_ESTATFPHA.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="avl_estatfpha.html#idessem.dessem.avl_estatfpha.AvlEstatFpha"><code class="docutils literal notranslate"><span class="pre">AvlEstatFpha</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avl_estatfpha.html#idessem.dessem.avl_estatfpha.AvlEstatFpha.data_estudo"><code class="docutils literal notranslate"><span class="pre">AvlEstatFpha.data_estudo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avl_estatfpha.html#idessem.dessem.avl_estatfpha.AvlEstatFpha.estatisticas_desvios"><code class="docutils literal notranslate"><span class="pre">AvlEstatFpha.estatisticas_desvios</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avl_estatfpha.html#idessem.dessem.avl_estatfpha.AvlEstatFpha.versao"><code class="docutils literal notranslate"><span class="pre">AvlEstatFpha.versao</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="avl_fpha1.html">Coeficientes da Função de Produção (AVL_FPHA1.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="avl_fpha1.html#idessem.dessem.avl_fpha1.AvlFpha1"><code class="docutils literal notranslate"><span class="pre">AvlFpha1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha1.html#idessem.dessem.avl_fpha1.AvlFpha1.tabela"><code class="docutils literal notranslate"><span class="pre">AvlFpha1.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="avl_fpha2.html">Desvios da Função de Produção no Plano V-Q (AVL_FPHA2.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="avl_fpha2.html#idessem.dessem.avl_fpha2.AvlFpha2"><code class="docutils literal notranslate"><span class="pre">AvlFpha2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha2.html#idessem.dessem.avl_fpha2.AvlFpha2.data_estudo"><code class="docutils literal notranslate"><span class="pre">AvlFpha2.data_estudo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha2.html#idessem.dessem.avl_fpha2.AvlFpha2.tabela"><code class="docutils literal notranslate"><span class="pre">AvlFpha2.tabela</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha2.html#idessem.dessem.avl_fpha2.AvlFpha2.versao"><code class="docutils literal notranslate"><span class="pre">AvlFpha2.versao</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="avl_fpha3.html">Desvios da Função de Produção no Plano QLAT (AVL_FPHA3.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="avl_fpha3.html#idessem.dessem.avl_fpha3.AvlFpha3"><code class="docutils literal notranslate"><span class="pre">AvlFpha3</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha3.html#idessem.dessem.avl_fpha3.AvlFpha3.data_estudo"><code class="docutils literal notranslate"><span class="pre">AvlFpha3.data_estudo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha3.html#idessem.dessem.avl_fpha3.AvlFpha3.tabela"><code class="docutils literal notranslate"><span class="pre">AvlFpha3.tabela</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avl_fpha3.html#idessem.dessem.avl_fpha3.AvlFpha3.versao"><code class="docutils literal notranslate"><span class="pre">AvlFpha3.versao</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dados de início e horizonte do estudo e vazõe das usinas hidrelétricas (dadvaz.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz"><code class="docutils literal notranslate"><span class="pre">Dadvaz</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz.considera_periodo_simulacao"><code class="docutils literal notranslate"><span class="pre">Dadvaz.considera_periodo_simulacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz.data_inicio"><code class="docutils literal notranslate"><span class="pre">Dadvaz.data_inicio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz.dia_semana_inicial"><code class="docutils literal notranslate"><span class="pre">Dadvaz.dia_semana_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz.numero_semanas"><code class="docutils literal notranslate"><span class="pre">Dadvaz.numero_semanas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz.semana_acoplamento_fcf"><code class="docutils literal notranslate"><span class="pre">Dadvaz.semana_acoplamento_fcf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#idessem.dessem.dadvaz.Dadvaz.vazoes"><code class="docutils literal notranslate"><span class="pre">Dadvaz.vazoes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deflant.html">Arquivo de defluências anteriores ao início do estudo (deflant.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deflant.html#idessem.dessem.deflant.Deflant"><code class="docutils literal notranslate"><span class="pre">Deflant</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.deflant.Deflant.defant"><code class="docutils literal notranslate"><span class="pre">Deflant.defant()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT"><code class="docutils literal notranslate"><span class="pre">DEFANT</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.codigo_elemento_jusante"><code class="docutils literal notranslate"><span class="pre">DEFANT.codigo_elemento_jusante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.codigo_usina_montante"><code class="docutils literal notranslate"><span class="pre">DEFANT.codigo_usina_montante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.defluencia"><code class="docutils literal notranslate"><span class="pre">DEFANT.defluencia</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.dia_final"><code class="docutils literal notranslate"><span class="pre">DEFANT.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.dia_inicial"><code class="docutils literal notranslate"><span class="pre">DEFANT.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.hora_final"><code class="docutils literal notranslate"><span class="pre">DEFANT.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.hora_inicial"><code class="docutils literal notranslate"><span class="pre">DEFANT.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">DEFANT.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">DEFANT.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="deflant.html#idessem.dessem.modelos.deflant.DEFANT.tipo_elemento_jusante"><code class="docutils literal notranslate"><span class="pre">DEFANT.tipo_elemento_jusante</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="des_log_relato.html">Acompanhamento da Execução (DES_LOG_RELATO.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="des_log_relato.html#idessem.dessem.des_log_relato.DesLogRelato"><code class="docutils literal notranslate"><span class="pre">DesLogRelato</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="des_log_relato.html#idessem.dessem.des_log_relato.DesLogRelato.data_estudo"><code class="docutils literal notranslate"><span class="pre">DesLogRelato.data_estudo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="des_log_relato.html#idessem.dessem.des_log_relato.DesLogRelato.tempo_processamento"><code class="docutils literal notranslate"><span class="pre">DesLogRelato.tempo_processamento</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="des_log_relato.html#idessem.dessem.des_log_relato.DesLogRelato.variaveis_otimizacao"><code class="docutils literal notranslate"><span class="pre">DesLogRelato.variaveis_otimizacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="des_log_relato.html#idessem.dessem.des_log_relato.DesLogRelato.versao"><code class="docutils literal notranslate"><span class="pre">DesLogRelato.versao</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="desselet.html">Arquivo os dados para a rede elétrica (desselet.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="desselet.html#idessem.dessem.desselet.Desselet"><code class="docutils literal notranslate"><span class="pre">Desselet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="desselet.html#idessem.dessem.desselet.Desselet.dados_casos_base"><code class="docutils literal notranslate"><span class="pre">Desselet.dados_casos_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="desselet.html#idessem.dessem.desselet.Desselet.dados_modificacao"><code class="docutils literal notranslate"><span class="pre">Desselet.dados_modificacao</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dessemarq.html">Arquivos de Entrada (dessem.arq)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq"><code class="docutils literal notranslate"><span class="pre">DessemArq</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.areacont"><code class="docutils literal notranslate"><span class="pre">DessemArq.areacont</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.cadterm"><code class="docutils literal notranslate"><span class="pre">DessemArq.cadterm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.cadusih"><code class="docutils literal notranslate"><span class="pre">DessemArq.cadusih</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.caso"><code class="docutils literal notranslate"><span class="pre">DessemArq.caso</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.cortfcf"><code class="docutils literal notranslate"><span class="pre">DessemArq.cortfcf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.cotasr11"><code class="docutils literal notranslate"><span class="pre">DessemArq.cotasr11</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.curvtviag"><code class="docutils literal notranslate"><span class="pre">DessemArq.curvtviag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.dadger"><code class="docutils literal notranslate"><span class="pre">DessemArq.dadger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.deflant"><code class="docutils literal notranslate"><span class="pre">DessemArq.deflant</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.dessopc"><code class="docutils literal notranslate"><span class="pre">DessemArq.dessopc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.eolica"><code class="docutils literal notranslate"><span class="pre">DessemArq.eolica</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.ilibs"><code class="docutils literal notranslate"><span class="pre">DessemArq.ilibs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.ilstri"><code class="docutils literal notranslate"><span class="pre">DessemArq.ilstri</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.indelet"><code class="docutils literal notranslate"><span class="pre">DessemArq.indelet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.infofcf"><code class="docutils literal notranslate"><span class="pre">DessemArq.infofcf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.mapfcf"><code class="docutils literal notranslate"><span class="pre">DessemArq.mapfcf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.meta"><code class="docutils literal notranslate"><span class="pre">DessemArq.meta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.mlt"><code class="docutils literal notranslate"><span class="pre">DessemArq.mlt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.operuh"><code class="docutils literal notranslate"><span class="pre">DessemArq.operuh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.operut"><code class="docutils literal notranslate"><span class="pre">DessemArq.operut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.ptoper"><code class="docutils literal notranslate"><span class="pre">DessemArq.ptoper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.rampas"><code class="docutils literal notranslate"><span class="pre">DessemArq.rampas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.ree"><code class="docutils literal notranslate"><span class="pre">DessemArq.ree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.respot"><code class="docutils literal notranslate"><span class="pre">DessemArq.respot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.respotele"><code class="docutils literal notranslate"><span class="pre">DessemArq.respotele</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.restseg"><code class="docutils literal notranslate"><span class="pre">DessemArq.restseg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.rstlpp"><code class="docutils literal notranslate"><span class="pre">DessemArq.rstlpp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.simul"><code class="docutils literal notranslate"><span class="pre">DessemArq.simul</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.titulo"><code class="docutils literal notranslate"><span class="pre">DessemArq.titulo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.tolperd"><code class="docutils literal notranslate"><span class="pre">DessemArq.tolperd</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.uch"><code class="docutils literal notranslate"><span class="pre">DessemArq.uch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessemarq.html#idessem.dessem.dessemarq.DessemArq.vazoes"><code class="docutils literal notranslate"><span class="pre">DessemArq.vazoes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dessopc.html">Opções de execução e condições operativas das unidades geradoras termoelétricas (dessopc.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc"><code class="docutils literal notranslate"><span class="pre">Dessopc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.ajustefcf"><code class="docutils literal notranslate"><span class="pre">Dessopc.ajustefcf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.avlcmo"><code class="docutils literal notranslate"><span class="pre">Dessopc.avlcmo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.constdados"><code class="docutils literal notranslate"><span class="pre">Dessopc.constdados</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.cplexlog"><code class="docutils literal notranslate"><span class="pre">Dessopc.cplexlog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.crossover"><code class="docutils literal notranslate"><span class="pre">Dessopc.crossover</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.engolimento"><code class="docutils literal notranslate"><span class="pre">Dessopc.engolimento</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.pint"><code class="docutils literal notranslate"><span class="pre">Dessopc.pint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.regranptv"><code class="docutils literal notranslate"><span class="pre">Dessopc.regranptv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.tolerilh"><code class="docutils literal notranslate"><span class="pre">Dessopc.tolerilh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.tratainviabilha"><code class="docutils literal notranslate"><span class="pre">Dessopc.tratainviabilha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.uctbusloc"><code class="docutils literal notranslate"><span class="pre">Dessopc.uctbusloc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.ucterm"><code class="docutils literal notranslate"><span class="pre">Dessopc.ucterm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.uctheurfp"><code class="docutils literal notranslate"><span class="pre">Dessopc.uctheurfp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dessopc.html#idessem.dessem.dessopc.Dessopc.uctpar"><code class="docutils literal notranslate"><span class="pre">Dessopc.uctpar</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entdados.html">Arquivo de dados gerais (entdados.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados"><code class="docutils literal notranslate"><span class="pre">Entdados</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ac"><code class="docutils literal notranslate"><span class="pre">Entdados.ac()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.cd"><code class="docutils literal notranslate"><span class="pre">Entdados.cd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.cr"><code class="docutils literal notranslate"><span class="pre">Entdados.cr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.da"><code class="docutils literal notranslate"><span class="pre">Entdados.da()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.de"><code class="docutils literal notranslate"><span class="pre">Entdados.de()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.dp"><code class="docutils literal notranslate"><span class="pre">Entdados.dp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ez"><code class="docutils literal notranslate"><span class="pre">Entdados.ez()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.fc"><code class="docutils literal notranslate"><span class="pre">Entdados.fc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.fe"><code class="docutils literal notranslate"><span class="pre">Entdados.fe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.fh"><code class="docutils literal notranslate"><span class="pre">Entdados.fh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.fi"><code class="docutils literal notranslate"><span class="pre">Entdados.fi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.fp"><code class="docutils literal notranslate"><span class="pre">Entdados.fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.fr"><code class="docutils literal notranslate"><span class="pre">Entdados.fr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ft"><code class="docutils literal notranslate"><span class="pre">Entdados.ft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.gp"><code class="docutils literal notranslate"><span class="pre">Entdados.gp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ia"><code class="docutils literal notranslate"><span class="pre">Entdados.ia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.it"><code class="docutils literal notranslate"><span class="pre">Entdados.it</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.lu"><code class="docutils literal notranslate"><span class="pre">Entdados.lu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.mh"><code class="docutils literal notranslate"><span class="pre">Entdados.mh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ni"><code class="docutils literal notranslate"><span class="pre">Entdados.ni</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.pe"><code class="docutils literal notranslate"><span class="pre">Entdados.pe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.pq"><code class="docutils literal notranslate"><span class="pre">Entdados.pq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.r11"><code class="docutils literal notranslate"><span class="pre">Entdados.r11()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.rd"><code class="docutils literal notranslate"><span class="pre">Entdados.rd</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.re"><code class="docutils literal notranslate"><span class="pre">Entdados.re()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ree"><code class="docutils literal notranslate"><span class="pre">Entdados.ree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ri"><code class="docutils literal notranslate"><span class="pre">Entdados.ri()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.rivar"><code class="docutils literal notranslate"><span class="pre">Entdados.rivar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.secr"><code class="docutils literal notranslate"><span class="pre">Entdados.secr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.sist"><code class="docutils literal notranslate"><span class="pre">Entdados.sist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.tm"><code class="docutils literal notranslate"><span class="pre">Entdados.tm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.tviag"><code class="docutils literal notranslate"><span class="pre">Entdados.tviag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.tx"><code class="docutils literal notranslate"><span class="pre">Entdados.tx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.uh"><code class="docutils literal notranslate"><span class="pre">Entdados.uh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.usie"><code class="docutils literal notranslate"><span class="pre">Entdados.usie()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ut"><code class="docutils literal notranslate"><span class="pre">Entdados.ut()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.entdados.Entdados.ve"><code class="docutils literal notranslate"><span class="pre">Entdados.ve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD"><code class="docutils literal notranslate"><span class="pre">RD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.carga_registro_dbar"><code class="docutils literal notranslate"><span class="pre">RD.carga_registro_dbar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.consideracao_perdas"><code class="docutils literal notranslate"><span class="pre">RD.consideracao_perdas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.formato_arquivos_rede"><code class="docutils literal notranslate"><span class="pre">RD.formato_arquivos_rede</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.limites_circuitos_e_drefs"><code class="docutils literal notranslate"><span class="pre">RD.limites_circuitos_e_drefs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.limites_circuitos_transformadores_elevadores"><code class="docutils literal notranslate"><span class="pre">RD.limites_circuitos_transformadores_elevadores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.maximo_circuitos_violados"><code class="docutils literal notranslate"><span class="pre">RD.maximo_circuitos_violados</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RD.variaveis_de_folga"><code class="docutils literal notranslate"><span class="pre">RD.variaveis_de_folga</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RIVAR"><code class="docutils literal notranslate"><span class="pre">RIVAR</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RIVAR.codigo_entidade"><code class="docutils literal notranslate"><span class="pre">RIVAR.codigo_entidade</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RIVAR.penalidade"><code class="docutils literal notranslate"><span class="pre">RIVAR.penalidade</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RIVAR.sistema_para"><code class="docutils literal notranslate"><span class="pre">RIVAR.sistema_para</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RIVAR.tipo_variavel"><code class="docutils literal notranslate"><span class="pre">RIVAR.tipo_variavel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM"><code class="docutils literal notranslate"><span class="pre">TM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM.consideracao_rede_eletrica"><code class="docutils literal notranslate"><span class="pre">TM.consideracao_rede_eletrica</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM.dia_inicial"><code class="docutils literal notranslate"><span class="pre">TM.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM.duracao"><code class="docutils literal notranslate"><span class="pre">TM.duracao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM.hora_inicial"><code class="docutils literal notranslate"><span class="pre">TM.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">TM.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TM.nome_patamar"><code class="docutils literal notranslate"><span class="pre">TM.nome_patamar</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.SIST"><code class="docutils literal notranslate"><span class="pre">SIST</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.SIST.codigo_submercado"><code class="docutils literal notranslate"><span class="pre">SIST.codigo_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.SIST.ficticio"><code class="docutils literal notranslate"><span class="pre">SIST.ficticio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.SIST.mnemonico_submercado"><code class="docutils literal notranslate"><span class="pre">SIST.mnemonico_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.SIST.nome_submercado"><code class="docutils literal notranslate"><span class="pre">SIST.nome_submercado</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.REE"><code class="docutils literal notranslate"><span class="pre">REE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.REE.codigo_ree"><code class="docutils literal notranslate"><span class="pre">REE.codigo_ree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.REE.codigo_submercado"><code class="docutils literal notranslate"><span class="pre">REE.codigo_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.REE.nome_ree"><code class="docutils literal notranslate"><span class="pre">REE.nome_ree</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH"><code class="docutils literal notranslate"><span class="pre">UH</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.codigo_ree"><code class="docutils literal notranslate"><span class="pre">UH.codigo_ree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.codigo_usina"><code class="docutils literal notranslate"><span class="pre">UH.codigo_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.dia_inicial"><code class="docutils literal notranslate"><span class="pre">UH.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.evaporacao"><code class="docutils literal notranslate"><span class="pre">UH.evaporacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.hora_inicial"><code class="docutils literal notranslate"><span class="pre">UH.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">UH.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.nome_usina"><code class="docutils literal notranslate"><span class="pre">UH.nome_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.penaliza_restricao_geracao"><code class="docutils literal notranslate"><span class="pre">UH.penaliza_restricao_geracao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.produtividade"><code class="docutils literal notranslate"><span class="pre">UH.produtividade</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.volume_inicial"><code class="docutils literal notranslate"><span class="pre">UH.volume_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UH.volume_morto_inicial"><code class="docutils literal notranslate"><span class="pre">UH.volume_morto_inicial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TVIAG"><code class="docutils literal notranslate"><span class="pre">TVIAG</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TVIAG.codigo_elemento_jusante"><code class="docutils literal notranslate"><span class="pre">TVIAG.codigo_elemento_jusante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TVIAG.codigo_usina_montante"><code class="docutils literal notranslate"><span class="pre">TVIAG.codigo_usina_montante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TVIAG.duracao"><code class="docutils literal notranslate"><span class="pre">TVIAG.duracao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TVIAG.tipo_elemento_jusante"><code class="docutils literal notranslate"><span class="pre">TVIAG.tipo_elemento_jusante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.TVIAG.tipo_tempo_viagem"><code class="docutils literal notranslate"><span class="pre">TVIAG.tipo_tempo_viagem</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT"><code class="docutils literal notranslate"><span class="pre">UT</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.codigo_submercado"><code class="docutils literal notranslate"><span class="pre">UT.codigo_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.codigo_usina"><code class="docutils literal notranslate"><span class="pre">UT.codigo_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.dia_final"><code class="docutils literal notranslate"><span class="pre">UT.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.dia_inicial"><code class="docutils literal notranslate"><span class="pre">UT.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.geracao_maxima"><code class="docutils literal notranslate"><span class="pre">UT.geracao_maxima</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.geracao_minima"><code class="docutils literal notranslate"><span class="pre">UT.geracao_minima</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.hora_final"><code class="docutils literal notranslate"><span class="pre">UT.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.hora_inicial"><code class="docutils literal notranslate"><span class="pre">UT.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">UT.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">UT.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.nome_usina"><code class="docutils literal notranslate"><span class="pre">UT.nome_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.tipo_restricao"><code class="docutils literal notranslate"><span class="pre">UT.tipo_restricao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.UT.unidade_restricao"><code class="docutils literal notranslate"><span class="pre">UT.unidade_restricao</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE"><code class="docutils literal notranslate"><span class="pre">USIE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.codigo_submercado"><code class="docutils literal notranslate"><span class="pre">USIE.codigo_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.codigo_usina"><code class="docutils literal notranslate"><span class="pre">USIE.codigo_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.codigo_usina_jusante"><code class="docutils literal notranslate"><span class="pre">USIE.codigo_usina_jusante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.codigo_usina_montante"><code class="docutils literal notranslate"><span class="pre">USIE.codigo_usina_montante</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.nome_usina"><code class="docutils literal notranslate"><span class="pre">USIE.nome_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.taxa_consumo"><code class="docutils literal notranslate"><span class="pre">USIE.taxa_consumo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.vazao_maxima_bombeavel"><code class="docutils literal notranslate"><span class="pre">USIE.vazao_maxima_bombeavel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.USIE.vazao_minima_bombeavel"><code class="docutils literal notranslate"><span class="pre">USIE.vazao_minima_bombeavel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP"><code class="docutils literal notranslate"><span class="pre">DP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.codigo_submercado"><code class="docutils literal notranslate"><span class="pre">DP.codigo_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.demanda"><code class="docutils literal notranslate"><span class="pre">DP.demanda</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.dia_final"><code class="docutils literal notranslate"><span class="pre">DP.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.dia_inicial"><code class="docutils literal notranslate"><span class="pre">DP.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.hora_final"><code class="docutils literal notranslate"><span class="pre">DP.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.hora_inicial"><code class="docutils literal notranslate"><span class="pre">DP.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">DP.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DP.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">DP.meia_hora_inicial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE"><code class="docutils literal notranslate"><span class="pre">DE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.codigo_demanda_especial"><code class="docutils literal notranslate"><span class="pre">DE.codigo_demanda_especial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.demanda"><code class="docutils literal notranslate"><span class="pre">DE.demanda</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.dia_final"><code class="docutils literal notranslate"><span class="pre">DE.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.dia_inicial"><code class="docutils literal notranslate"><span class="pre">DE.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.hora_final"><code class="docutils literal notranslate"><span class="pre">DE.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.hora_inicial"><code class="docutils literal notranslate"><span class="pre">DE.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.justificativa"><code class="docutils literal notranslate"><span class="pre">DE.justificativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">DE.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.DE.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">DE.meia_hora_inicial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD"><code class="docutils literal notranslate"><span class="pre">CD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.codigo_submercado"><code class="docutils literal notranslate"><span class="pre">CD.codigo_submercado</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.custo"><code class="docutils literal notranslate"><span class="pre">CD.custo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.dia_final"><code class="docutils literal notranslate"><span class="pre">CD.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.dia_inicial"><code class="docutils literal notranslate"><span class="pre">CD.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.hora_final"><code class="docutils literal notranslate"><span class="pre">CD.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.hora_inicial"><code class="docutils literal notranslate"><span class="pre">CD.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.limite_superior"><code class="docutils literal notranslate"><span class="pre">CD.limite_superior</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">CD.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">CD.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.CD.numero_curva"><code class="docutils literal notranslate"><span class="pre">CD.numero_curva</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ"><code class="docutils literal notranslate"><span class="pre">PQ</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.codigo_usina"><code class="docutils literal notranslate"><span class="pre">PQ.codigo_usina</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.dia_final"><code class="docutils literal notranslate"><span class="pre">PQ.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.dia_inicial"><code class="docutils literal notranslate"><span class="pre">PQ.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.geracao"><code class="docutils literal notranslate"><span class="pre">PQ.geracao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.hora_final"><code class="docutils literal notranslate"><span class="pre">PQ.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.hora_inicial"><code class="docutils literal notranslate"><span class="pre">PQ.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.localizacao"><code class="docutils literal notranslate"><span class="pre">PQ.localizacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">PQ.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">PQ.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.PQ.nome_usina"><code class="docutils literal notranslate"><span class="pre">PQ.nome_usina</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT"><code class="docutils literal notranslate"><span class="pre">IT</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT.codigo_ree"><code class="docutils literal notranslate"><span class="pre">IT.codigo_ree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT.coeficiente_a0"><code class="docutils literal notranslate"><span class="pre">IT.coeficiente_a0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT.coeficiente_a1"><code class="docutils literal notranslate"><span class="pre">IT.coeficiente_a1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT.coeficiente_a2"><code class="docutils literal notranslate"><span class="pre">IT.coeficiente_a2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT.coeficiente_a3"><code class="docutils literal notranslate"><span class="pre">IT.coeficiente_a3</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IT.coeficiente_a4"><code class="docutils literal notranslate"><span class="pre">IT.coeficiente_a4</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI"><code class="docutils literal notranslate"><span class="pre">RI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.carga_ande"><code class="docutils literal notranslate"><span class="pre">RI.carga_ande</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.dia_final"><code class="docutils literal notranslate"><span class="pre">RI.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.dia_inicial"><code class="docutils literal notranslate"><span class="pre">RI.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.geracao_maxima_50hz"><code class="docutils literal notranslate"><span class="pre">RI.geracao_maxima_50hz</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.geracao_maxima_60hz"><code class="docutils literal notranslate"><span class="pre">RI.geracao_maxima_60hz</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.geracao_minima_50hz"><code class="docutils literal notranslate"><span class="pre">RI.geracao_minima_50hz</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.geracao_minima_60hz"><code class="docutils literal notranslate"><span class="pre">RI.geracao_minima_60hz</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.hora_final"><code class="docutils literal notranslate"><span class="pre">RI.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.hora_inicial"><code class="docutils literal notranslate"><span class="pre">RI.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">RI.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.RI.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">RI.meia_hora_inicial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA"><code class="docutils literal notranslate"><span class="pre">IA</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.capacidade_de"><code class="docutils literal notranslate"><span class="pre">IA.capacidade_de</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.capacidade_para"><code class="docutils literal notranslate"><span class="pre">IA.capacidade_para</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.dia_final"><code class="docutils literal notranslate"><span class="pre">IA.dia_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.dia_inicial"><code class="docutils literal notranslate"><span class="pre">IA.dia_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.hora_final"><code class="docutils literal notranslate"><span class="pre">IA.hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.hora_inicial"><code class="docutils literal notranslate"><span class="pre">IA.hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.meia_hora_final"><code class="docutils literal notranslate"><span class="pre">IA.meia_hora_final</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.meia_hora_inicial"><code class="docutils literal notranslate"><span class="pre">IA.meia_hora_inicial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.nome_submercado_de"><code class="docutils literal notranslate"><span class="pre">IA.nome_submercado_de</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.IA.nome_submercado_para"><code class="docutils literal notranslate"><span class="pre">IA.nome_submercado_para</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.GP"><code class="docutils literal notranslate"><span class="pre">GP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.GP.gap_milp"><code class="docutils literal notranslate"><span class="pre">GP.gap_milp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.GP.gap_pdd"><code class="docutils literal notranslate"><span class="pre">GP.gap_pdd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVTFUGA"><code class="docutils literal notranslate"><span class="pre">ACVTFUGA</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVTFUGA.write"><code class="docutils literal notranslate"><span class="pre">ACVTFUGA.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVOLMAX"><code class="docutils literal notranslate"><span class="pre">ACVOLMAX</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVOLMAX.write"><code class="docutils literal notranslate"><span class="pre">ACVOLMAX.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVOLMIN"><code class="docutils literal notranslate"><span class="pre">ACVOLMIN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVOLMIN.write"><code class="docutils literal notranslate"><span class="pre">ACVOLMIN.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVSVERT"><code class="docutils literal notranslate"><span class="pre">ACVSVERT</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVSVERT.write"><code class="docutils literal notranslate"><span class="pre">ACVSVERT.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVMDESV"><code class="docutils literal notranslate"><span class="pre">ACVMDESV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACVMDESV.write"><code class="docutils literal notranslate"><span class="pre">ACVMDESV.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACCOTVAZ"><code class="docutils literal notranslate"><span class="pre">ACCOTVAZ</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entdados.html#idessem.dessem.modelos.entdados.ACCOTVAZ.write"><code class="docutils literal notranslate"><span class="pre">ACCOTVAZ.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hidr.html">Cadastro de Hidrelétricas (hidr.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hidr.html#idessem.dessem.hidr.Hidr"><code class="docutils literal notranslate"><span class="pre">Hidr</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hidr.html#idessem.dessem.hidr.Hidr.cadastro"><code class="docutils literal notranslate"><span class="pre">Hidr.cadastro</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hidr.html#idessem.dessem.hidr.Hidr.write"><code class="docutils literal notranslate"><span class="pre">Hidr.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="log_inviab.html">Inviabilidades (LOG_INVIAB.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="log_inviab.html#idessem.dessem.log_inviab.LogInviab"><code class="docutils literal notranslate"><span class="pre">LogInviab</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="log_inviab.html#idessem.dessem.log_inviab.LogInviab.tabela"><code class="docutils literal notranslate"><span class="pre">LogInviab.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="log_matriz.html">Acompanhamento do Processo Iterativo (LOG_MATRIZ.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="log_matriz.html#idessem.dessem.log_matriz.LogMatriz"><code class="docutils literal notranslate"><span class="pre">LogMatriz</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="log_matriz.html#idessem.dessem.log_matriz.LogMatriz.tabela"><code class="docutils literal notranslate"><span class="pre">LogMatriz.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operuh.html">Restrições operativas para as usinas hidrelétricas (operuh.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operuh.html#idessem.dessem.operuh.Operuh"><code class="docutils literal notranslate"><span class="pre">Operuh</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="operuh.html#idessem.dessem.operuh.Operuh.elem"><code class="docutils literal notranslate"><span class="pre">Operuh.elem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operuh.html#idessem.dessem.operuh.Operuh.lim"><code class="docutils literal notranslate"><span class="pre">Operuh.lim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operuh.html#idessem.dessem.operuh.Operuh.rest"><code class="docutils literal notranslate"><span class="pre">Operuh.rest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operuh.html#idessem.dessem.operuh.Operuh.var"><code class="docutils literal notranslate"><span class="pre">Operuh.var()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operut.html">Opções de execução e condições operativas das unidades geradoras termoelétricas (operut.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut"><code class="docutils literal notranslate"><span class="pre">Operut</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.ajustefcf"><code class="docutils literal notranslate"><span class="pre">Operut.ajustefcf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.avlcmo"><code class="docutils literal notranslate"><span class="pre">Operut.avlcmo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.condicoes_iniciais"><code class="docutils literal notranslate"><span class="pre">Operut.condicoes_iniciais</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.constdados"><code class="docutils literal notranslate"><span class="pre">Operut.constdados</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.cplexlog"><code class="docutils literal notranslate"><span class="pre">Operut.cplexlog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.crossover"><code class="docutils literal notranslate"><span class="pre">Operut.crossover</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.engolimento"><code class="docutils literal notranslate"><span class="pre">Operut.engolimento</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.limites_e_condicoes_operativas"><code class="docutils literal notranslate"><span class="pre">Operut.limites_e_condicoes_operativas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.pint"><code class="docutils literal notranslate"><span class="pre">Operut.pint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.regranptv"><code class="docutils literal notranslate"><span class="pre">Operut.regranptv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.tolerilh"><code class="docutils literal notranslate"><span class="pre">Operut.tolerilh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.tratainviabilha"><code class="docutils literal notranslate"><span class="pre">Operut.tratainviabilha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.uctbusloc"><code class="docutils literal notranslate"><span class="pre">Operut.uctbusloc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.ucterm"><code class="docutils literal notranslate"><span class="pre">Operut.ucterm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.uctheurfp"><code class="docutils literal notranslate"><span class="pre">Operut.uctheurfp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="operut.html#idessem.dessem.operut.Operut.uctpar"><code class="docutils literal notranslate"><span class="pre">Operut.uctpar</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_aval_qmaxusih.html">Avaliação do Engolimento Máximo das Usinas Hidrelétricas (PDO_AVAL_QMAXUSIH_XXX.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_aval_qmaxusih.html#idessem.dessem.pdo_aval_qmaxusih.PdoAvalQmaxUsih"><code class="docutils literal notranslate"><span class="pre">PdoAvalQmaxUsih</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_aval_qmaxusih.html#idessem.dessem.pdo_aval_qmaxusih.PdoAvalQmaxUsih.tabela"><code class="docutils literal notranslate"><span class="pre">PdoAvalQmaxUsih.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_cmobar.html">Custos Marginais de Operação por Barra (PDO_CMOBAR.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_cmobar.html#idessem.dessem.pdo_cmobar.PdoCmoBar"><code class="docutils literal notranslate"><span class="pre">PdoCmoBar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_cmobar.html#idessem.dessem.pdo_cmobar.PdoCmoBar.tabela"><code class="docutils literal notranslate"><span class="pre">PdoCmoBar.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_cmosist.html">Custos Marginais de Operação por Sistema (PDO_CMOSIST.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_cmosist.html#idessem.dessem.pdo_cmosist.PdoCmosist"><code class="docutils literal notranslate"><span class="pre">PdoCmosist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_cmosist.html#idessem.dessem.pdo_cmosist.PdoCmosist.tabela"><code class="docutils literal notranslate"><span class="pre">PdoCmosist.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_eco_usih.html">Caracaterísticas das usinas hidroelétricas e topologias das cascatas (PDO_ECO_USIH.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_eco_usih.html#idessem.dessem.pdo_eco_usih.PdoEcoUsih"><code class="docutils literal notranslate"><span class="pre">PdoEcoUsih</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_eco_usih.html#idessem.dessem.pdo_eco_usih.PdoEcoUsih.tabela"><code class="docutils literal notranslate"><span class="pre">PdoEcoUsih.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_eco_usih_conj.html">Conjuntos de unidades geradoras das usinas hidrelétricas (PDO_ECO_USIH_CONJ.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_eco_usih_conj.html#idessem.dessem.pdo_eco_usih_conj.PdoEcoUsihConj"><code class="docutils literal notranslate"><span class="pre">PdoEcoUsihConj</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_eco_usih_conj.html#idessem.dessem.pdo_eco_usih_conj.PdoEcoUsihConj.tabela"><code class="docutils literal notranslate"><span class="pre">PdoEcoUsihConj.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_eco_usih_polin.html">Polinômios das Usinas Hidráulicas (PDO_ECO_USIH_POLIN.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_eco_usih_polin.html#idessem.dessem.pdo_eco_usih_polin.PdoEcoUsihPolin"><code class="docutils literal notranslate"><span class="pre">PdoEcoUsihPolin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_eco_usih_polin.html#idessem.dessem.pdo_eco_usih_polin.PdoEcoUsihPolin.tabela"><code class="docutils literal notranslate"><span class="pre">PdoEcoUsihPolin.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_eco_fcfcortes.html">Função de Custo Futuro Recebida (PDO_ECO_FCFCORTES.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_eco_fcfcortes.html#idessem.dessem.pdo_eco_fcfcortes.PdoEcoFcfCortes"><code class="docutils literal notranslate"><span class="pre">PdoEcoFcfCortes</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_eco_fcfcortes.html#idessem.dessem.pdo_eco_fcfcortes.PdoEcoFcfCortes.tabela"><code class="docutils literal notranslate"><span class="pre">PdoEcoFcfCortes.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_elev.html">Operação das Usinas Elevatórias (PDO_ELEV.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_elev.html#idessem.dessem.pdo_elev.PdoElev"><code class="docutils literal notranslate"><span class="pre">PdoElev</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_elev.html#idessem.dessem.pdo_elev.PdoElev.tabela"><code class="docutils literal notranslate"><span class="pre">PdoElev.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_eolica.html">Operação das Usinas Renováveis (PDO_EOLCA.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_eolica.html#idessem.dessem.pdo_eolica.PdoEolica"><code class="docutils literal notranslate"><span class="pre">PdoEolica</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_eolica.html#idessem.dessem.pdo_eolica.PdoEolica.tabela"><code class="docutils literal notranslate"><span class="pre">PdoEolica.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_hidr.html">Operação das Unidades Hidráulicas (PDO_HIDR.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_hidr.html#idessem.dessem.pdo_hidr.PdoHidr"><code class="docutils literal notranslate"><span class="pre">PdoHidr</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_hidr.html#idessem.dessem.pdo_hidr.PdoHidr.tabela"><code class="docutils literal notranslate"><span class="pre">PdoHidr.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_inter.html">Operação dos Intercâmbios (PDO_INTER.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_inter.html#idessem.dessem.pdo_inter.PdoInter"><code class="docutils literal notranslate"><span class="pre">PdoInter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_inter.html#idessem.dessem.pdo_inter.PdoInter.tabela"><code class="docutils literal notranslate"><span class="pre">PdoInter.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_operacao.html">Resultados da Operação e Custos (PDO_OPERACAO.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_operacao.html#idessem.dessem.pdo_operacao.PdoOperacao"><code class="docutils literal notranslate"><span class="pre">PdoOperacao</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_operacao.html#idessem.dessem.pdo_operacao.PdoOperacao.cortes_ativos"><code class="docutils literal notranslate"><span class="pre">PdoOperacao.cortes_ativos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pdo_operacao.html#idessem.dessem.pdo_operacao.PdoOperacao.custos_operacao"><code class="docutils literal notranslate"><span class="pre">PdoOperacao.custos_operacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pdo_operacao.html#idessem.dessem.pdo_operacao.PdoOperacao.data_estudo"><code class="docutils literal notranslate"><span class="pre">PdoOperacao.data_estudo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pdo_operacao.html#idessem.dessem.pdo_operacao.PdoOperacao.discretizacao"><code class="docutils literal notranslate"><span class="pre">PdoOperacao.discretizacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pdo_operacao.html#idessem.dessem.pdo_operacao.PdoOperacao.versao"><code class="docutils literal notranslate"><span class="pre">PdoOperacao.versao</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_oper_lpp.html">Operação das Funções Lineares por Partes - LPP (PDO_OPER_LPP.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_oper_lpp.html#idessem.dessem.pdo_oper_lpp.PdoOperLpp"><code class="docutils literal notranslate"><span class="pre">PdoOperLpp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_oper_lpp.html#idessem.dessem.pdo_oper_lpp.PdoOperLpp.tabela"><code class="docutils literal notranslate"><span class="pre">PdoOperLpp.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_oper_titulacao_contratos.html">Titulação dos Contratos de Energia (PDO_OPER_TITULACAO_CONTRATOS.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_oper_titulacao_contratos.html#idessem.dessem.pdo_oper_titulacao_contratos.PdoOperTitulacaoContratos"><code class="docutils literal notranslate"><span class="pre">PdoOperTitulacaoContratos</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_oper_titulacao_contratos.html#idessem.dessem.pdo_oper_titulacao_contratos.PdoOperTitulacaoContratos.tabela"><code class="docutils literal notranslate"><span class="pre">PdoOperTitulacaoContratos.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_oper_titulacao_usinas.html">Titulação das Usinas Térmicas (PDO_OPER_TITULACAO_USINAS.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_oper_titulacao_usinas.html#idessem.dessem.pdo_oper_titulacao_usinas.PdoOperTitulacaoUsinas"><code class="docutils literal notranslate"><span class="pre">PdoOperTitulacaoUsinas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_oper_titulacao_usinas.html#idessem.dessem.pdo_oper_titulacao_usinas.PdoOperTitulacaoUsinas.tabela"><code class="docutils literal notranslate"><span class="pre">PdoOperTitulacaoUsinas.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_oper_tviag_calha.html">Operação dos Volumes na Calha no Fim do Horizonte (PDO_OPER_TVIAG_CALHA.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_oper_tviag_calha.html#idessem.dessem.pdo_oper_tviag_calha.PdoOperTviagCalha"><code class="docutils literal notranslate"><span class="pre">PdoOperTviagCalha</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_oper_tviag_calha.html#idessem.dessem.pdo_oper_tviag_calha.PdoOperTviagCalha.tabela"><code class="docutils literal notranslate"><span class="pre">PdoOperTviagCalha.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_oper_uct.html">Operação das Unidades Térmicas (PDO_OPER_UCT.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_oper_uct.html#idessem.dessem.pdo_oper_uct.PdoOperUct"><code class="docutils literal notranslate"><span class="pre">PdoOperUct</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_oper_uct.html#idessem.dessem.pdo_oper_uct.PdoOperUct.tabela"><code class="docutils literal notranslate"><span class="pre">PdoOperUct.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_oper_usih.html">Operação das Usinas Hidrelétricas (PDO_OPER_USIH.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_oper_usih.html#idessem.dessem.pdo_oper_usih.PdoOperUsih"><code class="docutils literal notranslate"><span class="pre">PdoOperUsih</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_oper_usih.html#idessem.dessem.pdo_oper_usih.PdoOperUsih.tabela"><code class="docutils literal notranslate"><span class="pre">PdoOperUsih.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_reserva.html">Reserva de Potência Operativa (PDO_RESERVA.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_reserva.html#idessem.dessem.pdo_reserva.PdoReserva"><code class="docutils literal notranslate"><span class="pre">PdoReserva</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_reserva.html#idessem.dessem.pdo_reserva.PdoReserva.tabela"><code class="docutils literal notranslate"><span class="pre">PdoReserva.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_sist.html">Operação das Unidades Térmicas (PDO_SIST.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_sist.html#idessem.dessem.pdo_sist.PdoSist"><code class="docutils literal notranslate"><span class="pre">PdoSist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_sist.html#idessem.dessem.pdo_sist.PdoSist.tabela"><code class="docutils literal notranslate"><span class="pre">PdoSist.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_somflux.html">Restrições de Somatório de Fluxo (PDO_SOMFLUX.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_somflux.html#idessem.dessem.pdo_somflux.PdoSomFlux"><code class="docutils literal notranslate"><span class="pre">PdoSomFlux</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_somflux.html#idessem.dessem.pdo_somflux.PdoSomFlux.tabela"><code class="docutils literal notranslate"><span class="pre">PdoSomFlux.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pdo_term.html">Operação das Usinas Térmicas (PDO_TERM.DAT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdo_term.html#idessem.dessem.pdo_term.PdoTerm"><code class="docutils literal notranslate"><span class="pre">PdoTerm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pdo_term.html#idessem.dessem.pdo_term.PdoTerm.tabela"><code class="docutils literal notranslate"><span class="pre">PdoTerm.tabela</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="renovaveis.html">Fontes Renováveis e Não-Simuladas (renovaveis.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="renovaveis.html#idessem.dessem.renovaveis.Renovaveis"><code class="docutils literal notranslate"><span class="pre">Renovaveis</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="renovaveis.html#idessem.dessem.renovaveis.Renovaveis.eolica"><code class="docutils literal notranslate"><span class="pre">Renovaveis.eolica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="renovaveis.html#idessem.dessem.renovaveis.Renovaveis.eolica_geracao"><code class="docutils literal notranslate"><span class="pre">Renovaveis.eolica_geracao()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="renovaveis.html#idessem.dessem.renovaveis.Renovaveis.eolicabarra"><code class="docutils literal notranslate"><span class="pre">Renovaveis.eolicabarra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="renovaveis.html#idessem.dessem.renovaveis.Renovaveis.eolicasubm"><code class="docutils literal notranslate"><span class="pre">Renovaveis.eolicasubm()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="respot.html">Limites de Reserva de Potência (respot.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="respot.html#idessem.dessem.respot.Respot"><code class="docutils literal notranslate"><span class="pre">Respot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="respot.html#idessem.dessem.respot.Respot.lm"><code class="docutils literal notranslate"><span class="pre">Respot.lm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="respot.html#idessem.dessem.respot.Respot.rp"><code class="docutils literal notranslate"><span class="pre">Respot.rp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="termdat.html">Características das usinas termelétricas (termdat.dat)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="termdat.html#idessem.dessem.termdat.Term"><code class="docutils literal notranslate"><span class="pre">Term</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="termdat.html#idessem.dessem.termdat.Term.cadconf"><code class="docutils literal notranslate"><span class="pre">Term.cadconf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="termdat.html#idessem.dessem.termdat.Term.cadmin"><code class="docutils literal notranslate"><span class="pre">Term.cadmin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="termdat.html#idessem.dessem.termdat.Term.cadunidt"><code class="docutils literal notranslate"><span class="pre">Term.cadunidt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="termdat.html#idessem.dessem.termdat.Term.cadusit"><code class="docutils literal notranslate"><span class="pre">Term.cadusit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uch.html">Dados de Unit Commitment Hidráulico</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch"><code class="docutils literal notranslate"><span class="pre">Uch</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.condicao_inicial_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.condicao_inicial_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.consumo_agua_vazio_conjunto"><code class="docutils literal notranslate"><span class="pre">Uch.consumo_agua_vazio_conjunto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.consumo_agua_vazio_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.consumo_agua_vazio_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.consumo_agua_vazio_usina"><code class="docutils literal notranslate"><span class="pre">Uch.consumo_agua_vazio_usina()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.custo_partida_conjunto"><code class="docutils literal notranslate"><span class="pre">Uch.custo_partida_conjunto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.custo_partida_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.custo_partida_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.custo_partida_usina"><code class="docutils literal notranslate"><span class="pre">Uch.custo_partida_usina()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.custo_partida_vazio_conjunto"><code class="docutils literal notranslate"><span class="pre">Uch.custo_partida_vazio_conjunto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.custo_partida_vazio_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.custo_partida_vazio_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.custo_partida_vazio_usina"><code class="docutils literal notranslate"><span class="pre">Uch.custo_partida_vazio_usina()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.gmin_gmax_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.gmin_gmax_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.limite_mudanca_status_vazio_conjunto"><code class="docutils literal notranslate"><span class="pre">Uch.limite_mudanca_status_vazio_conjunto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.limite_mudanca_status_vazio_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.limite_mudanca_status_vazio_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.limite_mudanca_status_vazio_usina"><code class="docutils literal notranslate"><span class="pre">Uch.limite_mudanca_status_vazio_usina()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.opcao_conjunto_vazio_padrao"><code class="docutils literal notranslate"><span class="pre">Uch.opcao_conjunto_vazio_padrao()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.opcao_padrao"><code class="docutils literal notranslate"><span class="pre">Uch.opcao_padrao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.opcao_padrao_data"><code class="docutils literal notranslate"><span class="pre">Uch.opcao_padrao_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.opcao_unidade_vazio_padrao"><code class="docutils literal notranslate"><span class="pre">Uch.opcao_unidade_vazio_padrao()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.opcao_usina"><code class="docutils literal notranslate"><span class="pre">Uch.opcao_usina()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.opcao_usina_vazio_padrao"><code class="docutils literal notranslate"><span class="pre">Uch.opcao_usina_vazio_padrao()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.qturmin_qturmax_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.qturmin_qturmax_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.ton_toff_conjunto"><code class="docutils literal notranslate"><span class="pre">Uch.ton_toff_conjunto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.ton_toff_unidade"><code class="docutils literal notranslate"><span class="pre">Uch.ton_toff_unidade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="uch.html#idessem.dessem.uch.Uch.ton_toff_usina"><code class="docutils literal notranslate"><span class="pre">Uch.ton_toff_usina()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libs/index.html">LIBS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html">Dados das Usinas Hidrelétricas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.hidreletrica_curvajusante"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.hidreletrica_curvajusante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.hidreletrica_curvajusante_afogamentoexplicito_padrao"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.hidreletrica_curvajusante_afogamentoexplicito_padrao()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.hidreletrica_curvajusante_afogamentoexplicito_usina"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.hidreletrica_curvajusante_afogamentoexplicito_usina()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.hidreletrica_curvajusante_polinomio"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.hidreletrica_curvajusante_polinomio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.hidreletrica_curvajusante_polinomio_segmento"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.hidreletrica_curvajusante_polinomio_segmento()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.vazao_jusante_influencia_defluencia"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.vazao_jusante_influencia_defluencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.vazao_jusante_influencia_posto"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.vazao_jusante_influencia_posto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../libs/arquivos/usinas_hidreletricas.html#idessem.libs.usinas_hidreletricas.UsinasHidreletricas.vazao_jusante_influencia_usina"><code class="docutils literal notranslate"><span class="pre">UsinasHidreletricas.vazao_jusante_influencia_usina()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">idessem</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">DESSEM</a></li>
+      <li class="breadcrumb-item active">Dados de início e horizonte do estudo e vazõe das usinas hidrelétricas (dadvaz.dat)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/referencia/dessem/arquivos/dadvaz.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dados-de-inicio-e-horizonte-do-estudo-e-vazoe-das-usinas-hidreletricas-dadvaz-dat">
+<span id="dadvaz"></span><h1>Dados de início e horizonte do estudo e vazõe das usinas hidrelétricas (dadvaz.dat)<a class="headerlink" href="#dados-de-inicio-e-horizonte-do-estudo-e-vazoe-das-usinas-hidreletricas-dadvaz-dat" title="Link para este cabeçalho"></a></h1>
+<p>os dados de início do estudo, configuração do horizonte e acoplamento,
+e de vazão das usinas hidrelétricas do DESSEM são armazenados na classe:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Dadvaz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;cfinterface.data.sectiondata.SectionData</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/idessem/dessem/dadvaz.html#Dadvaz"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz" title="Link para esta definição"></a></dt>
+<dd><p>Armazena os dados de início do estudo, configuração do horizonte e acoplamento,
+e de vazão das usinas hidrelétricas no DESSEM.</p>
+<p>Esta classe lida com informações de entrada fornecidas ao DESSEM e
+que podem ser modificadas através do arquivo <code class="xref py py-obj docutils literal notranslate"><span class="pre">dadvaz.dat</span></code>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz.considera_periodo_simulacao">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">considera_periodo_simulacao</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(em Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz.considera_periodo_simulacao" title="Link para esta definição"></a></dt>
+<dd><p>O flag que indica presença de período de simulação</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>O código do dia</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)">int</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz.data_inicio">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">data_inicio</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(em Python v3.14)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(em Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz.data_inicio" title="Link para esta definição"></a></dt>
+<dd><p>A data de referência para realização do estudo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A data</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>datetime | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz.dia_semana_inicial">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dia_semana_inicial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(em Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz.dia_semana_inicial" title="Link para esta definição"></a></dt>
+<dd><p>O código para o dia da semana inicial (1=sex,…,7=sex)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>O código do dia</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)">int</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz.numero_semanas">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">numero_semanas</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(em Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz.numero_semanas" title="Link para esta definição"></a></dt>
+<dd><p>O número de semanas no estudo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>O código do dia</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)">int</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz.semana_acoplamento_fcf">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">semana_acoplamento_fcf</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(em Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz.semana_acoplamento_fcf" title="Link para esta definição"></a></dt>
+<dd><p>O índice da semana da FCF acoplada</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>O código do dia</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)">int</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="idessem.dessem.dadvaz.Dadvaz.vazoes">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">vazoes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(em pandas v3.0.0)"><span class="pre">DataFrame</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(em Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#idessem.dessem.dadvaz.Dadvaz.vazoes" title="Link para esta definição"></a></dt>
+<dd><p>Tabela com as vazões das usinas.</p>
+<ul class="simple">
+<li><p>codigo_usina (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>)</p></li>
+<li><p>nome_usina (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>)</p></li>
+<li><p>tipo_dado (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>)</p></li>
+<li><p>dia_inicial (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>)</p></li>
+<li><p>hora_inicial (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>)</p></li>
+<li><p>meia_hora_inicial (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>)</p></li>
+<li><p>dia_final (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>)</p></li>
+<li><p>hora_final (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>)</p></li>
+<li><p>meia_hora_final (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>)</p></li>
+<li><p>vazao  (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(em Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tabela como um DataFrame</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="avl_fpha3.html" class="btn btn-neutral float-left" title="Desvios da Função de Produção no Plano QLAT (AVL_FPHA3.DAT)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="deflant.html" class="btn btn-neutral float-right" title="Arquivo de defluências anteriores ao início do estudo (deflant.dat)" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2026, Mariana Noel &amp; Rogerio Alves.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+<style>
+  /* Sidebar header (and topbar for mobile) */
+  .wy-side-nav-search,
+  .wy-nav-top {
+    background: #84a98c;
+  }
+
+  .caption-text {
+    color: #84a98c;
+  }
+
+  .highlight {
+    background-color: #e5ebe3;
+  }
+
+  .wy-menu-vertical a:active {
+    background-color: #84a98c;
+    cursor: pointer;
+    color: #fff;
+  }
+</style>
+
+
+</body>
+</html>
