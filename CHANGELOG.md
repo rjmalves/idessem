@@ -1,3 +1,8 @@
+# v1.1.0
+
+- Inclusão de suporte aos arquivos `PDO_CMOSIST`, `PDO_ELEV` e `PDO_OPER_USIH` (@rdlobato)
+- Ajustes de testes e documentação para suporte a pandas `>= 3.0.0`
+
 # v1.0.0
  
 - Primeira major release
