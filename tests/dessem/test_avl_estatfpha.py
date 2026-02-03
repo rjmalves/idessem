@@ -68,7 +68,7 @@ def test_neq_blocodesvios():
     with patch("builtins.open", m):
         with open("", "") as fp:
             b2.read(fp)
-    b1.data.iloc[0, 0] = -1
+    b1.data.iloc[0, 0] = "teste"
     assert b1 != b2
 
 
