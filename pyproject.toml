@@ -55,6 +55,49 @@ include = [
 [tool.ruff]
 line-length = 80
 
+[tool.mypy]
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.dessem.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.dessem.modelos.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.dessem.modelos.blocos.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.dessem.modelos.arquivos.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.dessem.modelos.componentes.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.libs.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.libs.modelos.*"
+strict = true
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = "idessem.config"
+strict = true
+warn_return_any = false
+
 # Remove this override once cfinterface 1.9.0 is published to PyPI
 [tool.uv.sources]
 cfinterface = { path = "/home/rogerio/git/cfinterface" }

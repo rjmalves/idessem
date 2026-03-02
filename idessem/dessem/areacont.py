@@ -1,6 +1,6 @@
-from typing import Optional, TypeVar
+from typing import Any, Optional, TypeVar
 
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.files.blockfile import BlockFile
 
 from idessem.dessem.modelos.areacont import BlocoArea, BlocoUsina
@@ -17,7 +17,7 @@ class Areacont(BlockFile):
 
     BLOCKS = [BlocoArea, BlocoUsina]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     @property
@@ -37,7 +37,7 @@ class Areacont(BlockFile):
         return None
 
     @area.setter
-    def area(self, valor: pd.DataFrame):
+    def area(self, valor: pd.DataFrame) -> None:
         b = self.data.get_blocks_of_type(BlocoArea)
         if isinstance(b, BlocoArea):
             b.data[1] = valor
@@ -64,7 +64,7 @@ class Areacont(BlockFile):
         return None
 
     @usina.setter
-    def usina(self, valor: pd.DataFrame):
+    def usina(self, valor: pd.DataFrame) -> None:
         b = self.data.get_blocks_of_type(BlocoUsina)
         if isinstance(b, BlocoUsina):
             b.data[1] = valor

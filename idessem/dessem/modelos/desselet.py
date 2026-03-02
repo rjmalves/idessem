@@ -1,6 +1,6 @@
-from typing import IO, List
+from typing import Optional, Any, Dict, IO, List
 
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.components.floatfield import FloatField
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.line import Line
@@ -17,7 +17,12 @@ class BlocoCasosBase(Section):
 
     FIM_BLOCO = "99999"
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self,
+        previous: Optional[Any] = None,
+        next: Optional[Any] = None,
+        data: Optional[Any] = None,
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [IntegerField(5, 0), LiteralField(12, 5), LiteralField(40, 19)]
@@ -38,15 +43,16 @@ class BlocoCasosBase(Section):
         else:
             return self.data.equals(bloco.data)
 
-    def read(self, file: IO, *args, **kwargs):
-
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         def extrai_coluna_de_listas(
-            listas: List[list],
+            listas: List[List[Any]],
             coluna: int,
-        ) -> list:
+        ) -> List[Any]:
             return [lista[coluna] for lista in listas]
 
-        def transforma_em_df(dados: list, mapa: dict) -> pd.DataFrame | None:
+        def transforma_em_df(
+            dados: List[Any], mapa: Dict[str, Any]
+        ) -> pd.DataFrame | None:
             if len(dados) == 0:
                 return None
             dados_df = {}
@@ -58,7 +64,7 @@ class BlocoCasosBase(Section):
         mapa = {"indice_caso_base": 0, "nome_caso_base": 1, "arquivo": 2}
 
         # Para cada caso, lê e processa as informações
-        dados: List[list] = []
+        dados: List[List[Any]] = []
         while True:
             linha = file.readline()
             # Converte para df
@@ -72,11 +78,13 @@ class BlocoCasosBase(Section):
                 dados.append(self.__linha.read(linha))
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         for linha in self.__comentarios:
             file.write(linha)
         if not isinstance(self.data, pd.DataFrame):
-            raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do desselet.dat não foram lidos com sucesso"
+            )
         for _, lin in self.data.iterrows():
             linha_escrita = lin.tolist()
             file.write(self.__linha.write(linha_escrita))
@@ -92,7 +100,12 @@ class BlocoCasosModificacao(Section):
 
     FIM_BLOCO = "99999"
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self,
+        previous: Optional[Any] = None,
+        next: Optional[Any] = None,
+        data: Optional[Any] = None,
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -126,15 +139,16 @@ class BlocoCasosModificacao(Section):
 
         # Override
 
-    def read(self, file: IO, *args, **kwargs):
-
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         def extrai_coluna_de_listas(
-            listas: List[list],
+            listas: List[List[Any]],
             coluna: int,
-        ) -> list:
+        ) -> List[Any]:
             return [lista[coluna] for lista in listas]
 
-        def transforma_em_df(dados: list, mapa: dict) -> pd.DataFrame | None:
+        def transforma_em_df(
+            dados: List[Any], mapa: Dict[str, Any]
+        ) -> pd.DataFrame | None:
             if len(dados) == 0:
                 return None
             dados_df = {}
@@ -157,7 +171,7 @@ class BlocoCasosModificacao(Section):
         }
 
         # Para cada caso, lê e processa as informações
-        dados: List[list] = []
+        dados: List[List[Any]] = []
         while True:
             linha = file.readline()
             # Converte para df
@@ -171,11 +185,13 @@ class BlocoCasosModificacao(Section):
                 dados.append(self.__linha.read(linha))
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         for linha in self.__comentarios:
             file.write(linha)
         if not isinstance(self.data, pd.DataFrame):
-            raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do desselet.dat não foram lidos com sucesso"
+            )
         for _, lin in self.data.iterrows():
             linha_escrita = lin.tolist()
             file.write(self.__linha.write(linha_escrita))

@@ -6,6 +6,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoTerm(ArquivoCSV):
     """
     Armazena os dados das saídas referentes as unidades térmicas.
@@ -17,7 +21,7 @@ class PdoTerm(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a operação das unidades térmicas.
 

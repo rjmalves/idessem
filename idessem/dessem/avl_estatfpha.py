@@ -8,7 +8,7 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 from cfinterface.files.blockfile import BlockFile
 from typing import Optional, TypeVar
 from datetime import datetime
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 
 
 class AvlEstatFpha(BlockFile):

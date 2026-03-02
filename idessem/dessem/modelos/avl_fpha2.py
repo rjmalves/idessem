@@ -3,8 +3,8 @@ from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
 from cfinterface.components.line import Line
-import pandas as pd  # type: ignore
-from typing import IO, Dict, List
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+from typing import Any, IO, Dict, List
 
 
 class TabelaAvlFpha2(Block):
@@ -25,7 +25,7 @@ class TabelaAvlFpha2(Block):
     ]
     END_PATTERN = ""
 
-    def _monta_df(self, dados: dict) -> pd.DataFrame:
+    def _monta_df(self, dados: Dict[str, Any]) -> pd.DataFrame:
         return pd.DataFrame(data=dados, columns=self.__class__.COLUMN_NAMES)
 
     def __eq__(self, o: object) -> bool:
@@ -39,7 +39,7 @@ class TabelaAvlFpha2(Block):
             else:
                 return self.data.equals(o.data)
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         # Espera o fim do cabeçalho
         linha = file.readline()
         while True:
@@ -70,7 +70,7 @@ class TabelaAvlFpha2(Block):
         # Ignora a segunda linha de cabeçalho
         file.readline()
         # Lê a tabela
-        dados: Dict[str, List] = {c: [] for c in self.__class__.COLUMN_NAMES}
+        dados: Dict[str, List[Any]] = {c: [] for c in self.__class__.COLUMN_NAMES}
         while True:
             linha = file.readline()
             if len(linha) < 3 or "-----;--------------;------;" in linha:

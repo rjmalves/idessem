@@ -1,6 +1,6 @@
-from typing import Type, TypeVar, Optional, List, Union
+from typing import Any, Type, TypeVar, Optional, List, Union
 from cfinterface.files.registerfile import RegisterFile
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from idessem.dessem.modelos.uch import (
     UchOpcaoPadrao,
     UchOpcaoUsina,
@@ -64,7 +64,7 @@ class Uch(RegisterFile):
     ]
 
     def __registros_ou_df(
-        self, t: Type[T], **kwargs
+        self, t: Type[T], **kwargs: Any
     ) -> Optional[Union[T, List[T], pd.DataFrame]]:
         if kwargs.get("df"):
             return self._as_df(t)

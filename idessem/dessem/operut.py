@@ -18,8 +18,8 @@ from idessem.dessem.modelos.operut import (
 )
 
 from cfinterface.files.blockfile import BlockFile
-from typing import TypeVar, Optional, List
-import pandas as pd  # type: ignore
+from typing import Any, TypeVar, Optional, List
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 
 
 class Operut(BlockFile):
@@ -49,7 +49,7 @@ class Operut(BlockFile):
         BlocoOper,
     ]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     @property
@@ -77,7 +77,7 @@ class Operut(BlockFile):
         return None
 
     @condicoes_iniciais.setter
-    def condicoes_iniciais(self, valor: pd.DataFrame):
+    def condicoes_iniciais(self, valor: pd.DataFrame) -> None:
         b = self.data.get_blocks_of_type(BlocoInitUT)
         if isinstance(b, BlocoInitUT):
             b.data[1] = valor
@@ -111,7 +111,7 @@ class Operut(BlockFile):
         return None
 
     @limites_e_condicoes_operativas.setter
-    def limites_e_condicoes_operativas(self, valor: pd.DataFrame):
+    def limites_e_condicoes_operativas(self, valor: pd.DataFrame) -> None:
         b = self.data.get_blocks_of_type(BlocoOper)
         if isinstance(b, BlocoOper):
             b.data[1] = valor
@@ -132,7 +132,7 @@ class Operut(BlockFile):
         return None
 
     @uctpar.setter
-    def uctpar(self, valor: int):
+    def uctpar(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoUctPar)
         if isinstance(b, BlocoUctPar):
             b.data = valor
@@ -153,7 +153,7 @@ class Operut(BlockFile):
         return None
 
     @ucterm.setter
-    def ucterm(self, valor: int):
+    def ucterm(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoUcTerm)
         if isinstance(b, BlocoUcTerm):
             b.data = valor
@@ -188,7 +188,7 @@ class Operut(BlockFile):
         return None
 
     @regranptv.setter
-    def regranptv(self, valor: List[int]):
+    def regranptv(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoRegraNPTV)
         if isinstance(b, BlocoRegraNPTV):
             b.data = valor
@@ -209,7 +209,7 @@ class Operut(BlockFile):
         return None
 
     @avlcmo.setter
-    def avlcmo(self, valor: int):
+    def avlcmo(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoAvlCmo)
         if isinstance(b, BlocoAvlCmo):
             b.data = valor
@@ -257,7 +257,7 @@ class Operut(BlockFile):
         return None
 
     @uctheurfp.setter
-    def uctheurfp(self, valor: List[int]):
+    def uctheurfp(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoUctHeurFp)
         if isinstance(b, BlocoUctHeurFp):
             b.data = valor
@@ -278,7 +278,7 @@ class Operut(BlockFile):
         return None
 
     @constdados.setter
-    def constdados(self, valor: List[int]):
+    def constdados(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoConstDados)
         if isinstance(b, BlocoConstDados):
             b.data = valor
@@ -299,7 +299,7 @@ class Operut(BlockFile):
         return None
 
     @ajustefcf.setter
-    def ajustefcf(self, valor: List[int]):
+    def ajustefcf(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoAjusteFcf)
         if isinstance(b, BlocoAjusteFcf):
             b.data = valor
@@ -320,7 +320,7 @@ class Operut(BlockFile):
         return None
 
     @tolerilh.setter
-    def tolerilh(self, valor: int):
+    def tolerilh(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoTolerIlh)
         if isinstance(b, BlocoTolerIlh):
             b.data = valor
@@ -342,7 +342,7 @@ class Operut(BlockFile):
         return None
 
     @crossover.setter
-    def crossover(self, valor: List[int]):
+    def crossover(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoCrossover)
         if isinstance(b, BlocoCrossover):
             b.data = valor
@@ -363,7 +363,7 @@ class Operut(BlockFile):
         return None
 
     @engolimento.setter
-    def engolimento(self, valor: int):
+    def engolimento(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoEngolimento)
         if isinstance(b, BlocoEngolimento):
             b.data = valor
@@ -384,7 +384,7 @@ class Operut(BlockFile):
         return None
 
     @tratainviabilha.setter
-    def tratainviabilha(self, valor: int):
+    def tratainviabilha(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoTrataInviabIlha)
         if isinstance(b, BlocoTrataInviabIlha):
             b.data = valor

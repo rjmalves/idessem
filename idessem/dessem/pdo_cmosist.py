@@ -6,6 +6,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoCmosist(ArquivoCSV):
     """
     Armazena o custo marginal da operação (CMO) e o valor da variável
@@ -19,7 +23,7 @@ class PdoCmosist(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com o custo marginal da operação (CMO) e o valor
         da variável dual associada à equação de atendimento à demanda

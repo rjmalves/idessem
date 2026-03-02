@@ -55,7 +55,7 @@ from idessem.dessem.modelos.entdados import (
     ACDESVIO,
     ACPOTEFE,
 )
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.files.registerfile import RegisterFile
 from typing import Type, List, Optional, TypeVar, Union, Any
 import numpy as np
@@ -151,7 +151,7 @@ class Entdados(RegisterFile):
         ACPOTEFE,
     ]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     def __expande_colunas_df(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -163,8 +163,9 @@ class Entdados(RegisterFile):
             num_elementos = len(df.at[0, c])
             particoes_coluna = [f"{c}_{i}" for i in range(1, num_elementos + 1)]
             df[particoes_coluna] = df.apply(
-                lambda linha: linha[c]
-                + [np.nan] * max(0, num_elementos - len(linha[c])),
+                lambda linha: (
+                    linha[c] + [np.nan] * max(0, num_elementos - len(linha[c]))
+                ),
                 axis=1,
                 result_type="expand",
             )
@@ -172,7 +173,7 @@ class Entdados(RegisterFile):
         return df
 
     def __registros_ou_df(
-        self, t: Type[T], **kwargs
+        self, t: Type[T], **kwargs: Any
     ) -> Optional[Union[T, List[T], pd.DataFrame]]:
         if kwargs.get("df"):
             return self.__expande_colunas_df(self._as_df(t))
@@ -672,7 +673,7 @@ class Entdados(RegisterFile):
         codigo_usina: int,
         modificacao: Any,
         df: bool = False,
-        **kwargs,
+        **kwargs: Any,
     ) -> Optional[Union[AC, List[AC], pd.DataFrame]]:
         """
         Obtém um registro que define modificações nos parâmetros

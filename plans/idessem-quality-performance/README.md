@@ -25,12 +25,12 @@ Upgrade idessem (v1.1.0 -> v1.2.0) to leverage cfinterface v1.9.0, applying patt
 | ticket-001 | Bump cfinterface dependency to >= 1.9.0                  | epic-01 | completed | Detailed     | 1.00      | 0.95    | EXCELLENT |
 | ticket-002 | Migrate STORAGE string literal to StorageType enum       | epic-01 | completed | Detailed     | 1.00      | 0.95    | EXCELLENT |
 | ticket-003 | Migrate set_version calls and verify test suite          | epic-01 | completed | Detailed     | 0.98      | 0.95    | EXCELLENT |
-| ticket-004 | Add mypy strict configuration to pyproject.toml          | epic-02 | pending   | Detailed     | 1.00      | --      | --        |
-| ticket-005 | Fix re-export visibility for DataEstudo and VersaoModelo | epic-02 | pending   | Detailed     | 1.00      | --      | --        |
-| ticket-006 | Enable mypy strict for dessem handlers and models        | epic-02 | pending   | Detailed     | 0.92      | --      | --        |
-| ticket-007 | Enable mypy strict for libs module                       | epic-02 | pending   | Detailed     | 1.00      | --      | --        |
-| ticket-008 | Replace bare type-ignore comments with error codes       | epic-02 | pending   | Detailed     | 0.96      | --      | --        |
-| ticket-009 | Implement lazy imports for dessem module                 | epic-02 | pending   | Detailed     | 1.00      | --      | --        |
+| ticket-004 | Add mypy strict configuration to pyproject.toml          | epic-02 | completed | Detailed     | 1.00      | 0.95    | EXCELLENT |
+| ticket-005 | Fix re-export visibility for DataEstudo and VersaoModelo | epic-02 | completed | Detailed     | 1.00      | 0.95    | EXCELLENT |
+| ticket-006 | Enable mypy strict for dessem handlers and models        | epic-02 | completed | Detailed     | 0.92      | 0.90    | EXCELLENT |
+| ticket-007 | Enable mypy strict for libs module                       | epic-02 | completed | Detailed     | 1.00      | 0.90    | EXCELLENT |
+| ticket-008 | Replace bare type-ignore comments with error codes       | epic-02 | completed | Detailed     | 0.96      | 1.00    | EXCELLENT |
+| ticket-009 | Implement lazy imports for dessem module                 | epic-02 | completed | Detailed     | 1.00      | 0.95    | EXCELLENT |
 | ticket-010 | Optimize DataFrame concatenation in pdo_operacao         | epic-03 | pending   | Outline      | --        | --      | --        |
 | ticket-011 | Add pytest-xdist and optimize test execution             | epic-03 | pending   | Outline      | --        | --      | --        |
 | ticket-012 | Create benchmark suite for read performance              | epic-03 | pending   | Outline      | --        | --      | --        |

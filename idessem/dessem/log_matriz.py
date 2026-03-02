@@ -6,6 +6,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class LogMatriz(ArquivoCSV):
     """
     Armazena os dados das saídas referentes ao processo iterativo de resolução.
@@ -17,7 +21,7 @@ class LogMatriz(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente ao processo iterativo de convergência.
 

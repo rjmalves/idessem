@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple, Union
+from typing import Any, List, Optional, Tuple, Union
 
 from cfinterface.components.field import Field
 from cfinterface.components.integerfield import IntegerField
@@ -31,7 +31,7 @@ class StageDateField(Field):
         raise NotImplementedError("Binary files not supported for this field")
 
     # Override
-    def _textual_read(self, line: str) -> list:
+    def _textual_read(self, line: str) -> List[Any]:
         values: List[Optional[Union[str, int]]] = []
         try:
             for f in self.__subfields:
@@ -65,5 +65,5 @@ class StageDateField(Field):
     def value(
         self,
         val: List[Optional[Union[str, int]]],
-    ):
+    ) -> None:
         self._value = val

@@ -6,6 +6,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoOperUsih(ArquivoCSV):
     """
     Armazena os dados das saídas referentes às unidades hidrelétricas.
@@ -17,7 +21,7 @@ class PdoOperUsih(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referentes à operação das usinas hidrelétricas.
 

@@ -1,6 +1,6 @@
 from cfinterface.components.block import Block
-from typing import IO
-import pandas as pd  # type: ignore
+from typing import Any, IO
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from datetime import datetime
 from cfinterface.components.floatfield import FloatField
 from cfinterface.components.integerfield import IntegerField
@@ -30,7 +30,7 @@ class BlocoDiscretizacaoTempo(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(
                 data={
@@ -99,7 +99,7 @@ class BlocoCustos(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(
                 data={
@@ -164,7 +164,7 @@ class BlocoCortesAtivos(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(
                 data={

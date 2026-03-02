@@ -6,6 +6,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 from idessem.dessem.modelos.pdo_cmobar import TabelaPdoCmoBar
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoCmoBar(ArquivoCSV):
     """
     Armazena os dados das saídas referentes aos custos marginais de operação por barra.
@@ -17,7 +21,7 @@ class PdoCmoBar(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referentes aos custos marginais de
         operação por barra.

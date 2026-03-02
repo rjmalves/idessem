@@ -6,6 +6,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoEcoUsihPolin(ArquivoCSV):
     """
     Armazena os dados de eco dos polinômios referentes as usinas hidráulicas.
@@ -17,7 +21,7 @@ class PdoEcoUsihPolin(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente aos polinômios utilizados
         para cálculo das grandezas das usinas hidrelétricas.

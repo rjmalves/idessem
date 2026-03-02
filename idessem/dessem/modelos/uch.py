@@ -29,7 +29,7 @@ class UchOpcaoPadrao(Register):
         return self.data[0]
 
     @considera_uch.setter
-    def considera_uch(self, c: int):
+    def considera_uch(self, c: int) -> None:
         self.data[0] = c
 
 
@@ -57,7 +57,7 @@ class UchOpcaoUsina(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -71,7 +71,7 @@ class UchOpcaoUsina(Register):
         return self.data[1]
 
     @considera_uch_usina.setter
-    def considera_uch_usina(self, c: int):
+    def considera_uch_usina(self, c: int) -> None:
         self.data[1] = c
 
 
@@ -104,7 +104,7 @@ class UchOpcaoPadraoData(Register):
         return self.data[0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: int):
+    def dia_inicial(self, n: int) -> None:
         self.data[0] = n
 
     @property
@@ -118,7 +118,7 @@ class UchOpcaoPadraoData(Register):
         return self.data[1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1] = n
 
     @property
@@ -132,7 +132,7 @@ class UchOpcaoPadraoData(Register):
         return self.data[2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[2] = n
 
     @property
@@ -147,7 +147,7 @@ class UchOpcaoPadraoData(Register):
         return self.data[3]
 
     @dia_final.setter
-    def dia_final(self, n: int):
+    def dia_final(self, n: int) -> None:
         self.data[3] = n
 
     @property
@@ -161,7 +161,7 @@ class UchOpcaoPadraoData(Register):
         return self.data[4]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[4] = n
 
     @property
@@ -175,7 +175,7 @@ class UchOpcaoPadraoData(Register):
         return self.data[5]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[5] = n
 
 
@@ -205,7 +205,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -219,7 +219,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -234,7 +234,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -248,7 +248,7 @@ class UchOpcaoUnidadeVazioPadrao(Register):
         return self.data[3]
 
     @considera_operacao_vazio.setter
-    def considera_operacao_vazio(self, c: int):
+    def considera_operacao_vazio(self, c: int) -> None:
         self.data[3] = c
 
 
@@ -277,7 +277,7 @@ class UchOpcaoConjuntoVazioPadrao(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -291,7 +291,7 @@ class UchOpcaoConjuntoVazioPadrao(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -305,7 +305,7 @@ class UchOpcaoConjuntoVazioPadrao(Register):
         return self.data[2]
 
     @considera_operacao_vazio.setter
-    def considera_operacao_vazio(self, c: int):
+    def considera_operacao_vazio(self, c: int) -> None:
         self.data[2] = c
 
 
@@ -333,7 +333,7 @@ class UchOpcaoUsinaVazioPadrao(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -347,7 +347,7 @@ class UchOpcaoUsinaVazioPadrao(Register):
         return self.data[1]
 
     @considera_operacao_vazio.setter
-    def considera_operacao_vazio(self, c: int):
+    def considera_operacao_vazio(self, c: int) -> None:
         self.data[1] = c
 
 
@@ -378,7 +378,7 @@ class UchTonToffUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -392,7 +392,7 @@ class UchTonToffUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -407,7 +407,7 @@ class UchTonToffUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -421,7 +421,7 @@ class UchTonToffUnidade(Register):
         return self.data[3]
 
     @tempo_minimo_ligada.setter
-    def tempo_minimo_ligada(self, c: int):
+    def tempo_minimo_ligada(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -435,7 +435,7 @@ class UchTonToffUnidade(Register):
         return self.data[4]
 
     @tempo_minimo_desligada.setter
-    def tempo_minimo_desligada(self, c: int):
+    def tempo_minimo_desligada(self, c: int) -> None:
         self.data[4] = c
 
 
@@ -465,7 +465,7 @@ class UchTonToffConjunto(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -479,7 +479,7 @@ class UchTonToffConjunto(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -493,7 +493,7 @@ class UchTonToffConjunto(Register):
         return self.data[2]
 
     @tempo_minimo_ligada.setter
-    def tempo_minimo_ligada(self, c: int):
+    def tempo_minimo_ligada(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -507,7 +507,7 @@ class UchTonToffConjunto(Register):
         return self.data[3]
 
     @tempo_minimo_desligada.setter
-    def tempo_minimo_desligada(self, c: int):
+    def tempo_minimo_desligada(self, c: int) -> None:
         self.data[3] = c
 
 
@@ -536,7 +536,7 @@ class UchTonToffUsina(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -550,7 +550,7 @@ class UchTonToffUsina(Register):
         return self.data[1]
 
     @tempo_minimo_ligada.setter
-    def tempo_minimo_ligada(self, c: int):
+    def tempo_minimo_ligada(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -564,7 +564,7 @@ class UchTonToffUsina(Register):
         return self.data[2]
 
     @tempo_minimo_desligada.setter
-    def tempo_minimo_desligada(self, c: int):
+    def tempo_minimo_desligada(self, c: int) -> None:
         self.data[2] = c
 
 
@@ -595,7 +595,7 @@ class UchGminGmaxUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -609,7 +609,7 @@ class UchGminGmaxUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -624,7 +624,7 @@ class UchGminGmaxUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -638,7 +638,7 @@ class UchGminGmaxUnidade(Register):
         return self.data[3]
 
     @geracao_minima_unidade.setter
-    def geracao_minima_unidade(self, c: float):
+    def geracao_minima_unidade(self, c: float) -> None:
         self.data[3] = c
 
     @property
@@ -652,7 +652,7 @@ class UchGminGmaxUnidade(Register):
         return self.data[4]
 
     @geracao_maxima_unidade.setter
-    def geracao_maxima_unidade(self, c: float):
+    def geracao_maxima_unidade(self, c: float) -> None:
         self.data[4] = c
 
 
@@ -683,7 +683,7 @@ class UchQturminQturmaxUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -697,7 +697,7 @@ class UchQturminQturmaxUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -712,7 +712,7 @@ class UchQturminQturmaxUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -726,7 +726,7 @@ class UchQturminQturmaxUnidade(Register):
         return self.data[3]
 
     @turbinamento_minimo_unidade.setter
-    def turbinamento_minimo_unidade(self, c: float):
+    def turbinamento_minimo_unidade(self, c: float) -> None:
         self.data[3] = c
 
     @property
@@ -740,7 +740,7 @@ class UchQturminQturmaxUnidade(Register):
         return self.data[4]
 
     @turbinamento_maximo_unidade.setter
-    def turbinamento_maximo_unidade(self, c: float):
+    def turbinamento_maximo_unidade(self, c: float) -> None:
         self.data[4] = c
 
 
@@ -773,7 +773,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -787,7 +787,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -802,7 +802,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -816,7 +816,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[3]
 
     @status_inicial.setter
-    def status_inicial(self, c: int):
+    def status_inicial(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -830,7 +830,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[4]
 
     @tempo_permanencia_unidade.setter
-    def tempo_permanencia_unidade(self, c: int):
+    def tempo_permanencia_unidade(self, c: int) -> None:
         self.data[4] = c
 
     @property
@@ -844,7 +844,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[5]
 
     @geracao_inicial_unidade.setter
-    def geracao_inicial_unidade(self, c: float):
+    def geracao_inicial_unidade(self, c: float) -> None:
         self.data[5] = c
 
     @property
@@ -858,7 +858,7 @@ class UchCondicaoInicialUnidade(Register):
         return self.data[6]
 
     @turbinamento_inicial_unidade.setter
-    def turbinamento_inicial_unidade(self, c: float):
+    def turbinamento_inicial_unidade(self, c: float) -> None:
         self.data[6] = c
 
 
@@ -888,7 +888,7 @@ class UchConsumoAguaVazioUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -902,7 +902,7 @@ class UchConsumoAguaVazioUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -917,7 +917,7 @@ class UchConsumoAguaVazioUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -931,7 +931,7 @@ class UchConsumoAguaVazioUnidade(Register):
         return self.data[3]
 
     @consumo_agua.setter
-    def consumo_agua(self, c: float):
+    def consumo_agua(self, c: float) -> None:
         self.data[3] = c
 
 
@@ -960,7 +960,7 @@ class UchConsumoAguaVazioConjunto(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -974,7 +974,7 @@ class UchConsumoAguaVazioConjunto(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -988,7 +988,7 @@ class UchConsumoAguaVazioConjunto(Register):
         return self.data[2]
 
     @consumo_agua.setter
-    def consumo_agua(self, c: float):
+    def consumo_agua(self, c: float) -> None:
         self.data[2] = c
 
 
@@ -1016,7 +1016,7 @@ class UchConsumoAguaVazioUsina(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1030,7 +1030,7 @@ class UchConsumoAguaVazioUsina(Register):
         return self.data[1]
 
     @consumo_agua.setter
-    def consumo_agua(self, c: float):
+    def consumo_agua(self, c: float) -> None:
         self.data[1] = c
 
 
@@ -1060,7 +1060,7 @@ class UchLimiteMudancaStatusVazioUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1074,7 +1074,7 @@ class UchLimiteMudancaStatusVazioUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -1089,7 +1089,7 @@ class UchLimiteMudancaStatusVazioUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -1103,7 +1103,7 @@ class UchLimiteMudancaStatusVazioUnidade(Register):
         return self.data[3]
 
     @limite_maximo_mudancas.setter
-    def limite_maximo_mudancas(self, c: int):
+    def limite_maximo_mudancas(self, c: int) -> None:
         self.data[3] = c
 
 
@@ -1132,7 +1132,7 @@ class UchLimiteMudancaStatusVazioConjunto(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1146,7 +1146,7 @@ class UchLimiteMudancaStatusVazioConjunto(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -1160,7 +1160,7 @@ class UchLimiteMudancaStatusVazioConjunto(Register):
         return self.data[2]
 
     @limite_maximo_mudancas.setter
-    def limite_maximo_mudancas(self, c: int):
+    def limite_maximo_mudancas(self, c: int) -> None:
         self.data[2] = c
 
 
@@ -1188,7 +1188,7 @@ class UchLimiteMudancaStatusVazioUsina(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1202,7 +1202,7 @@ class UchLimiteMudancaStatusVazioUsina(Register):
         return self.data[1]
 
     @limite_maximo_mudancas.setter
-    def limite_maximo_mudancas(self, c: int):
+    def limite_maximo_mudancas(self, c: int) -> None:
         self.data[1] = c
 
 
@@ -1232,7 +1232,7 @@ class UchCustoPartidaUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1246,7 +1246,7 @@ class UchCustoPartidaUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -1261,7 +1261,7 @@ class UchCustoPartidaUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -1275,7 +1275,7 @@ class UchCustoPartidaUnidade(Register):
         return self.data[3]
 
     @custo_partida.setter
-    def custo_partida(self, c: float):
+    def custo_partida(self, c: float) -> None:
         self.data[3] = c
 
 
@@ -1304,7 +1304,7 @@ class UchCustoPartidaConjunto(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1318,7 +1318,7 @@ class UchCustoPartidaConjunto(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -1332,7 +1332,7 @@ class UchCustoPartidaConjunto(Register):
         return self.data[2]
 
     @custo_partida.setter
-    def custo_partida(self, c: float):
+    def custo_partida(self, c: float) -> None:
         self.data[2] = c
 
 
@@ -1360,7 +1360,7 @@ class UchCustoPartidaUsina(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1374,7 +1374,7 @@ class UchCustoPartidaUsina(Register):
         return self.data[1]
 
     @custo_partida.setter
-    def custo_partida(self, c: float):
+    def custo_partida(self, c: float) -> None:
         self.data[1] = c
 
 
@@ -1404,7 +1404,7 @@ class UchCustoPartidaVazioUnidade(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1418,7 +1418,7 @@ class UchCustoPartidaVazioUnidade(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -1433,7 +1433,7 @@ class UchCustoPartidaVazioUnidade(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -1447,7 +1447,7 @@ class UchCustoPartidaVazioUnidade(Register):
         return self.data[3]
 
     @custo_partida.setter
-    def custo_partida(self, c: float):
+    def custo_partida(self, c: float) -> None:
         self.data[3] = c
 
 
@@ -1476,7 +1476,7 @@ class UchCustoPartidaVazioConjunto(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1490,7 +1490,7 @@ class UchCustoPartidaVazioConjunto(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -1504,7 +1504,7 @@ class UchCustoPartidaVazioConjunto(Register):
         return self.data[2]
 
     @custo_partida.setter
-    def custo_partida(self, c: float):
+    def custo_partida(self, c: float) -> None:
         self.data[2] = c
 
 
@@ -1532,7 +1532,7 @@ class UchCustoPartidaVazioUsina(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -1546,5 +1546,5 @@ class UchCustoPartidaVazioUsina(Register):
         return self.data[1]
 
     @custo_partida.setter
-    def custo_partida(self, c: float):
+    def custo_partida(self, c: float) -> None:
         self.data[1] = c

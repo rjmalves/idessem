@@ -1,6 +1,6 @@
 from cfinterface.components.block import Block
-from typing import List, IO
-import pandas as pd  # type: ignore
+from typing import Any, List, IO
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from datetime import timedelta
 from cfinterface.components.floatfield import FloatField
 
@@ -29,7 +29,7 @@ class BlocoVariaveisOtimizacao(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(data={"variavel": variavel, "valor": valores})
             return df
@@ -72,7 +72,7 @@ class BlocoTempoProcessamento(Block):
             return self.data == o.data
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         linha = file.readline()
         dados = linha.split(":")
         self.data = timedelta(

@@ -1,6 +1,6 @@
 from typing import Optional, TypeVar
 
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.files.sectionfile import SectionFile
 
 from idessem.dessem.modelos.desselet import (
@@ -40,7 +40,7 @@ class Desselet(SectionFile):
         return None
 
     @dados_casos_base.setter
-    def dados_casos_base(self, valor: pd.DataFrame):
+    def dados_casos_base(self, valor: pd.DataFrame) -> None:
         b = self.data.get_sections_of_type(BlocoCasosBase)
         if isinstance(b, BlocoCasosBase):
             b.data = valor
@@ -72,7 +72,7 @@ class Desselet(SectionFile):
         return None
 
     @dados_modificacao.setter
-    def dados_modificacao(self, valor: pd.DataFrame):
+    def dados_modificacao(self, valor: pd.DataFrame) -> None:
         b = self.data.get_sections_of_type(BlocoCasosModificacao)
         if isinstance(b, BlocoCasosModificacao):
             b.data = valor

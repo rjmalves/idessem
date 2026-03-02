@@ -8,6 +8,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoOperTitulacaoContratos(ArquivoCSV):
     """
     Armazena os dados das saídas referentes a titulação dos contratos de
@@ -21,7 +25,7 @@ class PdoOperTitulacaoContratos(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a titulação dos contratos de energia.
 

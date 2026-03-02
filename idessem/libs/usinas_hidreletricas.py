@@ -1,7 +1,7 @@
-from typing import Type, TypeVar, Optional, List, Union
+from typing import Any, List, Optional, Type, TypeVar, Union
 from cfinterface.components.register import Register
 from cfinterface.files.registerfile import RegisterFile
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]
 from idessem.libs.modelos.usinas_hidreletricas import (
     HidreletricaCurvaJusante,
     HidreletricaCurvaJusantePolinomioPorPartes,
@@ -34,7 +34,7 @@ class UsinasHidreletricas(RegisterFile):
     ]
 
     def __registros_ou_df(
-        self, t: Type[T], **kwargs
+        self, t: Type[T], **kwargs: Any
     ) -> Optional[Union[T, List[T], pd.DataFrame]]:
         if kwargs.get("df"):
             return self._as_df(t)

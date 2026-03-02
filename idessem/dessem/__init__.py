@@ -1,45 +1,63 @@
-# Inclui os membros
+from typing import Any
+import importlib
 
-from .areacont import Areacont  # noqa
-from .avl_altqueda import AvlAltQueda  # noqa
-from .avl_desvfpha import AvlDesvFpha  # noqa
-from .avl_estatfpha import AvlEstatFpha  # noqa
-from .avl_fpha1 import AvlFpha1  # noqa
-from .avl_fpha2 import AvlFpha2  # noqa
-from .avl_fpha3 import AvlFpha3  # noqa
-from .dadvaz import Dadvaz  # noqa
-from .deflant import Deflant  # noqa
-from .des_log_relato import DesLogRelato  # noqa
-from .desselet import Desselet  # noqa
-from .dessemarq import DessemArq  # noqa
-from .dessopc import Dessopc  # noqa
-from .entdados import Entdados  # noqa
-from .hidr import Hidr  # noqa
-from .log_inviab import LogInviab  # noqa
-from .log_matriz import LogMatriz  # noqa
-from .operuh import Operuh  # noqa
-from .operut import Operut  # noqa
-from .pdo_aval_qmaxusih import PdoAvalQmaxUsih  # noqa
-from .pdo_cmobar import PdoCmoBar  # noqa
-from .pdo_eco_fcfcortes import PdoEcoFcfCortes  # noqa
-from .pdo_eco_usih import PdoEcoUsih  # noqa
-from .pdo_eco_usih_conj import PdoEcoUsihConj  # noqa
-from .pdo_eco_usih_polin import PdoEcoUsihPolin  # noqa
-from .pdo_eolica import PdoEolica  # noqa
-from .pdo_hidr import PdoHidr  # noqa
-from .pdo_inter import PdoInter  # noqa
-from .pdo_oper_lpp import PdoOperLpp  # noqa
-from .pdo_oper_term import PdoOperTerm  # noqa
-from .pdo_oper_titulacao_contratos import PdoOperTitulacaoContratos  # noqa
-from .pdo_oper_titulacao_usinas import PdoOperTitulacaoUsinas  # noqa
-from .pdo_oper_tviag_calha import PdoOperTviagCalha  # noqa
-from .pdo_oper_uct import PdoOperUct  # noqa
-from .pdo_operacao import PdoOperacao  # noqa
-from .pdo_reserva import PdoReserva  # noqa
-from .pdo_sist import PdoSist  # noqa
-from .pdo_somflux import PdoSomFlux  # noqa
-from .pdo_term import PdoTerm  # noqa
-from .renovaveis import Renovaveis  # noqa
-from .respot import Respot  # noqa
-from .termdat import Term  # noqa
-from .uch import Uch  # noqa
+_LAZY_IMPORTS: dict[str, str] = {
+    "Areacont": ".areacont",
+    "AvlAltQueda": ".avl_altqueda",
+    "AvlDesvFpha": ".avl_desvfpha",
+    "AvlEstatFpha": ".avl_estatfpha",
+    "AvlFpha1": ".avl_fpha1",
+    "AvlFpha2": ".avl_fpha2",
+    "AvlFpha3": ".avl_fpha3",
+    "Dadvaz": ".dadvaz",
+    "Deflant": ".deflant",
+    "DesLogRelato": ".des_log_relato",
+    "Desselet": ".desselet",
+    "DessemArq": ".dessemarq",
+    "Dessopc": ".dessopc",
+    "Entdados": ".entdados",
+    "Hidr": ".hidr",
+    "LogInviab": ".log_inviab",
+    "LogMatriz": ".log_matriz",
+    "Operuh": ".operuh",
+    "Operut": ".operut",
+    "PdoAvalQmaxUsih": ".pdo_aval_qmaxusih",
+    "PdoCmoBar": ".pdo_cmobar",
+    "PdoEcoFcfCortes": ".pdo_eco_fcfcortes",
+    "PdoEcoUsih": ".pdo_eco_usih",
+    "PdoEcoUsihConj": ".pdo_eco_usih_conj",
+    "PdoEcoUsihPolin": ".pdo_eco_usih_polin",
+    "PdoEolica": ".pdo_eolica",
+    "PdoHidr": ".pdo_hidr",
+    "PdoInter": ".pdo_inter",
+    "PdoOperLpp": ".pdo_oper_lpp",
+    "PdoOperTerm": ".pdo_oper_term",
+    "PdoOperTitulacaoContratos": ".pdo_oper_titulacao_contratos",
+    "PdoOperTitulacaoUsinas": ".pdo_oper_titulacao_usinas",
+    "PdoOperTviagCalha": ".pdo_oper_tviag_calha",
+    "PdoOperUct": ".pdo_oper_uct",
+    "PdoOperacao": ".pdo_operacao",
+    "PdoReserva": ".pdo_reserva",
+    "PdoSist": ".pdo_sist",
+    "PdoSomFlux": ".pdo_somflux",
+    "PdoTerm": ".pdo_term",
+    "Renovaveis": ".renovaveis",
+    "Respot": ".respot",
+    "Term": ".termdat",
+    "Uch": ".uch",
+}
+
+__all__ = sorted(_LAZY_IMPORTS.keys())
+
+
+def __getattr__(name: str) -> Any:
+    if name in _LAZY_IMPORTS:
+        module = importlib.import_module(_LAZY_IMPORTS[name], __name__)
+        value = getattr(module, name)
+        globals()[name] = value
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def __dir__() -> list[str]:
+    return __all__

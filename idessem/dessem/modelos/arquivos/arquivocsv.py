@@ -4,8 +4,10 @@ from idessem.dessem.modelos.blocos.tabelacsv import TabelaCSV
 
 from cfinterface.files.blockfile import BlockFile
 from datetime import datetime
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from typing import TypeVar, Optional
+
+__all__ = ["ArquivoCSV", "VersaoModelo", "DataEstudo", "TabelaCSV"]
 
 
 class ArquivoCSV(BlockFile):

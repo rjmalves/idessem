@@ -4,9 +4,9 @@ from idessem.dessem.modelos.renovaveis import (
     EOLICASUBM,
     EOLICAGERACAO,
 )
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.files.registerfile import RegisterFile
-from typing import Type, List, Optional, TypeVar, Union
+from typing import Any, Type, List, Optional, TypeVar, Union
 from cfinterface.components.register import Register
 
 
@@ -25,11 +25,11 @@ class Renovaveis(RegisterFile):
 
     REGISTERS = [EOLICAGERACAO, EOLICASUBM, EOLICABARRA, EOLICA]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     def __registros_ou_df(
-        self, t: Type[T], **kwargs
+        self, t: Type[T], **kwargs: Any
     ) -> Optional[Union[T, List[T], pd.DataFrame]]:
         if kwargs.get("df"):
             return self._as_df(t)

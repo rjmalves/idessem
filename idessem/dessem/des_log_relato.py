@@ -7,9 +7,9 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
 )
 from cfinterface.files.blockfile import BlockFile
-from typing import Optional, TypeVar
+from typing import Any, Optional, TypeVar
 from datetime import datetime
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 
 
 class DesLogRelato(BlockFile):
@@ -55,7 +55,7 @@ class DesLogRelato(BlockFile):
         return None
 
     @property
-    def tempo_processamento(self):
+    def tempo_processamento(self) -> Optional[Any]:
         """
         O tempo de processamento do estudo.
 

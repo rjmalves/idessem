@@ -9,6 +9,10 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
 )
 
 
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
+
+from typing import Optional
+
 class PdoAvalQmaxUsih(ArquivoCSV):
     """
     Armazena os dados de avaliação do engolimento máximo das usinas hidrelétricas
@@ -25,7 +29,7 @@ class PdoAvalQmaxUsih(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a operação das unidades hidráulicas.
 

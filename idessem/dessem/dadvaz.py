@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional, TypeVar
 
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.files.sectionfile import SectionFile
 
 from idessem.dessem.modelos.dadvaz import (
@@ -39,7 +39,7 @@ class Dadvaz(SectionFile):
         return None
 
     @data_inicio.setter
-    def data_inicio(self, n: datetime):
+    def data_inicio(self, n: datetime) -> None:
         b = self.data.get_sections_of_type(BlocoDataInicioEstudo)
         if isinstance(b, BlocoDataInicioEstudo):
             b.data_inicio = n
@@ -58,7 +58,7 @@ class Dadvaz(SectionFile):
         return None
 
     @dia_semana_inicial.setter
-    def dia_semana_inicial(self, n: int):
+    def dia_semana_inicial(self, n: int) -> None:
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
             b.dia_semana_inicial = n
@@ -77,7 +77,7 @@ class Dadvaz(SectionFile):
         return None
 
     @semana_acoplamento_fcf.setter
-    def semana_acoplamento_fcf(self, n: int):
+    def semana_acoplamento_fcf(self, n: int) -> None:
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
             b.semana_acoplamento_fcf = n
@@ -96,7 +96,7 @@ class Dadvaz(SectionFile):
         return None
 
     @numero_semanas.setter
-    def numero_semanas(self, n: int):
+    def numero_semanas(self, n: int) -> None:
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
             b.numero_semanas = n
@@ -115,7 +115,7 @@ class Dadvaz(SectionFile):
         return None
 
     @considera_periodo_simulacao.setter
-    def considera_periodo_simulacao(self, n: int):
+    def considera_periodo_simulacao(self, n: int) -> None:
         b = self.data.get_sections_of_type(BlocoDadosHorizonte)
         if isinstance(b, BlocoDadosHorizonte):
             b.considera_periodo_simulacao = n
@@ -145,7 +145,7 @@ class Dadvaz(SectionFile):
         return None
 
     @vazoes.setter
-    def vazoes(self, valor: pd.DataFrame):
+    def vazoes(self, valor: pd.DataFrame) -> None:
         b = self.data.get_sections_of_type(BlocoVazoes)
         if isinstance(b, BlocoVazoes):
             b.data = valor

@@ -1,7 +1,7 @@
 from cfinterface.components.block import Block
 from cfinterface.components.datetimefield import DatetimeField
 from datetime import datetime
-from typing import IO
+from typing import Any, IO
 
 
 class DataEstudo(Block):
@@ -17,13 +17,11 @@ class DataEstudo(Block):
         if not isinstance(o, DataEstudo):
             return False
         else:
-            if not all(
-                [type(self.data) is datetime, type(o.data) is datetime]
-            ):
+            if not all([type(self.data) is datetime, type(o.data) is datetime]):
                 return False
             return self.data == o.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         linha = file.readline()
         dados = linha.split(DataEstudo.BEGIN_PATTERN)
         campo = DatetimeField(size=10, starting_position=0, format="%d/%m/%Y")

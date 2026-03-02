@@ -4,8 +4,8 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
 )
 from cfinterface.files.blockfile import BlockFile
-from typing import Optional, TypeVar
-import pandas as pd  # type: ignore
+from typing import Any, Optional, TypeVar
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from datetime import datetime
 
 
@@ -22,12 +22,12 @@ class AvlFpha2(BlockFile):
 
     T = TypeVar("T")
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
         self.__df_completo: Optional[pd.DataFrame] = None
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações de desvios da função de produção contida
         no arquivo AVL_FPHA2.

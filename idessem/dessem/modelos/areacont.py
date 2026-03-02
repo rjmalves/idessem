@@ -1,6 +1,6 @@
-from typing import IO, Dict, List
+from typing import Optional, Any, IO, Dict, List
 
-import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore[import-untyped]  # no pandas-stubs package
 from cfinterface.components.block import Block
 from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.line import Line
@@ -16,7 +16,12 @@ class BlocoArea(Block):
     BEGIN_PATTERN = r"^AREA"
     END_PATTERN = r"FIM"
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self,
+        previous: Optional[Any] = None,
+        next: Optional[Any] = None,
+        data: Optional[Any] = None,
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -57,9 +62,8 @@ class BlocoArea(Block):
                 self.data[1].equals(bloco.data[1])
             )
 
-    def read(self, file: IO, *args, **kwargs):
-
-        def _monta_df(dados: dict, cols: list) -> pd.DataFrame:
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
+        def _monta_df(dados: Dict[str, Any], cols: List[Any]) -> pd.DataFrame:
             return pd.DataFrame(data=dados, columns=cols)
 
         cols = [
@@ -71,7 +75,7 @@ class BlocoArea(Block):
         linha = file.readline()
         indice_linha = 0
         comentarios: Dict[int, List[str]] = {}
-        dados: Dict[str, List] = {c: [] for c in cols}
+        dados: Dict[str, List[Any]] = {c: [] for c in cols}
         while True:
             linha = file.readline()
 
@@ -91,12 +95,13 @@ class BlocoArea(Block):
                 indice_linha += 1
                 for i, c in enumerate(cols):
                     dados[c].append(dados_linha[i])
-                    
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         if not isinstance(self.data, list):
-            raise ValueError("Dados do areacont.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do areacont.dat não foram lidos com sucesso"
+            )
 
         file.write("AREA\n")
         comentarios = self.data[0]
@@ -119,7 +124,12 @@ class BlocoUsina(Block):
     BEGIN_PATTERN = r"^USINA"
     END_PATTERN = r"FIM"
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self,
+        previous: Optional[Any] = None,
+        next: Optional[Any] = None,
+        data: Optional[Any] = None,
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -164,9 +174,8 @@ class BlocoUsina(Block):
             )
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
-
-        def _monta_df(dados: dict, cols: list) -> pd.DataFrame:
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
+        def _monta_df(dados: Dict[str, Any], cols: List[Any]) -> pd.DataFrame:
             return pd.DataFrame(data=dados, columns=cols)
 
         cols = [
@@ -181,7 +190,7 @@ class BlocoUsina(Block):
         linha = file.readline()
         indice_linha = 0
         comentarios: Dict[int, List[str]] = {}
-        dados: Dict[str, List] = {c: [] for c in cols}
+        dados: Dict[str, List[Any]] = {c: [] for c in cols}
         while True:
             linha = file.readline()
 
@@ -201,12 +210,13 @@ class BlocoUsina(Block):
                 indice_linha += 1
                 for i, c in enumerate(cols):
                     dados[c].append(dados_linha[i])
-                    
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]  # cfinterface base returns bool
         if not isinstance(self.data, list):
-            raise ValueError("Dados do areacont.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do areacont.dat não foram lidos com sucesso"
+            )
 
         file.write("USINA\n")
         comentarios = self.data[0]
