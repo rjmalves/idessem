@@ -102,6 +102,7 @@ warn_return_any = false
 
 [tool.pytest.ini_options]
 addopts = "-n auto"
+testpaths = ["tests"]
 
 # Remove this override once cfinterface 1.9.0 is published to PyPI
 [tool.uv.sources]
