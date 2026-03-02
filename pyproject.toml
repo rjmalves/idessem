@@ -30,6 +30,8 @@ classifiers = [
 dev = [
     "pytest",
     "pytest-cov",
+    "pytest-xdist",
+    "pytest-benchmark",
     "ruff",
     "mypy",
     "sphinx-rtd-theme",
@@ -97,6 +99,9 @@ warn_return_any = false
 module = "idessem.config"
 strict = true
 warn_return_any = false
+
+[tool.pytest.ini_options]
+addopts = "-n auto"
 
 # Remove this override once cfinterface 1.9.0 is published to PyPI
 [tool.uv.sources]

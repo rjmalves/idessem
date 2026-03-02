@@ -1,6 +1,6 @@
 {
   "plan": "idessem-quality-performance",
-  "last_updated": "2026-03-02T21:53:54Z",
+  "last_updated": "2026-03-02T22:10:59Z",
   "progressive": true,
   "tickets": {
     "ticket-001-bump-cfinterface-dependency.md": {
@@ -17,11 +17,11 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.50
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
         }
       },
       "workflow_step": null,
@@ -41,11 +41,11 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.50
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
         }
       },
       "workflow_step": null,
@@ -65,11 +65,11 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.50
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
         }
       },
       "workflow_step": null,
@@ -89,11 +89,11 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.50
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
         }
       },
       "workflow_step": null,
@@ -113,11 +113,11 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.50
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
         }
       },
       "workflow_step": null,
@@ -135,13 +135,13 @@
           "dependency_clarity": 1.0,
           "atomicity": 0.6
         },
-        "quality": 0.90,
+        "quality": 0.9,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.00
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.0
         }
       },
       "workflow_step": null,
@@ -159,13 +159,13 @@
           "dependency_clarity": 1.0,
           "atomicity": 1.0
         },
-        "quality": 0.90,
+        "quality": 0.9,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.00
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.0
         }
       },
       "workflow_step": null,
@@ -183,13 +183,13 @@
           "dependency_clarity": 1.0,
           "atomicity": 1.0
         },
-        "quality": 1.00,
+        "quality": 1.0,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 1.00
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 1.0
         }
       },
       "workflow_step": null,
@@ -209,6 +209,30 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
+        }
+      },
+      "workflow_step": null,
+      "agent": "orchestrator"
+    },
+    "ticket-010-optimize-dataframe-concatenation.md": {
+      "status": "completed",
+      "detail_level": "refined",
+      "scores": {
+        "readiness": 0.94,
+        "readiness_breakdown": {
+          "structure": 1.0,
+          "testability": 0.8,
+          "boundary": 1.0,
+          "dependency_clarity": 1.0,
+          "atomicity": 1.0
+        },
+        "quality": 0.95,
+        "quality_breakdown": {
           "conformance": 1.00,
           "scope_adherence": 1.00,
           "lint_cleanliness": 1.00,
@@ -219,17 +243,53 @@
       "workflow_step": null,
       "agent": "orchestrator"
     },
-    "ticket-010-optimize-dataframe-concatenation.md": {
-      "status": "pending",
-      "detail_level": "outline"
-    },
     "ticket-011-add-pytest-xdist.md": {
-      "status": "pending",
-      "detail_level": "outline"
+      "status": "completed",
+      "detail_level": "refined",
+      "scores": {
+        "quality": 1.0,
+        "quality_breakdown": {
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 1.0
+        },
+        "readiness": 0.94,
+        "readiness_breakdown": {
+          "structure": 1.0,
+          "testability": 0.8,
+          "boundary": 1.0,
+          "dependency_clarity": 1.0,
+          "atomicity": 1.0
+        }
+      },
+      "workflow_step": null,
+      "agent": "orchestrator"
     },
     "ticket-012-create-benchmark-suite.md": {
-      "status": "pending",
-      "detail_level": "outline"
+      "status": "completed",
+      "detail_level": "refined",
+      "scores": {
+        "quality": 0.95,
+        "quality_breakdown": {
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
+        },
+        "readiness": 0.97,
+        "readiness_breakdown": {
+          "structure": 1.0,
+          "testability": 0.9,
+          "boundary": 1.0,
+          "dependency_clarity": 1.0,
+          "atomicity": 1.0
+        }
+      },
+      "workflow_step": null,
+      "agent": "orchestrator"
     },
     "ticket-013-write-migration-guide-changelog.md": {
       "status": "pending",
@@ -246,11 +306,11 @@
       "learning_extracted": false
     },
     "epic-02-quality-and-type-safety": {
-      "phase": "executing",
+      "phase": "completed",
       "learning_extracted": false
     },
     "epic-03-testing-and-performance": {
-      "phase": "outline",
+      "phase": "completed",
       "learning_extracted": false
     },
     "epic-04-documentation": {

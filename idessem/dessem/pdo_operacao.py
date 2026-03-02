@@ -36,101 +36,40 @@ class PdoOperacao(BlockFile):
         self.__custos_operacao = None
 
     def __concatena_blocos(self, bloco: Type[T]) -> Optional[pd.DataFrame]:
-        """
-        Adiciona uma coluna com o estágio de cada bloco.
-        :param bloco: O tipo de bloco
-        :type bloco: Type[T]
-        :return: O DataFrame com os estágios
-        :rtype: pd.DataFrame
-        """
-        df = None
-        for i, b in enumerate(self.data.of_type(bloco)):
-            if not isinstance(b, Block):
-                continue
-            df_estagio = b.data
-            if df is None:
-                df = df_estagio
-            else:
-                df = pd.concat([df, df_estagio], ignore_index=True)
-        if df is not None:
-            return df
-        return None
+        """Adiciona uma coluna com o estágio de cada bloco."""
+        frames: list[pd.DataFrame] = []
+        for b in self.data.of_type(bloco):
+            if isinstance(b.data, pd.DataFrame):
+                frames.append(b.data)
+        return pd.concat(frames, ignore_index=True) if frames else None
 
     @property
     def versao(self) -> Optional[str]:
-        """
-        A versão do modelo utilizada para executar o caso.
-
-        :return: A versão do modelo
-        :rtype: str | None
-        """
+        """A versão do modelo utilizada para executar o caso."""
         b = self.data.get_blocks_of_type(VersaoModelo)
-        if isinstance(b, VersaoModelo):
-            return b.data
-        return None
+        return b.data if isinstance(b, VersaoModelo) else None
 
     @property
     def data_estudo(self) -> Optional[datetime]:
-        """
-        A data base utilizada na configuração do estudo.
-
-        :return: A data como objeto
-        :rtype: datetime | None
-        """
+        """A data base utilizada na configuração do estudo."""
         b = self.data.get_blocks_of_type(DataEstudo)
-        if isinstance(b, DataEstudo):
-            return b.data
-        return None
+        return b.data if isinstance(b, DataEstudo) else None
 
     @property
     def discretizacao(self) -> pd.DataFrame:
-        """
-        Obtém tabela com informações referentes a discretização
-        de tempo do estudo.
-
-        - estagio (`int`)
-        - data_inicial (`datetime`)
-        - data_final (`datetime`)
-        - duracao (`float`)
-
-        :return: A tabela como um dataframe
-        :rtype: pd.DataFrame | None
-        """
+        """Obtém tabela com informações referentes a discretização de tempo."""
         b = self.data.get_blocks_of_type(BlocoDiscretizacaoTempo)
-        if isinstance(b, BlocoDiscretizacaoTempo):
-            return b.data
-        return None
+        return b.data if isinstance(b, BlocoDiscretizacaoTempo) else None
 
     @property
     def custos_operacao(self) -> pd.DataFrame:
-        """
-        Obtém tabela com informações referentes aos custos de operação.
-
-        - estagio (`int`)
-        - custo_presente (`float`)
-        - custo_futuro (`float`)
-
-        :return: A tabela como um dataframe
-        :rtype: pd.DataFrame | None
-        """
+        """Obtém tabela com informações referentes aos custos de operação."""
         if self.__custos_operacao is None:
             self.__custos_operacao = self.__concatena_blocos(BlocoCustos)
         return self.__custos_operacao
 
     @property
     def cortes_ativos(self) -> pd.DataFrame:
-        """
-        Obtém tabela com informações referentes aos multiplicadores dos
-        cortes.
-
-        - estagio (`int`)
-        - indice_corte (`int`)
-        - multiplicador (`float`)
-
-        :return: A tabela como um dataframe
-        :rtype: pd.DataFrame | None
-        """
+        """Obtém tabela com informações referentes aos multiplicadores dos cortes."""
         b = self.data.get_blocks_of_type(BlocoCortesAtivos)
-        if isinstance(b, BlocoCortesAtivos):
-            return b.data
-        return None
+        return b.data if isinstance(b, BlocoCortesAtivos) else None
