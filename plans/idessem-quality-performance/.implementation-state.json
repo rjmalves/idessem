@@ -1,6 +1,6 @@
 {
   "plan": "idessem-quality-performance",
-  "last_updated": "2026-03-02T22:10:59Z",
+  "last_updated": "2026-03-02T22:30:00Z",
   "progressive": true,
   "tickets": {
     "ticket-001-bump-cfinterface-dependency.md": {
@@ -233,11 +233,11 @@
         },
         "quality": 0.95,
         "quality_breakdown": {
-          "conformance": 1.00,
-          "scope_adherence": 1.00,
-          "lint_cleanliness": 1.00,
-          "type_safety": 1.00,
-          "test_delta": 0.50
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 0.5
         }
       },
       "workflow_step": null,
@@ -292,12 +292,53 @@
       "agent": "orchestrator"
     },
     "ticket-013-write-migration-guide-changelog.md": {
-      "status": "pending",
-      "detail_level": "outline"
+      "status": "completed",
+      "detail_level": "refined",
+      "scores": {
+        "quality": 1.0,
+        "quality_breakdown": {
+          "conformance": 1.0,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 1.0
+        },
+        "readiness": 0.95,
+        "readiness_breakdown": {
+          "structure": 1.0,
+          "testability": 1.0,
+          "boundary": 1.0,
+          "dependency_clarity": 0.8,
+          "atomicity": 0.8
+        }
+      },
+      "workflow_step": null,
+      "agent": "orchestrator"
     },
     "ticket-014-bump-package-version.md": {
-      "status": "pending",
-      "detail_level": "outline"
+      "status": "completed",
+      "detail_level": "refined",
+      "agent": "implementation-guardian",
+      "scores": {
+        "readiness": 1.0,
+        "readiness_breakdown": {
+          "structure": 1.0,
+          "testability": 1.0,
+          "boundary": 1.0,
+          "dependency_clarity": 1.0,
+          "atomicity": 1.0
+        },
+        "quality": 0.825,
+        "quality_breakdown": {
+          "conformance": 0.5,
+          "scope_adherence": 1.0,
+          "lint_cleanliness": 1.0,
+          "type_safety": 1.0,
+          "test_delta": 1.0
+        }
+      },
+      "workflow_step": null,
+      "deviation_note": "C2 and C3 FAIL by design: [tool.uv.sources] retained until cfinterface 1.9.0 is published to PyPI. Deviation pre-approved by user."
     }
   },
   "epics": {
@@ -314,7 +355,7 @@
       "learning_extracted": false
     },
     "epic-04-documentation": {
-      "phase": "outline",
+      "phase": "completed",
       "learning_extracted": false
     }
   }

@@ -1,10 +1,22 @@
+# v1.2.0
+
+- Atualização da dependência cfinterface para `>= 1.9.0`
+- Migração interna para `StorageType.BINARY` (enum da cfinterface)
+- Habilitação de mypy strict em todos os módulos de produção
+- Substituição de comentários `# type: ignore` por códigos de erro específicos
+- Implementação de lazy imports (PEP 562) no módulo `idessem.dessem`
+- Correção de visibilidade de re-exports para `DataEstudo` e `VersaoModelo`
+- Otimização da concatenação de DataFrames em `pdo_operacao`
+- Adição de pytest-xdist para execução paralela de testes
+- Criação de suite de benchmarks com pytest-benchmark
+
 # v1.1.0
 
 - Inclusão de suporte aos arquivos `PDO_CMOSIST`, `PDO_ELEV` e `PDO_OPER_USIH` (@rdlobato)
 - Ajustes de testes e documentação para suporte a pandas `>= 3.0.0`
 
 # v1.0.0
- 
+
 - Primeira major release
 - Suporte à leitura da maioria dos arquivos de entrada do modelo DESSEM
 - Inclusão de suporte aos arquivos de entrada: `respot.dat` [#77](https://github.com/rjmalves/idessem/issues/77), `deflant.dat` [#76](https://github.com/rjmalves/idessem/issues/76), `areacont.dat` [#75](https://github.com/rjmalves/idessem/issues/75), `dadvaz.dat` [#44](https://github.com/rjmalves/idessem/issues/44) e `desselet.dat` [#41](https://github.com/rjmalves/idessem/issues/41)
