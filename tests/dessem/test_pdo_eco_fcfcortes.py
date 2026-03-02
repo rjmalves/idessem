@@ -70,8 +70,7 @@ def test_neq_pdo_eco_fcfcortes():
 def test_atributos_encontrados_pdo_eco_fcfcortes_19():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoFcfCortes19))
     with patch("builtins.open", m):
-        PdoEcoFcfCortes.set_version("19.4.1")
-        pdo = PdoEcoFcfCortes.read(ARQ_TESTE)
+        pdo = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
         assert pdo.versao is not None
         assert pdo.data_estudo is not None
         assert pdo.tabela is not None
@@ -80,24 +79,21 @@ def test_atributos_encontrados_pdo_eco_fcfcortes_19():
 def test_versao_pdo_eco_fcfcortes_19():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoFcfCortes19))
     with patch("builtins.open", m):
-        PdoEcoFcfCortes.set_version("19.4.1")
-        pdo = PdoEcoFcfCortes.read(ARQ_TESTE)
+        pdo = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
         assert pdo.versao == "19.4.1"
 
 
 def test_data_estudo_pdo_eco_fcfcortes_19():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoFcfCortes19))
     with patch("builtins.open", m):
-        PdoEcoFcfCortes.set_version("19.4.1")
-        pdo = PdoEcoFcfCortes.read(ARQ_TESTE)
+        pdo = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
         assert pdo.data_estudo == datetime(year=2023, month=6, day=13)
 
 
 def test_tabela_pdo_eco_fcfcortes_19():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoFcfCortes19))
     with patch("builtins.open", m):
-        PdoEcoFcfCortes.set_version("19.4.1")
-        pdo = PdoEcoFcfCortes.read(ARQ_TESTE)
+        pdo = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
 
         assert pdo.tabela.at[1, "indice_corte"] == 1
         assert pdo.tabela.at[1, "tipo_entidade"] == "USIH"
@@ -113,17 +109,15 @@ def test_tabela_pdo_eco_fcfcortes_19():
 def test_eq_pdo_eco_fcfcortes19():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoFcfCortes19))
     with patch("builtins.open", m):
-        PdoEcoFcfCortes.set_version("19.4.1")
-        log1 = PdoEcoFcfCortes.read(ARQ_TESTE)
-        log2 = PdoEcoFcfCortes.read(ARQ_TESTE)
+        log1 = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
+        log2 = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
         assert log1 == log2
 
 
 def test_neq_pdo_eco_fcfcortes_19():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoFcfCortes19))
     with patch("builtins.open", m):
-        PdoEcoFcfCortes.set_version("19.4.1")
-        log1 = PdoEcoFcfCortes.read(ARQ_TESTE)
-        log2 = PdoEcoFcfCortes.read(ARQ_TESTE)
+        log1 = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
+        log2 = PdoEcoFcfCortes.read(ARQ_TESTE, version="19.4.1")
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2

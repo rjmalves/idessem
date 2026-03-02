@@ -61,9 +61,7 @@ def test_tabela_pdo_eco_usih():
             pdo.tabela.at[0, "volume_soleira_vertedouro_util_percentual"] == 0
         )
         assert pdo.tabela.at[0, "volume_soleira_desvio_hm3"] == 120.00
-        assert (
-            pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
-        )
+        assert pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
         assert pdo.tabela.at[0, "volume_referencia_hm3"] == 792.00
         assert pdo.tabela.at[0, "tipo_reservatorio"] == "RV"
         assert pdo.tabela.at[0, "tipo_regularizacao"] == "M"
@@ -96,8 +94,7 @@ def test_neq_pdo_eco_usih():
 def test_atributos_encontrados_pdo_eco_usih_190402():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.4.2")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
         assert pdo.versao is not None
         assert pdo.data_estudo is not None
         assert pdo.tabela is not None
@@ -106,24 +103,21 @@ def test_atributos_encontrados_pdo_eco_usih_190402():
 def test_versao_pdo_eco_usih_190402():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.4.2")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
         assert pdo.versao == "19.4.2"
 
 
 def test_data_estudo_pdo_eco_usih_190402():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.4.2")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
         assert pdo.data_estudo == datetime(year=2023, month=6, day=13)
 
 
 def test_tabela_pdo_eco_usih_190402():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.4.2")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
 
         assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
@@ -143,9 +137,7 @@ def test_tabela_pdo_eco_usih_190402():
             pdo.tabela.at[0, "volume_soleira_vertedouro_util_percentual"] == 0
         )
         assert pdo.tabela.at[0, "volume_soleira_desvio_hm3"] == 120.00
-        assert (
-            pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
-        )
+        assert pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
         assert pdo.tabela.at[0, "volume_referencia_hm3"] == 792.00
         assert pdo.tabela.at[0, "tipo_reservatorio"] == "RV"
         assert pdo.tabela.at[0, "tipo_regularizacao"] == "M"
@@ -161,19 +153,16 @@ def test_tabela_pdo_eco_usih_190402():
 def test_eq_pdo_eco_usih_190402():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.4.2")
-        log1 = PdoEcoUsih.read(ARQ_TESTE)
-        log2 = PdoEcoUsih.read(ARQ_TESTE)
+        log1 = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
+        log2 = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
         assert log1 == log2
 
 
 def test_neq_pdo_eco_usih_190402():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.4.2")
-        log1 = PdoEcoUsih.read(ARQ_TESTE)
-        PdoEcoUsih.set_version("19.4.2")
-        log2 = PdoEcoUsih.read(ARQ_TESTE)
+        log1 = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
+        log2 = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2
 
@@ -181,8 +170,7 @@ def test_neq_pdo_eco_usih_190402():
 def test_atributos_encontrados_pdo_eco_usih_190301():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.3.1")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
         assert pdo.versao is not None
         assert pdo.data_estudo is not None
         assert pdo.tabela is not None
@@ -191,24 +179,21 @@ def test_atributos_encontrados_pdo_eco_usih_190301():
 def test_versao_pdo_eco_usih_190301():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.3.1")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
         assert pdo.versao == "19.3.1"
 
 
 def test_data_estudo_pdo_eco_usih_190301():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.3.1")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
         assert pdo.data_estudo == datetime(year=2022, month=8, day=11)
 
 
 def test_tabela_pdo_eco_usih_190301():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.3.1")
-        pdo = PdoEcoUsih.read(ARQ_TESTE)
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
 
         assert pdo.tabela.at[0, "codigo_usina"] == 1
         assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
@@ -228,9 +213,7 @@ def test_tabela_pdo_eco_usih_190301():
             pdo.tabela.at[0, "volume_soleira_vertedouro_util_percentual"] == 0
         )
         assert pdo.tabela.at[0, "volume_soleira_desvio_hm3"] == 120.00
-        assert (
-            pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
-        )
+        assert pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
         assert pdo.tabela.at[0, "volume_referencia_hm3"] == 792.00
         assert pdo.tabela.at[0, "tipo_regularizacao"] == "M"
         assert pdo.tabela.at[0, "flag_evaporacao"] == 1
@@ -245,18 +228,15 @@ def test_tabela_pdo_eco_usih_190301():
 def test_eq_pdo_eco_usih_190301():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.3.1")
-        log1 = PdoEcoUsih.read(ARQ_TESTE)
-        log2 = PdoEcoUsih.read(ARQ_TESTE)
+        log1 = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
+        log2 = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
         assert log1 == log2
 
 
 def test_neq_pdo_eco_usih_190301():
     m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
     with patch("builtins.open", m):
-        PdoEcoUsih.set_version("19.3.1")
-        log1 = PdoEcoUsih.read(ARQ_TESTE)
-        PdoEcoUsih.set_version("19.3.1")
-        log2 = PdoEcoUsih.read(ARQ_TESTE)
+        log1 = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
+        log2 = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2

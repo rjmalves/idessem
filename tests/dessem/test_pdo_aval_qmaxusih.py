@@ -75,8 +75,7 @@ def test_neq_pdo_aval_qmaxusih():
 def test_atributos_encontrados_pdo_aval_qmaxusih_2001():
     m: MagicMock = mock_open(read_data="".join(MockPdoAvalQmaxUsih2001))
     with patch("builtins.open", m):
-        PdoAvalQmaxUsih.set_version("20.1")
-        log = PdoAvalQmaxUsih.read(ARQ_TESTE)
+        log = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
         assert log.versao is not None
         assert log.data_estudo is not None
         assert log.tabela is not None
@@ -85,24 +84,21 @@ def test_atributos_encontrados_pdo_aval_qmaxusih_2001():
 def test_versao_pdo_aval_qmaxusih_2001():
     m: MagicMock = mock_open(read_data="".join(MockPdoAvalQmaxUsih2001))
     with patch("builtins.open", m):
-        PdoAvalQmaxUsih.set_version("20.1")
-        log = PdoAvalQmaxUsih.read(ARQ_TESTE)
+        log = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
         assert log.versao == "20.2"
 
 
 def test_data_estudo_pdo_aval_qmaxusih_2001():
     m: MagicMock = mock_open(read_data="".join(MockPdoAvalQmaxUsih2001))
     with patch("builtins.open", m):
-        PdoAvalQmaxUsih.set_version("20.1")
-        log = PdoAvalQmaxUsih.read(ARQ_TESTE)
+        log = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
         assert log.data_estudo == datetime(year=2022, month=9, day=3)
 
 
 def test_tabela_pdo_aval_qmaxusih_2001():
     m: MagicMock = mock_open(read_data="".join(MockPdoAvalQmaxUsih2001))
     with patch("builtins.open", m):
-        PdoAvalQmaxUsih.set_version("20.1")
-        log = PdoAvalQmaxUsih.read(ARQ_TESTE)
+        log = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
         assert log.tabela.at[0, "estagio"] == 1
         assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
@@ -117,17 +113,15 @@ def test_tabela_pdo_aval_qmaxusih_2001():
 def test_eq_pdo_aval_qmaxusih_2001():
     m: MagicMock = mock_open(read_data="".join(MockPdoAvalQmaxUsih2001))
     with patch("builtins.open", m):
-        PdoAvalQmaxUsih.set_version("20.1")
-        log1 = PdoAvalQmaxUsih.read(ARQ_TESTE)
-        log2 = PdoAvalQmaxUsih.read(ARQ_TESTE)
+        log1 = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
+        log2 = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
         assert log1 == log2
 
 
 def test_neq_pdo_aval_qmaxusih_2001():
     m: MagicMock = mock_open(read_data="".join(MockPdoAvalQmaxUsih2001))
     with patch("builtins.open", m):
-        PdoAvalQmaxUsih.set_version("20.1")
-        log1 = PdoAvalQmaxUsih.read(ARQ_TESTE)
-        log2 = PdoAvalQmaxUsih.read(ARQ_TESTE)
+        log1 = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
+        log2 = PdoAvalQmaxUsih.read(ARQ_TESTE, version="20.1")
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2

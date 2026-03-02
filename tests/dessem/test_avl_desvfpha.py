@@ -87,8 +87,7 @@ def test_neq_avl_desvfpha():
 def test_atributos_encontrados_avl_desvfpha_190300():
     m: MagicMock = mock_open(read_data="".join(MockAvlDesvfpha190300))
     with patch("builtins.open", m):
-        AvlDesvFpha.set_version("19.3")
-        log = AvlDesvFpha.read(ARQ_TESTE)
+        log = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
         assert log.versao is not None
         assert log.data_estudo is not None
         assert log.tabela is not None
@@ -97,24 +96,21 @@ def test_atributos_encontrados_avl_desvfpha_190300():
 def test_versao_avl_desvfpha_190300():
     m: MagicMock = mock_open(read_data="".join(MockAvlDesvfpha190300))
     with patch("builtins.open", m):
-        AvlDesvFpha.set_version("19.3")
-        log = AvlDesvFpha.read(ARQ_TESTE)
+        log = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
         assert log.versao == "19.3"
 
 
 def test_data_estudo_avl_desvfpha_190300():
     m: MagicMock = mock_open(read_data="".join(MockAvlDesvfpha190300))
     with patch("builtins.open", m):
-        AvlDesvFpha.set_version("19.3")
-        log = AvlDesvFpha.read(ARQ_TESTE)
+        log = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
         assert log.data_estudo == datetime(year=2022, month=8, day=11)
 
 
 def test_tabela_avl_desvfpha_190300():
     m: MagicMock = mock_open(read_data="".join(MockAvlDesvfpha190300))
     with patch("builtins.open", m):
-        AvlDesvFpha.set_version("19.3")
-        log = AvlDesvFpha.read(ARQ_TESTE)
+        log = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
         assert log.tabela.at[0, "estagio"] == 1
         assert log.tabela.at[0, "codigo_usina"] == 1
         assert log.tabela.at[0, "nome_usina"] == "CAMARGOS"
@@ -143,17 +139,15 @@ def test_tabela_avl_desvfpha_190300():
 def test_eq_avl_desvfpha_190300():
     m: MagicMock = mock_open(read_data="".join(MockAvlDesvfpha190300))
     with patch("builtins.open", m):
-        AvlDesvFpha.set_version("19.3")
-        log1 = AvlDesvFpha.read(ARQ_TESTE)
-        log2 = AvlDesvFpha.read(ARQ_TESTE)
+        log1 = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
+        log2 = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
         assert log1 == log2
 
 
 def test_neq_avl_desvfpha_190300():
     m: MagicMock = mock_open(read_data="".join(MockAvlDesvfpha190300))
     with patch("builtins.open", m):
-        AvlDesvFpha.set_version("19.3")
-        log1 = AvlDesvFpha.read(ARQ_TESTE)
-        log2 = AvlDesvFpha.read(ARQ_TESTE)
+        log1 = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
+        log2 = AvlDesvFpha.read(ARQ_TESTE, version="19.3")
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2

@@ -55,8 +55,8 @@ a leitura normalmente, e acessar todas as propriedades encontradas. Para o :ref:
 Alguns arquivos do modelo DESSEM podem sofrer alterações de sintaxe conforme são feitas atualizações no modelo.
 Desta forma, poderia ser necessário criar mais de uma classe para dar suporte ao mesmo arquivo. Todavia, o framework
 `cfinterface <https://github.com/rjmalves/cfi>`_ possui uma modelagem para dar suporte a mais de uma
-versão do mesmo arquivo fazendo uso do método `set_version` de cada uma das classes. Caso não seja especificada a versão 
-por meio do método `set_version`, será considerada a versão mais recente do arquivo. Por exemplo, o arquivo 
+versão do mesmo arquivo fazendo uso do parâmetro `version=` do método `read` de cada uma das classes. Caso não seja especificada a versão
+por meio do parâmetro `version=`, será considerada a versão mais recente do arquivo. Por exemplo, o arquivo
 :ref:`AVL_FPHA1.DAT <avl_fpha1>` possui diferentes formatos dependendo da versão do modelo DESSEM:  
 
 
@@ -88,13 +88,12 @@ por meio do método `set_version`, será considerada a versão mais recente do a
      001 ; CAMARGOS     ;    4  ; 1.00000 ;   0.00 ;    -5.2177 ;    0.020604 ;    0.184069 ;    0.000000 ;
 
 
-Para a leitura deste arquivo gerado em uma versão inferior do modelo DESSEM, deve ser especificada a versão 
-desejada antes de efetuar a leitura do arquivo. 
+Para a leitura deste arquivo gerado em uma versão inferior do modelo DESSEM, deve ser especificada a versão
+desejada por meio do parâmetro `version=` do método `read`.
 
 .. code-block:: python
 
-    from idessem.dessem.avlfpha1 import AvlFpha1
-    AvlFpha1.set_version("19.3")
-    arq_avfpha1 = AvlFpha1.read("./AVL_FPHA1.DAT")
+    from idessem.dessem.avl_fpha1 import AvlFpha1
+    arq_avfpha1 = AvlFpha1.read("./AVL_FPHA1.DAT", version="19.3")
 
 
