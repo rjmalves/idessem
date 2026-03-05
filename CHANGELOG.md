@@ -1,10 +1,14 @@
+# v1.1.1
+
+- Versão da dependência cfinterface fixada para `>=1.8.0,<=1.8.3`
+
 # v1.1.0
 
 - Inclusão de suporte aos arquivos `PDO_CMOSIST`, `PDO_ELEV` e `PDO_OPER_USIH` (@rdlobato)
 - Ajustes de testes e documentação para suporte a pandas `>= 3.0.0`
 
 # v1.0.0
- 
+
 - Primeira major release
 - Suporte à leitura da maioria dos arquivos de entrada do modelo DESSEM
 - Inclusão de suporte aos arquivos de entrada: `respot.dat` [#77](https://github.com/rjmalves/idessem/issues/77), `deflant.dat` [#76](https://github.com/rjmalves/idessem/issues/76), `areacont.dat` [#75](https://github.com/rjmalves/idessem/issues/75), `dadvaz.dat` [#44](https://github.com/rjmalves/idessem/issues/44) e `desselet.dat` [#41](https://github.com/rjmalves/idessem/issues/41)
