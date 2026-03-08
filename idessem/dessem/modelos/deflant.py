@@ -6,6 +6,7 @@ from cfinterface.components.floatfield import FloatField
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 from typing import Optional, Union
 
+
 class DEFANT(Register):
     """
     Registro que contém as defluências anteriores ao início do período
@@ -18,10 +19,10 @@ class DEFANT(Register):
         [
             IntegerField(3, 9),
             IntegerField(3, 14),
-            LiteralField(1,19),
+            LiteralField(1, 19),
             StageDateField(starting_position=24, special_day_character="I"),
             StageDateField(starting_position=32, special_day_character="F"),
-            FloatField(10,44,1)
+            FloatField(10, 44, 1),
         ]
     )
 

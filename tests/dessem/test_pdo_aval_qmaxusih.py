@@ -1,9 +1,7 @@
 from idessem.dessem.pdo_aval_qmaxusih import PdoAvalQmaxUsih
-import pandas as pd  # type: ignore
 from datetime import datetime
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
-import numpy as np
 
 from tests.mocks.arquivos.pdo_aval_qmaxusih import (
     MockPdoAvalQmaxUsih2001,

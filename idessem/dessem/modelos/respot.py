@@ -6,6 +6,7 @@ from cfinterface.components.floatfield import FloatField
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 from typing import Optional, Union
 
+
 class RP(Register):
     """
     Registro que contém as áreas e janela de tempo para consideração das
@@ -19,7 +20,7 @@ class RP(Register):
             IntegerField(3, 4),
             StageDateField(starting_position=9, special_day_character="I"),
             StageDateField(starting_position=17, special_day_character="F"),
-            LiteralField(40,30)
+            LiteralField(40, 30),
         ]
     )
 
@@ -36,7 +37,6 @@ class RP(Register):
     @codigo_area.setter
     def codigo_area(self, u: int):
         self.data[0] = u
-
 
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
@@ -138,6 +138,7 @@ class RP(Register):
     def descricao(self, cod: str):
         self.data[3] = cod
 
+
 class LM(Register):
     """
     Registro que contém a reserva mínima de potência para a área.
@@ -150,7 +151,7 @@ class LM(Register):
             IntegerField(3, 4),
             StageDateField(starting_position=9, special_day_character="I"),
             StageDateField(starting_position=17, special_day_character="F"),
-            FloatField(10,25,2)
+            FloatField(10, 25, 2),
         ]
     )
 
@@ -167,7 +168,6 @@ class LM(Register):
     @codigo_area.setter
     def codigo_area(self, u: int):
         self.data[0] = u
-
 
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:

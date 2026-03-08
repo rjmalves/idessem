@@ -91,12 +91,13 @@ class BlocoArea(Block):
                 indice_linha += 1
                 for i, c in enumerate(cols):
                     dados[c].append(dados_linha[i])
-                    
 
     # Override
     def write(self, file: IO, *args, **kwargs):
         if not isinstance(self.data, list):
-            raise ValueError("Dados do areacont.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do areacont.dat não foram lidos com sucesso"
+            )
 
         file.write("AREA\n")
         comentarios = self.data[0]
@@ -201,12 +202,13 @@ class BlocoUsina(Block):
                 indice_linha += 1
                 for i, c in enumerate(cols):
                     dados[c].append(dados_linha[i])
-                    
 
     # Override
     def write(self, file: IO, *args, **kwargs):
         if not isinstance(self.data, list):
-            raise ValueError("Dados do areacont.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do areacont.dat não foram lidos com sucesso"
+            )
 
         file.write("USINA\n")
         comentarios = self.data[0]

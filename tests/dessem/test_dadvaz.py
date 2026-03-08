@@ -74,6 +74,7 @@ def test_bloco_dados_horizonte():
     b.dia_semana_inicial = 0
     assert b.dia_semana_inicial == 0
 
+
 def test_blocos():
     m: MagicMock = mock_open(read_data="".join(MockDadvaz))
     with patch("builtins.open", m):
@@ -93,11 +94,12 @@ def test_blocos():
         assert ad.dia_semana_inicial == 6
         ad.dia_semana_inicial = 0
         assert ad.dia_semana_inicial == 0
-        assert ad.vazoes.at[0,"codigo_usina"] == 1
-        df = ad.vazoes 
-        df.at[0,"codigo_usina"] = 0
-        ad.vazoes = df 
-        assert ad.vazoes.at[0,"codigo_usina"] == 0
+        assert ad.vazoes.at[0, "codigo_usina"] == 1
+        df = ad.vazoes
+        df.at[0, "codigo_usina"] = 0
+        ad.vazoes = df
+        assert ad.vazoes.at[0, "codigo_usina"] == 0
+
 
 def test_bloco_vazoes():
     m: MagicMock = mock_open(read_data="".join(MockBlocoVazoes))
@@ -144,7 +146,9 @@ def test_leitura_escrita_dadvaz():
         cf1.write(ARQ_TESTE)
         # Recupera o que foi escrito
         chamadas = m_escrita.mock_calls
-        linhas_escritas = [chamadas[i].args[0] for i in range(1, len(chamadas) - 1)]
+        linhas_escritas = [
+            chamadas[i].args[0] for i in range(1, len(chamadas) - 1)
+        ]
     m_releitura: MagicMock = mock_open(read_data="".join(linhas_escritas))
     with patch("builtins.open", m_releitura):
         cf2 = Dadvaz.read(ARQ_TESTE)

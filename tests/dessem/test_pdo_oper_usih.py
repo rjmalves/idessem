@@ -66,10 +66,10 @@ def test_tabela_pdo_oper_usih():
         assert pdo.tabela.at[0, "volume_desviado"] == 0.0
         assert pdo.tabela.at[0, "vazao_bombeada"] == 0.0
         assert pdo.tabela.at[0, "volume_bombeado"] == 0.0
-        assert pdo.tabela.at[0, "taxa_enchimento_volume_morto"] == None
-        assert pdo.tabela.at[0, "volume_enchimento_volume_morto"] == None
-        assert pdo.tabela.at[0, "taxa_descarga_fundo"] == None
-        assert pdo.tabela.at[0, "volume_descaga_fundo"] == None
+        assert pdo.tabela.at[0, "taxa_enchimento_volume_morto"] is None
+        assert pdo.tabela.at[0, "volume_enchimento_volume_morto"] is None
+        assert pdo.tabela.at[0, "taxa_descarga_fundo"] is None
+        assert pdo.tabela.at[0, "volume_descaga_fundo"] is None
         assert pdo.tabela.at[0, "geracao"] == 9.07
         assert pdo.tabela.at[0, "geracao_maxima"] == 46.0
         assert pdo.tabela.at[0, "geracao_minima"] == 0.0

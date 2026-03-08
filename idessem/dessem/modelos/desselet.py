@@ -76,7 +76,9 @@ class BlocoCasosBase(Section):
         for linha in self.__comentarios:
             file.write(linha)
         if not isinstance(self.data, pd.DataFrame):
-            raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do desselet.dat não foram lidos com sucesso"
+            )
         for _, lin in self.data.iterrows():
             linha_escrita = lin.tolist()
             file.write(self.__linha.write(linha_escrita))
@@ -175,7 +177,9 @@ class BlocoCasosModificacao(Section):
         for linha in self.__comentarios:
             file.write(linha)
         if not isinstance(self.data, pd.DataFrame):
-            raise ValueError("Dados do desselet.dat não foram lidos com sucesso")
+            raise ValueError(
+                "Dados do desselet.dat não foram lidos com sucesso"
+            )
         for _, lin in self.data.iterrows():
             linha_escrita = lin.tolist()
             file.write(self.__linha.write(linha_escrita))

@@ -17,9 +17,7 @@ class DataEstudo(Block):
         if not isinstance(o, DataEstudo):
             return False
         else:
-            if not all(
-                [type(self.data) is datetime, type(o.data) is datetime]
-            ):
+            if not all([type(self.data) is datetime, type(o.data) is datetime]):
                 return False
             return self.data == o.data
 

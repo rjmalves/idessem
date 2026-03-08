@@ -131,9 +131,7 @@ class BlocoCustos(Block):
                 linha.split(":")[1].strip()
             )
             linha = file.readline()
-            custo_futuro = FloatField(size=15).read(
-                linha.split(":")[1].strip()
-            )
+            custo_futuro = FloatField(size=15).read(linha.split(":")[1].strip())
 
             estagios.append(estagio)
             custos_presentes.append(custo_presente)

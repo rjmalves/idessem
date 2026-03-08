@@ -102,8 +102,6 @@ MockUchLimiteMudancaStatusVazioUsina = (
 MockUchCustoPartidaUnidade = "UCH-CUSTO-PARTIDA-UNIDADE;1;2;2;300.50"
 MockUchCustoPartidaConjunto = "UCH-CUSTO-PARTIDA-UNIDADE;1;2;300.50"
 MockUchCustoPartidaUsina = "UCH-CUSTO-PARTIDA-UNIDADE;1;300.50"
-MockUchCustoPartidaVazioUnidade = (
-    "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;2;2;100.50"
-)
+MockUchCustoPartidaVazioUnidade = "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;2;2;100.50"
 MockUchCustoPartidaVazioConjunto = "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;2;100.50"
 MockUchCustoPartidaVazioUsina = "UCH-CUSTO-PARTIDA-VAZIO-UNIDADE;1;100.50"

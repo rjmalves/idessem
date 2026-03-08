@@ -15,7 +15,7 @@ authors = [
   {name = "Rogerio Alves", email = "rogerioalves.ee@gmail.com"},
   {name = "Mariana Noel", email = "marianasimoesnoel@gmail.com"},
 ]
-description = "idessem"
+description = "Pacote Python para manipulacao dos arquivos de entrada e saida do DESSEM"
 readme = "README.md"
 license = {file = "LICENSE.md"}
 classifiers = [
@@ -23,21 +23,33 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
+    "Typing :: Typed",
 ]
 
 [project.optional-dependencies]
-dev = [
+test = [
     "pytest",
     "pytest-cov",
-    "ruff",
+    "pytest-xdist",
+]
+lint = [
     "mypy",
-    "sphinx-rtd-theme",
-    "sphinx-gallery",
-    "sphinx",
+    "pre-commit",
+    "ruff",
+]
+docs = [
+    "matplotlib",
     "numpydoc",
     "plotly",
-    "matplotlib",
+    "sphinx",
+    "sphinx-gallery",
+    "sphinx-rtd-theme",
+]
+dev = [
+    "idessem[test,lint,docs]",
 ]
 
 [project.urls]

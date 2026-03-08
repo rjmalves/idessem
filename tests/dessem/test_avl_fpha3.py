@@ -57,8 +57,7 @@ def test_tabela_avl_fpha3():
             == 241.0
         )
         assert (
-            avl.tabela.at[avl.tabela.shape[0] - 1, "vazao_lateral_m3s"]
-            == 15552
+            avl.tabela.at[avl.tabela.shape[0] - 1, "vazao_lateral_m3s"] == 15552
         )
         assert avl.tabela.at[avl.tabela.shape[0] - 1, "desvio_percentual"] == 0
 

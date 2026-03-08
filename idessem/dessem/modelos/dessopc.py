@@ -6,7 +6,6 @@ from typing import IO
 
 
 class BlocoUctPar(Block):
-
     """
     Flag para definir o número de núcleos para processamento paralelo no
     DESSEM, existente no `dessopc.dat`

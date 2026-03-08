@@ -163,8 +163,9 @@ class Entdados(RegisterFile):
             num_elementos = len(df.at[0, c])
             particoes_coluna = [f"{c}_{i}" for i in range(1, num_elementos + 1)]
             df[particoes_coluna] = df.apply(
-                lambda linha: linha[c]
-                + [np.nan] * max(0, num_elementos - len(linha[c])),
+                lambda linha: (
+                    linha[c] + [np.nan] * max(0, num_elementos - len(linha[c]))
+                ),
                 axis=1,
                 result_type="expand",
             )
