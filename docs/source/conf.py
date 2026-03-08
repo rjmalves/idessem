@@ -46,7 +46,6 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx_gallery.gen_gallery",
     "numpydoc",
-    "sphinx_rtd_theme",
 ]
 
 # generate autosummary pages
@@ -77,7 +76,8 @@ master_doc = "index"
 exclude_patterns: List[str] = []
 
 add_module_names = False
-pygments_style = "sphinx"
+pygments_style = "friendly"
+pygments_dark_style = "monokai"
 modindex_common_prefix = ["idessem."]
 
 # -- Options for HTML output -------------------------------------------------
@@ -85,15 +85,10 @@ modindex_common_prefix = ["idessem."]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
 html_theme_options = {
-    "logo_only": True,
-    # Toc options
-    "collapse_navigation": False,
-    "sticky_navigation": True,
-    "navigation_depth": 4,
-    "includehidden": True,
-    "titles_only": False,
+    "sidebar_hide_name": True,
+    "navigation_with_keys": True,
 }
 
 
