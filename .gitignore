@@ -142,3 +142,9 @@ uv.lock
 
 # vscode settings json
 .vscode
+
+# Claude Code
+.claude/
+
+# Implementation plans
+plans/
