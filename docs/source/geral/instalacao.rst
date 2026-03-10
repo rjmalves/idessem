@@ -1,43 +1,51 @@
+.. _instalacao:
+
 Instalação
-============
+==========
 
-O *idessem* é compatível com versões de Python >= 3.8. 
+O *idessem* requer Python >= 3.10. Use um `ambiente virtual <https://docs.python.org/3/library/venv.html>`_.
 
-Em posse de uma instalação local de Python, é recomendado que se use um ambiente virtual para instalação de módulos de terceiros, sendo que o *idessem* não é uma exceção.
-Para mais detalhes sobre o uso de ambientes virtuais, recomenda-se a leitura do recurso oficial de Python para ambientes virtuais: `venv <https://docs.python.org/3/library/venv.html>`_.
+.. note::
 
-Antes de prosseguir, é necessário verificar se está instalada a última versão do ``pip``, o gerenciador de pacotes de Python. Isso pode ser feito com, por exemplo::
+    O *idessem* depende de ``cfinterface>=1.8.0,<=1.8.3`` para compatibilidade com a API interna.
 
-    $ python -m pip install ---upgrade pip
+Versão Oficial
+--------------
 
+.. code-block:: bash
 
-Instalando a versão distribuída oficialmente
----------------------------------------------
+    pip install idessem
+    pip install --upgrade idessem  # atualizar
+    pip install --upgrade idessem==x.y.z  # versão específica
 
-É possível instalar a versão distribuída oficialmente com ``pip``::
+Com uv:
 
-    $ pip install idessem
+.. code-block:: bash
 
-Para atualizar para uma versão mais recente, basta adicionar a flag ``--upgrade``::
+    uv add idessem
 
-    $ pip install --upgrade idessem
+Desenvolvimento
+---------------
 
-Para instalar uma versão específica::
+Clone e instale dependências:
 
-    $ pip install --upgrade idessem==x.y.z
+.. code-block:: bash
 
-Instalando a versão de desenvolvimento
----------------------------------------
+    git clone https://github.com/rjmalves/idessem.git
+    cd idessem
+    pip install -e ".[dev]"
 
-É possível realizar a instalação desta versão fazendo o uso do `Git <https://git-scm.com/>`_. Para instalar a versão de desenvolvimento, é necessário
-primeiramente desinstalar a versão instalada (se houve), com::
+Ou com ``uv``:
 
-    $ pip uninstall idessem
+.. code-block:: bash
 
-Em seguida, basta fazer::
+    uv sync --extra dev
 
-    $ pip install git+https://github.com/rjmalves/idessem
+Consulte `CONTRIBUTING.md <https://github.com/rjmalves/idessem/blob/main/CONTRIBUTING.md>`_ para setup completo e fluxo de contribuição.
 
-Também é possível selecionar um branch ou release específicos::
+Verificar Instalação
+--------------------
 
-    $ pip install git+https://github.com/rjmalves/idessem@v1.0.0
+.. code-block:: bash
+
+    python -c "import idessem; print(idessem.__version__)"
