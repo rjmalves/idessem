@@ -5,9 +5,17 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [Nao Publicado]
 
-### Corrigido
+## [1.2.0] - 2026-03-10
 
-- Versão da dependência cfinterface fixada para `>=1.8.0,<=1.8.3`
+### Modificado
+
+- Modernização da infraestrutura de CI/CD: migração para release com OIDC trusted publishing e deploy de documentação via GitHub Pages
+- Adoção de ruff como linter e formatador, mypy em modo strict para todos os módulos
+- Adoção de pre-commit hooks para verificação automática de qualidade
+- Requisito de versão de Python atualizado para `>=3.11`, com suporte a 3.11, 3.12, 3.13 e 3.14
+- Dependências atualizadas: cfinterface `>=1.9.0`, pandas `>=3.0.0`, numpy `>=2.2.1`
+- Documentação expandida com guias de arquitetura, desempenho, FAQ e tutorial
+- README e metadados do projeto alinhados com convenções do inewave
 
 ## [1.1.0] - 2026-02-02
 
@@ -42,6 +50,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 - Correção na leitura do arquivo de entrada `renovaveis.dat` [#73](https://github.com/rjmalves/idessem/issues/73)
 
-[Nao Publicado]: https://github.com/rjmalves/idessem/compare/v1.1.0...HEAD
+[Nao Publicado]: https://github.com/rjmalves/idessem/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/rjmalves/idessem/compare/v1.1.1...v1.2.0
 [1.1.0]: https://github.com/rjmalves/idessem/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/rjmalves/idessem/releases/tag/v1.0.0
