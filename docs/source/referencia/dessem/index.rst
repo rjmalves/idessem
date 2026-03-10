@@ -3,6 +3,60 @@
 DESSEM
 =======
 
+O módulo ``idessem.dessem`` contém classes para leitura e escrita dos arquivos de entrada e saída
+do modelo DESSEM, utilizado no planejamento da operação de curto prazo do sistema elétrico
+brasileiro. Cada classe corresponde a um arquivo específico do modelo e oferece métodos para
+leitura, manipulação e escrita dos dados.
+
+.. currentmodule:: idessem.dessem
+
+.. autosummary::
+   :nosignatures:
+
+   Areacont
+   AvlAltQueda
+   AvlDesvFpha
+   AvlEstatFpha
+   AvlFpha1
+   AvlFpha2
+   AvlFpha3
+   Dadvaz
+   Deflant
+   DesLogRelato
+   Desselet
+   DessemArq
+   Dessopc
+   Entdados
+   Hidr
+   LogInviab
+   LogMatriz
+   Operuh
+   Operut
+   PdoAvalQmaxUsih
+   PdoCmoBar
+   PdoEcoFcfCortes
+   PdoEcoUsih
+   PdoEcoUsihConj
+   PdoEcoUsihPolin
+   PdoEolica
+   PdoHidr
+   PdoInter
+   PdoOperLpp
+   PdoOperTerm
+   PdoOperTitulacaoContratos
+   PdoOperTitulacaoUsinas
+   PdoOperTviagCalha
+   PdoOperUct
+   PdoOperacao
+   PdoReserva
+   PdoSist
+   PdoSomFlux
+   PdoTerm
+   Renovaveis
+   Respot
+   Term
+   Uch
+
 .. toctree::
    :maxdepth: 2
 
@@ -49,5 +103,5 @@ DESSEM
    arquivos/pdo_term
    arquivos/renovaveis
    arquivos/respot
-   arquivos/termdat  
+   arquivos/termdat
    arquivos/uch
