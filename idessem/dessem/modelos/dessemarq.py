@@ -30,7 +30,7 @@ class RegistroCaso(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -44,7 +44,7 @@ class RegistroCaso(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -74,7 +74,7 @@ class RegistroTitulo(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -88,7 +88,7 @@ class RegistroTitulo(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -118,7 +118,7 @@ class RegistroVazoes(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -132,7 +132,7 @@ class RegistroVazoes(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -162,7 +162,7 @@ class RegistroDadger(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -176,7 +176,7 @@ class RegistroDadger(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -206,7 +206,7 @@ class RegistroMapfcf(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -220,7 +220,7 @@ class RegistroMapfcf(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -250,7 +250,7 @@ class RegistroCortfcf(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -264,7 +264,7 @@ class RegistroCortfcf(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -294,7 +294,7 @@ class RegistroCadusih(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -308,7 +308,7 @@ class RegistroCadusih(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -338,7 +338,7 @@ class RegistroOperuh(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -352,7 +352,7 @@ class RegistroOperuh(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -382,7 +382,7 @@ class RegistroDeflant(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -396,7 +396,7 @@ class RegistroDeflant(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -426,7 +426,7 @@ class RegistroCadterm(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -440,7 +440,7 @@ class RegistroCadterm(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -470,7 +470,7 @@ class RegistroOperut(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -484,7 +484,7 @@ class RegistroOperut(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -514,7 +514,7 @@ class RegistroIndelet(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -528,7 +528,7 @@ class RegistroIndelet(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -558,7 +558,7 @@ class RegistroIlstri(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -572,7 +572,7 @@ class RegistroIlstri(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -602,7 +602,7 @@ class RegistroCotasR11(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -616,7 +616,7 @@ class RegistroCotasR11(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -646,7 +646,7 @@ class RegistroSimul(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -660,7 +660,7 @@ class RegistroSimul(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -690,7 +690,7 @@ class RegistroAreacont(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -704,7 +704,7 @@ class RegistroAreacont(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -734,7 +734,7 @@ class RegistroRespot(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -748,7 +748,7 @@ class RegistroRespot(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -778,7 +778,7 @@ class RegistroMlt(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -792,7 +792,7 @@ class RegistroMlt(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -822,7 +822,7 @@ class RegistroTolperd(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -836,7 +836,7 @@ class RegistroTolperd(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -866,7 +866,7 @@ class RegistroCurvtviag(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -880,7 +880,7 @@ class RegistroCurvtviag(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -910,7 +910,7 @@ class RegistroPtoper(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -924,7 +924,7 @@ class RegistroPtoper(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -954,7 +954,7 @@ class RegistroInfofcf(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -968,7 +968,7 @@ class RegistroInfofcf(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -998,7 +998,7 @@ class RegistroMetas(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1012,7 +1012,7 @@ class RegistroMetas(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1042,7 +1042,7 @@ class RegistroREE(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1056,7 +1056,7 @@ class RegistroREE(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1086,7 +1086,7 @@ class RegistroEolica(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1100,7 +1100,7 @@ class RegistroEolica(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1130,7 +1130,7 @@ class RegistroRampas(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1144,7 +1144,7 @@ class RegistroRampas(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1174,7 +1174,7 @@ class RegistroRstlpp(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1188,7 +1188,7 @@ class RegistroRstlpp(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1218,7 +1218,7 @@ class RegistroRestseg(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1232,7 +1232,7 @@ class RegistroRestseg(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1262,7 +1262,7 @@ class RegistroRespotele(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1276,7 +1276,7 @@ class RegistroRespotele(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1306,7 +1306,7 @@ class RegistroIlibs(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1320,7 +1320,7 @@ class RegistroIlibs(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1350,7 +1350,7 @@ class RegistroUch(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1364,7 +1364,7 @@ class RegistroUch(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c
 
 
@@ -1394,7 +1394,7 @@ class RegistroDessopc(Register):
         return self.data[0].strip()
 
     @descricao.setter
-    def descricao(self, c: str):
+    def descricao(self, c: str) -> None:
         self.data[0] = c
 
     @property
@@ -1408,5 +1408,5 @@ class RegistroDessopc(Register):
         return self.data[1].strip()
 
     @valor.setter
-    def valor(self, c: str):
+    def valor(self, c: str) -> None:
         self.data[1] = c

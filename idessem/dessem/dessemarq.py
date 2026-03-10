@@ -34,7 +34,7 @@ from idessem.dessem.modelos.dessemarq import (
 )
 
 from cfinterface.files.registerfile import RegisterFile
-from typing import Optional, TypeVar
+from typing import Any, Optional, TypeVar
 
 
 class DessemArq(RegisterFile):
@@ -85,7 +85,7 @@ class DessemArq(RegisterFile):
         RegistroDessopc,
     ]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     @property

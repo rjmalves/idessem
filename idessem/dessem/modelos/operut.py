@@ -1,7 +1,7 @@
-from typing import IO, Dict, List
+from typing import Any, IO, Dict, List
 
-import numpy as np  # type: ignore
-import pandas as pd  # type: ignore
+import numpy as np
+import pandas as pd  # type: ignore[import-untyped]
 from cfinterface.components.block import Block
 from cfinterface.components.floatfield import FloatField
 from cfinterface.components.integerfield import IntegerField
@@ -20,7 +20,9 @@ class BlocoInitUT(Block):
     BEGIN_PATTERN = r"^INIT"
     END_PATTERN = r"FIM"
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -70,7 +72,7 @@ class BlocoInitUT(Block):
             )
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def converte_tabela_em_df() -> pd.DataFrame:
             cols = [
                 "codigo_usina",
@@ -110,7 +112,7 @@ class BlocoInitUT(Block):
             linha = file.readline()
             # Confere se terminou o bloco
             if BlocoInitUT.END_PATTERN in linha[:4]:
-                tabela = tabela[:indice_linha, :]  # type: ignore
+                tabela = tabela[:indice_linha, :]
                 df = converte_tabela_em_df()
                 self.data = [comentarios, df]
                 break
@@ -127,7 +129,7 @@ class BlocoInitUT(Block):
                 indice_linha += 1
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         if not isinstance(self.data, list):
             raise ValueError("Dados do operut.dat não foram lidos com sucesso")
 
@@ -152,7 +154,9 @@ class BlocoOper(Block):
     BEGIN_PATTERN = r"^OPER"
     END_PATTERN = r"FIM"
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -220,7 +224,7 @@ class BlocoOper(Block):
             )
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def converte_tabela_em_df() -> pd.DataFrame:
             cols = [
                 "codigo_usina",
@@ -260,7 +264,7 @@ class BlocoOper(Block):
             linha = file.readline()
             # Confere se terminou o bloco
             if BlocoOper.END_PATTERN in linha[:4]:
-                tabela = tabela[:indice_linha, :]  # type: ignore
+                tabela = tabela[:indice_linha, :]
                 df = converte_tabela_em_df()
                 self.data = [comentarios, df]
                 break
@@ -277,7 +281,7 @@ class BlocoOper(Block):
                 indice_linha += 1
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         if not isinstance(self.data, list):
             raise ValueError("Dados do operut.dat não foram lidos com sucesso")
 
@@ -308,7 +312,9 @@ class BlocoUctPar(Block):
     BEGIN_PATTERN = r"^UCTPAR"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -331,10 +337,10 @@ class BlocoUctPar(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["UCTPAR", self.data]))
 
 
@@ -348,7 +354,9 @@ class BlocoUcTerm(Block):
     BEGIN_PATTERN = r"^UCTERM"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -371,10 +379,10 @@ class BlocoUcTerm(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["UCTERM", self.data]))
 
 
@@ -387,17 +395,19 @@ class BlocoPint(Block):
     BEGIN_PATTERN = r"^PINT"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line([LiteralField(4, 0)])
 
     def __eq__(self, o: object) -> bool:
         return isinstance(o, BlocoPint)
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[0]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["PINT"]))
 
 
@@ -410,7 +420,9 @@ class BlocoRegraNPTV(Block):
     BEGIN_PATTERN = r"^REGRANPTV"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -434,10 +446,10 @@ class BlocoRegraNPTV(Block):
         else:
             return all([x == y for x, y in zip(self.data, o.data)])
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1:]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["REGRANPTV"] + self.data))
 
 
@@ -450,7 +462,9 @@ class BlocoAvlCmo(Block):
     BEGIN_PATTERN = r"^AVLCMO"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -473,10 +487,10 @@ class BlocoAvlCmo(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["AVLCMO", self.data]))
 
 
@@ -489,17 +503,19 @@ class BlocoCplexLog(Block):
     BEGIN_PATTERN = r"^CPLEXLOG"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line([LiteralField(8, 0)])
 
     def __eq__(self, o: object) -> bool:
         return isinstance(o, BlocoCplexLog)
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[0]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["CPLEXLOG"]))
 
 
@@ -512,17 +528,19 @@ class BlocoUctBusLoc(Block):
     BEGIN_PATTERN = r"^UCTBUSLOC"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line([LiteralField(9, 0)])
 
     def __eq__(self, o: object) -> bool:
         return isinstance(o, BlocoUctBusLoc)
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[0]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["UCTBUSLOC"]))
 
 
@@ -535,7 +553,9 @@ class BlocoUctHeurFp(Block):
     BEGIN_PATTERN = r"^UCTHEURFP"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -559,10 +579,10 @@ class BlocoUctHeurFp(Block):
         else:
             return all([x == y for x, y in zip(self.data, o.data)])
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1:]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["UCTHEURFP"] + self.data))
 
 
@@ -575,7 +595,9 @@ class BlocoConstDados(Block):
     BEGIN_PATTERN = r"^CONSTDADOS"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -598,10 +620,10 @@ class BlocoConstDados(Block):
         else:
             return all([x == y for x, y in zip(self.data, o.data)])
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1:]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["CONSTDADOS"] + self.data))
 
 
@@ -614,7 +636,9 @@ class BlocoAjusteFcf(Block):
     BEGIN_PATTERN = r"^AJUSTEFCF"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -638,10 +662,10 @@ class BlocoAjusteFcf(Block):
         else:
             return all([x == y for x, y in zip(self.data, o.data)])
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1:]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["AJUSTEFCF"] + self.data))
 
 
@@ -654,7 +678,9 @@ class BlocoTolerIlh(Block):
     BEGIN_PATTERN = r"^TOLERILH"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -677,10 +703,10 @@ class BlocoTolerIlh(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["TOLERILH", self.data]))
 
 
@@ -693,7 +719,9 @@ class BlocoCrossover(Block):
     BEGIN_PATTERN = r"^CROSSOVER"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -719,10 +747,10 @@ class BlocoCrossover(Block):
         else:
             return all([x == y for x, y in zip(self.data, o.data)])
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1:]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["CROSSOVER"] + self.data))
 
 
@@ -735,7 +763,9 @@ class BlocoEngolimento(Block):
     BEGIN_PATTERN = r"^ENGOLIMENTO"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -758,10 +788,10 @@ class BlocoEngolimento(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["ENGOLIMENTO", self.data]))
 
 
@@ -775,7 +805,9 @@ class BlocoTrataInviabIlha(Block):
     BEGIN_PATTERN = r"^TRATA_INVIAB_ILHA"
     END_PATTERN = ""
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -798,8 +830,8 @@ class BlocoTrataInviabIlha(Block):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         self.data = self.__linha.read(file.readline())[1]
 
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         file.write(self.__linha.write(["TRATA_INVIAB_ILHA", self.data]))

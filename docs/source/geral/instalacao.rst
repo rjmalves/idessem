@@ -3,14 +3,11 @@
 Instalação
 ============
 
-O *idessem* é compatível com versões de Python >= 3.10 (testado em 3.10, 3.11 e 3.12).
+O *idessem* é compatível com versões de Python >= 3.11 (testado em 3.11, 3.12, 3.13 e 3.14).
 
 Em posse de uma instalação local de Python, é recomendado que se use um ambiente virtual para instalação de módulos de terceiros, sendo que o *idessem* não é uma exceção.
 Para mais detalhes sobre o uso de ambientes virtuais, recomenda-se a leitura do recurso oficial de Python para ambientes virtuais: `venv <https://docs.python.org/3/library/venv.html>`_.
 
-.. note::
-
-    O *idessem* depende de ``cfinterface>=1.8.0,<=1.8.3`` para compatibilidade com a API interna.
 
 Instalando com pip
 ------------------

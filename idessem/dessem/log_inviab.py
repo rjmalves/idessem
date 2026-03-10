@@ -4,6 +4,8 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
 )
 from idessem.dessem.modelos.log_inviab import TabelaLogInviab
+import pandas as pd  # type: ignore
+from typing import Optional
 
 
 class LogInviab(ArquivoCSV):
@@ -17,7 +19,7 @@ class LogInviab(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referentes aos custos marginais de
         operação por barra.

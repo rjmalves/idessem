@@ -151,7 +151,7 @@ class Entdados(RegisterFile):
         ACPOTEFE,
     ]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     def __expande_colunas_df(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -173,7 +173,7 @@ class Entdados(RegisterFile):
         return df
 
     def __registros_ou_df(
-        self, t: Type[T], **kwargs
+        self, t: Type[T], **kwargs: Any
     ) -> Optional[Union[T, List[T], pd.DataFrame]]:
         if kwargs.get("df"):
             return self.__expande_colunas_df(self._as_df(t))
@@ -673,7 +673,7 @@ class Entdados(RegisterFile):
         codigo_usina: int,
         modificacao: Any,
         df: bool = False,
-        **kwargs,
+        **kwargs: Any,
     ) -> Optional[Union[AC, List[AC], pd.DataFrame]]:
         """
         Obtém um registro que define modificações nos parâmetros

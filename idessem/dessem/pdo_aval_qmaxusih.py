@@ -7,6 +7,8 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
     ArquivoCSV,
 )
+import pandas as pd  # type: ignore
+from typing import Optional
 
 
 class PdoAvalQmaxUsih(ArquivoCSV):
@@ -25,7 +27,7 @@ class PdoAvalQmaxUsih(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a operação das unidades hidráulicas.
 

@@ -6,11 +6,11 @@ build-backend = "hatchling.build"
 name = "idessem"
 dynamic = ["version"]
 dependencies = [
-    "cfinterface>=1.8.0,<=1.8.3",
+    "cfinterface>=1.9.0",
     "numpy>=2.2.1",
-    "pandas>=2.2.3",
+    "pandas>=3.0.0",
 ]
-requires-python = ">= 3.10"
+requires-python = ">= 3.11"
 authors = [
   {name = "Rogerio Alves", email = "rogerioalves.ee@gmail.com"},
   {name = "Mariana Noel", email = "marianasimoesnoel@gmail.com"},
@@ -22,9 +22,10 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
     "Typing :: Typed",
 ]
@@ -67,6 +68,11 @@ include = [
 [tool.mypy]
 warn_return_any = false
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["idessem", "idessem.dessem", "idessem.dessem.*", "idessem._utils.*", "idessem.libs.*"]
+strict = true
+warn_return_any = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

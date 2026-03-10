@@ -6,7 +6,7 @@ Obrigado pelo interesse em contribuir com o _idessem_! Este guia descreve o flux
 
 ### Pré-requisitos
 
-- Python 3.10 ou superior
+- Python 3.11 ou superior
 - [uv](https://docs.astral.sh/uv/) (gerenciador de pacotes e ambientes)
 - Git
 
@@ -112,7 +112,7 @@ Para gerar um relatório XML (formato utilizado no CI para envio ao Codecov):
 $ uv run pytest --cov-report=xml --cov=idessem ./tests
 ```
 
-O CI executa os testes em matriz para Python 3.10, 3.11 e 3.12. Recomenda-se testar localmente na versão mais antiga suportada (3.10) caso haja dúvidas sobre compatibilidade.
+O CI executa os testes em matriz para Python 3.11, 3.12, 3.13 e 3.14. Recomenda-se testar localmente na versão mais antiga suportada (3.11) caso haja dúvidas sobre compatibilidade.
 
 ---
 
@@ -180,6 +180,6 @@ Para uma descrição completa do framework com referências cruzadas à API do c
    $ git push origin minha-contribuicao
    ```
 7. **Abra um Pull Request** para a branch `main` do repositório original.
-8. **Aguarde o CI**: os jobs de lint, typecheck, test (Python 3.10–3.12) e docs devem passar antes da revisão.
+8. **Aguarde o CI**: os jobs de lint, typecheck, test (Python 3.11–3.14) e docs devem passar antes da revisão.
 
 Dúvidas ou sugestões podem ser abertas como [Issues](https://github.com/rjmalves/idessem/issues) no repositório.

@@ -8,7 +8,7 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
 )
 from cfinterface.files.blockfile import BlockFile
-from typing import Optional, Type, TypeVar
+from typing import Any, Optional, Type, TypeVar
 from datetime import datetime
 import pandas as pd  # type: ignore
 from cfinterface.components.block import Block
@@ -31,7 +31,7 @@ class PdoOperacao(BlockFile):
     ENCODING = "iso-8859-1"
     T = TypeVar("T")
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
         self.__custos_operacao = None
 
