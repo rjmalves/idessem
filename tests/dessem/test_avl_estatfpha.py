@@ -2,7 +2,7 @@ from idessem.dessem.avl_estatfpha import AvlEstatFpha
 from idessem.dessem.modelos.avl_estatfpha import (
     BlocoDesvios,
 )
-from datetime import datetime, timedelta
+from datetime import datetime
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
 from tests.mocks.arquivos.avl_estatfpha import (

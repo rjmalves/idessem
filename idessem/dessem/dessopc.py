@@ -16,7 +16,7 @@ from idessem.dessem.modelos.dessopc import (
 )
 
 from cfinterface.files.blockfile import BlockFile
-from typing import TypeVar, Optional, List
+from typing import Any, TypeVar, Optional, List
 
 
 class Dessopc(BlockFile):
@@ -44,7 +44,7 @@ class Dessopc(BlockFile):
         BlocoEngolimento,
     ]
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
 
     @property
@@ -61,7 +61,7 @@ class Dessopc(BlockFile):
         return None
 
     @uctpar.setter
-    def uctpar(self, valor: int):
+    def uctpar(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoUctPar)
         if isinstance(b, BlocoUctPar):
             b.data = valor
@@ -82,7 +82,7 @@ class Dessopc(BlockFile):
         return None
 
     @ucterm.setter
-    def ucterm(self, valor: int):
+    def ucterm(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoUcTerm)
         if isinstance(b, BlocoUcTerm):
             b.data = valor
@@ -117,7 +117,7 @@ class Dessopc(BlockFile):
         return None
 
     @regranptv.setter
-    def regranptv(self, valor: List[int]):
+    def regranptv(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoRegraNPTV)
         if isinstance(b, BlocoRegraNPTV):
             b.data = valor
@@ -138,7 +138,7 @@ class Dessopc(BlockFile):
         return None
 
     @avlcmo.setter
-    def avlcmo(self, valor: int):
+    def avlcmo(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoAvlCmo)
         if isinstance(b, BlocoAvlCmo):
             b.data = valor
@@ -186,7 +186,7 @@ class Dessopc(BlockFile):
         return None
 
     @uctheurfp.setter
-    def uctheurfp(self, valor: List[int]):
+    def uctheurfp(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoUctHeurFp)
         if isinstance(b, BlocoUctHeurFp):
             b.data = valor
@@ -207,7 +207,7 @@ class Dessopc(BlockFile):
         return None
 
     @constdados.setter
-    def constdados(self, valor: List[int]):
+    def constdados(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoConstDados)
         if isinstance(b, BlocoConstDados):
             b.data = valor
@@ -228,7 +228,7 @@ class Dessopc(BlockFile):
         return None
 
     @ajustefcf.setter
-    def ajustefcf(self, valor: List[int]):
+    def ajustefcf(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoAjusteFcf)
         if isinstance(b, BlocoAjusteFcf):
             b.data = valor
@@ -249,7 +249,7 @@ class Dessopc(BlockFile):
         return None
 
     @tolerilh.setter
-    def tolerilh(self, valor: int):
+    def tolerilh(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoTolerIlh)
         if isinstance(b, BlocoTolerIlh):
             b.data = valor
@@ -271,7 +271,7 @@ class Dessopc(BlockFile):
         return None
 
     @crossover.setter
-    def crossover(self, valor: List[int]):
+    def crossover(self, valor: List[int]) -> None:
         b = self.data.get_blocks_of_type(BlocoCrossover)
         if isinstance(b, BlocoCrossover):
             b.data = valor
@@ -292,7 +292,7 @@ class Dessopc(BlockFile):
         return None
 
     @engolimento.setter
-    def engolimento(self, valor: int):
+    def engolimento(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoEngolimento)
         if isinstance(b, BlocoEngolimento):
             b.data = valor
@@ -313,7 +313,7 @@ class Dessopc(BlockFile):
         return None
 
     @tratainviabilha.setter
-    def tratainviabilha(self, valor: int):
+    def tratainviabilha(self, valor: int) -> None:
         b = self.data.get_blocks_of_type(BlocoTrataInviabIlha)
         if isinstance(b, BlocoTrataInviabIlha):
             b.data = valor

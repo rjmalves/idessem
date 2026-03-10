@@ -6,6 +6,7 @@ from cfinterface.components.floatfield import FloatField
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 from typing import Optional, Union
 
+
 class RP(Register):
     """
     Registro que contém as áreas e janela de tempo para consideração das
@@ -19,7 +20,7 @@ class RP(Register):
             IntegerField(3, 4),
             StageDateField(starting_position=9, special_day_character="I"),
             StageDateField(starting_position=17, special_day_character="F"),
-            LiteralField(40,30)
+            LiteralField(40, 30),
         ]
     )
 
@@ -34,9 +35,8 @@ class RP(Register):
         return self.data[0]
 
     @codigo_area.setter
-    def codigo_area(self, u: int):
+    def codigo_area(self, u: int) -> None:
         self.data[0] = u
-
 
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
@@ -50,7 +50,7 @@ class RP(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -64,7 +64,7 @@ class RP(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -78,7 +78,7 @@ class RP(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -93,7 +93,7 @@ class RP(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -107,7 +107,7 @@ class RP(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -121,7 +121,7 @@ class RP(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -135,8 +135,9 @@ class RP(Register):
         return self.data[3]
 
     @descricao.setter
-    def descricao(self, cod: str):
+    def descricao(self, cod: str) -> None:
         self.data[3] = cod
+
 
 class LM(Register):
     """
@@ -150,7 +151,7 @@ class LM(Register):
             IntegerField(3, 4),
             StageDateField(starting_position=9, special_day_character="I"),
             StageDateField(starting_position=17, special_day_character="F"),
-            FloatField(10,25,2)
+            FloatField(10, 25, 2),
         ]
     )
 
@@ -165,9 +166,8 @@ class LM(Register):
         return self.data[0]
 
     @codigo_area.setter
-    def codigo_area(self, u: int):
+    def codigo_area(self, u: int) -> None:
         self.data[0] = u
-
 
     @property
     def dia_inicial(self) -> Optional[Union[str, int]]:
@@ -181,7 +181,7 @@ class LM(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -195,7 +195,7 @@ class LM(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -209,7 +209,7 @@ class LM(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -224,7 +224,7 @@ class LM(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -238,7 +238,7 @@ class LM(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -252,7 +252,7 @@ class LM(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -266,5 +266,5 @@ class LM(Register):
         return self.data[3]
 
     @limite_inferior.setter
-    def limite_inferior(self, cod: float):
+    def limite_inferior(self, cod: float) -> None:
         self.data[3] = cod

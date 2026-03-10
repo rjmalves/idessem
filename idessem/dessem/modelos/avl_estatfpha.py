@@ -1,5 +1,5 @@
 from cfinterface.components.block import Block
-from typing import List, IO
+from typing import Any, List, IO
 import pandas as pd  # type: ignore
 
 
@@ -27,7 +27,7 @@ class BlocoDesvios(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(data={"variavel": variavel, "valor": valores})
             return df

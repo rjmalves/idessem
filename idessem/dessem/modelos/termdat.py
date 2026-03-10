@@ -38,7 +38,7 @@ class CADUSIT(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -52,7 +52,7 @@ class CADUSIT(Register):
         return self.data[1]
 
     @nome_usina.setter
-    def nome_usina(self, c: str):
+    def nome_usina(self, c: str) -> None:
         self.data[1] = c
 
     @property
@@ -66,7 +66,7 @@ class CADUSIT(Register):
         return self.data[2]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, c: int):
+    def codigo_submercado(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -80,7 +80,7 @@ class CADUSIT(Register):
         return self.data[3]
 
     @ano_operacao.setter
-    def ano_operacao(self, c: int):
+    def ano_operacao(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -94,7 +94,7 @@ class CADUSIT(Register):
         return self.data[4]
 
     @mes_operacao.setter
-    def mes_operacao(self, c: int):
+    def mes_operacao(self, c: int) -> None:
         self.data[4] = c
 
     @property
@@ -108,7 +108,7 @@ class CADUSIT(Register):
         return self.data[5]
 
     @dia_operacao.setter
-    def dia_operacao(self, c: int):
+    def dia_operacao(self, c: int) -> None:
         self.data[5] = c
 
     @property
@@ -122,7 +122,7 @@ class CADUSIT(Register):
         return self.data[6]
 
     @hora_operacao.setter
-    def hora_operacao(self, c: int):
+    def hora_operacao(self, c: int) -> None:
         self.data[6] = c
 
     @property
@@ -136,7 +136,7 @@ class CADUSIT(Register):
         return self.data[7]
 
     @meia_hora_operacao.setter
-    def meia_hora_operacao(self, c: int):
+    def meia_hora_operacao(self, c: int) -> None:
         self.data[7] = c
 
     @property
@@ -150,7 +150,7 @@ class CADUSIT(Register):
         return self.data[8]
 
     @numero_unidades.setter
-    def numero_unidades(self, c: int):
+    def numero_unidades(self, c: int) -> None:
         self.data[8] = c
 
 
@@ -197,7 +197,7 @@ class CADUNIDT(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -211,7 +211,7 @@ class CADUNIDT(Register):
         return self.data[1]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -225,7 +225,7 @@ class CADUNIDT(Register):
         return self.data[2]
 
     @ano_operacao.setter
-    def ano_operacao(self, c: int):
+    def ano_operacao(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -239,7 +239,7 @@ class CADUNIDT(Register):
         return self.data[3]
 
     @mes_operacao.setter
-    def mes_operacao(self, c: int):
+    def mes_operacao(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -253,7 +253,7 @@ class CADUNIDT(Register):
         return self.data[4]
 
     @dia_operacao.setter
-    def dia_operacao(self, c: int):
+    def dia_operacao(self, c: int) -> None:
         self.data[4] = c
 
     @property
@@ -267,7 +267,7 @@ class CADUNIDT(Register):
         return self.data[5]
 
     @hora_operacao.setter
-    def hora_operacao(self, c: int):
+    def hora_operacao(self, c: int) -> None:
         self.data[5] = c
 
     @property
@@ -281,7 +281,7 @@ class CADUNIDT(Register):
         return self.data[6]
 
     @meia_hora_operacao.setter
-    def meia_hora_operacao(self, c: int):
+    def meia_hora_operacao(self, c: int) -> None:
         self.data[6] = c
 
     @property
@@ -295,7 +295,7 @@ class CADUNIDT(Register):
         return self.data[7]
 
     @capacidade_geracao.setter
-    def capacidade_geracao(self, c: float):
+    def capacidade_geracao(self, c: float) -> None:
         self.data[7] = c
 
     @property
@@ -309,7 +309,7 @@ class CADUNIDT(Register):
         return self.data[8]
 
     @geracao_minima.setter
-    def geracao_minima(self, c: float):
+    def geracao_minima(self, c: float) -> None:
         self.data[8] = c
 
     @property
@@ -323,7 +323,7 @@ class CADUNIDT(Register):
         return self.data[9]
 
     @tempo_on.setter
-    def tempo_on(self, c: int):
+    def tempo_on(self, c: int) -> None:
         self.data[9] = c
 
     @property
@@ -337,7 +337,7 @@ class CADUNIDT(Register):
         return self.data[10]
 
     @tempo_off.setter
-    def tempo_off(self, c: int):
+    def tempo_off(self, c: int) -> None:
         self.data[10] = c
 
     @property
@@ -351,7 +351,7 @@ class CADUNIDT(Register):
         return self.data[11]
 
     @custo_acionamento_frio.setter
-    def custo_acionamento_frio(self, c: float):
+    def custo_acionamento_frio(self, c: float) -> None:
         self.data[11] = c
 
     @property
@@ -365,7 +365,7 @@ class CADUNIDT(Register):
         return self.data[12]
 
     @custo_acionamento_quente.setter
-    def custo_acionamento_quente(self, c: float):
+    def custo_acionamento_quente(self, c: float) -> None:
         self.data[12] = c
 
     @property
@@ -379,7 +379,7 @@ class CADUNIDT(Register):
         return self.data[13]
 
     @rampa_subida.setter
-    def rampa_subida(self, c: float):
+    def rampa_subida(self, c: float) -> None:
         self.data[13] = c
 
     @property
@@ -393,7 +393,7 @@ class CADUNIDT(Register):
         return self.data[14]
 
     @rampa_descida.setter
-    def rampa_descida(self, c: float):
+    def rampa_descida(self, c: float) -> None:
         self.data[14] = c
 
     @property
@@ -408,7 +408,7 @@ class CADUNIDT(Register):
         return self.data[15]
 
     @geracao_maxima_ou_minima.setter
-    def geracao_maxima_ou_minima(self, c: int):
+    def geracao_maxima_ou_minima(self, c: int) -> None:
         self.data[15] = c
 
     @property
@@ -423,7 +423,7 @@ class CADUNIDT(Register):
         return self.data[16]
 
     @numero_maximo_oscilacoes.setter
-    def numero_maximo_oscilacoes(self, c: int):
+    def numero_maximo_oscilacoes(self, c: int) -> None:
         self.data[16] = c
 
     @property
@@ -438,7 +438,7 @@ class CADUNIDT(Register):
         return self.data[17]
 
     @unidades_equivalentes.setter
-    def unidades_equivalentes(self, c: int):
+    def unidades_equivalentes(self, c: int) -> None:
         self.data[17] = c
 
     @property
@@ -452,7 +452,7 @@ class CADUNIDT(Register):
         return self.data[18]
 
     @rampa_transicao.setter
-    def rampa_transicao(self, c: float):
+    def rampa_transicao(self, c: float) -> None:
         self.data[18] = c
 
 
@@ -482,7 +482,7 @@ class CADCONF(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -496,7 +496,7 @@ class CADCONF(Register):
         return self.data[1]
 
     @codigo_unidade_equivalente.setter
-    def codigo_unidade_equivalente(self, c: int):
+    def codigo_unidade_equivalente(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -511,7 +511,7 @@ class CADCONF(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
 
@@ -542,7 +542,7 @@ class CADMIN(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -556,7 +556,7 @@ class CADMIN(Register):
         return self.data[1]
 
     @codigo_unidade_equivalente.setter
-    def codigo_unidade_equivalente(self, c: int):
+    def codigo_unidade_equivalente(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -571,5 +571,5 @@ class CADMIN(Register):
         return self.data[2]
 
     @numero_minimo_unidades.setter
-    def numero_minimo_unidades(self, c: int):
+    def numero_minimo_unidades(self, c: int) -> None:
         self.data[2] = c

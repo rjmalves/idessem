@@ -1970,9 +1970,7 @@ def test_campos_encontrados_entdados():
 
     assert d.rd is not None
     assert d.rivar(999) is not None
-    assert (
-        d.tm(dia_inicial=11, hora_inicial=0, meia_hora_inicial=1) is not None
-    )
+    assert d.tm(dia_inicial=11, hora_inicial=0, meia_hora_inicial=1) is not None
     assert d.sist(1) is not None
     assert d.ree(1) is not None
     assert d.uh(1) is not None

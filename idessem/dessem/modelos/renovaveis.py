@@ -38,7 +38,7 @@ class EOLICA(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, cod: int):
+    def codigo_usina(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -52,7 +52,7 @@ class EOLICA(Register):
         return self.data[1]
 
     @nome_usina.setter
-    def nome_usina(self, n: str):
+    def nome_usina(self, n: str) -> None:
         self.data[1] = n
 
     @property
@@ -66,7 +66,7 @@ class EOLICA(Register):
         return self.data[2]
 
     @potencia_maxima.setter
-    def potencia_maxima(self, p: float):
+    def potencia_maxima(self, p: float) -> None:
         self.data[2] = p
 
     @property
@@ -80,7 +80,7 @@ class EOLICA(Register):
         return self.data[3]
 
     @fator_capacidade.setter
-    def fator_capacidade(self, p: float):
+    def fator_capacidade(self, p: float) -> None:
         self.data[3] = p
 
     @property
@@ -95,7 +95,7 @@ class EOLICA(Register):
         return self.data[4]
 
     @constrained_off.setter
-    def constrained_off(self, p: int):
+    def constrained_off(self, p: int) -> None:
         self.data[4] = p
 
 
@@ -127,7 +127,7 @@ class EOLICABARRA(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, cod: int):
+    def codigo_usina(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -142,7 +142,7 @@ class EOLICABARRA(Register):
         return self.data[1]
 
     @codigo_barra.setter
-    def codigo_barra(self, n: int):
+    def codigo_barra(self, n: int) -> None:
         self.data[1] = n
 
 
@@ -173,7 +173,7 @@ class EOLICASUBM(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, cod: int):
+    def codigo_usina(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -187,7 +187,7 @@ class EOLICASUBM(Register):
         return self.data[1]
 
     @submercado.setter
-    def submercado(self, n: str):
+    def submercado(self, n: str) -> None:
         self.data[1] = n
 
 
@@ -225,7 +225,7 @@ class EOLICAGERACAO(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, cod: int):
+    def codigo_usina(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -239,7 +239,7 @@ class EOLICAGERACAO(Register):
         return self.data[1]
 
     @dia_inicio.setter
-    def dia_inicio(self, n: int):
+    def dia_inicio(self, n: int) -> None:
         self.data[1] = n
 
     @property
@@ -253,7 +253,7 @@ class EOLICAGERACAO(Register):
         return self.data[2]
 
     @hora_inicio.setter
-    def hora_inicio(self, n: int):
+    def hora_inicio(self, n: int) -> None:
         self.data[2] = n
 
     @property
@@ -268,7 +268,7 @@ class EOLICAGERACAO(Register):
         return self.data[3]
 
     @meia_hora_inicio.setter
-    def meia_hora_inicio(self, n: int):
+    def meia_hora_inicio(self, n: int) -> None:
         self.data[3] = n
 
     @property
@@ -282,7 +282,7 @@ class EOLICAGERACAO(Register):
         return self.data[4]
 
     @dia_fim.setter
-    def dia_fim(self, n: int):
+    def dia_fim(self, n: int) -> None:
         self.data[4] = n
 
     @property
@@ -296,7 +296,7 @@ class EOLICAGERACAO(Register):
         return self.data[5]
 
     @hora_fim.setter
-    def hora_fim(self, n: int):
+    def hora_fim(self, n: int) -> None:
         self.data[5] = n
 
     @property
@@ -311,7 +311,7 @@ class EOLICAGERACAO(Register):
         return self.data[6]
 
     @meia_hora_fim.setter
-    def meia_hora_fim(self, n: int):
+    def meia_hora_fim(self, n: int) -> None:
         self.data[6] = n
 
     @property
@@ -326,5 +326,5 @@ class EOLICAGERACAO(Register):
         return self.data[7]
 
     @geracao.setter
-    def geracao(self, n: float):
+    def geracao(self, n: float) -> None:
         self.data[7] = n

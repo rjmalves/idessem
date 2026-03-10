@@ -39,7 +39,7 @@ class REST(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -53,7 +53,7 @@ class REST(Register):
         return self.data[1]
 
     @tipo_restricao.setter
-    def tipo_restricao(self, c: str):
+    def tipo_restricao(self, c: str) -> None:
         self.data[1] = c
 
     @property
@@ -67,7 +67,7 @@ class REST(Register):
         return self.data[2]
 
     @intervalo_aplicacao.setter
-    def intervalo_aplicacao(self, c: str):
+    def intervalo_aplicacao(self, c: str) -> None:
         self.data[2] = c
 
     @property
@@ -81,7 +81,7 @@ class REST(Register):
         return self.data[3]
 
     @justificativa.setter
-    def justificativa(self, c: str):
+    def justificativa(self, c: str) -> None:
         self.data[3] = c
 
     @property
@@ -96,7 +96,7 @@ class REST(Register):
         return self.data[4]
 
     @valor_inicial.setter
-    def valor_inicial(self, c: float):
+    def valor_inicial(self, c: float) -> None:
         self.data[4] = c
 
     @property
@@ -110,7 +110,7 @@ class REST(Register):
         return self.data[5]
 
     @tipo_restricao_variacao.setter
-    def tipo_restricao_variacao(self, c: int):
+    def tipo_restricao_variacao(self, c: int) -> None:
         self.data[5] = c
 
     @property
@@ -124,7 +124,7 @@ class REST(Register):
         return self.data[6]
 
     @duracao_janela.setter
-    def duracao_janela(self, c: float):
+    def duracao_janela(self, c: float) -> None:
         self.data[6] = c
 
 
@@ -157,7 +157,7 @@ class ELEM(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -171,7 +171,7 @@ class ELEM(Register):
         return self.data[1]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -185,7 +185,7 @@ class ELEM(Register):
         return self.data[2]
 
     @nome_usina.setter
-    def nome_usina(self, c: str):
+    def nome_usina(self, c: str) -> None:
         self.data[2] = c
 
     @property
@@ -199,7 +199,7 @@ class ELEM(Register):
         return self.data[3]
 
     @tipo.setter
-    def tipo(self, c: int):
+    def tipo(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -213,7 +213,7 @@ class ELEM(Register):
         return self.data[4]
 
     @coeficiente.setter
-    def coeficiente(self, c: float):
+    def coeficiente(self, c: float) -> None:
         self.data[4] = c
 
 
@@ -246,7 +246,7 @@ class LIM(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -261,7 +261,7 @@ class LIM(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -275,7 +275,7 @@ class LIM(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -289,7 +289,7 @@ class LIM(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -304,7 +304,7 @@ class LIM(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -318,7 +318,7 @@ class LIM(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -332,7 +332,7 @@ class LIM(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -346,7 +346,7 @@ class LIM(Register):
         return self.data[3]
 
     @limite_inferior.setter
-    def limite_inferior(self, lim: float):
+    def limite_inferior(self, lim: float) -> None:
         self.data[3] = lim
 
     @property
@@ -360,7 +360,7 @@ class LIM(Register):
         return self.data[4]
 
     @limite_superior.setter
-    def limite_superior(self, lim: float):
+    def limite_superior(self, lim: float) -> None:
         self.data[4] = lim
 
 
@@ -396,7 +396,7 @@ class VAR(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -411,7 +411,7 @@ class VAR(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -425,7 +425,7 @@ class VAR(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -439,7 +439,7 @@ class VAR(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -454,7 +454,7 @@ class VAR(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -468,7 +468,7 @@ class VAR(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -482,7 +482,7 @@ class VAR(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -497,7 +497,7 @@ class VAR(Register):
         return self.data[3]
 
     @rampa_maxima_decrescimo_percentual.setter
-    def rampa_maxima_decrescimo_percentual(self, lim: float):
+    def rampa_maxima_decrescimo_percentual(self, lim: float) -> None:
         self.data[3] = lim
 
     @property
@@ -512,7 +512,7 @@ class VAR(Register):
         return self.data[4]
 
     @rampa_maxima_acrescimo_percentual.setter
-    def rampa_maxima_acrescimo_percentual(self, lim: float):
+    def rampa_maxima_acrescimo_percentual(self, lim: float) -> None:
         self.data[4] = lim
 
     @property
@@ -527,7 +527,7 @@ class VAR(Register):
         return self.data[5]
 
     @rampa_maxima_decrescimo_absoluta.setter
-    def rampa_maxima_decrescimo_absoluta(self, lim: float):
+    def rampa_maxima_decrescimo_absoluta(self, lim: float) -> None:
         self.data[5] = lim
 
     @property
@@ -542,5 +542,5 @@ class VAR(Register):
         return self.data[6]
 
     @rampa_maxima_acrescimo_absoluta.setter
-    def rampa_maxima_acrescimo_absoluta(self, lim: float):
+    def rampa_maxima_acrescimo_absoluta(self, lim: float) -> None:
         self.data[6] = lim

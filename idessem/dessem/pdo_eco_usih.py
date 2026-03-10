@@ -8,6 +8,8 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
     ArquivoCSV,
 )
+import pandas as pd  # type: ignore
+from typing import Optional
 
 
 class PdoEcoUsih(ArquivoCSV):
@@ -26,7 +28,7 @@ class PdoEcoUsih(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a caracaterísticas das usinas
         hidrelétricas e topologia das cascatas.

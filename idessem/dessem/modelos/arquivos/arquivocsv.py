@@ -7,6 +7,8 @@ from datetime import datetime
 import pandas as pd  # type: ignore
 from typing import TypeVar, Optional
 
+__all__ = ["ArquivoCSV", "VersaoModelo", "DataEstudo", "TabelaCSV"]
+
 
 class ArquivoCSV(BlockFile):
     """

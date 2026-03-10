@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import IO, List, Optional
+from typing import Any, IO, List, Optional
 
 import pandas as pd  # type: ignore
 from cfinterface.components.datetimefield import DatetimeField
@@ -19,7 +19,9 @@ class BlocoDataInicioEstudo(Section):
 
     __slots__ = ["__linha", "__cabecalhos"]
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -42,13 +44,13 @@ class BlocoDataInicioEstudo(Section):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         for _ in range(9):
             self.__cabecalhos.append(file.readline())
         self.data = self.__linha.read(file.readline())
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         for linha in self.__cabecalhos:
             file.write(linha)
         if not isinstance(self.data, list):
@@ -66,7 +68,7 @@ class BlocoDataInicioEstudo(Section):
         return self.data[0]
 
     @data_inicio.setter
-    def data_inicio(self, d: datetime):
+    def data_inicio(self, d: datetime) -> None:
         self.data[0] = d
 
 
@@ -77,7 +79,9 @@ class BlocoDadosHorizonte(Section):
 
     __slots__ = ["__linha", "__cabecalhos"]
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -103,13 +107,13 @@ class BlocoDadosHorizonte(Section):
         else:
             return self.data == bloco.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         for _ in range(2):
             self.__cabecalhos.append(file.readline())
         self.data = self.__linha.read(file.readline())
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         for linha in self.__cabecalhos:
             file.write(linha)
         if not isinstance(self.data, list):
@@ -127,7 +131,7 @@ class BlocoDadosHorizonte(Section):
         return self.data[0]
 
     @dia_semana_inicial.setter
-    def dia_semana_inicial(self, d: int):
+    def dia_semana_inicial(self, d: int) -> None:
         self.data[0] = d
 
     @property
@@ -141,7 +145,7 @@ class BlocoDadosHorizonte(Section):
         return self.data[1]
 
     @semana_acoplamento_fcf.setter
-    def semana_acoplamento_fcf(self, d: int):
+    def semana_acoplamento_fcf(self, d: int) -> None:
         self.data[1] = d
 
     @property
@@ -155,7 +159,7 @@ class BlocoDadosHorizonte(Section):
         return self.data[2]
 
     @numero_semanas.setter
-    def numero_semanas(self, d: int):
+    def numero_semanas(self, d: int) -> None:
         self.data[2] = d
 
     @property
@@ -169,7 +173,7 @@ class BlocoDadosHorizonte(Section):
         return self.data[3]
 
     @considera_periodo_simulacao.setter
-    def considera_periodo_simulacao(self, d: int):
+    def considera_periodo_simulacao(self, d: int) -> None:
         self.data[3] = d
 
 
@@ -180,7 +184,9 @@ class BlocoVazoes(Section):
 
     __slots__ = ["__linha", "__cabecalhos"]
 
-    def __init__(self, previous=None, next=None, data=None) -> None:
+    def __init__(
+        self, previous: Any = None, next: Any = None, data: Any = None
+    ) -> None:
         super().__init__(previous, next, data)
         self.__linha = Line(
             [
@@ -209,10 +215,10 @@ class BlocoVazoes(Section):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def extrai_coluna_de_listas(
-            listas: List[list], coluna: int, elemento: int | None = None
-        ) -> list:
+            listas: List[List[Any]], coluna: int, elemento: int | None = None
+        ) -> List[Any]:
             if elemento is None:
                 return [lista[coluna] for lista in listas]
             else:
@@ -250,7 +256,7 @@ class BlocoVazoes(Section):
             self.__cabecalhos.append(file.readline())
 
         # Para cada usina, lê e processa as informações
-        dados_uhes: List[list] = []
+        dados_uhes: List[List[Any]] = []
         while True:
             linha = file.readline()
             # Confere se terminaram as usinas
@@ -263,7 +269,7 @@ class BlocoVazoes(Section):
             dados_uhes.append(dados_uhe)
 
     # Override
-    def write(self, file: IO, *args, **kwargs):
+    def write(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         for linha in self.__cabecalhos:
             file.write(linha)
         if not isinstance(self.data, pd.DataFrame):

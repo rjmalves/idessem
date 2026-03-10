@@ -121,9 +121,7 @@ def test_df_polinjus_hidreletrica_curvajusante_polinomio_segmento():
         )
         assert df_curvajusante_polinomio_segmento.at[2, "codigo_usina"] == 1
         assert df_curvajusante_polinomio_segmento.at[2, "indice_familia"] == 2
-        assert (
-            df_curvajusante_polinomio_segmento.at[2, "indice_polinomio"] == 1
-        )
+        assert df_curvajusante_polinomio_segmento.at[2, "indice_polinomio"] == 1
         assert (
             df_curvajusante_polinomio_segmento.at[
                 2, "limite_inferior_vazao_jusante"
@@ -252,9 +250,7 @@ def test_registro_polinjus_hidreletrica_curvajusante_afogamentoexplicito_usina()
 
 def test_registro_polinjus_hidreletrica_curvajusante_afogamentoexplicito_padrao():
     m: MagicMock = mock_open(
-        read_data="".join(
-            MockHidreletricaCurvaJusanteAfogamentoExplicitoPadrao
-        )
+        read_data="".join(MockHidreletricaCurvaJusanteAfogamentoExplicitoPadrao)
     )
     r = HidreletricaCurvaJusanteAfogamentoExplicitoPadrao()
     with patch("builtins.open", m):
@@ -280,9 +276,7 @@ def test_neq_polinjus():
     with patch("builtins.open", m):
         log1 = UsinasHidreletricas.read(ARQ_TESTE)
         log2 = UsinasHidreletricas.read(ARQ_TESTE)
-        log1.hidreletrica_curvajusante_polinomio_segmento()[
-            0
-        ].codigo_usina = -1
+        log1.hidreletrica_curvajusante_polinomio_segmento()[0].codigo_usina = -1
         assert log1 != log2
 
 

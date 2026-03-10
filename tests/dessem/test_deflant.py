@@ -1,11 +1,10 @@
 from idessem.dessem.deflant import Deflant
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
-from tests.mocks.arquivos.deflant import (
-    MockDeflant
-)
+from tests.mocks.arquivos.deflant import MockDeflant
 
 ARQ_TESTE = "./tests/__init__.py"
+
 
 def test_campos_encontrados_deflant():
     m: MagicMock = mock_open(read_data="".join(MockDeflant))
@@ -15,17 +14,10 @@ def test_campos_encontrados_deflant():
     assert d.defant(codigo_usina_montante=2) is not None
     assert d.defant(codigo_elemento_jusante=6) is not None
     assert d.defant(codigo_usina_montante=1) is None
-    assert d.defant(df=True).at[0,"defluencia"] == 110
+    assert d.defant(df=True).at[0, "defluencia"] == 110
 
     reg = d.defant(codigo_usina_montante=2)
-    assert reg.data == [
-        2,
-        4,
-        "H",
-        [10, 0, 0],
-        ["F", None, None],
-         110
-        ]
+    assert reg.data == [2, 4, "H", [10, 0, 0], ["F", None, None], 110]
 
     assert reg.codigo_usina_montante == 2
     reg.codigo_usina_montante = -1
@@ -57,7 +49,7 @@ def test_campos_encontrados_deflant():
     assert reg.defluencia == 110
     reg.defluencia = -1
     assert reg.defluencia == -1
-    
+
 
 def test_eq_deflant():
     m: MagicMock = mock_open(read_data="".join(MockDeflant))

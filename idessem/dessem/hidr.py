@@ -4,7 +4,7 @@ from idessem.config import MESES_ABREV
 import pandas as pd  # type: ignore
 
 
-from typing import TypeVar, List, Optional, IO, Union
+from typing import Any, TypeVar, List, Optional, IO, Union
 
 
 class Hidr(RegisterFile):
@@ -18,11 +18,11 @@ class Hidr(RegisterFile):
     REGISTERS = [RegistroUHEHidr]
     STORAGE = "BINARY"
 
-    def __init__(self, data=...) -> None:
+    def __init__(self, data: Any = ...) -> None:
         super().__init__(data)
         self.__df: Optional[pd.DataFrame] = None
 
-    def write(self, to: Union[str, IO], *args, **kwargs):
+    def write(self, to: Union[str, IO[Any]], *args: Any, **kwargs: Any) -> None:
         self.__atualiza_registros()
         super().write(to, *args, **kwargs)
 
@@ -160,8 +160,10 @@ class Hidr(RegisterFile):
         )
         return df
 
-    def __atualiza_registros(self):
-        registros: List[RegistroUHEHidr] = [r for r in self.data][1:]
+    def __atualiza_registros(self) -> None:
+        registros: List[RegistroUHEHidr] = [
+            r for r in self.data if isinstance(r, RegistroUHEHidr)
+        ]
         for (_, linha), r in zip(self.cadastro.iterrows(), registros):
             r.nome = linha["nome_usina"]
             r.posto = linha["posto"]
@@ -279,5 +281,5 @@ class Hidr(RegisterFile):
         return self.__df
 
     @cadastro.setter
-    def cadastro(self, df: pd.DataFrame):
+    def cadastro(self, df: pd.DataFrame) -> None:
         self.__df = df

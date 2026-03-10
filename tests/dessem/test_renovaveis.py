@@ -130,16 +130,6 @@ def test_campos_nao_encontrados_renovaveis():
     assert d.eolica_geracao() is None
 
 
-def test_campos_nao_encontrados_renovaveis():
-    m: MagicMock = mock_open(read_data="")
-    with patch("builtins.open", m):
-        d = Renovaveis.read("")
-    assert d.eolica() is None
-    assert d.eolicabarra() is None
-    assert d.eolicasubm() is None
-    assert d.eolica_geracao() is None
-
-
 def test_campos_encontrados_renovaveis():
     m: MagicMock = mock_open(read_data="".join(MockRenovaveis))
     with patch("builtins.open", m):

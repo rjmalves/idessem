@@ -1,5 +1,5 @@
 from cfinterface.components.block import Block
-from typing import IO
+from typing import Any, IO
 import pandas as pd  # type: ignore
 from datetime import datetime
 from cfinterface.components.floatfield import FloatField
@@ -30,7 +30,7 @@ class BlocoDiscretizacaoTempo(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(
                 data={
@@ -99,7 +99,7 @@ class BlocoCustos(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(
                 data={
@@ -131,9 +131,7 @@ class BlocoCustos(Block):
                 linha.split(":")[1].strip()
             )
             linha = file.readline()
-            custo_futuro = FloatField(size=15).read(
-                linha.split(":")[1].strip()
-            )
+            custo_futuro = FloatField(size=15).read(linha.split(":")[1].strip())
 
             estagios.append(estagio)
             custos_presentes.append(custo_presente)
@@ -164,7 +162,7 @@ class BlocoCortesAtivos(Block):
             return self.data.equals(bloco.data)
 
     # Override
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         def converte_tabela_em_df() -> pd.DataFrame:
             df = pd.DataFrame(
                 data={

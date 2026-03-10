@@ -6,6 +6,8 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
     ArquivoCSV,
 )
+import pandas as pd  # type: ignore
+from typing import Optional
 
 
 class PdoOperTitulacaoUsinas(ArquivoCSV):
@@ -20,7 +22,7 @@ class PdoOperTitulacaoUsinas(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a titulação das usinas térmicas.
 

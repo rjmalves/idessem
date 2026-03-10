@@ -6,6 +6,7 @@ from cfinterface.components.floatfield import FloatField
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
 from typing import Optional, Union
 
+
 class DEFANT(Register):
     """
     Registro que contém as defluências anteriores ao início do período
@@ -18,10 +19,10 @@ class DEFANT(Register):
         [
             IntegerField(3, 9),
             IntegerField(3, 14),
-            LiteralField(1,19),
+            LiteralField(1, 19),
             StageDateField(starting_position=24, special_day_character="I"),
             StageDateField(starting_position=32, special_day_character="F"),
-            FloatField(10,44,1)
+            FloatField(10, 44, 1),
         ]
     )
 
@@ -36,7 +37,7 @@ class DEFANT(Register):
         return self.data[0]
 
     @codigo_usina_montante.setter
-    def codigo_usina_montante(self, u: int):
+    def codigo_usina_montante(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -50,7 +51,7 @@ class DEFANT(Register):
         return self.data[1]
 
     @codigo_elemento_jusante.setter
-    def codigo_elemento_jusante(self, u: int):
+    def codigo_elemento_jusante(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -64,7 +65,7 @@ class DEFANT(Register):
         return self.data[2]
 
     @tipo_elemento_jusante.setter
-    def tipo_elemento_jusante(self, u: str):
+    def tipo_elemento_jusante(self, u: str) -> None:
         self.data[2] = u
 
     @property
@@ -79,7 +80,7 @@ class DEFANT(Register):
         return self.data[3][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[3][0] = n
 
     @property
@@ -93,7 +94,7 @@ class DEFANT(Register):
         return self.data[3][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[3][1] = n
 
     @property
@@ -107,7 +108,7 @@ class DEFANT(Register):
         return self.data[3][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[3][2] = n
 
     @property
@@ -122,7 +123,7 @@ class DEFANT(Register):
         return self.data[4][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[4][0] = n
 
     @property
@@ -136,7 +137,7 @@ class DEFANT(Register):
         return self.data[4][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[4][1] = n
 
     @property
@@ -150,7 +151,7 @@ class DEFANT(Register):
         return self.data[4][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[4][2] = n
 
     @property
@@ -164,5 +165,5 @@ class DEFANT(Register):
         return self.data[5]
 
     @defluencia.setter
-    def defluencia(self, cod: float):
+    def defluencia(self, cod: float) -> None:
         self.data[5] = cod

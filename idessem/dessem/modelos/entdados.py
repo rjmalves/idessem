@@ -4,7 +4,7 @@ from cfinterface.components.integerfield import IntegerField
 from cfinterface.components.literalfield import LiteralField
 from cfinterface.components.floatfield import FloatField
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
-from typing import Optional, Union, IO
+from typing import Any, Optional, Union, IO
 
 
 class RD(Register):
@@ -38,7 +38,7 @@ class RD(Register):
         return self.data[0]
 
     @variaveis_de_folga.setter
-    def variaveis_de_folga(self, cod: int):
+    def variaveis_de_folga(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -53,7 +53,7 @@ class RD(Register):
         return self.data[1]
 
     @maximo_circuitos_violados.setter
-    def maximo_circuitos_violados(self, cod: int):
+    def maximo_circuitos_violados(self, cod: int) -> None:
         self.data[1] = cod
 
     @property
@@ -69,7 +69,7 @@ class RD(Register):
         return self.data[2]
 
     @carga_registro_dbar.setter
-    def carga_registro_dbar(self, cod: int):
+    def carga_registro_dbar(self, cod: int) -> None:
         self.data[2] = cod
 
     @property
@@ -84,7 +84,7 @@ class RD(Register):
         return self.data[3]
 
     @limites_circuitos_transformadores_elevadores.setter
-    def limites_circuitos_transformadores_elevadores(self, cod: int):
+    def limites_circuitos_transformadores_elevadores(self, cod: int) -> None:
         self.data[3] = cod
 
     @property
@@ -100,7 +100,7 @@ class RD(Register):
         return self.data[4]
 
     @limites_circuitos_e_drefs.setter
-    def limites_circuitos_e_drefs(self, cod: int):
+    def limites_circuitos_e_drefs(self, cod: int) -> None:
         self.data[4] = cod
 
     @property
@@ -115,7 +115,7 @@ class RD(Register):
         return self.data[5]
 
     @consideracao_perdas.setter
-    def consideracao_perdas(self, cod: int):
+    def consideracao_perdas(self, cod: int) -> None:
         self.data[5] = cod
 
     @property
@@ -130,7 +130,7 @@ class RD(Register):
         return self.data[6]
 
     @formato_arquivos_rede.setter
-    def formato_arquivos_rede(self, cod: int):
+    def formato_arquivos_rede(self, cod: int) -> None:
         self.data[6] = cod
 
 
@@ -163,7 +163,7 @@ class RIVAR(Register):
         return self.data[0]
 
     @codigo_entidade.setter
-    def codigo_entidade(self, cod: int):
+    def codigo_entidade(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -177,7 +177,7 @@ class RIVAR(Register):
         return self.data[1]
 
     @sistema_para.setter
-    def sistema_para(self, cod: int):
+    def sistema_para(self, cod: int) -> None:
         self.data[1] = cod
 
     @property
@@ -191,7 +191,7 @@ class RIVAR(Register):
         return self.data[2]
 
     @tipo_variavel.setter
-    def tipo_variavel(self, cod: int):
+    def tipo_variavel(self, cod: int) -> None:
         self.data[2] = cod
 
     @property
@@ -205,7 +205,7 @@ class RIVAR(Register):
         return self.data[3]
 
     @penalidade.setter
-    def penalidade(self, cod: float):
+    def penalidade(self, cod: float) -> None:
         self.data[3] = cod
 
 
@@ -239,7 +239,7 @@ class TM(Register):
         return self.data[0]
 
     @dia_inicial.setter
-    def dia_inicial(self, cod: int):
+    def dia_inicial(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -253,7 +253,7 @@ class TM(Register):
         return self.data[1]
 
     @hora_inicial.setter
-    def hora_inicial(self, cod: int):
+    def hora_inicial(self, cod: int) -> None:
         self.data[1] = cod
 
     @property
@@ -267,7 +267,7 @@ class TM(Register):
         return self.data[2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, cod: int):
+    def meia_hora_inicial(self, cod: int) -> None:
         self.data[2] = cod
 
     @property
@@ -281,7 +281,7 @@ class TM(Register):
         return self.data[3]
 
     @duracao.setter
-    def duracao(self, cod: float):
+    def duracao(self, cod: float) -> None:
         self.data[3] = cod
 
     @property
@@ -295,7 +295,7 @@ class TM(Register):
         return self.data[4]
 
     @consideracao_rede_eletrica.setter
-    def consideracao_rede_eletrica(self, cod: int):
+    def consideracao_rede_eletrica(self, cod: int) -> None:
         self.data[4] = cod
 
     @property
@@ -309,7 +309,7 @@ class TM(Register):
         return self.data[5]
 
     @nome_patamar.setter
-    def nome_patamar(self, n: str):
+    def nome_patamar(self, n: str) -> None:
         self.data[5] = n
 
 
@@ -340,7 +340,7 @@ class SIST(Register):
         return self.data[0]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, cod: int):
+    def codigo_submercado(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -354,7 +354,7 @@ class SIST(Register):
         return self.data[1]
 
     @mnemonico_submercado.setter
-    def mnemonico_submercado(self, n: str):
+    def mnemonico_submercado(self, n: str) -> None:
         self.data[1] = n
 
     @property
@@ -368,7 +368,7 @@ class SIST(Register):
         return self.data[2]
 
     @ficticio.setter
-    def ficticio(self, cod: int):
+    def ficticio(self, cod: int) -> None:
         self.data[2] = cod
 
     @property
@@ -382,7 +382,7 @@ class SIST(Register):
         return self.data[3]
 
     @nome_submercado.setter
-    def nome_submercado(self, n: str):
+    def nome_submercado(self, n: str) -> None:
         self.data[3] = n
 
 
@@ -413,7 +413,7 @@ class REE(Register):
         return self.data[0]
 
     @codigo_ree.setter
-    def codigo_ree(self, cod: int):
+    def codigo_ree(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -427,7 +427,7 @@ class REE(Register):
         return self.data[1]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, cod: int):
+    def codigo_submercado(self, cod: int) -> None:
         self.data[1] = cod
 
     @property
@@ -441,7 +441,7 @@ class REE(Register):
         return self.data[2]
 
     @nome_ree.setter
-    def nome_ree(self, n: str):
+    def nome_ree(self, n: str) -> None:
         self.data[2] = n
 
 
@@ -478,7 +478,7 @@ class UH(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, cod: int):
+    def codigo_usina(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -492,7 +492,7 @@ class UH(Register):
         return self.data[1]
 
     @nome_usina.setter
-    def nome_usina(self, n: str):
+    def nome_usina(self, n: str) -> None:
         self.data[1] = n
 
     @property
@@ -506,7 +506,7 @@ class UH(Register):
         return self.data[2]
 
     @codigo_ree.setter
-    def codigo_ree(self, n: int):
+    def codigo_ree(self, n: int) -> None:
         self.data[2] = n
 
     @property
@@ -520,7 +520,7 @@ class UH(Register):
         return self.data[3]
 
     @volume_inicial.setter
-    def volume_inicial(self, v: float):
+    def volume_inicial(self, v: float) -> None:
         self.data[3] = v
 
     @property
@@ -534,7 +534,7 @@ class UH(Register):
         return self.data[4]
 
     @evaporacao.setter
-    def evaporacao(self, e: int):
+    def evaporacao(self, e: int) -> None:
         self.data[4] = e
 
     @property
@@ -549,7 +549,7 @@ class UH(Register):
         return self.data[5][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[5][0] = n
 
     @property
@@ -563,7 +563,7 @@ class UH(Register):
         return self.data[5][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[5][1] = n
 
     @property
@@ -577,7 +577,7 @@ class UH(Register):
         return self.data[5][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[5][2] = n
 
     @property
@@ -591,7 +591,7 @@ class UH(Register):
         return self.data[6]
 
     @volume_morto_inicial.setter
-    def volume_morto_inicial(self, e: float):
+    def volume_morto_inicial(self, e: float) -> None:
         self.data[6] = e
 
     @property
@@ -605,7 +605,7 @@ class UH(Register):
         return self.data[7]
 
     @produtividade.setter
-    def produtividade(self, n: int):
+    def produtividade(self, n: int) -> None:
         self.data[7] = n
 
     @property
@@ -619,7 +619,7 @@ class UH(Register):
         return self.data[8]
 
     @penaliza_restricao_geracao.setter
-    def penaliza_restricao_geracao(self, n: int):
+    def penaliza_restricao_geracao(self, n: int) -> None:
         self.data[8] = n
 
 
@@ -652,7 +652,7 @@ class TVIAG(Register):
         return self.data[0]
 
     @codigo_usina_montante.setter
-    def codigo_usina_montante(self, u: int):
+    def codigo_usina_montante(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -667,7 +667,7 @@ class TVIAG(Register):
         return self.data[1]
 
     @codigo_elemento_jusante.setter
-    def codigo_elemento_jusante(self, u: int):
+    def codigo_elemento_jusante(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -681,7 +681,7 @@ class TVIAG(Register):
         return self.data[2]
 
     @tipo_elemento_jusante.setter
-    def tipo_elemento_jusante(self, u: str):
+    def tipo_elemento_jusante(self, u: str) -> None:
         self.data[2] = u
 
     @property
@@ -696,7 +696,7 @@ class TVIAG(Register):
         return self.data[3]
 
     @duracao.setter
-    def duracao(self, d: int):
+    def duracao(self, d: int) -> None:
         self.data[3] = d
 
     @property
@@ -711,7 +711,7 @@ class TVIAG(Register):
         return self.data[4]
 
     @tipo_tempo_viagem.setter
-    def tipo_tempo_viagem(self, d: int):
+    def tipo_tempo_viagem(self, d: int) -> None:
         self.data[4] = d
 
 
@@ -749,7 +749,7 @@ class UT(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, codigo: int):
+    def codigo_usina(self, codigo: int) -> None:
         self.data[0] = codigo
 
     @property
@@ -763,7 +763,7 @@ class UT(Register):
         return self.data[1]
 
     @nome_usina.setter
-    def nome_usina(self, nome: str):
+    def nome_usina(self, nome: str) -> None:
         self.data[1] = nome
 
     @property
@@ -777,7 +777,7 @@ class UT(Register):
         return self.data[2]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, submercado: int):
+    def codigo_submercado(self, submercado: int) -> None:
         self.data[2] = submercado
 
     @property
@@ -791,7 +791,7 @@ class UT(Register):
         return self.data[3]
 
     @tipo_restricao.setter
-    def tipo_restricao(self, tipo_restricao: int):
+    def tipo_restricao(self, tipo_restricao: int) -> None:
         self.data[3] = tipo_restricao
 
     @property
@@ -806,7 +806,7 @@ class UT(Register):
         return self.data[4][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[4][0] = n
 
     @property
@@ -820,7 +820,7 @@ class UT(Register):
         return self.data[4][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[4][1] = n
 
     @property
@@ -834,7 +834,7 @@ class UT(Register):
         return self.data[4][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[4][2] = n
 
     @property
@@ -849,7 +849,7 @@ class UT(Register):
         return self.data[5][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[5][0] = n
 
     @property
@@ -863,7 +863,7 @@ class UT(Register):
         return self.data[5][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[5][1] = n
 
     @property
@@ -877,7 +877,7 @@ class UT(Register):
         return self.data[5][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[5][2] = n
 
     @property
@@ -891,7 +891,7 @@ class UT(Register):
         return self.data[6]
 
     @unidade_restricao.setter
-    def unidade_restricao(self, unidade_restricao: int):
+    def unidade_restricao(self, unidade_restricao: int) -> None:
         self.data[6] = unidade_restricao
 
     @property
@@ -907,7 +907,7 @@ class UT(Register):
         return self.data[7]
 
     @geracao_minima.setter
-    def geracao_minima(self, geracao_minima: float):
+    def geracao_minima(self, geracao_minima: float) -> None:
         self.data[7] = geracao_minima
 
     @property
@@ -923,7 +923,7 @@ class UT(Register):
         return self.data[8]
 
     @geracao_maxima.setter
-    def geracao_maxima(self, geracao_maxima: float):
+    def geracao_maxima(self, geracao_maxima: float) -> None:
         self.data[8] = geracao_maxima
 
 
@@ -958,7 +958,7 @@ class USIE(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, cod: int):
+    def codigo_usina(self, cod: int) -> None:
         self.data[0] = cod
 
     @property
@@ -972,7 +972,7 @@ class USIE(Register):
         return self.data[1]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, n: int):
+    def codigo_submercado(self, n: int) -> None:
         self.data[1] = n
 
     @property
@@ -986,7 +986,7 @@ class USIE(Register):
         return self.data[2]
 
     @nome_usina.setter
-    def nome_usina(self, v: str):
+    def nome_usina(self, v: str) -> None:
         self.data[2] = v
 
     @property
@@ -1000,7 +1000,7 @@ class USIE(Register):
         return self.data[3]
 
     @codigo_usina_montante.setter
-    def codigo_usina_montante(self, v: int):
+    def codigo_usina_montante(self, v: int) -> None:
         self.data[3] = v
 
     @property
@@ -1014,7 +1014,7 @@ class USIE(Register):
         return self.data[4]
 
     @codigo_usina_jusante.setter
-    def codigo_usina_jusante(self, e: int):
+    def codigo_usina_jusante(self, e: int) -> None:
         self.data[4] = e
 
     @property
@@ -1028,7 +1028,7 @@ class USIE(Register):
         return self.data[5]
 
     @vazao_minima_bombeavel.setter
-    def vazao_minima_bombeavel(self, e: float):
+    def vazao_minima_bombeavel(self, e: float) -> None:
         self.data[5] = e
 
     @property
@@ -1042,7 +1042,7 @@ class USIE(Register):
         return self.data[6]
 
     @vazao_maxima_bombeavel.setter
-    def vazao_maxima_bombeavel(self, e: float):
+    def vazao_maxima_bombeavel(self, e: float) -> None:
         self.data[6] = e
 
     @property
@@ -1056,7 +1056,7 @@ class USIE(Register):
         return self.data[7]
 
     @taxa_consumo.setter
-    def taxa_consumo(self, e: float):
+    def taxa_consumo(self, e: float) -> None:
         self.data[7] = e
 
 
@@ -1089,7 +1089,7 @@ class DP(Register):
         return self.data[0]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, sub: int):
+    def codigo_submercado(self, sub: int) -> None:
         self.data[0] = sub
 
     @property
@@ -1104,7 +1104,7 @@ class DP(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -1118,7 +1118,7 @@ class DP(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -1132,7 +1132,7 @@ class DP(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -1147,7 +1147,7 @@ class DP(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -1161,7 +1161,7 @@ class DP(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -1175,7 +1175,7 @@ class DP(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -1189,7 +1189,7 @@ class DP(Register):
         return self.data[3]
 
     @demanda.setter
-    def demanda(self, demanda: float):
+    def demanda(self, demanda: float) -> None:
         self.data[3] = demanda
 
 
@@ -1223,7 +1223,7 @@ class DE(Register):
         return self.data[0]
 
     @codigo_demanda_especial.setter
-    def codigo_demanda_especial(self, sub: int):
+    def codigo_demanda_especial(self, sub: int) -> None:
         self.data[0] = sub
 
     @property
@@ -1237,7 +1237,7 @@ class DE(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -1251,7 +1251,7 @@ class DE(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -1265,7 +1265,7 @@ class DE(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -1279,7 +1279,7 @@ class DE(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -1293,7 +1293,7 @@ class DE(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -1307,7 +1307,7 @@ class DE(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -1321,7 +1321,7 @@ class DE(Register):
         return self.data[3]
 
     @demanda.setter
-    def demanda(self, demanda: float):
+    def demanda(self, demanda: float) -> None:
         self.data[3] = demanda
 
     @property
@@ -1335,7 +1335,7 @@ class DE(Register):
         return self.data[4]
 
     @justificativa.setter
-    def justificativa(self, justificativa: str):
+    def justificativa(self, justificativa: str) -> None:
         self.data[4] = justificativa
 
 
@@ -1369,7 +1369,7 @@ class CD(Register):
         return self.data[0]
 
     @codigo_submercado.setter
-    def codigo_submercado(self, s: int):
+    def codigo_submercado(self, s: int) -> None:
         self.data[0] = s
 
     @property
@@ -1383,7 +1383,7 @@ class CD(Register):
         return self.data[1]
 
     @numero_curva.setter
-    def numero_curva(self, n: int):
+    def numero_curva(self, n: int) -> None:
         self.data[1] = n
 
     @property
@@ -1398,7 +1398,7 @@ class CD(Register):
         return self.data[2][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -1412,7 +1412,7 @@ class CD(Register):
         return self.data[2][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -1426,7 +1426,7 @@ class CD(Register):
         return self.data[2][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -1441,7 +1441,7 @@ class CD(Register):
         return self.data[3][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[3][0] = n
 
     @property
@@ -1455,7 +1455,7 @@ class CD(Register):
         return self.data[3][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[3][1] = n
 
     @property
@@ -1469,7 +1469,7 @@ class CD(Register):
         return self.data[3][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[3][2] = n
 
     @property
@@ -1483,7 +1483,7 @@ class CD(Register):
         return self.data[4]
 
     @custo.setter
-    def custo(self, cus: float):
+    def custo(self, cus: float) -> None:
         self.data[4] = cus
 
     @property
@@ -1497,7 +1497,7 @@ class CD(Register):
         return self.data[5]
 
     @limite_superior.setter
-    def limite_superior(self, lim: float):
+    def limite_superior(self, lim: float) -> None:
         self.data[5] = lim
 
 
@@ -1531,7 +1531,7 @@ class PQ(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, nome: str):
+    def codigo_usina(self, nome: str) -> None:
         self.data[0] = nome
 
     @property
@@ -1545,7 +1545,7 @@ class PQ(Register):
         return self.data[1]
 
     @nome_usina.setter
-    def nome_usina(self, nome: str):
+    def nome_usina(self, nome: str) -> None:
         self.data[1] = nome
 
     @property
@@ -1559,7 +1559,7 @@ class PQ(Register):
         return self.data[2]
 
     @localizacao.setter
-    def localizacao(self, sub: int):
+    def localizacao(self, sub: int) -> None:
         self.data[2] = sub
 
     @property
@@ -1574,7 +1574,7 @@ class PQ(Register):
         return self.data[3][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[3][0] = n
 
     @property
@@ -1588,7 +1588,7 @@ class PQ(Register):
         return self.data[3][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[3][1] = n
 
     @property
@@ -1602,7 +1602,7 @@ class PQ(Register):
         return self.data[3][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[3][2] = n
 
     @property
@@ -1617,7 +1617,7 @@ class PQ(Register):
         return self.data[4][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[4][0] = n
 
     @property
@@ -1631,7 +1631,7 @@ class PQ(Register):
         return self.data[4][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[4][1] = n
 
     @property
@@ -1645,7 +1645,7 @@ class PQ(Register):
         return self.data[4][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[4][2] = n
 
     @property
@@ -1659,7 +1659,7 @@ class PQ(Register):
         return self.data[5]
 
     @geracao.setter
-    def geracao(self, ger: float):
+    def geracao(self, ger: float) -> None:
         self.data[5] = ger
 
 
@@ -1695,7 +1695,7 @@ class IT(Register):
         return self.data[0]
 
     @codigo_ree.setter
-    def codigo_ree(self, n: int):
+    def codigo_ree(self, n: int) -> None:
         self.data[0] = n
 
     @property
@@ -1710,7 +1710,7 @@ class IT(Register):
         return self.data[1]
 
     @coeficiente_a0.setter
-    def coeficiente_a0(self, c: float):
+    def coeficiente_a0(self, c: float) -> None:
         self.data[1] = c
 
     @property
@@ -1725,7 +1725,7 @@ class IT(Register):
         return self.data[2]
 
     @coeficiente_a1.setter
-    def coeficiente_a1(self, c: float):
+    def coeficiente_a1(self, c: float) -> None:
         self.data[2] = c
 
     @property
@@ -1740,7 +1740,7 @@ class IT(Register):
         return self.data[3]
 
     @coeficiente_a2.setter
-    def coeficiente_a2(self, c: float):
+    def coeficiente_a2(self, c: float) -> None:
         self.data[3] = c
 
     @property
@@ -1755,7 +1755,7 @@ class IT(Register):
         return self.data[4]
 
     @coeficiente_a3.setter
-    def coeficiente_a3(self, c: float):
+    def coeficiente_a3(self, c: float) -> None:
         self.data[4] = c
 
     @property
@@ -1770,7 +1770,7 @@ class IT(Register):
         return self.data[5]
 
     @coeficiente_a4.setter
-    def coeficiente_a4(self, c: float):
+    def coeficiente_a4(self, c: float) -> None:
         self.data[5] = c
 
 
@@ -1806,7 +1806,7 @@ class RI(Register):
         return self.data[0][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[0][0] = n
 
     @property
@@ -1820,7 +1820,7 @@ class RI(Register):
         return self.data[0][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[0][1] = n
 
     @property
@@ -1834,7 +1834,7 @@ class RI(Register):
         return self.data[0][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[0][2] = n
 
     @property
@@ -1849,7 +1849,7 @@ class RI(Register):
         return self.data[1][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -1863,7 +1863,7 @@ class RI(Register):
         return self.data[1][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -1877,7 +1877,7 @@ class RI(Register):
         return self.data[1][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -1891,7 +1891,7 @@ class RI(Register):
         return self.data[2]
 
     @geracao_minima_50hz.setter
-    def geracao_minima_50hz(self, n: float):
+    def geracao_minima_50hz(self, n: float) -> None:
         self.data[2] = n
 
     @property
@@ -1905,7 +1905,7 @@ class RI(Register):
         return self.data[3]
 
     @geracao_maxima_50hz.setter
-    def geracao_maxima_50hz(self, n: float):
+    def geracao_maxima_50hz(self, n: float) -> None:
         self.data[3] = n
 
     @property
@@ -1919,7 +1919,7 @@ class RI(Register):
         return self.data[4]
 
     @geracao_minima_60hz.setter
-    def geracao_minima_60hz(self, n: float):
+    def geracao_minima_60hz(self, n: float) -> None:
         self.data[4] = n
 
     @property
@@ -1933,7 +1933,7 @@ class RI(Register):
         return self.data[5]
 
     @geracao_maxima_60hz.setter
-    def geracao_maxima_60hz(self, n: float):
+    def geracao_maxima_60hz(self, n: float) -> None:
         self.data[5] = n
 
     @property
@@ -1947,7 +1947,7 @@ class RI(Register):
         return self.data[6]
 
     @carga_ande.setter
-    def carga_ande(self, n: float):
+    def carga_ande(self, n: float) -> None:
         self.data[6] = n
 
 
@@ -1982,7 +1982,7 @@ class IA(Register):
         return self.data[0]
 
     @nome_submercado_de.setter
-    def nome_submercado_de(self, n: str):
+    def nome_submercado_de(self, n: str) -> None:
         self.data[0] = n
 
     @property
@@ -1997,7 +1997,7 @@ class IA(Register):
         return self.data[1]
 
     @nome_submercado_para.setter
-    def nome_submercado_para(self, n: str):
+    def nome_submercado_para(self, n: str) -> None:
         self.data[1] = n
 
     @property
@@ -2012,7 +2012,7 @@ class IA(Register):
         return self.data[2][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -2026,7 +2026,7 @@ class IA(Register):
         return self.data[2][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -2040,7 +2040,7 @@ class IA(Register):
         return self.data[2][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -2055,7 +2055,7 @@ class IA(Register):
         return self.data[3][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[3][0] = n
 
     @property
@@ -2069,7 +2069,7 @@ class IA(Register):
         return self.data[3][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[3][1] = n
 
     @property
@@ -2083,7 +2083,7 @@ class IA(Register):
         return self.data[3][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[3][2] = n
 
     @property
@@ -2097,7 +2097,7 @@ class IA(Register):
         return self.data[4]
 
     @capacidade_de.setter
-    def capacidade_de(self, n: float):
+    def capacidade_de(self, n: float) -> None:
         self.data[4] = n
 
     @property
@@ -2111,7 +2111,7 @@ class IA(Register):
         return self.data[5]
 
     @capacidade_para.setter
-    def capacidade_para(self, n: float):
+    def capacidade_para(self, n: float) -> None:
         self.data[5] = n
 
 
@@ -2138,7 +2138,7 @@ class GP(Register):
         return self.data[0]
 
     @gap_pdd.setter
-    def gap_pdd(self, n: float):
+    def gap_pdd(self, n: float) -> None:
         self.data[0] = n
 
     @property
@@ -2154,7 +2154,7 @@ class GP(Register):
         return self.data[1]
 
     @gap_milp.setter
-    def gap_milp(self, n: float):
+    def gap_milp(self, n: float) -> None:
         self.data[1] = n
 
 
@@ -2174,7 +2174,9 @@ class ACVTFUGA(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2190,7 +2192,7 @@ class ACVTFUGA(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2198,7 +2200,7 @@ class ACVTFUGA(Register):
         return self.data[1]
 
     @influi.setter
-    def influi(self, u: int):
+    def influi(self, u: int) -> None:
         self.data[1] = u
 
 
@@ -2217,7 +2219,9 @@ class ACVOLMAX(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2233,7 +2237,7 @@ class ACVOLMAX(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2241,7 +2245,7 @@ class ACVOLMAX(Register):
         return self.data[1]
 
     @volume.setter
-    def volume(self, u: float):
+    def volume(self, u: float) -> None:
         self.data[1] = u
 
 
@@ -2260,7 +2264,9 @@ class ACVOLMIN(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2276,7 +2282,7 @@ class ACVOLMIN(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2284,7 +2290,7 @@ class ACVOLMIN(Register):
         return self.data[1]
 
     @volume.setter
-    def volume(self, u: float):
+    def volume(self, u: float) -> None:
         self.data[1] = u
 
 
@@ -2304,7 +2310,9 @@ class ACVSVERT(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2320,7 +2328,7 @@ class ACVSVERT(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2328,7 +2336,7 @@ class ACVSVERT(Register):
         return self.data[1]
 
     @volume.setter
-    def volume(self, u: float):
+    def volume(self, u: float) -> None:
         self.data[1] = u
 
 
@@ -2348,7 +2356,9 @@ class ACVMDESV(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2364,7 +2374,7 @@ class ACVMDESV(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2372,7 +2382,7 @@ class ACVMDESV(Register):
         return self.data[1]
 
     @volume.setter
-    def volume(self, u: float):
+    def volume(self, u: float) -> None:
         self.data[1] = u
 
 
@@ -2394,7 +2404,9 @@ class ACCOTVAZ(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2410,7 +2422,7 @@ class ACCOTVAZ(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2418,7 +2430,7 @@ class ACCOTVAZ(Register):
         return self.data[1]
 
     @ordem.setter
-    def ordem(self, u: int):
+    def ordem(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2426,7 +2438,7 @@ class ACCOTVAZ(Register):
         return self.data[2]
 
     @coeficiente.setter
-    def coeficiente(self, u: float):
+    def coeficiente(self, u: float) -> None:
         self.data[2] = u
 
     @property
@@ -2434,7 +2446,7 @@ class ACCOTVAZ(Register):
         return self.data[3]
 
     @polimonio.setter
-    def polimonio(self, u: int):
+    def polimonio(self, u: int) -> None:
         self.data[3] = u
 
 
@@ -2455,7 +2467,9 @@ class ACCOTVOL(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2471,7 +2485,7 @@ class ACCOTVOL(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2479,7 +2493,7 @@ class ACCOTVOL(Register):
         return self.data[1]
 
     @ordem.setter
-    def ordem(self, u: int):
+    def ordem(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2487,7 +2501,7 @@ class ACCOTVOL(Register):
         return self.data[2]
 
     @coeficiente.setter
-    def coeficiente(self, u: float):
+    def coeficiente(self, u: float) -> None:
         self.data[2] = u
 
 
@@ -2508,7 +2522,9 @@ class ACCOTTAR(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2524,7 +2540,7 @@ class ACCOTTAR(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2532,7 +2548,7 @@ class ACCOTTAR(Register):
         return self.data[1]
 
     @ordem.setter
-    def ordem(self, u: int):
+    def ordem(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2540,7 +2556,7 @@ class ACCOTTAR(Register):
         return self.data[2]
 
     @coeficiente.setter
-    def coeficiente(self, u: float):
+    def coeficiente(self, u: float) -> None:
         self.data[2] = u
 
 
@@ -2559,7 +2575,9 @@ class ACNUMCON(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2575,7 +2593,7 @@ class ACNUMCON(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2583,7 +2601,7 @@ class ACNUMCON(Register):
         return self.data[1]
 
     @numero_conjuntos.setter
-    def numero_conjuntos(self, u: int):
+    def numero_conjuntos(self, u: int) -> None:
         self.data[1] = u
 
 
@@ -2602,7 +2620,9 @@ class ACNUMJUS(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2618,7 +2638,7 @@ class ACNUMJUS(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2626,7 +2646,7 @@ class ACNUMJUS(Register):
         return self.data[1]
 
     @jusante.setter
-    def jusante(self, u: int):
+    def jusante(self, u: int) -> None:
         self.data[1] = u
 
 
@@ -2645,7 +2665,9 @@ class ACNUMPOS(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2661,7 +2683,7 @@ class ACNUMPOS(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2669,7 +2691,7 @@ class ACNUMPOS(Register):
         return self.data[1]
 
     @codigo_posto.setter
-    def codigo_posto(self, u: int):
+    def codigo_posto(self, u: int) -> None:
         self.data[1] = u
 
 
@@ -2689,7 +2711,9 @@ class ACJUSENA(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2705,7 +2729,7 @@ class ACJUSENA(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2713,7 +2737,7 @@ class ACJUSENA(Register):
         return self.data[1]
 
     @aproveitamento.setter
-    def aproveitamento(self, u: int):
+    def aproveitamento(self, u: int) -> None:
         self.data[1] = u
 
 
@@ -2732,7 +2756,9 @@ class ACJUSMED(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2748,7 +2774,7 @@ class ACJUSMED(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2756,7 +2782,7 @@ class ACJUSMED(Register):
         return self.data[1]
 
     @cota.setter
-    def cota(self, u: float):
+    def cota(self, u: float) -> None:
         self.data[1] = u
 
 
@@ -2777,7 +2803,9 @@ class ACCOFEVA(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2793,7 +2821,7 @@ class ACCOFEVA(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2801,7 +2829,7 @@ class ACCOFEVA(Register):
         return self.data[1]
 
     @mes_coeficiente.setter
-    def mes_coeficiente(self, u: int):
+    def mes_coeficiente(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2809,7 +2837,7 @@ class ACCOFEVA(Register):
         return self.data[2]
 
     @coeficiente.setter
-    def coeficiente(self, u: int):
+    def coeficiente(self, u: int) -> None:
         self.data[2] = u
 
 
@@ -2830,7 +2858,9 @@ class ACNUMMAQ(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2846,7 +2876,7 @@ class ACNUMMAQ(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2854,7 +2884,7 @@ class ACNUMMAQ(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, u: int):
+    def codigo_conjunto(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2862,7 +2892,7 @@ class ACNUMMAQ(Register):
         return self.data[2]
 
     @numero_maquinas.setter
-    def numero_maquinas(self, u: int):
+    def numero_maquinas(self, u: int) -> None:
         self.data[2] = u
 
 
@@ -2883,7 +2913,9 @@ class ACPOTEFE(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2899,7 +2931,7 @@ class ACPOTEFE(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2907,7 +2939,7 @@ class ACPOTEFE(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, u: int):
+    def codigo_conjunto(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2915,7 +2947,7 @@ class ACPOTEFE(Register):
         return self.data[2]
 
     @potencia.setter
-    def potencia(self, u: float):
+    def potencia(self, u: float) -> None:
         self.data[2] = u
 
 
@@ -2936,7 +2968,9 @@ class ACDESVIO(Register):
     )
 
     # Override
-    def write(self, file: IO, storage: str = "", *args, **kwargs) -> bool:
+    def write(
+        self, file: IO[Any], storage: str = "", *args: Any, **kwargs: Any
+    ) -> bool:
         line = self.__class__.LINE.write(self.data)
         line = (
             self.__class__.IDENTIFIER[:2]  # type: ignore
@@ -2952,7 +2986,7 @@ class ACDESVIO(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -2960,7 +2994,7 @@ class ACDESVIO(Register):
         return self.data[1]
 
     @jusante.setter
-    def jusante(self, u: int):
+    def jusante(self, u: int) -> None:
         self.data[1] = u
 
     @property
@@ -2968,7 +3002,7 @@ class ACDESVIO(Register):
         return self.data[2]
 
     @limite_vazao.setter
-    def limite_vazao(self, u: float):
+    def limite_vazao(self, u: float) -> None:
         self.data[2] = u
 
 
@@ -2995,7 +3029,7 @@ class NI(Register):
         return self.data[0]
 
     @tipo_limite.setter
-    def tipo_limite(self, n: int):
+    def tipo_limite(self, n: int) -> None:
         self.data[0] = n
 
     @property
@@ -3010,7 +3044,7 @@ class NI(Register):
         return self.data[1]
 
     @iteracoes.setter
-    def iteracoes(self, n: int):
+    def iteracoes(self, n: int) -> None:
         self.data[1] = n
 
 
@@ -3042,7 +3076,7 @@ class VE(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -3057,7 +3091,7 @@ class VE(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -3071,7 +3105,7 @@ class VE(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -3085,7 +3119,7 @@ class VE(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -3100,7 +3134,7 @@ class VE(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -3114,7 +3148,7 @@ class VE(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -3128,7 +3162,7 @@ class VE(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -3142,7 +3176,7 @@ class VE(Register):
         return self.data[3]
 
     @volume.setter
-    def volume(self, v: float):
+    def volume(self, v: float) -> None:
         self.data[3] = v
 
 
@@ -3178,7 +3212,7 @@ class FP(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -3193,7 +3227,7 @@ class FP(Register):
         return self.data[1]
 
     @tipo_tratamento_volume.setter
-    def tipo_tratamento_volume(self, t: int):
+    def tipo_tratamento_volume(self, t: int) -> None:
         self.data[1] = t
 
     @property
@@ -3208,7 +3242,7 @@ class FP(Register):
         return self.data[2]
 
     @numero_pontos_turbinamento.setter
-    def numero_pontos_turbinamento(self, n: int):
+    def numero_pontos_turbinamento(self, n: int) -> None:
         self.data[2] = n
 
     @property
@@ -3223,7 +3257,7 @@ class FP(Register):
         return self.data[3]
 
     @numero_pontos_volume.setter
-    def numero_pontos_volume(self, n: int):
+    def numero_pontos_volume(self, n: int) -> None:
         self.data[3] = n
 
     @property
@@ -3238,7 +3272,7 @@ class FP(Register):
         return self.data[4]
 
     @verifica_concavidade.setter
-    def verifica_concavidade(self, n: int):
+    def verifica_concavidade(self, n: int) -> None:
         self.data[4] = n
 
     @property
@@ -3252,7 +3286,7 @@ class FP(Register):
         return self.data[5]
 
     @ajuste_minimos_quadrados.setter
-    def ajuste_minimos_quadrados(self, n: int):
+    def ajuste_minimos_quadrados(self, n: int) -> None:
         self.data[5] = n
 
     @property
@@ -3267,7 +3301,7 @@ class FP(Register):
         return self.data[6]
 
     @comprimento_janela_volume.setter
-    def comprimento_janela_volume(self, lim: float):
+    def comprimento_janela_volume(self, lim: float) -> None:
         self.data[6] = lim
 
     @property
@@ -3281,7 +3315,7 @@ class FP(Register):
         return self.data[7]
 
     @tolerancia_desvio.setter
-    def tolerancia_desvio(self, lim: float):
+    def tolerancia_desvio(self, lim: float) -> None:
         self.data[7] = lim
 
 
@@ -3310,7 +3344,7 @@ class TX(Register):
         return self.data[0]
 
     @taxa.setter
-    def taxa(self, t: float):
+    def taxa(self, t: float) -> None:
         self.data[0] = t
 
 
@@ -3340,7 +3374,7 @@ class EZ(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, u: int):
+    def codigo_usina(self, u: int) -> None:
         self.data[0] = u
 
     @property
@@ -3354,7 +3388,7 @@ class EZ(Register):
         return self.data[1]
 
     @volume.setter
-    def volume(self, u: float):
+    def volume(self, u: float) -> None:
         self.data[1] = u
 
 
@@ -3388,7 +3422,7 @@ class R11(Register):
         return self.data[0][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[0][0] = n
 
     @property
@@ -3402,7 +3436,7 @@ class R11(Register):
         return self.data[0][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[0][1] = n
 
     @property
@@ -3416,7 +3450,7 @@ class R11(Register):
         return self.data[0][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[0][2] = n
 
     @property
@@ -3431,7 +3465,7 @@ class R11(Register):
         return self.data[1][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -3445,7 +3479,7 @@ class R11(Register):
         return self.data[1][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -3459,7 +3493,7 @@ class R11(Register):
         return self.data[1][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -3474,7 +3508,7 @@ class R11(Register):
         return self.data[2]
 
     @cota_inicial.setter
-    def cota_inicial(self, n: float):
+    def cota_inicial(self, n: float) -> None:
         self.data[2] = n
 
     @property
@@ -3489,7 +3523,7 @@ class R11(Register):
         return self.data[3]
 
     @variacao_maxima_horaria.setter
-    def variacao_maxima_horaria(self, n: float):
+    def variacao_maxima_horaria(self, n: float) -> None:
         self.data[3] = n
 
     @property
@@ -3504,7 +3538,7 @@ class R11(Register):
         return self.data[4]
 
     @variacao_maxima_diaria.setter
-    def variacao_maxima_diaria(self, n: float):
+    def variacao_maxima_diaria(self, n: float) -> None:
         self.data[4] = n
 
 
@@ -3544,7 +3578,7 @@ class CR(Register):
         return self.data[0]
 
     @codigo_secao.setter
-    def codigo_secao(self, n: int):
+    def codigo_secao(self, n: int) -> None:
         self.data[0] = n
 
     @property
@@ -3559,7 +3593,7 @@ class CR(Register):
         return self.data[1]
 
     @nome_secao.setter
-    def nome_secao(self, n: str):
+    def nome_secao(self, n: str) -> None:
         self.data[1] = n
 
     @property
@@ -3574,7 +3608,7 @@ class CR(Register):
         return self.data[2]
 
     @grau.setter
-    def grau(self, n: int):
+    def grau(self, n: int) -> None:
         self.data[2] = n
 
     @property
@@ -3589,7 +3623,7 @@ class CR(Register):
         return self.data[3]
 
     @coeficiente_a0.setter
-    def coeficiente_a0(self, c: float):
+    def coeficiente_a0(self, c: float) -> None:
         self.data[3] = c
 
     @property
@@ -3604,7 +3638,7 @@ class CR(Register):
         return self.data[4]
 
     @coeficiente_a1.setter
-    def coeficiente_a1(self, c: float):
+    def coeficiente_a1(self, c: float) -> None:
         self.data[4] = c
 
     @property
@@ -3619,7 +3653,7 @@ class CR(Register):
         return self.data[5]
 
     @coeficiente_a2.setter
-    def coeficiente_a2(self, c: float):
+    def coeficiente_a2(self, c: float) -> None:
         self.data[5] = c
 
     @property
@@ -3634,7 +3668,7 @@ class CR(Register):
         return self.data[6]
 
     @coeficiente_a3.setter
-    def coeficiente_a3(self, c: float):
+    def coeficiente_a3(self, c: float) -> None:
         self.data[6] = c
 
     @property
@@ -3649,7 +3683,7 @@ class CR(Register):
         return self.data[7]
 
     @coeficiente_a4.setter
-    def coeficiente_a4(self, c: float):
+    def coeficiente_a4(self, c: float) -> None:
         self.data[7] = c
 
     @property
@@ -3664,7 +3698,7 @@ class CR(Register):
         return self.data[8]
 
     @coeficiente_a5.setter
-    def coeficiente_a5(self, c: float):
+    def coeficiente_a5(self, c: float) -> None:
         self.data[8] = c
 
     @property
@@ -3679,7 +3713,7 @@ class CR(Register):
         return self.data[9]
 
     @coeficiente_a6.setter
-    def coeficiente_a6(self, c: float):
+    def coeficiente_a6(self, c: float) -> None:
         self.data[9] = c
 
 
@@ -3719,7 +3753,7 @@ class SECR(Register):
         return self.data[0]
 
     @codigo_secao.setter
-    def codigo_secao(self, n: int):
+    def codigo_secao(self, n: int) -> None:
         self.data[0] = n
 
     @property
@@ -3734,7 +3768,7 @@ class SECR(Register):
         return self.data[1]
 
     @nome_secao.setter
-    def nome_secao(self, n: str):
+    def nome_secao(self, n: str) -> None:
         self.data[1] = n
 
     @property
@@ -3748,7 +3782,7 @@ class SECR(Register):
         return self.data[2]
 
     @codigo_usina_montante_1.setter
-    def codigo_usina_montante_1(self, n: int):
+    def codigo_usina_montante_1(self, n: int) -> None:
         self.data[2] = n
 
     @property
@@ -3762,7 +3796,7 @@ class SECR(Register):
         return self.data[3]
 
     @fator_participacao_1.setter
-    def fator_participacao_1(self, n: float):
+    def fator_participacao_1(self, n: float) -> None:
         self.data[3] = n
 
     @property
@@ -3776,7 +3810,7 @@ class SECR(Register):
         return self.data[4]
 
     @codigo_usina_montante_2.setter
-    def codigo_usina_montante_2(self, n: int):
+    def codigo_usina_montante_2(self, n: int) -> None:
         self.data[4] = n
 
     @property
@@ -3790,7 +3824,7 @@ class SECR(Register):
         return self.data[5]
 
     @fator_participacao_2.setter
-    def fator_participacao_2(self, n: float):
+    def fator_participacao_2(self, n: float) -> None:
         self.data[5] = n
 
     @property
@@ -3804,7 +3838,7 @@ class SECR(Register):
         return self.data[6]
 
     @codigo_usina_montante_3.setter
-    def codigo_usina_montante_3(self, n: int):
+    def codigo_usina_montante_3(self, n: int) -> None:
         self.data[6] = n
 
     @property
@@ -3818,7 +3852,7 @@ class SECR(Register):
         return self.data[7]
 
     @fator_participacao_3.setter
-    def fator_participacao_3(self, n: float):
+    def fator_participacao_3(self, n: float) -> None:
         self.data[7] = n
 
     @property
@@ -3832,7 +3866,7 @@ class SECR(Register):
         return self.data[8]
 
     @codigo_usina_montante_4.setter
-    def codigo_usina_montante_4(self, n: int):
+    def codigo_usina_montante_4(self, n: int) -> None:
         self.data[8] = n
 
     @property
@@ -3846,7 +3880,7 @@ class SECR(Register):
         return self.data[9]
 
     @fator_participacao_4.setter
-    def fator_participacao_4(self, n: float):
+    def fator_participacao_4(self, n: float) -> None:
         self.data[9] = n
 
     @property
@@ -3860,7 +3894,7 @@ class SECR(Register):
         return self.data[10]
 
     @codigo_usina_montante_5.setter
-    def codigo_usina_montante_5(self, n: int):
+    def codigo_usina_montante_5(self, n: int) -> None:
         self.data[10] = n
 
     @property
@@ -3874,7 +3908,7 @@ class SECR(Register):
         return self.data[11]
 
     @fator_participacao_5.setter
-    def fator_participacao_5(self, n: float):
+    def fator_participacao_5(self, n: float) -> None:
         self.data[11] = n
 
 
@@ -3905,7 +3939,7 @@ class DA(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -3920,7 +3954,7 @@ class DA(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -3934,7 +3968,7 @@ class DA(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -3948,7 +3982,7 @@ class DA(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -3963,7 +3997,7 @@ class DA(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -3977,7 +4011,7 @@ class DA(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -3991,7 +4025,7 @@ class DA(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -4005,7 +4039,7 @@ class DA(Register):
         return self.data[3]
 
     @taxa.setter
-    def taxa(self, c: float):
+    def taxa(self, c: float) -> None:
         self.data[3] = c
 
 
@@ -4035,7 +4069,7 @@ class RE(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4050,7 +4084,7 @@ class RE(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4064,7 +4098,7 @@ class RE(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4078,7 +4112,7 @@ class RE(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4093,7 +4127,7 @@ class RE(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4107,7 +4141,7 @@ class RE(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -4121,7 +4155,7 @@ class RE(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
 
@@ -4154,7 +4188,7 @@ class LU(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4169,7 +4203,7 @@ class LU(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4183,7 +4217,7 @@ class LU(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4197,7 +4231,7 @@ class LU(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4212,7 +4246,7 @@ class LU(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4226,7 +4260,7 @@ class LU(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -4240,7 +4274,7 @@ class LU(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -4254,7 +4288,7 @@ class LU(Register):
         return self.data[3]
 
     @limite_inferior.setter
-    def limite_inferior(self, lim: float):
+    def limite_inferior(self, lim: float) -> None:
         self.data[3] = lim
 
     @property
@@ -4268,7 +4302,7 @@ class LU(Register):
         return self.data[4]
 
     @limite_superior.setter
-    def limite_superior(self, lim: float):
+    def limite_superior(self, lim: float) -> None:
         self.data[4] = lim
 
 
@@ -4302,7 +4336,7 @@ class FH(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4317,7 +4351,7 @@ class FH(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4331,7 +4365,7 @@ class FH(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4345,7 +4379,7 @@ class FH(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4360,7 +4394,7 @@ class FH(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4374,7 +4408,7 @@ class FH(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -4388,7 +4422,7 @@ class FH(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -4402,7 +4436,7 @@ class FH(Register):
         return self.data[3]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -4416,7 +4450,7 @@ class FH(Register):
         return self.data[4]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[4] = c
 
     @property
@@ -4430,7 +4464,7 @@ class FH(Register):
         return self.data[5]
 
     @coeficiente.setter
-    def coeficiente(self, f: float):
+    def coeficiente(self, f: float) -> None:
         self.data[5] = f
 
 
@@ -4463,7 +4497,7 @@ class FT(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4478,7 +4512,7 @@ class FT(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4492,7 +4526,7 @@ class FT(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4506,7 +4540,7 @@ class FT(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4521,7 +4555,7 @@ class FT(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4535,7 +4569,7 @@ class FT(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -4549,7 +4583,7 @@ class FT(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -4563,7 +4597,7 @@ class FT(Register):
         return self.data[3]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -4577,7 +4611,7 @@ class FT(Register):
         return self.data[4]
 
     @coeficiente.setter
-    def coeficiente(self, f: float):
+    def coeficiente(self, f: float) -> None:
         self.data[4] = f
 
 
@@ -4611,7 +4645,7 @@ class FI(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4626,7 +4660,7 @@ class FI(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4640,7 +4674,7 @@ class FI(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4654,7 +4688,7 @@ class FI(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4669,7 +4703,7 @@ class FI(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4683,7 +4717,7 @@ class FI(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -4697,7 +4731,7 @@ class FI(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -4711,7 +4745,7 @@ class FI(Register):
         return self.data[3]
 
     @nome_submercado_de.setter
-    def nome_submercado_de(self, s: str):
+    def nome_submercado_de(self, s: str) -> None:
         self.data[3] = s
 
     @property
@@ -4725,7 +4759,7 @@ class FI(Register):
         return self.data[4]
 
     @nome_submercado_para.setter
-    def nome_submercado_para(self, s: str):
+    def nome_submercado_para(self, s: str) -> None:
         self.data[4] = s
 
     @property
@@ -4739,7 +4773,7 @@ class FI(Register):
         return self.data[5]
 
     @coeficiente.setter
-    def coeficiente(self, f: float):
+    def coeficiente(self, f: float) -> None:
         self.data[5] = f
 
 
@@ -4773,7 +4807,7 @@ class FE(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4788,7 +4822,7 @@ class FE(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4802,7 +4836,7 @@ class FE(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4816,7 +4850,7 @@ class FE(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4831,7 +4865,7 @@ class FE(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4845,7 +4879,7 @@ class FE(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -4859,7 +4893,7 @@ class FE(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -4873,7 +4907,7 @@ class FE(Register):
         return self.data[3]
 
     @codigo_contrato.setter
-    def codigo_contrato(self, c: int):
+    def codigo_contrato(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -4887,7 +4921,7 @@ class FE(Register):
         return self.data[4]
 
     @coeficiente.setter
-    def coeficiente(self, f: float):
+    def coeficiente(self, f: float) -> None:
         self.data[4] = f
 
 
@@ -4920,7 +4954,7 @@ class FR(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -4935,7 +4969,7 @@ class FR(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -4949,7 +4983,7 @@ class FR(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -4963,7 +4997,7 @@ class FR(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -4978,7 +5012,7 @@ class FR(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -4992,7 +5026,7 @@ class FR(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -5006,7 +5040,7 @@ class FR(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -5020,7 +5054,7 @@ class FR(Register):
         return self.data[3]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -5034,7 +5068,7 @@ class FR(Register):
         return self.data[4]
 
     @coeficiente.setter
-    def coeficiente(self, f: float):
+    def coeficiente(self, f: float) -> None:
         self.data[4] = f
 
 
@@ -5067,7 +5101,7 @@ class FC(Register):
         return self.data[0]
 
     @codigo_restricao.setter
-    def codigo_restricao(self, c: int):
+    def codigo_restricao(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -5082,7 +5116,7 @@ class FC(Register):
         return self.data[1][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[1][0] = n
 
     @property
@@ -5096,7 +5130,7 @@ class FC(Register):
         return self.data[1][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[1][1] = n
 
     @property
@@ -5110,7 +5144,7 @@ class FC(Register):
         return self.data[1][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[1][2] = n
 
     @property
@@ -5125,7 +5159,7 @@ class FC(Register):
         return self.data[2][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[2][0] = n
 
     @property
@@ -5139,7 +5173,7 @@ class FC(Register):
         return self.data[2][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[2][1] = n
 
     @property
@@ -5153,7 +5187,7 @@ class FC(Register):
         return self.data[2][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[2][2] = n
 
     @property
@@ -5167,7 +5201,7 @@ class FC(Register):
         return self.data[3]
 
     @codigo_demanda_especial.setter
-    def codigo_demanda_especial(self, c: int):
+    def codigo_demanda_especial(self, c: int) -> None:
         self.data[3] = c
 
     @property
@@ -5182,7 +5216,7 @@ class FC(Register):
         return self.data[4]
 
     @coeficiente.setter
-    def coeficiente(self, f: float):
+    def coeficiente(self, f: float) -> None:
         self.data[4] = f
 
 
@@ -5269,7 +5303,7 @@ class MH(Register):
         return self.data[0]
 
     @codigo_usina.setter
-    def codigo_usina(self, c: int):
+    def codigo_usina(self, c: int) -> None:
         self.data[0] = c
 
     @property
@@ -5283,7 +5317,7 @@ class MH(Register):
         return self.data[1]
 
     @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int):
+    def codigo_conjunto(self, c: int) -> None:
         self.data[1] = c
 
     @property
@@ -5297,7 +5331,7 @@ class MH(Register):
         return self.data[2]
 
     @codigo_unidade.setter
-    def codigo_unidade(self, c: int):
+    def codigo_unidade(self, c: int) -> None:
         self.data[2] = c
 
     @property
@@ -5312,7 +5346,7 @@ class MH(Register):
         return self.data[3][0]
 
     @dia_inicial.setter
-    def dia_inicial(self, n: Union[str, int]):
+    def dia_inicial(self, n: Union[str, int]) -> None:
         self.data[3][0] = n
 
     @property
@@ -5326,7 +5360,7 @@ class MH(Register):
         return self.data[3][1]
 
     @hora_inicial.setter
-    def hora_inicial(self, n: int):
+    def hora_inicial(self, n: int) -> None:
         self.data[3][1] = n
 
     @property
@@ -5340,7 +5374,7 @@ class MH(Register):
         return self.data[3][2]
 
     @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int):
+    def meia_hora_inicial(self, n: int) -> None:
         self.data[3][2] = n
 
     @property
@@ -5355,7 +5389,7 @@ class MH(Register):
         return self.data[4][0]
 
     @dia_final.setter
-    def dia_final(self, n: Union[str, int]):
+    def dia_final(self, n: Union[str, int]) -> None:
         self.data[4][0] = n
 
     @property
@@ -5369,7 +5403,7 @@ class MH(Register):
         return self.data[4][1]
 
     @hora_final.setter
-    def hora_final(self, n: int):
+    def hora_final(self, n: int) -> None:
         self.data[4][1] = n
 
     @property
@@ -5383,7 +5417,7 @@ class MH(Register):
         return self.data[4][2]
 
     @meia_hora_final.setter
-    def meia_hora_final(self, n: int):
+    def meia_hora_final(self, n: int) -> None:
         self.data[4][2] = n
 
     @property
@@ -5398,7 +5432,7 @@ class MH(Register):
         return self.data[5]
 
     @disponivel.setter
-    def disponivel(self, n: int):
+    def disponivel(self, n: int) -> None:
         self.data[5] = n
 
 
@@ -5424,7 +5458,7 @@ class PE(Register):
         return self.data[0]
 
     @penalidade_vertimento.setter
-    def penalidade_vertimento(self, n: float):
+    def penalidade_vertimento(self, n: float) -> None:
         self.data[0] = n
 
     @property
@@ -5440,5 +5474,5 @@ class PE(Register):
         return self.data[1]
 
     @fator_penalidade_violacao.setter
-    def fator_penalidade_violacao(self, n: float):
+    def fator_penalidade_violacao(self, n: float) -> None:
         self.data[1] = n

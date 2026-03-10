@@ -1,16 +1,9 @@
-from idessem.dessem.modelos.respot import (
-    RP,
-    LM
-)
+from idessem.dessem.modelos.respot import RP, LM
 from idessem.dessem.respot import Respot
 from tests.mocks.mock_open import mock_open
 from unittest.mock import MagicMock, patch
 
-from tests.mocks.arquivos.respot import (
-    MockRP,
-    MockLM,
-    MockRespot
-)
+from tests.mocks.arquivos.respot import MockRP, MockLM, MockRespot
 
 ARQ_TESTE = "./tests/__init__.py"
 
@@ -23,13 +16,17 @@ def test_registro_rp_respot():
             r.read(fp)
     assert r.data == [
         1,
-        [11,
-        0,
-        0,],
-        ["F",
-        None,
-        None,],
-        "5% CARGA DO SIN NO CAG SECO"
+        [
+            11,
+            0,
+            0,
+        ],
+        [
+            "F",
+            None,
+            None,
+        ],
+        "5% CARGA DO SIN NO CAG SECO",
     ]
 
     assert r.codigo_area == 1
@@ -53,10 +50,10 @@ def test_registro_rp_respot():
     assert r.meia_hora_final is None
     r.meia_hora_final = 0
     assert r.meia_hora_final == 0
-    assert r.descricao =="5% CARGA DO SIN NO CAG SECO"
+    assert r.descricao == "5% CARGA DO SIN NO CAG SECO"
     r.descricao = "X"
     assert r.descricao == "X"
-    
+
 
 def test_registro_lm_respot():
     m: MagicMock = mock_open(read_data="".join(MockLM))
@@ -66,12 +63,17 @@ def test_registro_lm_respot():
             r.read(fp)
     assert r.data == [
         1,
-        [11,
-        0,
-        0,],
-        ["F",
-        None,
-        None,],3285
+        [
+            11,
+            0,
+            0,
+        ],
+        [
+            "F",
+            None,
+            None,
+        ],
+        3285,
     ]
 
     assert r.codigo_area == 1
@@ -95,9 +97,10 @@ def test_registro_lm_respot():
     assert r.meia_hora_final is None
     r.meia_hora_final = 0
     assert r.meia_hora_final == 0
-    assert r.limite_inferior ==3285.0
+    assert r.limite_inferior == 3285.0
     r.limite_inferior = 0
     assert r.limite_inferior == 0
+
 
 def test_campos_nao_encontrados_respot():
     m: MagicMock = mock_open(read_data="")
@@ -105,7 +108,7 @@ def test_campos_nao_encontrados_respot():
         d = Respot.read(".")
     assert d.rp(1) is None
     assert d.lm(1) is None
-   
+
 
 def test_campos_encontrados_respot():
     m: MagicMock = mock_open(read_data="".join(MockRespot))

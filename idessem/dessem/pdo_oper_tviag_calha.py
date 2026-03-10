@@ -4,6 +4,8 @@ from idessem.dessem.modelos.arquivos.arquivocsv import (
     VersaoModelo,
     ArquivoCSV,
 )
+import pandas as pd  # type: ignore
+from typing import Optional
 
 
 class PdoOperTviagCalha(ArquivoCSV):
@@ -18,7 +20,7 @@ class PdoOperTviagCalha(ArquivoCSV):
     ENCODING = "iso-8859-1"
 
     @property
-    def tabela(self):
+    def tabela(self) -> Optional[pd.DataFrame]:
         """
         Obtém a tabela com informações referente a operação dos volumes na calha do rio
         no fim do horizonte de estudo.

@@ -1,5 +1,5 @@
 from cfinterface.components.block import Block
-from typing import IO
+from typing import Any, IO
 
 
 class VersaoModelo(Block):
@@ -19,6 +19,6 @@ class VersaoModelo(Block):
                 return False
             return self.data == o.data
 
-    def read(self, file: IO, *args, **kwargs):
+    def read(self, file: IO[Any], *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         linha = file.readline()
         self.data = linha.split("VERSAO")[1].split("-")[0].strip()

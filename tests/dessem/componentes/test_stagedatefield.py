@@ -1,5 +1,4 @@
 from idessem.dessem.modelos.componentes.stagedatefield import StageDateField
-import numpy as np
 
 
 def test_stagedatefield_read():

@@ -61,9 +61,7 @@ def test_tabela_pdo_eco_usih():
             pdo.tabela.at[0, "volume_soleira_vertedouro_util_percentual"] == 0
         )
         assert pdo.tabela.at[0, "volume_soleira_desvio_hm3"] == 120.00
-        assert (
-            pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
-        )
+        assert pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
         assert pdo.tabela.at[0, "volume_referencia_hm3"] == 792.00
         assert pdo.tabela.at[0, "tipo_reservatorio"] == "RV"
         assert pdo.tabela.at[0, "tipo_regularizacao"] == "M"
@@ -143,9 +141,7 @@ def test_tabela_pdo_eco_usih_190402():
             pdo.tabela.at[0, "volume_soleira_vertedouro_util_percentual"] == 0
         )
         assert pdo.tabela.at[0, "volume_soleira_desvio_hm3"] == 120.00
-        assert (
-            pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
-        )
+        assert pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
         assert pdo.tabela.at[0, "volume_referencia_hm3"] == 792.00
         assert pdo.tabela.at[0, "tipo_reservatorio"] == "RV"
         assert pdo.tabela.at[0, "tipo_regularizacao"] == "M"
@@ -228,9 +224,7 @@ def test_tabela_pdo_eco_usih_190301():
             pdo.tabela.at[0, "volume_soleira_vertedouro_util_percentual"] == 0
         )
         assert pdo.tabela.at[0, "volume_soleira_desvio_hm3"] == 120.00
-        assert (
-            pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
-        )
+        assert pdo.tabela.at[0, "volume_soleira_desvio_util_percentual"] == 0.00
         assert pdo.tabela.at[0, "volume_referencia_hm3"] == 792.00
         assert pdo.tabela.at[0, "tipo_regularizacao"] == "M"
         assert pdo.tabela.at[0, "flag_evaporacao"] == 1
