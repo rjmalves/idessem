@@ -76,7 +76,7 @@ master_doc = "index"
 exclude_patterns: List[str] = []
 
 add_module_names = False
-pygments_style = "friendly"
+pygments_style = "default"
 pygments_dark_style = "monokai"
 modindex_common_prefix = ["idessem."]
 
@@ -97,7 +97,6 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static/"]
 html_logo = "_static/logo_idessem_svg.svg"
-html_show_sourcelink = True
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

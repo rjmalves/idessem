@@ -64,5 +64,15 @@ include = [
   "idessem/",
 ]
 
+[tool.mypy]
+warn_return_any = false
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [tool.ruff]
 line-length = 80
+
+[tool.ruff.lint]
+per-file-ignores = { "examples/*.py" = ["E402"] }
