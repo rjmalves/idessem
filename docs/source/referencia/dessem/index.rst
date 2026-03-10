@@ -34,15 +34,18 @@ leitura, manipulação e escrita dos dados.
    Operut
    PdoAvalQmaxUsih
    PdoCmoBar
+   pdo_cmosist.PdoCmosist
    PdoEcoFcfCortes
    PdoEcoUsih
    PdoEcoUsihConj
    PdoEcoUsihPolin
+   pdo_elev.PdoElev
    PdoEolica
    PdoHidr
    PdoInter
    PdoOperLpp
    PdoOperTerm
+   pdo_oper_usih.PdoOperUsih
    PdoOperTitulacaoContratos
    PdoOperTitulacaoUsinas
    PdoOperTviagCalha
@@ -92,6 +95,7 @@ leitura, manipulação e escrita dos dados.
    arquivos/pdo_inter
    arquivos/pdo_operacao
    arquivos/pdo_oper_lpp
+   arquivos/pdo_oper_term
    arquivos/pdo_oper_titulacao_contratos
    arquivos/pdo_oper_titulacao_usinas
    arquivos/pdo_oper_tviag_calha

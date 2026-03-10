@@ -64,7 +64,7 @@ O *idessem* expõe duas subpacotes públicas:
 **idessem.dessem**
 
 Contém as classes que modelam os arquivos de entrada e de saída do modelo DESSEM.
-É o módulo principal da biblioteca, com 43 classes no total.
+É o módulo principal da biblioteca, com 46 classes no total.
 
 *Arquivos de entrada* (suportam leitura e escrita):
 
@@ -96,15 +96,18 @@ Contém as classes que modelam os arquivos de entrada e de saída do modelo DESS
 
 - :obj:`PdoAvalQmaxUsih <idessem.dessem.pdo_aval_qmaxusih.PdoAvalQmaxUsih>`
 - :obj:`PdoCmoBar <idessem.dessem.pdo_cmobar.PdoCmoBar>`
+- :obj:`PdoCmosist <idessem.dessem.pdo_cmosist.PdoCmosist>`
 - :obj:`PdoEcoFcfCortes <idessem.dessem.pdo_eco_fcfcortes.PdoEcoFcfCortes>`
 - :obj:`PdoEcoUsih <idessem.dessem.pdo_eco_usih.PdoEcoUsih>`
 - :obj:`PdoEcoUsihConj <idessem.dessem.pdo_eco_usih_conj.PdoEcoUsihConj>`
 - :obj:`PdoEcoUsihPolin <idessem.dessem.pdo_eco_usih_polin.PdoEcoUsihPolin>`
+- :obj:`PdoElev <idessem.dessem.pdo_elev.PdoElev>`
 - :obj:`PdoEolica <idessem.dessem.pdo_eolica.PdoEolica>`
 - :obj:`PdoHidr <idessem.dessem.pdo_hidr.PdoHidr>`
 - :obj:`PdoInter <idessem.dessem.pdo_inter.PdoInter>`
 - :obj:`PdoOperLpp <idessem.dessem.pdo_oper_lpp.PdoOperLpp>`
 - :obj:`PdoOperTerm <idessem.dessem.pdo_oper_term.PdoOperTerm>`
+- :obj:`PdoOperUsih <idessem.dessem.pdo_oper_usih.PdoOperUsih>`
 - :obj:`PdoOperTitulacaoContratos <idessem.dessem.pdo_oper_titulacao_contratos.PdoOperTitulacaoContratos>`
 - :obj:`PdoOperTitulacaoUsinas <idessem.dessem.pdo_oper_titulacao_usinas.PdoOperTitulacaoUsinas>`
 - :obj:`PdoOperTviagCalha <idessem.dessem.pdo_oper_tviag_calha.PdoOperTviagCalha>`
@@ -228,7 +231,7 @@ Importações Diretas
 
 O submódulo ``idessem.dessem`` utiliza importações diretas (não lazy) em seu
 ``__init__.py``. Isso significa que ao executar ``import idessem.dessem``,
-todas as 43 classes são carregadas imediatamente na memória, incluindo suas
+todas as 46 classes são carregadas imediatamente na memória, incluindo suas
 dependências.
 
 .. warning::
@@ -242,7 +245,7 @@ dependências.
       # Recomendado: importa apenas a classe necessária
       from idessem.dessem.entdados import Entdados
 
-      # Evitar em contextos sensíveis a desempenho: carrega todas as 43 classes
+      # Evitar em contextos sensíveis a desempenho: carrega todas as 46 classes
       import idessem.dessem
 
 O carregamento completo do módulo pode ser aceitável em sessões interativas

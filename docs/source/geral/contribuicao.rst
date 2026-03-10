@@ -24,7 +24,8 @@ Ou com ``uv``:
 
 .. warning::
 
-    Não envie mudanças de documentação para o repositório. A documentação é gerada automaticamente pelos scripts de CI.
+    O conteúdo da documentação gerada (HTML em ``docs/build/``) não deve ser enviado para o repositório. Isto é feito
+    automaticamente pelos scripts de CI no caso de qualquer modificação no branch ``main``.
 
 
 Diretrizes de Modelagem

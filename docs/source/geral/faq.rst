@@ -271,7 +271,7 @@ Desempenho
 
 O submódulo ``idessem.dessem`` utiliza importações diretas (eager) em seu
 ``__init__.py``. Isso significa que ao executar ``import idessem.dessem``,
-todas as 43 classes do módulo são carregadas imediatamente na memória,
+todas as 46 classes do módulo são carregadas imediatamente na memória,
 juntamente com todas as suas dependências transitivas.
 
 O custo de inicialização pode ser perceptível em scripts de curta duração ou
@@ -289,7 +289,7 @@ inteiro:
     from idessem.dessem.pdo_sist import PdoSist
 
     # Evitar em scripts sensíveis a tempo de inicialização:
-    import idessem.dessem  # carrega todas as 43 classes
+    import idessem.dessem  # carrega todas as 46 classes
 
 Ao importar apenas as classes necessárias, o tempo de inicialização é
 reduzido significativamente, pois apenas os módulos envolvidos na cadeia

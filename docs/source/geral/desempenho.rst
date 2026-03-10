@@ -11,7 +11,7 @@ Otimizacao de Importacoes
 --------------------------
 
 Ao executar ``import idessem.dessem``, o interpretador Python carrega
-imediatamente todas as 43 classes de arquivos definidas em
+imediatamente todas as 46 classes de arquivos definidas em
 ``idessem/dessem/__init__.py``. Em scripts rápidos ou em ambientes com
 restrição de tempo de inicialização — como funções AWS Lambda — esse carregamento
 completo pode introduzir latência desnecessária.
@@ -19,7 +19,7 @@ completo pode introduzir latência desnecessária.
 .. code-block:: python
    :caption: Anti-padrão: importação completa do módulo
 
-   import idessem.dessem  # carrega todas as 43 classes
+   import idessem.dessem  # carrega todas as 46 classes
 
 O padrão recomendado é importar apenas a classe necessária diretamente do módulo
 que a define:
