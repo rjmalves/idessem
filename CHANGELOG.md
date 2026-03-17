@@ -5,6 +5,12 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [Nao Publicado]
 
+## [1.2.1] - 2026-03-17
+
+### Corrigido
+
+- Garantia de que as colunas `codigo_ree` e `nome_ree` estejam sempre presentes no DataFrame retornado por `PdoEcoUsih.tabela`, independente da versão do DESSEM utilizada [#92](https://github.com/rjmalves/idessem/issues/92)
+
 ## [1.2.0] - 2026-03-10
 
 ### Modificado
@@ -50,7 +56,8 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 - Correção na leitura do arquivo de entrada `renovaveis.dat` [#73](https://github.com/rjmalves/idessem/issues/73)
 
-[Nao Publicado]: https://github.com/rjmalves/idessem/compare/v1.2.0...HEAD
+[Nao Publicado]: https://github.com/rjmalves/idessem/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/rjmalves/idessem/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/rjmalves/idessem/compare/v1.1.1...v1.2.0
 [1.1.0]: https://github.com/rjmalves/idessem/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/rjmalves/idessem/releases/tag/v1.0.0

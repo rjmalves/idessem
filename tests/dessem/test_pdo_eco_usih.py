@@ -254,3 +254,88 @@ def test_neq_pdo_eco_usih_190301():
         log2 = PdoEcoUsih.read(ARQ_TESTE)
         log1.tabela.iloc[0, 0] = -1
         assert log1 != log2
+
+
+def test_read_version_pdo_eco_usih():
+    m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih))
+    with patch("builtins.open", m):
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="20.4")
+        assert pdo.tabela is not None
+        assert "codigo_ree" in pdo.tabela.columns
+        assert "nome_ree" in pdo.tabela.columns
+        assert pdo.tabela.at[0, "codigo_ree"] == 10
+        assert pdo.tabela.at[0, "nome_ree"] == "PARANA"
+
+
+def test_read_version_pdo_eco_usih_190402():
+    m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
+    with patch("builtins.open", m):
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
+        assert pdo.tabela is not None
+        assert "codigo_ree" in pdo.tabela.columns
+        assert "nome_ree" in pdo.tabela.columns
+        assert pd.isna(pdo.tabela.at[0, "codigo_ree"])
+        assert pd.isna(pdo.tabela.at[0, "nome_ree"])
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
+        assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
+        assert pdo.tabela.at[0, "nome_submercado"] == "SE"
+
+
+def test_read_version_pdo_eco_usih_190301():
+    m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190301))
+    with patch("builtins.open", m):
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.3.1")
+        assert pdo.tabela is not None
+        assert "codigo_ree" in pdo.tabela.columns
+        assert "nome_ree" in pdo.tabela.columns
+        assert pd.isna(pdo.tabela.at[0, "codigo_ree"])
+        assert pd.isna(pdo.tabela.at[0, "nome_ree"])
+        assert pdo.tabela.at[0, "codigo_usina"] == 1
+        assert pdo.tabela.at[0, "nome_usina"] == "CAMARGOS"
+
+
+def test_read_version_columns_match_default_read():
+    m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih))
+    with patch("builtins.open", m):
+        pdo_versioned = PdoEcoUsih.read(ARQ_TESTE, version="20.4")
+    expected_columns = [
+        "codigo_usina",
+        "nome_usina",
+        "codigo_ree",
+        "nome_ree",
+        "nome_submercado",
+        "codigo_usina_jusante",
+        "codigo_usina_desvio",
+        "codigo_usina_jusante_earm",
+        "estagio_inicial",
+        "volume_morto_inicial_hm3",
+        "volume_morto_inicial_percentual",
+        "volume_util_inicial_hm3",
+        "volume_util_inicial_percentual",
+        "volume_armazenado_minimo_hm3",
+        "volume_armazenado_maximo_hm3",
+        "volume_soleira_vertedouro_hm3",
+        "volume_soleira_vertedouro_util_percentual",
+        "volume_soleira_desvio_hm3",
+        "volume_soleira_desvio_util_percentual",
+        "volume_referencia_hm3",
+        "tipo_reservatorio",
+        "tipo_regularizacao",
+        "flag_evaporacao",
+        "numero_conjuntos",
+        "produtibilidade_especifica",
+        "tipo_perdas",
+        "perdas_hidraulicas",
+        "canal_fuga_medio",
+        "influencia_vertimento_canal_fuga",
+    ]
+    assert list(pdo_versioned.tabela.columns) == expected_columns
+
+
+def test_read_version_190402_has_ree_columns():
+    m: MagicMock = mock_open(read_data="".join(MockPdoEcoUsih190402))
+    with patch("builtins.open", m):
+        pdo = PdoEcoUsih.read(ARQ_TESTE, version="19.4.2")
+    cols = list(pdo.tabela.columns)
+    assert cols[2] == "codigo_ree"
+    assert cols[3] == "nome_ree"

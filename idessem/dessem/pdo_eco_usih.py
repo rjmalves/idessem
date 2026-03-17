@@ -35,6 +35,8 @@ class PdoEcoUsih(ArquivoCSV):
 
         - codigo_usina (`int`)
         - nome_usina (`str`)
+        - codigo_ree (`int`)
+        - nome_ree (`str`)
         - nome_submercado (`str`)
         - codigo_usina_jusante (`int`)
         - codigo_usina_desvio (`int`)
@@ -64,4 +66,11 @@ class PdoEcoUsih(ArquivoCSV):
         :return: A tabela como um dataframe
         :rtype: pd.DataFrame | None
         """
-        return self._tabela()
+        df = self._tabela()
+        if df is None:
+            return None
+        if "codigo_ree" not in df.columns:
+            df.insert(2, "codigo_ree", None)
+        if "nome_ree" not in df.columns:
+            df.insert(3, "nome_ree", None)
+        return df
