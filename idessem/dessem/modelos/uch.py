@@ -33,13 +33,14 @@ class UchOpcaoPadrao(Register):
         self.data[0] = c
 
 
-class UchOpcaoUsina(Register):
+class UchOpcaoPadraoUsina(Register):
     """ """
 
-    IDENTIFIER = "UCH-OPCAO-USINA"
-    IDENTIFIER_DIGITS = 15
+    IDENTIFIER = "UCH-OPCAO-PADRAO-USINA"
+    IDENTIFIER_DIGITS = 22
     LINE = Line(
         [
+            IntegerField(),
             IntegerField(),
             IntegerField(),
         ],
@@ -74,66 +75,39 @@ class UchOpcaoUsina(Register):
     def considera_uch_usina(self, c: int) -> None:
         self.data[1] = c
 
+    @property
+    def tipo_agregacao(self) -> Optional[int]:
+        """
+        Identificação do nível de agregação adotado na
+        modelagem do UCH:
 
-class UchOpcaoPadraoData(Register):
+        1: Unidade Geradora
+        2: Agregado por Conjunto de Máquinas
+        3: Agregado por Usina.
+
+        :return: Tipo da agregação
+        :rtype: int | None
+        """
+        return self.data[2]
+
+    @tipo_agregacao.setter
+    def tipo_agregacao(self, c: int) -> None:
+        self.data[2] = c
+
+
+class UchPadraoData(Register):
     """ """
 
-    IDENTIFIER = "UCH-OPCAO-PADRAO-DATA"
-    IDENTIFIER_DIGITS = 21
+    IDENTIFIER = "UCH-PADRAO-DATA"
+    IDENTIFIER_DIGITS = 15
     LINE = Line(
         [
-            IntegerField(),
-            IntegerField(),
-            IntegerField(),
             IntegerField(),
             IntegerField(),
             IntegerField(),
         ],
         delimiter=";",
     )
-
-    @property
-    def dia_inicial(self) -> Optional[int]:
-        """
-        O dia inicial.
-
-        :return: O dia.
-        :rtype: int | None
-        """
-
-        return self.data[0]
-
-    @dia_inicial.setter
-    def dia_inicial(self, n: int) -> None:
-        self.data[0] = n
-
-    @property
-    def hora_inicial(self) -> Optional[int]:
-        """
-        A hora inicial.
-
-        :return: A hora.
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @hora_inicial.setter
-    def hora_inicial(self, n: int) -> None:
-        self.data[1] = n
-
-    @property
-    def meia_hora_inicial(self) -> Optional[int]:
-        """
-        A meia-hora inicial.
-
-        :return: A meia-hora.
-        :rtype: int | None
-        """
-        return self.data[2]
-
-    @meia_hora_inicial.setter
-    def meia_hora_inicial(self, n: int) -> None:
-        self.data[2] = n
 
     @property
     def dia_final(self) -> Optional[int]:
@@ -144,11 +118,11 @@ class UchOpcaoPadraoData(Register):
         :rtype: int | None
         """
 
-        return self.data[3]
+        return self.data[0]
 
     @dia_final.setter
     def dia_final(self, n: int) -> None:
-        self.data[3] = n
+        self.data[0] = n
 
     @property
     def hora_final(self) -> Optional[int]:
@@ -158,11 +132,11 @@ class UchOpcaoPadraoData(Register):
         :return: A hora.
         :rtype: int | None
         """
-        return self.data[4]
+        return self.data[1]
 
     @hora_final.setter
     def hora_final(self, n: int) -> None:
-        self.data[4] = n
+        self.data[1] = n
 
     @property
     def meia_hora_final(self) -> Optional[int]:
@@ -172,18 +146,18 @@ class UchOpcaoPadraoData(Register):
         :return: A meia-hora.
         :rtype: int | None
         """
-        return self.data[5]
+        return self.data[2]
 
     @meia_hora_final.setter
     def meia_hora_final(self, n: int) -> None:
-        self.data[5] = n
+        self.data[2] = n
 
 
-class UchOpcaoUnidadeVazioPadrao(Register):
+class UchOpcaoVazioUnidade(Register):
     """ """
 
-    IDENTIFIER = "UCH-OPCAO-UNIDADE-VAZIO-PADRAO"
-    IDENTIFIER_DIGITS = 30
+    IDENTIFIER = "UCH-OPCAO-VAZIO-UNIDADE"
+    IDENTIFIER_DIGITS = 23
     LINE = Line(
         [
             IntegerField(),
@@ -250,105 +224,6 @@ class UchOpcaoUnidadeVazioPadrao(Register):
     @considera_operacao_vazio.setter
     def considera_operacao_vazio(self, c: int) -> None:
         self.data[3] = c
-
-
-class UchOpcaoConjuntoVazioPadrao(Register):
-    """ """
-
-    IDENTIFIER = "UCH-OPCAO-CONJUNTO-VAZIO-PADRAO"
-    IDENTIFIER_DIGITS = 31
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            IntegerField(),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def codigo_conjunto(self) -> Optional[int]:
-        """
-        O código do conjunto da usina hidrelétrica.
-
-        :return: O código do conjunto
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def considera_operacao_vazio(self) -> Optional[int]:
-        """
-        O flag se o conjunto considerará operação a vazio.
-
-        :return: O flag
-        :rtype: int | None
-        """
-        return self.data[2]
-
-    @considera_operacao_vazio.setter
-    def considera_operacao_vazio(self, c: int) -> None:
-        self.data[2] = c
-
-
-class UchOpcaoUsinaVazioPadrao(Register):
-    """ """
-
-    IDENTIFIER = "UCH-OPCAO-USINA-VAZIO-PADRAO"
-    IDENTIFIER_DIGITS = 28
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def considera_operacao_vazio(self) -> Optional[int]:
-        """
-        O flag se a usina considerará operação a vazio.
-
-        :return: O flag
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @considera_operacao_vazio.setter
-    def considera_operacao_vazio(self, c: int) -> None:
-        self.data[1] = c
 
 
 class UchTonToffUnidade(Register):
@@ -439,135 +314,6 @@ class UchTonToffUnidade(Register):
         self.data[4] = c
 
 
-class UchTonToffConjunto(Register):
-    """ """
-
-    IDENTIFIER = "UCH-OPCAO-CONJUNTO"
-    IDENTIFIER_DIGITS = 18
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            IntegerField(),
-            IntegerField(),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def codigo_conjunto(self) -> Optional[int]:
-        """
-        O código do conjunto da usina hidrelétrica.
-
-        :return: O código do conjunto
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def tempo_minimo_ligada(self) -> Optional[int]:
-        """
-        O ftempo mínimo ligada (Ton) em horas.
-
-        :return: O flag
-        :rtype: int | None
-        """
-        return self.data[2]
-
-    @tempo_minimo_ligada.setter
-    def tempo_minimo_ligada(self, c: int) -> None:
-        self.data[2] = c
-
-    @property
-    def tempo_minimo_desligada(self) -> Optional[int]:
-        """
-        O ftempo mínimo desligada (Toff) em horas.
-
-        :return: O flag
-        :rtype: int | None
-        """
-        return self.data[3]
-
-    @tempo_minimo_desligada.setter
-    def tempo_minimo_desligada(self, c: int) -> None:
-        self.data[3] = c
-
-
-class UchTonToffUsina(Register):
-    """ """
-
-    IDENTIFIER = "UCH-TON-TOFF-USINA"
-    IDENTIFIER_DIGITS = 18
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            IntegerField(),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def tempo_minimo_ligada(self) -> Optional[int]:
-        """
-        O ftempo mínimo ligada (Ton) em horas.
-
-        :return: O flag
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @tempo_minimo_ligada.setter
-    def tempo_minimo_ligada(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def tempo_minimo_desligada(self) -> Optional[int]:
-        """
-        O ftempo mínimo desligada (Toff) em horas.
-
-        :return: O flag
-        :rtype: int | None
-        """
-        return self.data[2]
-
-    @tempo_minimo_desligada.setter
-    def tempo_minimo_desligada(self, c: int) -> None:
-        self.data[2] = c
-
-
 class UchGminGmaxUnidade(Register):
     """ """
 
@@ -656,18 +402,17 @@ class UchGminGmaxUnidade(Register):
         self.data[4] = c
 
 
-class UchQturminQturmaxUnidade(Register):
+class UchGminGmaxConjunto(Register):
     """ """
 
-    IDENTIFIER = "UCH-TURBINAMENTO-MINIMO-MAXIMO-UNIDADE"
-    IDENTIFIER_DIGITS = 38
+    IDENTIFIER = "UCH-GERACAO-MINIMA-MAXIMA-CONJUNTO"
+    IDENTIFIER_DIGITS = 34
     LINE = Line(
         [
             IntegerField(),
             IntegerField(),
-            IntegerField(),
-            FloatField(decimal_digits=2),
-            FloatField(decimal_digits=2),
+            FloatField(decimal_digits=3),
+            FloatField(decimal_digits=3),
         ],
         delimiter=";",
     )
@@ -701,47 +446,89 @@ class UchQturminQturmaxUnidade(Register):
         self.data[1] = c
 
     @property
-    def codigo_unidade(self) -> Optional[int]:
+    def geracao_minima_conjunto(self) -> Optional[float]:
         """
-        O código da unidade geradora do conjunto da usina
-        hidrelétrica.
+        A geração mínima do conjunto de máquinas.
 
-        :return: O código da unidade
-        :rtype: int | None
+        :return: A geração mínima
+        :rtype: float | None
         """
         return self.data[2]
 
-    @codigo_unidade.setter
-    def codigo_unidade(self, c: int) -> None:
+    @geracao_minima_conjunto.setter
+    def geracao_minima_conjunto(self, c: float) -> None:
         self.data[2] = c
 
     @property
-    def turbinamento_minimo_unidade(self) -> Optional[float]:
+    def geracao_maxima_conjunto(self) -> Optional[float]:
         """
-        O turbinamento mínimo da unidade geradora.
+        A geração máxima do conjunto de máquinas.
 
-        :return: O turbinamento mínimo
+        :return: A geração máxima
         :rtype: float | None
         """
         return self.data[3]
 
-    @turbinamento_minimo_unidade.setter
-    def turbinamento_minimo_unidade(self, c: float) -> None:
+    @geracao_maxima_conjunto.setter
+    def geracao_maxima_conjunto(self, c: float) -> None:
         self.data[3] = c
 
-    @property
-    def turbinamento_maximo_unidade(self) -> Optional[float]:
-        """
-        O turbinamento máximo da unidade geradora.
 
-        :return:  O turbinamento máximo
+class UchGminGmaxUsina(Register):
+    """ """
+
+    IDENTIFIER = "UCH-GERACAO-MINIMA-MAXIMA-USINA"
+    IDENTIFIER_DIGITS = 31
+    LINE = Line(
+        [
+            IntegerField(),
+            FloatField(decimal_digits=3),
+            FloatField(decimal_digits=3),
+        ],
+        delimiter=";",
+    )
+
+    @property
+    def codigo_usina(self) -> Optional[int]:
+        """
+        O código da usina hidrelétrica.
+
+        :return: O código da usina
+        :rtype: int | None
+        """
+        return self.data[0]
+
+    @codigo_usina.setter
+    def codigo_usina(self, c: int) -> None:
+        self.data[0] = c
+
+    @property
+    def geracao_minima_usina(self) -> Optional[float]:
+        """
+        A geração mínima da usina hidrelétrica.
+
+        :return: A geração mínima
         :rtype: float | None
         """
-        return self.data[4]
+        return self.data[1]
 
-    @turbinamento_maximo_unidade.setter
-    def turbinamento_maximo_unidade(self, c: float) -> None:
-        self.data[4] = c
+    @geracao_minima_usina.setter
+    def geracao_minima_usina(self, c: float) -> None:
+        self.data[1] = c
+
+    @property
+    def geracao_maxima_usina(self) -> Optional[float]:
+        """
+        A geração máxima da usina hidrelétrica.
+
+        :return: A geração máxima
+        :rtype: float | None
+        """
+        return self.data[2]
+
+    @geracao_maxima_usina.setter
+    def geracao_maxima_usina(self, c: float) -> None:
+        self.data[2] = c
 
 
 class UchCondicaoInicialUnidade(Register):
@@ -935,105 +722,6 @@ class UchConsumoAguaVazioUnidade(Register):
         self.data[3] = c
 
 
-class UchConsumoAguaVazioConjunto(Register):
-    """ """
-
-    IDENTIFIER = "UCH-CONSUMO-AGUA-VAZIO-CONJUNTO"
-    IDENTIFIER_DIGITS = 31
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            FloatField(decimal_digits=2),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def codigo_conjunto(self) -> Optional[int]:
-        """
-        O código do conjunto da usina hidrelétrica.
-
-        :return: O código do conjunto
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def consumo_agua(self) -> Optional[float]:
-        """
-        O consumo de água durante a operação em vazio (m³/s).
-
-        :return: O consumo
-        :rtype: float | None
-        """
-        return self.data[2]
-
-    @consumo_agua.setter
-    def consumo_agua(self, c: float) -> None:
-        self.data[2] = c
-
-
-class UchConsumoAguaVazioUsina(Register):
-    """ """
-
-    IDENTIFIER = "UCH-CONSUMO-AGUA-VAZIO-USINA"
-    IDENTIFIER_DIGITS = 28
-    LINE = Line(
-        [
-            IntegerField(),
-            FloatField(decimal_digits=2),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def consumo_agua(self) -> Optional[float]:
-        """
-        O consumo de água durante a operação em vazio (m³/s).
-
-        :return: O consumo
-        :rtype: float | None
-        """
-        return self.data[1]
-
-    @consumo_agua.setter
-    def consumo_agua(self, c: float) -> None:
-        self.data[1] = c
-
-
 class UchLimiteMudancaStatusVazioUnidade(Register):
     """ """
 
@@ -1105,105 +793,6 @@ class UchLimiteMudancaStatusVazioUnidade(Register):
     @limite_maximo_mudancas.setter
     def limite_maximo_mudancas(self, c: int) -> None:
         self.data[3] = c
-
-
-class UchLimiteMudancaStatusVazioConjunto(Register):
-    """ """
-
-    IDENTIFIER = "UCH-LIMITE-MUDANCA-STATUS-VAZIO-CONJUNTO"
-    IDENTIFIER_DIGITS = 40
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            IntegerField(),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def codigo_conjunto(self) -> Optional[int]:
-        """
-        O código do conjunto da usina hidrelétrica.
-
-        :return: O código do conjunto
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def limite_maximo_mudancas(self) -> Optional[int]:
-        """
-        O limite máximo de mudanças de status para operar em vazio.
-
-        :return: O limite
-        :rtype: int | None
-        """
-        return self.data[2]
-
-    @limite_maximo_mudancas.setter
-    def limite_maximo_mudancas(self, c: int) -> None:
-        self.data[2] = c
-
-
-class UchLimiteMudancaStatusVazioUsina(Register):
-    """ """
-
-    IDENTIFIER = "UCH-LIMITE-MUDANCA-STATUS-VAZIO-USINA"
-    IDENTIFIER_DIGITS = 37
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def limite_maximo_mudancas(self) -> Optional[int]:
-        """
-        O limite máximo de mudanças de status para operar em vazio.
-
-        :return: O limite
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @limite_maximo_mudancas.setter
-    def limite_maximo_mudancas(self, c: int) -> None:
-        self.data[1] = c
 
 
 class UchCustoPartidaUnidade(Register):
@@ -1279,105 +868,6 @@ class UchCustoPartidaUnidade(Register):
         self.data[3] = c
 
 
-class UchCustoPartidaConjunto(Register):
-    """ """
-
-    IDENTIFIER = "UCH-CUSTO-PARTIDA-CONJUNTO"
-    IDENTIFIER_DIGITS = 26
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            FloatField(decimal_digits=2),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def codigo_conjunto(self) -> Optional[int]:
-        """
-        O código do conjunto da usina hidrelétrica.
-
-        :return: O código do conjunto
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def custo_partida(self) -> Optional[float]:
-        """
-        O custo de partida para acionamento (R$).
-
-        :return: O custo
-        :rtype: float | None
-        """
-        return self.data[2]
-
-    @custo_partida.setter
-    def custo_partida(self, c: float) -> None:
-        self.data[2] = c
-
-
-class UchCustoPartidaUsina(Register):
-    """ """
-
-    IDENTIFIER = "UCH-CUSTO-PARTIDA-USINA"
-    IDENTIFIER_DIGITS = 23
-    LINE = Line(
-        [
-            IntegerField(),
-            FloatField(decimal_digits=2),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def custo_partida(self) -> Optional[float]:
-        """
-        O custo de partida para acionamento (R$).
-
-        :return: O custo
-        :rtype: float | None
-        """
-        return self.data[1]
-
-    @custo_partida.setter
-    def custo_partida(self, c: float) -> None:
-        self.data[1] = c
-
-
 class UchCustoPartidaVazioUnidade(Register):
     """ """
 
@@ -1449,102 +939,3 @@ class UchCustoPartidaVazioUnidade(Register):
     @custo_partida.setter
     def custo_partida(self, c: float) -> None:
         self.data[3] = c
-
-
-class UchCustoPartidaVazioConjunto(Register):
-    """ """
-
-    IDENTIFIER = "UCH-CUSTO-PARTIDA-VAZIO-CONJUNTO"
-    IDENTIFIER_DIGITS = 32
-    LINE = Line(
-        [
-            IntegerField(),
-            IntegerField(),
-            FloatField(decimal_digits=2),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def codigo_conjunto(self) -> Optional[int]:
-        """
-        O código do conjunto da usina hidrelétrica.
-
-        :return: O código do conjunto
-        :rtype: int | None
-        """
-        return self.data[1]
-
-    @codigo_conjunto.setter
-    def codigo_conjunto(self, c: int) -> None:
-        self.data[1] = c
-
-    @property
-    def custo_partida(self) -> Optional[float]:
-        """
-        O custo de partida (transição) de desligado para vazio (R$).
-
-        :return: O custo
-        :rtype: float | None
-        """
-        return self.data[2]
-
-    @custo_partida.setter
-    def custo_partida(self, c: float) -> None:
-        self.data[2] = c
-
-
-class UchCustoPartidaVazioUsina(Register):
-    """ """
-
-    IDENTIFIER = "UCH-CUSTO-PARTIDA-VAZIO-USINA"
-    IDENTIFIER_DIGITS = 29
-    LINE = Line(
-        [
-            IntegerField(),
-            FloatField(decimal_digits=2),
-        ],
-        delimiter=";",
-    )
-
-    @property
-    def codigo_usina(self) -> Optional[int]:
-        """
-        O código da usina hidrelétrica.
-
-        :return: O código da usina
-        :rtype: int | None
-        """
-        return self.data[0]
-
-    @codigo_usina.setter
-    def codigo_usina(self, c: int) -> None:
-        self.data[0] = c
-
-    @property
-    def custo_partida(self) -> Optional[float]:
-        """
-        O custo de partida (transição) de desligado para vazio (R$).
-
-        :return: O custo
-        :rtype: float | None
-        """
-        return self.data[1]
-
-    @custo_partida.setter
-    def custo_partida(self, c: float) -> None:
-        self.data[1] = c
