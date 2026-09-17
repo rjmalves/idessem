@@ -9,7 +9,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ### Adicionado
 
-- Suporte aos registros de geração mínima e máxima por conjunto e por usina do arquivo `uch.csv` (`UCH-GERACAO-MINIMA-MAXIMA-CONJUNTO` e `UCH-GERACAO-MINIMA-MAXIMA-USINA`) e ao campo de tipo de agregação (`tipo_agregacao`) do registro `UCH-OPCAO-PADRAO-USINA`
+- Suporte aos registros de geração mínima e máxima por conjunto e por usina do arquivo `uch.csv` (`UCH-GERACAO-MINIMA-MAXIMA-CONJUNTO` e `UCH-GERACAO-MINIMA-MAXIMA-USINA`) e ao campo de tipo de agregação (`tipo_agregacao`) do registro `UCH-OPCAO-PADRAO-USINA` (@carlosribeiro06)
 
 ### Modificado
 
