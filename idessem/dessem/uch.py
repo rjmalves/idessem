@@ -86,9 +86,10 @@ class Uch(RegisterFile):
         :type codigo_usina: int | None
         :param considera_uch_usina: flag se considera UCH para a usina
         :type considera_uch_usina: int | None
-        :return: Um ou mais registros, se existirem.
+        :param tipo_agregacao: tipo de agregação utilizada no UCH
+            (unidade, conjunto ou usina)
         :type tipo_agregacao: int | None
-        :return: Tipo de agregação utilizada no uch (unidade, conjunto ou usina).
+        :return: Um ou mais registros, se existirem.
         :rtype: `UchOpcaoPadraoUsina` |
             List[`UchOpcaoPadraoUsina`] | `None` | `DataFrame`
         """
@@ -109,7 +110,7 @@ class Uch(RegisterFile):
         das restrições de UCH.
 
         :return: Um registro, se existir.
-        :rtype: `UchOpcaoPadrao` | `None`
+        :rtype: `UchPadraoData` | `None`
         """
 
         r = self.data.get_registers_of_type(UchPadraoData)
@@ -146,8 +147,8 @@ class Uch(RegisterFile):
         :param considera_operacao_vazio: flag se considera operação a vazio
         :type considera_operacao_vazio: int | None
         :return: Um ou mais registros, se existirem.
-        :rtype: `UchOpcaoUnidadeVazioPadrao` |
-            List[`UchOpcaoUnidadeVazioPadrao`] | `None` | `DataFrame`
+        :rtype: `UchOpcaoVazioUnidade` |
+            List[`UchOpcaoVazioUnidade`] | `None` | `DataFrame`
         """
 
         return self.__registros_ou_df(
