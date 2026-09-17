@@ -39,7 +39,7 @@ test = [
 lint = [
     "mypy",
     "pre-commit",
-    "ruff",
+    "ruff==0.16.8",
 ]
 docs = [
     "matplotlib",
@@ -81,4 +81,9 @@ testpaths = ["tests"]
 line-length = 80
 
 [tool.ruff.lint]
+# Pin the rule set explicitly. ruff's default selection expands between
+# releases, so relying on the unpinned default silently breaks CI when a new
+# ruff ships. This is ruff's classic default set; E501 (line length) is
+# intentionally excluded because the formatter owns line length.
+select = ["E4", "E7", "E9", "F"]
 per-file-ignores = { "examples/*.py" = ["E402"] }
