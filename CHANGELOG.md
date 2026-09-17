@@ -5,6 +5,16 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [Nao Publicado]
 
+## [1.4.0] - 2026-09-17
+
+### Adicionado
+
+- Suporte aos registros de geração mínima e máxima por conjunto e por usina do arquivo `uch.csv` (`UCH-GERACAO-MINIMA-MAXIMA-CONJUNTO` e `UCH-GERACAO-MINIMA-MAXIMA-USINA`) e ao campo de tipo de agregação (`tipo_agregacao`) do registro `UCH-OPCAO-PADRAO-USINA`
+
+### Modificado
+
+- Compatibilização da leitura do arquivo `uch.csv` com o novo padrão de dados de Unit Commitment Hidráulico (UCH) do DESSEM. Diversos registros e métodos da classe `Uch` foram renomeados para refletir os novos identificadores — por exemplo, `UchOpcaoUsina` para `UchOpcaoPadraoUsina`, `UchOpcaoPadraoData` para `UchPadraoData` e `UchOpcaoUnidadeVazioPadrao` para `UchOpcaoVazioUnidade` — e foram removidos os registros e métodos que deixaram de existir no novo padrão, incluindo o turbinamento mínimo/máximo por unidade e as variantes por conjunto e por usina de operação em vazio, Ton/Toff, consumo de água em vazio, limite de mudança de status em vazio e custo de partida
+
 ## [1.3.0] - 2026-06-09
 
 ### Adicionado
